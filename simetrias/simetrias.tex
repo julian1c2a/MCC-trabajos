@@ -4,8 +4,10 @@
 % estilo_unir-1.sty sin modificarlo (REGLAS.md, sección 8). Solo se añaden:
 %   - las definiciones que necesita el LaTeX que genera Pandoc (listas, tablas,
 %     figuras, citas de citeproc);
-%   - tres ajustes técnicos que eliminan advertencias sin cambiar el diseño del modelo
-%     (marcados con «ajuste técnico»).
+%   - cuatro ajustes técnicos que eliminan advertencias sin cambiar el diseño del modelo
+%     (marcados con «ajuste técnico»);
+%   - la adaptación a trabajos de grupo (metadato autor-cabecera): autores uno por línea
+%     en la portada y un texto breve en la cabecera.
 \documentclass[11pt,a4paper,spanish]{book}
 % Ajuste técnico: codificación T1. El modelo usa OT1, que no tiene versalita en negrita
 % (babel la sustituye con una advertencia) y no separa bien las palabras con tilde.
@@ -60,10 +62,17 @@
 %---------------------------
 %título del trabajo y autor
 %---------------------------
-\title{Las simetrías en la física}
-\author{Julián Calderón Almendros}
+\title{La importancia de las\newline simetrías en física}
+% Trabajo en grupo: la portada del modelo pone \theauthor tras «presentada por:», donde
+% \and no funciona; los autores van uno por línea. La cabecera del modelo
+% (\rhead{\theauthor\\}) solo admite una línea: se usa el texto breve autor-cabecera,
+% con el mismo formato.
+\author{\begin{tabular}[t]{@{}l@{}}Jose Miguel Alcaraz Ramiro\\ Julián
+Calderón Almendros\\ Gonzalo Garcia Lasurtegui\\ Maria Pérez I
+Pullès\end{tabular}}
 \date{DD de MES de AAAA}
 \profesor{Rodrigo Gil-Merino y Rubio}
+\rhead{Alcaraz, Calderón, Garcia y Pérez\\}
 
 \begin{document}
 \renewcommand{\listfigurename}{Índice de figuras}

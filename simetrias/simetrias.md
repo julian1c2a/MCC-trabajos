@@ -1,6 +1,11 @@
 ---
-title: "Las simetrías en la física"
-author: "Julián Calderón Almendros"
+title: "La importancia de las\\newline simetrías en física"
+author:
+  - "Jose Miguel Alcaraz Ramiro"
+  - "Julián Calderón Almendros"
+  - "Gonzalo Garcia Lasurtegui"
+  - "Maria Pérez I Pullès"
+autor-cabecera: "Alcaraz, Calderón, Garcia y Pérez"
 date: "DD de MES de AAAA"
 profesor: "Rodrigo Gil-Merino y Rubio"
 lang: es-ES
