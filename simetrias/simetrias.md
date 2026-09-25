@@ -118,6 +118,10 @@ $$
 
 y la cantidad conservada es $m \cdot \vec{x} - \vec{p} \cdot t$, que expresa que el centro de masas se mueve con velocidad constante.
 
+Conviene precisar qué significa que la acción sea invariante, porque aquí intervienen dos variaciones distintas. La condición de estacionariedad, $\delta S = 0$, compara una trayectoria con las que se obtienen deformándola de cualquier manera sin mover sus extremos, y selecciona las trayectorias físicas. Una simetría, en cambio, no es una trayectoria, sino una familia continua de transformaciones $\Phi_\varepsilon$, que depende de un parámetro real $\varepsilon$ y se reduce a la identidad para $\varepsilon = 0$ (por ejemplo, las rotaciones de ángulo $\varepsilon$ alrededor de un eje fijo). Lo que se exige es que no cambie la acción de ninguna trayectoria, sea física o no: $S[\Phi_\varepsilon \circ q] = S[q]$ para toda trayectoria $q$, salvo quizá un término que solo depende de los extremos. De forma equivalente, el lagrangiano cambia como mucho en la derivada total de una función, $\delta L = \varepsilon \cdot \dfrac{dF}{dt}$. La simetría es, por tanto, una propiedad de la ley, es decir, del lagrangiano, y no de una solución particular. Una de sus consecuencias es que transforma soluciones en soluciones, que es la forma general de decir que otro observador ve la misma ley.
+
+El trabajo sigue este camino. Primero se describen las transformaciones continuas mediante los campos vectoriales que las generan y sus flujos. Después se enuncia y demuestra el primer teorema de Noether, que asocia a cada simetría continua de la acción una cantidad conservada, y se aplica al grupo de Galileo: sus diez generadores dan las diez cantidades conservadas de la mecánica clásica, que son la energía, el momento lineal, el momento angular y el movimiento uniforme del centro de masas. Por último, se indica cómo se extiende esta relación a los campos y a la relatividad especial, y cómo se traduce a la mecánica cuántica, donde una cantidad se conserva si su operador conmuta con el hamiltoniano.
+
 ## Estructura del trabajo
 
 # Contexto y estado de la cuestión
@@ -169,6 +173,26 @@ Einstein, que seguía estos trabajos desde Berlín, dejó constancia de su aprec
 # Desarrollo del trabajo
 
 <!-- Desarrollo, contrastando las ideas de varios autores y, si es posible, con las propias. -->
+
+## Transformaciones continuas, campos vectoriales y flujos
+
+<!-- Familias uniparamétricas Φ_ε (Φ_0 = identidad, Φ_ε ∘ Φ_δ = Φ_{ε+δ}); generador infinitesimal ξ = dΦ_ε/dε en ε = 0; el flujo como solución de dΦ_ε/dε = ξ(Φ_ε); tabla de los generadores del grupo de Galileo. Ideas en BORRADOR.md. -->
+
+## Simetrías de la acción y primer teorema de Noether
+
+<!-- Definición: S[Φ_ε ∘ q] = S[q] salvo términos de frontera, δL = ε·dF/dt. Diferencia con δS = 0. Enunciado y demostración: Q = Σ p_i·ξ_i − H·τ − F se conserva sobre las soluciones. -->
+
+## El grupo de Galileo y sus diez cantidades conservadas
+
+<!-- Para L = Σ ½·m_a·|ẋ_a|² − V: condición sobre V de cada simetría y cantidad asociada (energía, P, J, G = M·X_cm − P·t). Ejemplo computacional: cuadernos/tema1/noether_galileo.py (repositorio público MCC). -->
+
+## Extensión a campos y a la relatividad especial
+
+<!-- Opcional: grupo de Poincaré (también 10 parámetros) y tensor de energía-momento; el segundo teorema de Noether y la relatividad general, enlazando con el contexto histórico. -->
+
+## Simetrías en mecánica cuántica
+
+<!-- Opcional: una simetría es un operador unitario; su generador es un observable Q̂; se conserva si y solo si [Ĥ, Q̂] = 0. Ejemplos: momento lineal y traslaciones, momento angular y rotaciones. -->
 
 # Conclusiones
 
