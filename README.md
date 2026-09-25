@@ -1,6 +1,6 @@
 # Trabajos del curso (privado)
 
-Trabajos del Máster en Computación Cuántica. Esta carpeta y `material/` están en `.gitignore`: no se suben a GitHub.
+Trabajos del Máster en Computación Cuántica. Esta carpeta y `material/` están en el `.gitignore` del repositorio público. Cada una es un repositorio privado propio (`julian1c2a/MCC-trabajos` y `julian1c2a/MCC-material`) del que GUARDA_y_SUBE hace copia de seguridad.
 
 Reglas completas: sección 8 de [REGLAS.md](../REGLAS.md). En resumen, por orden de prioridad:
 
