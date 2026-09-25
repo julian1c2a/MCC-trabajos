@@ -34,6 +34,59 @@ motivación y justificación del tema, planteamiento del trabajo y estructura de
 
 ## Planteamiento del trabajo
 
+Lo primero es precisar qué decimos cuando hablamos de leyes de la física. La cuestión tiene una doble vertiente.
+
+1. **Qué asumimos al plantear una ley física.** Toda ley se formula respecto de un observador, y parte de su contenido es la afirmación de que otros observadores la escriben de la misma forma. En la relatividad de Galileo, el tiempo es el mismo para todos los observadores, lo que la distingue de la relatividad especial, y las coordenadas espaciales de dos observadores inerciales se relacionan mediante una transformación afín de $\mathbb{R}^3$: una rotación, un desplazamiento del origen y un movimiento relativo con velocidad constante. De ahí se obtienen las reglas de transformación de las posiciones, las velocidades, etc. Afirmar que las leyes son las mismas para todos esos observadores lleva implícito que son invariantes bajo traslaciones en el espacio, bajo rotaciones, bajo traslaciones en el tiempo (antes y después) y bajo el paso a otro observador con velocidad constante. Estas transformaciones forman un grupo de Lie de diez parámetros, el grupo de Galileo.
+
+   Todas ellas se reúnen en una sola matriz de entradas constantes si se trabaja en el espacio-tiempo y se añade una coordenada auxiliar igual a 1 (coordenadas homogéneas):
+
+   $$
+   \begin{aligned}
+   \begin{pmatrix} \vec{x}' \\ t' \\ 1 \end{pmatrix}
+   = \begin{pmatrix} R & \vec{v} & \vec{a} \\ 0 & 1 & b \\ 0 & 0 & 1 \end{pmatrix}
+   \cdot \begin{pmatrix} \vec{x} \\ t \\ 1 \end{pmatrix},
+   \qquad \text{es decir,} \qquad
+   \vec{x}' = R \cdot \vec{x} + \vec{v} \cdot t + \vec{a}, \quad t' = t + b,
+   \end{aligned}
+   $$
+
+   donde $R$ es una rotación, $\vec{v}$ la velocidad relativa, $\vec{a}$ el desplazamiento del origen y $b$ el cambio del origen de tiempos. El tiempo solo entra a través del término $\vec{v} \cdot t$, una traslación que crece uniformemente con $t$. Una rotación que dependiera del tiempo, $R(t)$, no cabe en esta forma: correspondería a un observador que gira, que no es inercial. Componer dos transformaciones es multiplicar sus matrices, e invertir una es invertir su matriz; por eso forman un grupo. Sus $3 + 3 + 3 + 1 = 10$ parámetros son los de las rotaciones, los cambios de velocidad, las traslaciones espaciales y la traslación temporal.
+
+2. **Cómo formularlo con generalidad.** Lo anterior orienta el camino, pero obliga a comprobar la invariancia ley por ley. Sea, por ejemplo, la ley de Hooke para un muelle, $\vec{F} = -k \cdot \vec{r}$, donde $k > 0$ es la constante elástica del muelle, $\vec{r}$ es la elongación (el desplazamiento del extremo del muelle respecto de su posición de equilibrio) y $\vec{F}$ es la fuerza recuperadora, dirigida en sentido contrario a la elongación. Consideremos dos observadores inerciales: uno con origen en el punto $\vec{0}$ de $\mathbb{R}^3$ y otro cuyo sistema de referencia está girado y desplazado respecto del primero y se mueve con velocidad constante $\vec{v}$. Sus coordenadas se relacionan por
+
+   $$
+   \begin{aligned}
+   \vec{x}' = R \cdot \vec{x} + \vec{v} \cdot t + \vec{a},
+   \end{aligned}
+   $$
+
+   donde $R$ es una matriz de rotación constante ($R^{T} \cdot R = I$ y $\det R = 1$) y $\vec{a}$ es el desplazamiento entre los orígenes.
+
+   * La elongación es una diferencia de dos posiciones (la del extremo del muelle y la de su posición de equilibrio), así que $\vec{v} \cdot t$ y $\vec{a}$ se cancelan: $\vec{r}' = R \cdot \vec{r}$.
+   * La fuerza es la masa por la aceleración, y la aceleración no cambia al añadir una velocidad constante: $\vec{F}' = R \cdot \vec{F}$.
+   * Multiplicando la ley de Hooke por $R$ se obtiene $\vec{F}' = R \cdot \vec{F} = -k \cdot R \cdot \vec{r} = -k \cdot \vec{r}'$. El segundo observador mide la misma ley, con la misma constante $k$: la ley de Hooke es invariante bajo el grupo de Galileo.
+   * Es esencial que $R$ no dependa del tiempo. Si el segundo sistema de referencia girase, con una matriz $R(t)$, no sería inercial y aparecerían fuerzas ficticias (centrífuga y de Coriolis), de modo que la ley no conservaría su forma.
+
+Pero este razonamiento hay que repetirlo para cada ley. ¿Se puede expresar con mayor generalidad? Aquí interviene el principio de Hamilton, o principio de acción estacionaria. El formalismo lagrangiano da una forma a la vez muy general y muy precisa de la idea de teoría física, y en él cabe toda la mecánica clásica. Para un sistema de $N$ partículas, la configuración se describe con $3 \cdot N$ coordenadas $q = (q_1, \dots, q_{3 \cdot N})$, y el sistema queda definido por una función, el lagrangiano $L(q, \dot{q}, t)$, que depende de las coordenadas, de las velocidades $\dot{q} = dq/dt$ y del tiempo. Las trayectorias candidatas son las funciones $q : [t_0, t_1] \to \mathbb{R}^{3 \cdot N}$ con segundas derivadas continuas y extremos fijos, $q(t_0) = q_{\mathrm{ini}}$ y $q(t_1) = q_{\mathrm{fin}}$. Sobre ellas se define el funcional de acción
+
+$$
+\begin{aligned}
+S[q] = \int_{t_0}^{t_1} L(q(t), \dot{q}(t), t)\,dt.
+\end{aligned}
+$$
+
+La trayectoria física es la que hace estacionaria la acción: $\delta S[q] = 0$ para toda variación $\eta$ con $\eta(t_0) = \eta(t_1) = 0$. Las trayectorias con extremos fijos no forman un espacio vectorial, pero las variaciones sí. Esta condición equivale a las ecuaciones de Euler-Lagrange de $L$, que son las leyes del movimiento del sistema.
+
+En este marco, la pregunta anterior tiene una respuesta general: que las leyes sean las mismas bajo un grupo de transformaciones equivale a que la acción sea invariante bajo ese grupo, salvo un término que es la derivada respecto del tiempo de una función. Esta condición ya no depende del problema particular, y el teorema de Noether asocia a cada simetría continua de la acción una cantidad conservada. Para una partícula libre de masa $m$, con $L = \dfrac{1}{2} \cdot m \cdot |\dot{\vec{x}}|^2$, la invariancia bajo traslaciones en el tiempo da la conservación de la energía; bajo traslaciones en el espacio, la del momento lineal $\vec{p} = m \cdot \dot{\vec{x}}$, y bajo rotaciones, la del momento angular. Bajo un cambio de velocidad, $\dot{\vec{x}} \to \dot{\vec{x}} + \vec{v}$, el lagrangiano cambia justamente en una derivada total,
+
+$$
+\begin{aligned}
+L' = \dfrac{1}{2} \cdot m \cdot |\dot{\vec{x}} + \vec{v}|^2 = L + \dfrac{d}{dt}\left( m \cdot \vec{v} \cdot \vec{x} + \dfrac{1}{2} \cdot m \cdot |\vec{v}|^2 \cdot t \right),
+\end{aligned}
+$$
+
+y la cantidad conservada es $m \cdot \vec{x} - \vec{p} \cdot t$, que expresa que el centro de masas se mueve con velocidad constante.
+
 ## Estructura del trabajo
 
 # Contexto y estado de la cuestión
