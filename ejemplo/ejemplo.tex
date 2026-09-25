@@ -1,0 +1,182 @@
+% Plantilla de Pandoc para los trabajos del Máster en Computación Cuántica (UNIR).
+%
+% Reproduce material/Plantilla_LATEX_FCC_MUCC_UNIR/plantilla.tex y carga su estilo
+% estilo_unir-1.sty sin modificarlo (REGLAS.md, sección 8). Solo se añaden:
+%   - las definiciones que necesita el LaTeX que genera Pandoc (listas, tablas,
+%     figuras, citas de citeproc);
+%   - tres ajustes técnicos que eliminan advertencias sin cambiar el diseño del modelo
+%     (marcados con «ajuste técnico»).
+\documentclass[11pt,a4paper,spanish]{book}
+% Ajuste técnico: codificación T1. El modelo usa OT1, que no tiene versalita en negrita
+% (babel la sustituye con una advertencia) y no separa bien las palabras con tilde.
+\usepackage[T1]{fontenc}
+\usepackage{estilo_unir-1}
+
+% Ajuste técnico: la cabecera del modelo tiene dos líneas (\rhead{\theauthor\\}) y
+% fancyhdr avisa de que 14pt no bastan; es la altura que fancyhdr aplicaría de todos modos.
+\setlength{\headheight}{27.2pt}
+% Ajuste técnico: la portada y el cuerpo empiezan ambos en la página 1; sin esto,
+% hyperref crea dos destinos con el mismo nombre.
+\hypersetup{hypertexnames=false}
+
+% --- Definiciones para el LaTeX de Pandoc -----------------------------------------
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setlength{\emergencystretch}{3em}
+% Citas y referencias generadas por citeproc (APA 7): lista con sangría francesa.
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.27cm}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2]
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  \setlength{\itemsep}{#2\baselineskip}}%
+  % APA 7: referencias alineadas a la izquierda (sin justificar); así las URL/DOI
+  % largas no estiran la línea.
+  \raggedright
+  % El modelo carga natbib (author-year), cuyo \bibitem no acepta las entradas de
+  % citeproc; dentro de esta lista cada entrada es un \item normal.
+  \renewcommand{\bibitem}[2][]{\item}}
+ {\end{list}}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+%---------------------------
+%título del trabajo y autor
+%---------------------------
+\title{Ejemplo de trabajo con el modelo UNIR}
+\author{Julián Calderón Almendros}
+\date{25 de septiembre de 2026}
+\profesor{Rodrigo Gil-Merino y Rubio}
+
+\begin{document}
+\renewcommand{\listfigurename}{Índice de figuras}
+\renewcommand{\listtablename}{Índice de tablas}
+\renewcommand{\contentsname}{Índice de contenidos}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabla}
+
+\maketitle
+
+\frontmatter
+\tableofcontents
+
+\chapter{Resumen}
+Documento de ejemplo que muestra cómo se escribe un trabajo del máster
+en Markdown con el modelo LaTeX de UNIR y referencias en formato APA 7.
+Incluye citas narrativas y entre paréntesis, una fórmula display y un
+apéndice. Sirve de referencia para los trabajos reales.
+
+\vspace{\baselineskip}
+{\bf Palabras clave:} modelo UNIR, formato APA, Markdown, LaTeX
+
+\chapter{Abstract}
+Sample document showing how a master's assignment is written in Markdown
+with the UNIR LaTeX template and APA 7 references. It includes narrative
+and parenthetical citations, a display formula and an appendix. It
+serves as a reference for real assignments.
+
+\vspace{\baselineskip}
+{\bf Keywords:} UNIR template, APA style, Markdown, LaTeX
+
+\mainmatter
+\chapter{Introducción}\label{introducciuxf3n}
+
+\section{Motivación y
+justificación}\label{motivaciuxf3n-y-justificaciuxf3n}
+
+La mecánica ondulatoria de Schrödinger (1926) describe el estado de un
+sistema mediante una función de onda que obedece una ecuación de
+autovalores. El debate sobre la completitud de esa descripción (Einstein
+et~al., 1935) está en el origen de la información cuántica moderna
+(Nielsen y Chuang, 2010).
+
+\section{Planteamiento del trabajo}\label{planteamiento-del-trabajo}
+
+La ecuación de Schrödinger independiente del tiempo para una partícula
+de masa \(m\) en un potencial \(V(x)\) es
+
+\[
+\begin{aligned}
+-\dfrac{\hbar^2}{2 \cdot m} \cdot \dfrac{d^2 \psi}{dx^2} + V(x) \cdot \psi(x) = E \cdot \psi(x).
+\end{aligned}
+\]
+
+\section{Estructura del trabajo}\label{estructura-del-trabajo}
+
+El capítulo siguiente resume el contexto; después se fijan los
+objetivos, se desarrolla el trabajo y se exponen las conclusiones.
+
+\chapter{Contexto y estado de la
+cuestión}\label{contexto-y-estado-de-la-cuestiuxf3n}
+
+El documento se compone con \LaTeX{} (Lamport, 1994).
+
+\chapter{Objetivos}\label{objetivos}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Mostrar la estructura del modelo.
+\item
+  Comprobar que las citas y la bibliografía siguen APA 7.
+\end{enumerate}
+
+\chapter{Desarrollo del trabajo}\label{desarrollo-del-trabajo}
+
+Cuando se cita varias veces la misma obra con tres o más autores, APA
+abrevia con «et al.» desde la primera cita (Einstein et~al., 1935, p.
+778).
+
+\chapter{Conclusiones}\label{conclusiones}
+
+La estructura del modelo y el formato APA se generan desde una única
+fuente en Markdown.
+
+\chapter*{Bibliografía}\label{bibliografuxeda}
+\addcontentsline{toc}{chapter}{Bibliografía}
+
+\protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-epr1935}
+Einstein, A., Podolsky, B. y Rosen, N. (1935). Can quantum-mechanical
+description of physical reality be considered complete? \emph{Physical
+Review}, \emph{47}(10), 777--780.
+\url{https://doi.org/10.1103/PhysRev.47.777}
+
+\bibitem[\citeproctext]{ref-lamport1994}
+Lamport, L. (1994). \emph{{LaTeX}: A document preparation system} (2.ª
+ed.). Addison-Wesley.
+
+\bibitem[\citeproctext]{ref-nielsen2010}
+Nielsen, M. A. y Chuang, I. L. (2010). \emph{Quantum computation and
+quantum information} (10.ª ed.). Cambridge University Press.
+\url{https://doi.org/10.1017/CBO9780511976667}
+
+\bibitem[\citeproctext]{ref-schrodinger1926}
+Schrödinger, E. (1926). Quantisierung als Eigenwertproblem.
+\emph{Annalen der Physik}, \emph{384}(4), 361--376.
+\url{https://doi.org/10.1002/andp.19263840404}
+
+\end{CSLReferences}
+
+\appendix
+
+\chapter{Apéndices}\label{apuxe9ndices}
+
+Desarrollos auxiliares que no encajan en el cuerpo del trabajo.
+
+\end{document}

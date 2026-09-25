@@ -1,0 +1,129 @@
+% Plantilla de Pandoc para los trabajos del Máster en Computación Cuántica (UNIR).
+%
+% Reproduce material/Plantilla_LATEX_FCC_MUCC_UNIR/plantilla.tex y carga su estilo
+% estilo_unir-1.sty sin modificarlo (REGLAS.md, sección 8). Solo se añaden:
+%   - las definiciones que necesita el LaTeX que genera Pandoc (listas, tablas,
+%     figuras, citas de citeproc);
+%   - tres ajustes técnicos que eliminan advertencias sin cambiar el diseño del modelo
+%     (marcados con «ajuste técnico»).
+\documentclass[11pt,a4paper,spanish]{book}
+% Ajuste técnico: codificación T1. El modelo usa OT1, que no tiene versalita en negrita
+% (babel la sustituye con una advertencia) y no separa bien las palabras con tilde.
+\usepackage[T1]{fontenc}
+\usepackage{estilo_unir-1}
+
+% Ajuste técnico: la cabecera del modelo tiene dos líneas (\rhead{\theauthor\\}) y
+% fancyhdr avisa de que 14pt no bastan; es la altura que fancyhdr aplicaría de todos modos.
+\setlength{\headheight}{27.2pt}
+% Ajuste técnico: la portada y el cuerpo empiezan ambos en la página 1; sin esto,
+% hyperref crea dos destinos con el mismo nombre.
+\hypersetup{hypertexnames=false}
+
+% --- Definiciones para el LaTeX de Pandoc -----------------------------------------
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setlength{\emergencystretch}{3em}
+$if(tables)$
+\usepackage{longtable,booktabs,array}
+\usepackage{calc}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+$endif$
+$if(graphics)$
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{%
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+\def\fps@figure{htbp}
+\makeatother
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+$if(csl-refs)$
+% Citas y referencias generadas por citeproc (APA 7): lista con sangría francesa.
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.27cm}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2]
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  \setlength{\itemsep}{#2\baselineskip}}%
+  % APA 7: referencias alineadas a la izquierda (sin justificar); así las URL/DOI
+  % largas no estiran la línea.
+  \raggedright
+  % El modelo carga natbib (author-year), cuyo \bibitem no acepta las entradas de
+  % citeproc; dentro de esta lista cada entrada es un \item normal.
+  \renewcommand{\bibitem}[2][]{\item}}
+ {\end{list}}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+%---------------------------
+%título del trabajo y autor
+%---------------------------
+\title{$title$}
+\author{$for(author)$$author$$sep$ \and $endfor$}
+\date{$date$}
+\profesor{$profesor$}
+
+\begin{document}
+\renewcommand{\listfigurename}{Índice de figuras}
+\renewcommand{\listtablename}{Índice de tablas}
+\renewcommand{\contentsname}{Índice de contenidos}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabla}
+
+\maketitle
+
+\frontmatter
+\tableofcontents
+$if(indice-figuras)$
+\listoffigures
+$endif$
+$if(indice-tablas)$
+\listoftables
+$endif$
+
+\chapter{Resumen}
+$resumen$
+
+\vspace{\baselineskip}
+{\bf Palabras clave:} $for(palabras-clave)$$palabras-clave$$sep$, $endfor$
+
+\chapter{Abstract}
+$abstract$
+
+\vspace{\baselineskip}
+{\bf Keywords:} $for(keywords)$$keywords$$sep$, $endfor$
+
+\mainmatter
+$body$
+
+\end{document}
