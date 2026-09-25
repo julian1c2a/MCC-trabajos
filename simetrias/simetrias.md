@@ -50,7 +50,38 @@ Lo primero es precisar qué decimos cuando hablamos de leyes de la física. La c
    \end{aligned}
    $$
 
-   donde $R$ es una rotación, $\vec{v}$ la velocidad relativa, $\vec{a}$ el desplazamiento del origen y $b$ el cambio del origen de tiempos. El tiempo solo entra a través del término $\vec{v} \cdot t$, una traslación que crece uniformemente con $t$. Una rotación que dependiera del tiempo, $R(t)$, no cabe en esta forma: correspondería a un observador que gira, que no es inercial. Componer dos transformaciones es multiplicar sus matrices, e invertir una es invertir su matriz; por eso forman un grupo. Sus $3 + 3 + 3 + 1 = 10$ parámetros son los de las rotaciones, los cambios de velocidad, las traslaciones espaciales y la traslación temporal.
+   donde $R$ es una rotación, $\vec{v}$ la velocidad relativa, $\vec{a}$ el desplazamiento del origen y $b$ el cambio del origen de tiempos. El tiempo solo entra a través del término $\vec{v} \cdot t$, una traslación que crece uniformemente con $t$. Una rotación que dependiera del tiempo, $R(t)$, no cabe en esta forma: correspondería a un observador que gira, que no es inercial. Componer dos transformaciones es multiplicar sus matrices, e invertir una es invertir su matriz; por eso forman un grupo.
+
+   Escrita con todas sus componentes, con $\vec{x} = (x_1, x_2, x_3)$, $\vec{v} = (v_1, v_2, v_3)$, $\vec{a} = (a_1, a_2, a_3)$ y $R = (r_{ij})$, la matriz es:
+
+   $$
+   \begin{aligned}
+   \begin{pmatrix} x_1' \\ x_2' \\ x_3' \\ t' \\ 1 \end{pmatrix}
+   = \begin{pmatrix}
+   r_{11} & r_{12} & r_{13} & v_1 & a_1 \\
+   r_{21} & r_{22} & r_{23} & v_2 & a_2 \\
+   r_{31} & r_{32} & r_{33} & v_3 & a_3 \\
+   0 & 0 & 0 & 1 & b \\
+   0 & 0 & 0 & 0 & 1
+   \end{pmatrix}
+   \cdot \begin{pmatrix} x_1 \\ x_2 \\ x_3 \\ t \\ 1 \end{pmatrix}.
+   \end{aligned}
+   $$
+
+   El bloque $3 \times 3$ de arriba a la izquierda es la rotación; la cuarta columna contiene la velocidad relativa, y la quinta, los desplazamientos de los orígenes: $\vec{a}$ en las filas del espacio y $b$ en la del tiempo. Los parámetros se cuentan así:
+
+   * **Rotación: 3 parámetros.** $R$ tiene 9 entradas $r_{ij}$, pero no son independientes. La condición $R^{T} \cdot R = I$ exige que sus columnas tengan longitud 1 y sean perpendiculares entre sí; como $R^{T} \cdot R$ es una matriz simétrica, son 6 ecuaciones ($3$ en la diagonal y $3$ por encima de ella). Quedan $9 - 6 = 3$ parámetros libres. La condición $\det R = 1$ no quita ninguno más: solo excluye las reflexiones, que tienen $\det R = -1$. Esos tres parámetros pueden ser, por ejemplo, tres ángulos de giro. Así, el giro de ángulo $\theta$ alrededor del eje $x_3$ es
+     $$
+     \begin{aligned}
+     R_3(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix},
+     \end{aligned}
+     $$
+     y cualquier rotación se obtiene como producto de tres giros de este tipo alrededor de los ejes coordenados (ángulos de Euler).
+   * **Cambio de velocidad: 3 parámetros**, $v_1$, $v_2$ y $v_3$.
+   * **Traslación espacial: 3 parámetros**, $a_1$, $a_2$ y $a_3$.
+   * **Traslación temporal: 1 parámetro**, $b$.
+
+   En total, $3 + 3 + 3 + 1 = 10$ parámetros.
 
 2. **Cómo formularlo con generalidad.** Lo anterior orienta el camino, pero obliga a comprobar la invariancia ley por ley. Sea, por ejemplo, la ley de Hooke para un muelle, $\vec{F} = -k \cdot \vec{r}$, donde $k > 0$ es la constante elástica del muelle, $\vec{r}$ es la elongación (el desplazamiento del extremo del muelle respecto de su posición de equilibrio) y $\vec{F}$ es la fuerza recuperadora, dirigida en sentido contrario a la elongación. Consideremos dos observadores inerciales: uno con origen en el punto $\vec{0}$ de $\mathbb{R}^3$ y otro cuyo sistema de referencia está girado y desplazado respecto del primero y se mueve con velocidad constante $\vec{v}$. Sus coordenadas se relacionan por
 
