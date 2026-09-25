@@ -115,23 +115,29 @@ transformaciones lineales (Klein y Lie, 1871). De ahí procede la idea de
 que la geometría debía definirse a través de las propiedades y
 magnitudes que permanecen invariantes bajo un determinado grupo de
 transformaciones. Esta visión la formuló Klein en solitario en 1872, en
-un folleto impreso con motivo de su incorporación como catedrático a la
-Universidad de Erlangen (no fue un discurso), conocido como el Programa
-de Erlangen (Klein, 1872/1893). El programa ordenó las distintas
+el escrito programático (\emph{Programmschrift}) que, según la costumbre
+de las universidades alemanas, presentó a la facultad al incorporarse
+como catedrático a la Universidad de Erlangen, y que se conoce como el
+Programa de Erlangen (Klein, 1872/1893b). No debe confundirse con la
+lección inaugural que Klein pronunció en esa misma ocasión, con la que a
+menudo se identifica (Rowe, 2025). El programa ordenó las distintas
 geometrías de la época (euclídea, afín, proyectiva\ldots) mediante sus
 grupos de transformaciones: cada geometría estudia lo que deja
 invariante su grupo, y cuanto mayor es el grupo, menos propiedades se
 conservan. Su influencia inmediata fue escasa; se difundió a partir de
-1890, con sus reediciones y traducciones. Hay que decir que Klein y Lie,
-a pesar de tener temperamentos muy diferentes, colaboraron estrechamente
-durante su juventud, desarrollando ideas conjuntas sobre curvas y
-transformaciones geométricas. Sin embargo, con los años sus caminos se
-bifurcaron: mientras Klein se orientó hacia una visión global,
-institucional y unificadora de las matemáticas, Lie se concentró en la
-profunda especialización analítica que dio origen a la teoría de los
-grupos continuos de transformaciones (hoy llamados grupos de Lie), con
-la que buscaba hacer para las ecuaciones diferenciales lo que la teoría
-de Galois había hecho para las ecuaciones algebraicas. La expuso con
+1890, con sus reediciones y traducciones: al italiano en 1890, por Gino
+Fano, y al inglés en 1893, por Mellen W. Haskell (Klein, 1872/1893a).
+Rowe (2025) ha publicado una nueva traducción inglesa, con comentario y
+análisis histórico. Hay que decir que Klein y Lie, a pesar de tener
+temperamentos muy diferentes, colaboraron estrechamente durante su
+juventud, desarrollando ideas conjuntas sobre curvas y transformaciones
+geométricas. Sin embargo, con los años sus caminos se bifurcaron:
+mientras Klein se orientó hacia una visión global, institucional y
+unificadora de las matemáticas, Lie se concentró en la profunda
+especialización analítica que dio origen a la teoría de los grupos
+continuos de transformaciones (hoy llamados grupos de Lie), con la que
+buscaba hacer para las ecuaciones diferenciales lo que la teoría de
+Galois había hecho para las ecuaciones algebraicas. La expuso con
 Friedrich Engel en \emph{Theorie der Transformationsgruppen}, publicada
 en tres volúmenes entre 1888 y 1893 (Lie y Engel, 1888--1893). La
 relación entre ambos se rompió en 1892--1893 por disputas de prioridad:
@@ -170,9 +176,10 @@ publicado en 1890): todo ideal de un anillo de polinomios en un número
 finito de variables sobre un cuerpo es finitamente generado (Hilbert,
 1890). Pero su demostración era de existencia: probaba que hay una base
 finita de invariantes sin dar un método para construirla, y por eso
-Gordan llegó a calificarla de teología: «esto no es matemática, es
-teología» (Almira Picazo y Sabina de Lis, 2007; Derksen y Kemper, 2002,
-p. 49; Weyl, 1944). En 1893 Hilbert publicó una demostración más
+Gordan llegó a calificarla de teología. Tras estudiarla, según Almira
+Picazo y Sabina de Lis (2007, pp. 44--45), exclamó: «¡Esto no son
+matemáticas: es teología!» (véanse también Derksen y Kemper, 2002, p.
+49; Weyl, 1944). En 1893 Hilbert publicó una demostración más
 constructiva (Hilbert, 1893). Gordan acabó cambiando de opinión: afirmó
 haberse convencido de que «incluso la teología tiene sus méritos»
 (Klein, 1926/1979, p. 311) y en 1899 publicó una versión simplificada de
@@ -189,18 +196,67 @@ ebullición con el desarrollo de la Teoría de la Relatividad General de
 Albert Einstein. Fue en ese escenario donde las simetrías continuas
 ---aquellas transformaciones suaves y fluidas descritas originalmente
 por los grupos de Lie, como las rotaciones en el espacio o el avance del
-tiempo--- revelaron su verdadero poder. El problema surgió en Gotinga:
-David Hilbert, que en noviembre de 1915 había presentado una formulación
-variacional de la gravitación, contemporánea de las ecuaciones de campo
-de Einstein (Hilbert, 1915), se encontró con que en la nueva teoría la
+tiempo--- revelaron su verdadero poder.
+
+La conservación de la energía y del momento acompañó a Einstein durante
+toda la búsqueda de las ecuaciones del campo gravitatorio. En 1912 y
+1913, en Zúrich, Einstein y Marcel Grossmann estudiaron ecuaciones
+construidas a partir del tensor de Ricci, pero las descartaron porque
+creyeron que no eran compatibles con esas leyes de conservación ni con
+el límite newtoniano. Publicaron en su lugar la teoría del
+\emph{Entwurf} («borrador»), cuyas ecuaciones no eran generalmente
+covariantes, es decir, no conservaban su forma bajo cualquier cambio de
+coordenadas (Einstein y Grossmann, 1913). En noviembre de 1915 Einstein
+volvió a unas ecuaciones generalmente covariantes (Einstein, 1915), y el
+28 de noviembre escribió a Arnold Sommerfeld que el error había sido
+precisamente creer que las leyes de conservación no se cumplían
+(Einstein, 1998, documento 153; Pitts, 2016).
+
+En la nueva teoría, la conservación toma una forma distinta de la
+habitual. Si \(T^{\mu\nu}\) es el tensor de energía-momento de la
+materia, las ecuaciones de campo implican que su divergencia covariante
+es nula:
+
+\[
+\begin{aligned}
+\nabla_\mu T^{\mu\nu} = \partial_\mu T^{\mu\nu} + \Gamma^{\mu}_{\mu\lambda} \cdot T^{\lambda\nu} + \Gamma^{\nu}_{\mu\lambda} \cdot T^{\mu\lambda} = 0.
+\end{aligned}
+\]
+
+Aquí \(\partial_\mu\) es la derivada parcial respecto de la coordenada
+\(x^\mu\), se suma sobre los índices repetidos y los símbolos de
+Christoffel \(\Gamma^{\alpha}_{\beta\gamma}\) describen el campo
+gravitatorio. Los términos con \(\Gamma\) representan el intercambio de
+energía y momento entre la materia y el campo, de modo que la energía de
+la materia sola no se conserva. En su exposición de 1916, Einstein
+introdujo unas cantidades \(t_\mu^{\ \sigma}\) para la energía y el
+momento del propio campo gravitatorio, con las que la suma cumple una
+ley de conservación ordinaria, en coordenadas con \(\sqrt{-g} = 1\)
+(Einstein, 1916):
+
+\[
+\begin{aligned}
+\partial_\sigma \left( T_\mu^{\ \sigma} + t_\mu^{\ \sigma} \right) = 0.
+\end{aligned}
+\]
+
+Pero \(t_\mu^{\ \sigma}\) no es un tensor, sino un pseudotensor: sus
+valores dependen del sistema de coordenadas y, de acuerdo con el
+principio de equivalencia, pueden anularse en cualquier punto eligiendo
+las coordenadas adecuadas. Por eso la energía del campo gravitatorio no
+puede localizarse, es decir, asignarse a cada punto del espacio.
+
+En Gotinga, David Hilbert, que en noviembre de 1915 había presentado una
+formulación variacional de la gravitación, contemporánea de las
+ecuaciones de campo de Einstein (Hilbert, 1915), llegó a la conclusión
+de que en la nueva teoría no había teoremas de energía «propios»: la
 energía no parecía conservarse de la manera local y matemática
-tradicional (Hilbert sostenía que en ella no había teoremas de energía
-«propios»). Para estudiar este problema, David Hilbert y Felix Klein
-invitaron a Gotinga en 1915 a la mayor experta en álgebra de invariantes
-de la época: Emmy Noether (1882--1935), hija de Max Noether y discípula
-directa de Paul Gordan. Noether había hecho en 1907 su tesis doctoral
-sobre invariantes calculados a mano, un trabajo ingente: un sistema
-completo de 331 covariantes de la forma ternaria de cuarto grado
+tradicional (Klein, 1918c). Para estudiar este problema, David Hilbert y
+Felix Klein invitaron a Gotinga en 1915 a la mayor experta en álgebra de
+invariantes de la época: Emmy Noether (1882--1935), hija de Max Noether
+y discípula directa de Paul Gordan. Noether había hecho en 1907 su tesis
+doctoral sobre invariantes calculados a mano, un trabajo ingente: un
+sistema completo de 331 covariantes de la forma ternaria de cuarto grado
 (Noether, 1908). Trabajó en el problema de la energía entre 1915 y 1918,
 y el resultado fue el artículo \emph{Invariante Variationsprobleme}, que
 Klein presentó el 26 de julio de 1918 en la Sociedad de Ciencias de
@@ -220,6 +276,23 @@ explica la forma peculiar que toma la conservación de la energía en la
 relatividad general, la que había señalado Hilbert. El trabajo de
 Noether reunió así las dos líneas anteriores: los grupos continuos de
 Lie y los métodos de la teoría de invariantes.
+
+Mientras tanto, la naturaleza de la energía gravitatoria se discutía
+abiertamente. Schrödinger (1918) mostró que, en coordenadas adecuadas,
+todas las componentes del pseudotensor de Einstein se anulan fuera de
+una masa con simetría esférica, y Bauer (1918) mostró que no se anulan
+en el espacio-tiempo plano si se usan coordenadas no cartesianas.
+Einstein respondió en mayo de 1918 con \emph{Der Energiesatz in der
+allgemeinen Relativitätstheorie} (Einstein, 1918). Para un sistema
+cerrado, con la materia en una región finita y el espacio-tiempo plano
+lejos de ella, las integrales en todo el espacio de las componentes
+temporales de \(T + t\) no varían con el tiempo ni dependen del sistema
+de coordenadas, siempre que este se reduzca lejos del sistema al de la
+relatividad especial. La energía total de un sistema aislado está, por
+tanto, bien definida y se conserva, aunque no pueda asignarse a cada
+punto. En Gotinga, Klein analizó la forma diferencial y la forma
+integral de estas leyes de conservación, con la ayuda de Noether (Klein,
+1918a, 1918b; Rowe, 2019).
 
 Einstein, que seguía estos trabajos desde Berlín, dejó constancia de su
 aprecio por ellos en dos cartas (Einstein, 1998; Tollmien, 2018). El 24
@@ -248,6 +321,12 @@ documento 677). Noether obtuvo la habilitación en 1919.
 Almira Picazo, J. M. y Sabina de Lis, J. C. (2007). \emph{Hilbert:
 Matemático fundamental}. Nivola.
 
+\bibitem[\citeproctext]{ref-bauer1918}
+Bauer, H. (1918). Über die {Energiekomponenten} des
+{Gravitationsfeldes}. \emph{Physikalische Zeitschrift}, \emph{19},
+163--165.
+\url{https://babel.hathitrust.org/cgi/pt?id=mdp.39015056706941}
+
 \bibitem[\citeproctext]{ref-cayley1845}
 Cayley, A. (2009). On the theory of linear transformations. En \emph{The
 collected mathematical papers of {Arthur Cayley}} (Vol. 1, pp. 80--94).
@@ -263,10 +342,33 @@ B. G. Teubner.
 Derksen, H. y Kemper, G. (2002). \emph{Computational invariant theory}.
 Springer. \url{https://doi.org/10.1007/978-3-662-04958-7}
 
+\bibitem[\citeproctext]{ref-einstein1915}
+Einstein, A. (1915). Die {Feldgleichungen} der {Gravitation}.
+\emph{Sitzungsberichte der Königlich Preußischen Akademie der
+Wissenschaften}, \emph{1915}, 844--847.
+\url{https://einstein-annalen.mpiwg-berlin.mpg.de/related_texts/sitzungsberichte/6E3MAXK4}
+
+\bibitem[\citeproctext]{ref-einstein1916}
+Einstein, A. (1916). Die {Grundlage} der allgemeinen
+{Relativitätstheorie}. \emph{Annalen der Physik}, \emph{354}(7),
+769--822. \url{https://doi.org/10.1002/andp.19163540702}
+
+\bibitem[\citeproctext]{ref-einstein1918}
+Einstein, A. (1918). Der {Energiesatz} in der allgemeinen
+{Relativitätstheorie}. \emph{Sitzungsberichte der Königlich Preußischen
+Akademie der Wissenschaften}, \emph{1918}, 448--459.
+\url{https://einstein-annalen.mpiwg-berlin.mpg.de/related_texts/sitzungsberichte/3WQBQ11D}
+
 \bibitem[\citeproctext]{ref-einstein1998}
 Einstein, A. (1998). \emph{The collected papers of {Albert Einstein}:
 Vol. 8. The {Berlin} years: Correspondence, 1914--1918} (R. Schulmann,
 A. J. Kox, M. Janssen, y J. Illy, Eds.). Princeton University Press.
+
+\bibitem[\citeproctext]{ref-einsteingrossmann1913}
+Einstein, A. y Grossmann, M. (1913). \emph{Entwurf einer
+verallgemeinerten {Relativitätstheorie} und einer {Theorie} der
+{Gravitation}}. B. G. Teubner.
+\url{https://doi.org/10.5281/zenodo.7092832}
 
 \bibitem[\citeproctext]{ref-gordan1868}
 Gordan, P. (1868). Beweis, dass jede {Covariante} und {Invariante} einer
@@ -301,11 +403,38 @@ Hilbert, D. (1915). Die {Grundlagen} der {Physik} ({Erste}
 zu Göttingen, Mathematisch-Physikalische Klasse}, \emph{1915}, 395--408.
 \url{http://eudml.org/doc/58946}
 
+\bibitem[\citeproctext]{ref-kleinhaskell1893}
+Klein, F. (1893a). A comparative review of recent researches in geometry
+(M. W. Haskell, Trad.). \emph{Bulletin of the New York Mathematical
+Society}, \emph{2}(10), 215--249.
+\url{https://doi.org/10.1090/S0002-9904-1893-00147-X} (Obra original
+publicada en 1872)
+
 \bibitem[\citeproctext]{ref-klein1893}
-Klein, F. (1893). Vergleichende {Betrachtungen} über neuere geometrische
-{Forschungen}. \emph{Mathematische Annalen}, \emph{43}(1), 63--100.
-\url{https://doi.org/10.1007/BF01446615} (Obra original publicada en
-1872)
+Klein, F. (1893b). Vergleichende {Betrachtungen} über neuere
+geometrische {Forschungen}. \emph{Mathematische Annalen}, \emph{43}(1),
+63--100. \url{https://doi.org/10.1007/BF01446615} (Obra original
+publicada en 1872)
+
+\bibitem[\citeproctext]{ref-klein1918b}
+Klein, F. (1918a). Über die {Differentialgesetze} für die {Erhaltung}
+von {Impuls} und {Energie} in der {Einsteinschen} {Gravitationstheorie}.
+\emph{Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen,
+Mathematisch-Physikalische Klasse}, \emph{1918}, 171--189.
+\url{https://gdz.sub.uni-goettingen.de/id/PPN252457811_1918}
+
+\bibitem[\citeproctext]{ref-klein1918c}
+Klein, F. (1918b). Über die {Integralform} der {Erhaltungssätze} und die
+{Theorie} der räumlich-geschlossenen {Welt}. \emph{Nachrichten von der
+Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische
+Klasse}, \emph{1918}, 394--423.
+\url{https://gdz.sub.uni-goettingen.de/id/PPN252457811_1918}
+
+\bibitem[\citeproctext]{ref-klein1918a}
+Klein, F. (1918c). Zu {Hilberts} erster {Note} über die {Grundlagen} der
+{Physik}. \emph{Nachrichten von der Gesellschaft der Wissenschaften zu
+Göttingen, Mathematisch-Physikalische Klasse}, \emph{1917}, 469--482.
+\url{https://gdz.sub.uni-goettingen.de/id/PPN252457811_1917}
 
 \bibitem[\citeproctext]{ref-klein1979}
 Klein, F. (1979). \emph{Development of mathematics in the 19th century}
@@ -346,9 +475,30 @@ Parshall, K. H. (2024). A convergence of paths: {Cayley}, {Hermite},
 mathématiques}, \emph{30}, 233--260.
 \url{https://doi.org/10.24033/rhm.316}
 
+\bibitem[\citeproctext]{ref-pitts2016}
+Pitts, J. B. (2016). Einstein's physical strategy, energy conservation,
+symmetries, and stability: {«{But} {Grossmann} \& {I} believed that the
+conservation laws were not satisfied»}. \emph{Studies in History and
+Philosophy of Modern Physics}, \emph{54}, 52--72.
+\url{https://doi.org/10.1016/j.shpsb.2016.04.003}
+
+\bibitem[\citeproctext]{ref-rowe2019}
+Rowe, D. E. (2019). \emph{Emmy {Noether} on energy conservation in
+general relativity}. arXiv.
+\url{https://doi.org/10.48550/arXiv.1912.03269}
+
+\bibitem[\citeproctext]{ref-rowe2025}
+Rowe, D. E. (2025). \emph{Felix {Klein}: The {Erlangen} program}.
+Springer. \url{https://doi.org/10.1007/978-3-031-85474-3}
+
 \bibitem[\citeproctext]{ref-salmon1859}
 Salmon, G. (1859). \emph{Lessons introductory to the modern higher
 algebra}. Hodges, Smith {\&} Co.
+
+\bibitem[\citeproctext]{ref-schrodinger1918}
+Schrödinger, E. (1918). Die {Energiekomponenten} des
+{Gravitationsfeldes}. \emph{Physikalische Zeitschrift}, \emph{19}, 4--7.
+\url{https://babel.hathitrust.org/cgi/pt?id=mdp.39015056706941}
 
 \bibitem[\citeproctext]{ref-tollmien2018}
 Tollmien, C. (2018). „{Invariantentheorie} ist jetzt hier {Trumpf}``.
