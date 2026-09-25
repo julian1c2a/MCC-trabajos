@@ -18,6 +18,10 @@
 % Ajuste técnico: la portada y el cuerpo empiezan ambos en la página 1; sin esto,
 % hyperref crea dos destinos con el mismo nombre.
 \hypersetup{hypertexnames=false}
+% Ajuste técnico: la clase book iguala el final de todas las páginas (\flushbottom); con
+% interlineado 1,5 y párrafos largos, LaTeX no siempre puede estirar la página y avisa
+% (Underfull \vbox). Con \raggedbottom cada página termina en su última línea.
+\raggedbottom
 
 % --- Definiciones para el LaTeX de Pandoc -----------------------------------------
 \providecommand{\tightlist}{%

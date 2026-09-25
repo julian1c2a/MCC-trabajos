@@ -1,0 +1,369 @@
+% Plantilla de Pandoc para los trabajos del Máster en Computación Cuántica (UNIR).
+%
+% Reproduce material/Plantilla_LATEX_FCC_MUCC_UNIR/plantilla.tex y carga su estilo
+% estilo_unir-1.sty sin modificarlo (REGLAS.md, sección 8). Solo se añaden:
+%   - las definiciones que necesita el LaTeX que genera Pandoc (listas, tablas,
+%     figuras, citas de citeproc);
+%   - tres ajustes técnicos que eliminan advertencias sin cambiar el diseño del modelo
+%     (marcados con «ajuste técnico»).
+\documentclass[11pt,a4paper,spanish]{book}
+% Ajuste técnico: codificación T1. El modelo usa OT1, que no tiene versalita en negrita
+% (babel la sustituye con una advertencia) y no separa bien las palabras con tilde.
+\usepackage[T1]{fontenc}
+\usepackage{estilo_unir-1}
+
+% Ajuste técnico: la cabecera del modelo tiene dos líneas (\rhead{\theauthor\\}) y
+% fancyhdr avisa de que 14pt no bastan; es la altura que fancyhdr aplicaría de todos modos.
+\setlength{\headheight}{27.2pt}
+% Ajuste técnico: la portada y el cuerpo empiezan ambos en la página 1; sin esto,
+% hyperref crea dos destinos con el mismo nombre.
+\hypersetup{hypertexnames=false}
+% Ajuste técnico: la clase book iguala el final de todas las páginas (\flushbottom); con
+% interlineado 1,5 y párrafos largos, LaTeX no siempre puede estirar la página y avisa
+% (Underfull \vbox). Con \raggedbottom cada página termina en su última línea.
+\raggedbottom
+
+% --- Definiciones para el LaTeX de Pandoc -----------------------------------------
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setlength{\emergencystretch}{3em}
+% Citas y referencias generadas por citeproc (APA 7): lista con sangría francesa.
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.27cm}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2]
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  \setlength{\itemsep}{#2\baselineskip}}%
+  % APA 7: referencias alineadas a la izquierda (sin justificar); así las URL/DOI
+  % largas no estiran la línea.
+  \raggedright
+  % El modelo carga natbib (author-year), cuyo \bibitem no acepta las entradas de
+  % citeproc; dentro de esta lista cada entrada es un \item normal.
+  \renewcommand{\bibitem}[2][]{\item}}
+ {\end{list}}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+%---------------------------
+%título del trabajo y autor
+%---------------------------
+\title{Las simetrías en la física}
+\author{Julián Calderón Almendros}
+\date{DD de MES de AAAA}
+\profesor{Rodrigo Gil-Merino y Rubio}
+
+\begin{document}
+\renewcommand{\listfigurename}{Índice de figuras}
+\renewcommand{\listtablename}{Índice de tablas}
+\renewcommand{\contentsname}{Índice de contenidos}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Tabla}
+
+\maketitle
+
+\frontmatter
+\tableofcontents
+
+\chapter{Resumen}
+Resumen en español del trabajo (máximo 150 palabras): objetivo o
+propósito, metodología, resultados y conclusiones.
+
+\vspace{\baselineskip}
+{\bf Palabras clave:} palabra clave 1, palabra clave 2, palabra clave 3
+
+\chapter{Abstract}
+English version of the Resumen (maximum 150 words).
+
+\vspace{\baselineskip}
+{\bf Keywords:} keyword 1, keyword 2, keyword 3
+
+\mainmatter
+\chapter{Introducción}\label{introducciuxf3n}
+
+\section{Motivación y
+justificación}\label{motivaciuxf3n-y-justificaciuxf3n}
+
+\section{Planteamiento del trabajo}\label{planteamiento-del-trabajo}
+
+\section{Estructura del trabajo}\label{estructura-del-trabajo}
+
+\chapter{Contexto y estado de la
+cuestión}\label{contexto-y-estado-de-la-cuestiuxf3n}
+
+\section{Contexto histórico}\label{contexto-histuxf3rico}
+
+Entre finales de la década de 1860 y comienzos de la de 1870, se
+desarrolló un movimiento matemático trascendental protagonizado por
+\textbf{Felix Klein} (1849--1925) y \textbf{Sophus Lie} (1842--1899).
+Ambos coincidieron en Berlín en el invierno de 1869 a 1870 y en París en
+la primavera de 1870, y de esa colaboración salió un trabajo conjunto
+sobre las curvas planas que quedan invariantes bajo un sistema de
+transformaciones lineales (Klein y Lie, 1871). De ahí procede la idea de
+que la geometría debía definirse a través de las propiedades y
+magnitudes que permanecen invariantes bajo un determinado grupo de
+transformaciones. Esta visión la formuló Klein en solitario en 1872, en
+un folleto impreso con motivo de su incorporación como catedrático a la
+Universidad de Erlangen (no fue un discurso), conocido como el Programa
+de Erlangen (Klein, 1872/1893). El programa ordenó las distintas
+geometrías de la época (euclídea, afín, proyectiva\ldots) mediante sus
+grupos de transformaciones: cada geometría estudia lo que deja
+invariante su grupo, y cuanto mayor es el grupo, menos propiedades se
+conservan. Su influencia inmediata fue escasa; se difundió a partir de
+1890, con sus reediciones y traducciones. Hay que decir que Klein y Lie,
+a pesar de tener temperamentos muy diferentes, colaboraron estrechamente
+durante su juventud, desarrollando ideas conjuntas sobre curvas y
+transformaciones geométricas. Sin embargo, con los años sus caminos se
+bifurcaron: mientras Klein se orientó hacia una visión global,
+institucional y unificadora de las matemáticas, Lie se concentró en la
+profunda especialización analítica que dio origen a la teoría de los
+grupos continuos de transformaciones (hoy llamados grupos de Lie), con
+la que buscaba hacer para las ecuaciones diferenciales lo que la teoría
+de Galois había hecho para las ecuaciones algebraicas. La expuso con
+Friedrich Engel en \emph{Theorie der Transformationsgruppen}, publicada
+en tres volúmenes entre 1888 y 1893 (Lie y Engel, 1888--1893). La
+relación entre ambos se rompió en 1892--1893 por disputas de prioridad:
+en el prólogo del tercer volumen, Lie afirmó públicamente que no era
+discípulo de Klein, lo que terminó por distanciar profesional y
+personalmente a ambos genios (Guijarro Regalado, 2007).
+
+Esta idea de invariancia llenaba el ambiente matemático, y en paralelo
+se desarrolló la teoría algebraica de invariantes: el estudio de las
+expresiones formadas con los coeficientes de una forma (un polinomio
+homogéneo) que no cambian, o que solo quedan multiplicadas por una
+potencia del determinante, al hacer un cambio lineal de variables. En
+Gran Bretaña la iniciaron Arthur Cayley (1845/2009) y James Joseph
+Sylvester en la década de 1840, y el irlandés George Salmon (1859) la
+sistematizó en sus libros de texto. La llamada «trinidad invariante» no
+incluye a Salmon: Sylvester dio ese nombre al grupo que formaba con
+Cayley y el francés Charles Hermite (Parshall, 2024). En Alemania, la
+escuela principal, paralela y coetánea a la británica, fue la de
+\textbf{Alfred Clebsch} (1833--1872) y \textbf{Paul Gordan}
+(1837--1912), que desarrollaron el método simbólico para calcular
+invariantes (Clebsch, 1872). Gordan y \textbf{Max Noether} (1844--1921)
+enseñaron en Erlangen, por lo que a veces se habla de una escuela de
+invariantes de Erlangen, que no debe confundirse con el Programa de
+Erlangen de Klein (Clebsch, por su parte, nunca estuvo en Erlangen:
+trabajó en Karlsruhe, Giessen y Gotinga). El problema central de la
+teoría era de finitud: demostrar que todos los invariantes de una forma
+se obtienen como polinomios de un número finito de ellos. El enfoque
+tradicional era un trabajo minucioso y descomunal de cálculo, en el que
+cada caso concreto (formas de un grado y un número de variables dados)
+debía estudiarse por separado, calculando explícitamente sus
+invariantes; así demostró Gordan (1868) la finitud para las formas
+binarias (de dos variables) de cualquier grado. Con un enfoque mucho más
+novedoso, \textbf{David Hilbert} (1862--1943) resolvió el problema para
+cualquier número de variables con su \textbf{Teorema de la Base} (1888,
+publicado en 1890): todo ideal de un anillo de polinomios en un número
+finito de variables sobre un cuerpo es finitamente generado (Hilbert,
+1890). Pero su demostración era de existencia: probaba que hay una base
+finita de invariantes sin dar un método para construirla, y por eso
+Gordan llegó a calificarla de teología: «esto no es matemática, es
+teología» (Almira Picazo y Sabina de Lis, 2007; Derksen y Kemper, 2002,
+p. 49; Weyl, 1944). En 1893 Hilbert publicó una demostración más
+constructiva (Hilbert, 1893). Gordan acabó cambiando de opinión: afirmó
+haberse convencido de que «incluso la teología tiene sus méritos»
+(Klein, 1926/1979, p. 311) y en 1899 publicó una versión simplificada de
+la demostración de Hilbert (Gordan, 1899). El resultado no hizo
+innecesario el cálculo explícito de invariantes, pero, al resolver con
+carácter general el problema de la finitud, prácticamente cerró la
+teoría de invariantes y le quitó durante un tiempo su interés a este
+campo matemático.
+
+La fusión definitiva entre esta potente álgebra de invariantes y la
+geometría de las transformaciones no tardaría en revolucionar la física.
+A principios del siglo XX, la física teórica se encontraba en plena
+ebullición con el desarrollo de la Teoría de la Relatividad General de
+Albert Einstein. Fue en ese escenario donde las simetrías continuas
+---aquellas transformaciones suaves y fluidas descritas originalmente
+por los grupos de Lie, como las rotaciones en el espacio o el avance del
+tiempo--- revelaron su verdadero poder. El problema surgió en Gotinga:
+David Hilbert, que en noviembre de 1915 había presentado una formulación
+variacional de la gravitación, contemporánea de las ecuaciones de campo
+de Einstein (Hilbert, 1915), se encontró con que en la nueva teoría la
+energía no parecía conservarse de la manera local y matemática
+tradicional (Hilbert sostenía que en ella no había teoremas de energía
+«propios»). Para estudiar este problema, David Hilbert y Felix Klein
+invitaron a Gotinga en 1915 a la mayor experta en álgebra de invariantes
+de la época: Emmy Noether (1882--1935), hija de Max Noether y discípula
+directa de Paul Gordan. Noether había hecho en 1907 su tesis doctoral
+sobre invariantes calculados a mano, un trabajo ingente: un sistema
+completo de 331 covariantes de la forma ternaria de cuarto grado
+(Noether, 1908). Trabajó en el problema de la energía entre 1915 y 1918,
+y el resultado fue el artículo \emph{Invariante Variationsprobleme}, que
+Klein presentó el 26 de julio de 1918 en la Sociedad de Ciencias de
+Gotinga (Noether, 1918a). El artículo contiene dos teoremas. El primero
+es el que hoy se conoce como Teorema de Noether, una de las piedras
+angulares de la física moderna: en todo sistema cuyas ecuaciones se
+obtienen de un principio variacional, a cada simetría continua de la
+acción (un grupo de Lie de transformaciones) le corresponde una ley de
+conservación. Así, la invariancia bajo traslaciones en el tiempo implica
+la conservación de la energía; bajo traslaciones en el espacio, la del
+momento lineal, y bajo rotaciones, la del momento angular. El segundo
+teorema trata las simetrías que dependen de funciones arbitrarias, como
+los cambios generales de coordenadas de la relatividad general: en ese
+caso no aparecen cantidades conservadas independientes, sino identidades
+entre las ecuaciones del movimiento. Es este segundo teorema el que
+explica la forma peculiar que toma la conservación de la energía en la
+relatividad general, la que había señalado Hilbert. El trabajo de
+Noether reunió así las dos líneas anteriores: los grupos continuos de
+Lie y los métodos de la teoría de invariantes.
+
+Einstein, que seguía estos trabajos desde Berlín, dejó constancia de su
+aprecio por ellos en dos cartas (Einstein, 1998; Tollmien, 2018). El 24
+de mayo de 1918, al recibir un artículo anterior de Noether sobre la
+construcción de invariantes (Noether, 1918b), escribió a Hilbert: «me
+impresiona que se puedan abarcar estas cosas desde un punto de vista tan
+general» (Einstein, 1998, documento 548). El 27 de diciembre de 1918, al
+recibir \emph{Invariante Variationsprobleme}, escribió a Klein que
+volvía a sentir como una gran injusticia que a Noether se le negara la
+\emph{venia legendi}, el permiso para enseñar en la universidad, y
+propuso dar un paso enérgico ante el ministerio (Einstein, 1998,
+documento 677). Noether obtuvo la habilitación en 1919.
+
+\chapter{Objetivos}\label{objetivos}
+
+\chapter{Desarrollo del trabajo}\label{desarrollo-del-trabajo}
+
+\chapter{Conclusiones}\label{conclusiones}
+
+\chapter*{Bibliografía}\label{bibliografuxeda}
+\addcontentsline{toc}{chapter}{Bibliografía}
+
+\protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-almira2007}
+Almira Picazo, J. M. y Sabina de Lis, J. C. (2007). \emph{Hilbert:
+Matemático fundamental}. Nivola.
+
+\bibitem[\citeproctext]{ref-cayley1845}
+Cayley, A. (2009). On the theory of linear transformations. En \emph{The
+collected mathematical papers of {Arthur Cayley}} (Vol. 1, pp. 80--94).
+Cambridge University Press.
+\url{https://doi.org/10.1017/CBO9780511703676.014} (Obra original
+publicada en 1845)
+
+\bibitem[\citeproctext]{ref-clebsch1872}
+Clebsch, A. (1872). \emph{Theorie der binären algebraischen {Formen}}.
+B. G. Teubner.
+
+\bibitem[\citeproctext]{ref-derksen2002}
+Derksen, H. y Kemper, G. (2002). \emph{Computational invariant theory}.
+Springer. \url{https://doi.org/10.1007/978-3-662-04958-7}
+
+\bibitem[\citeproctext]{ref-einstein1998}
+Einstein, A. (1998). \emph{The collected papers of {Albert Einstein}:
+Vol. 8. The {Berlin} years: Correspondence, 1914--1918} (R. Schulmann,
+A. J. Kox, M. Janssen, y J. Illy, Eds.). Princeton University Press.
+
+\bibitem[\citeproctext]{ref-gordan1868}
+Gordan, P. (1868). Beweis, dass jede {Covariante} und {Invariante} einer
+binären {Form} eine ganze {Function} mit numerischen {Coefficienten}
+einer endlichen {Anzahl} solcher {Formen} ist. \emph{Journal für die
+reine und angewandte Mathematik}, \emph{69}, 323--354.
+\url{https://doi.org/10.1515/crll.1868.69.323}
+
+\bibitem[\citeproctext]{ref-gordan1899}
+Gordan, P. (1899). Neuer {Beweis} des {Hilbertschen} {Satzes} über
+homogene {Funktionen}. \emph{Nachrichten von der Gesellschaft der
+Wissenschaften zu Göttingen, Mathematisch-Physikalische Klasse},
+\emph{1899}, 240--242. \url{http://eudml.org/doc/58452}
+
+\bibitem[\citeproctext]{ref-guijarro2007}
+Guijarro Regalado, J. L. (2007). \emph{Lie: Más allá de la geometría}.
+Nivola.
+
+\bibitem[\citeproctext]{ref-hilbert1890}
+Hilbert, D. (1890). Ueber die {Theorie} der algebraischen {Formen}.
+\emph{Mathematische Annalen}, \emph{36}(4), 473--534.
+\url{https://doi.org/10.1007/BF01208503}
+
+\bibitem[\citeproctext]{ref-hilbert1893}
+Hilbert, D. (1893). Ueber die vollen {Invariantensysteme}.
+\emph{Mathematische Annalen}, \emph{42}(3), 313--373.
+\url{https://doi.org/10.1007/BF01444162}
+
+\bibitem[\citeproctext]{ref-hilbert1915}
+Hilbert, D. (1915). Die {Grundlagen} der {Physik} ({Erste}
+{Mitteilung}). \emph{Nachrichten von der Gesellschaft der Wissenschaften
+zu Göttingen, Mathematisch-Physikalische Klasse}, \emph{1915}, 395--408.
+\url{http://eudml.org/doc/58946}
+
+\bibitem[\citeproctext]{ref-klein1893}
+Klein, F. (1893). Vergleichende {Betrachtungen} über neuere geometrische
+{Forschungen}. \emph{Mathematische Annalen}, \emph{43}(1), 63--100.
+\url{https://doi.org/10.1007/BF01446615} (Obra original publicada en
+1872)
+
+\bibitem[\citeproctext]{ref-klein1979}
+Klein, F. (1979). \emph{Development of mathematics in the 19th century}
+(M. Ackerman, Trad.). Math Sci Press. (Obra original publicada en 1926)
+
+\bibitem[\citeproctext]{ref-kleinlie1871}
+Klein, F. y Lie, S. (1871). Ueber diejenigen ebenen {Curven}, welche
+durch ein geschlossenes {System} von einfach unendlich vielen
+vertauschbaren linearen {Transformationen} in sich übergehen.
+\emph{Mathematische Annalen}, \emph{4}(1), 50--84.
+\url{https://doi.org/10.1007/BF01443297}
+
+\bibitem[\citeproctext]{ref-lieengel1893}
+Lie, S. y Engel, F. (1888--1893). \emph{Theorie der
+{Transformationsgruppen}} (Vols. 1--3). B. G. Teubner.
+
+\bibitem[\citeproctext]{ref-noether1908}
+Noether, E. (1908). Über die {Bildung} des {Formensystems} der ternären
+biquadratischen {Form}. \emph{Journal für die reine und angewandte
+Mathematik}, \emph{134}, 23--90.
+\url{https://doi.org/10.1515/crll.1908.134.23}
+
+\bibitem[\citeproctext]{ref-noether1918}
+Noether, E. (1918a). Invariante {Variationsprobleme}. \emph{Nachrichten
+von der Gesellschaft der Wissenschaften zu Göttingen,
+Mathematisch-Physikalische Klasse}, \emph{1918}, 235--257.
+\url{http://eudml.org/doc/59024}
+
+\bibitem[\citeproctext]{ref-noether1918a}
+Noether, E. (1918b). Invarianten beliebiger {Differentialausdrücke}.
+\emph{Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen,
+Mathematisch-Physikalische Klasse}, \emph{1918}, 37--44.
+\url{http://eudml.org/doc/59011}
+
+\bibitem[\citeproctext]{ref-parshall2024}
+Parshall, K. H. (2024). A convergence of paths: {Cayley}, {Hermite},
+{Sylvester}, and early invariant theory. \emph{Revue d'histoire des
+mathématiques}, \emph{30}, 233--260.
+\url{https://doi.org/10.24033/rhm.316}
+
+\bibitem[\citeproctext]{ref-salmon1859}
+Salmon, G. (1859). \emph{Lessons introductory to the modern higher
+algebra}. Hodges, Smith {\&} Co.
+
+\bibitem[\citeproctext]{ref-tollmien2018}
+Tollmien, C. (2018). „{Invariantentheorie} ist jetzt hier {Trumpf}``.
+\emph{Physik in unserer Zeit}, \emph{49}(4), 176--182.
+\url{https://doi.org/10.1002/piuz.201801513}
+
+\bibitem[\citeproctext]{ref-weyl1944}
+Weyl, H. (1944). David {Hilbert} 1862--1943. \emph{Obituary Notices of
+Fellows of the Royal Society}, \emph{4}(13), 547--553.
+\url{https://doi.org/10.1098/rsbm.1944.0006}
+
+\end{CSLReferences}
+
+\appendix
+
+\chapter{Apéndices}\label{apuxe9ndices}
+
+\end{document}
