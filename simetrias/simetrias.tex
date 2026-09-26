@@ -547,6 +547,166 @@ documento 677). Noether obtuvo la habilitación en 1919.
 \section{Transformaciones continuas, campos vectoriales y
 flujos}\label{transformaciones-continuas-campos-vectoriales-y-flujos}
 
+\section{Rotaciones en el espacio}\label{rotaciones-en-el-espacio}
+
+La invariancia bajo rotaciones, que el teorema de Noether asocia a la
+conservación del momento angular, exige describir las rotaciones con
+precisión. En este apartado se construye la matriz de una rotación
+cualquiera y se obtiene su forma infinitesimal, que es la que interviene
+en el teorema.
+
+\subsection{Rotaciones alrededor de los ejes
+coordenados}\label{rotaciones-alrededor-de-los-ejes-coordenados}
+
+Una rotación de ángulo \(\theta\) alrededor del eje \(z\), en sentido
+antihorario vista desde el semieje \(z\) positivo, deja fija la
+coordenada \(z\) y gira el plano \(xy\). Las rotaciones alrededor de los
+tres ejes son:
+
+\[
+\begin{aligned}
+R_x(\theta) &= \begin{pmatrix} 1 & 0 & 0 \\ 0 & \cos\theta & -\sin\theta \\ 0 & \sin\theta & \cos\theta \end{pmatrix},
+\qquad
+R_y(\theta) = \begin{pmatrix} \cos\theta & 0 & \sin\theta \\ 0 & 1 & 0 \\ -\sin\theta & 0 & \cos\theta \end{pmatrix}, \\
+R_z(\theta) &= \begin{pmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}.
+\end{aligned}
+\]
+
+\(R_x\) gira el plano \(yz\), de \(y\) hacia \(z\), y \(R_y\) gira el
+plano \(zx\), de \(z\) hacia \(x\). En \(R_y\) el seno negativo aparece
+en la tercera fila porque el orden cíclico de los ejes es
+\(x \to y \to z \to x\): en el plano \(zx\) la primera coordenada es
+\(z\).
+
+Cada una de estas matrices cumple \(R^T \cdot R = I\), es decir,
+conserva longitudes y ángulos. Para \(R_z\), el bloque \(xy\) del
+producto es
+
+\[
+\begin{aligned}
+\begin{pmatrix} \cos\theta & \sin\theta \\ -\sin\theta & \cos\theta \end{pmatrix} \cdot \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}
+&= \begin{pmatrix} \cos^2\theta + \sin^2\theta & 0 \\ 0 & \sin^2\theta + \cos^2\theta \end{pmatrix} \\
+&= \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix},
+\end{aligned}
+\]
+
+porque los términos fuera de la diagonal,
+\(-\cos\theta \cdot \sin\theta + \sin\theta \cdot \cos\theta\), se
+anulan. El elemento \((3,3)\) vale \(1\). Además,
+\(\det R_z(\theta) = \cos^2\theta + \sin^2\theta = 1\). Las otras dos
+matrices se comprueban del mismo modo.
+
+\subsection{Composición de
+rotaciones}\label{composiciuxf3n-de-rotaciones}
+
+Aplicar a un vector \(\vec{v}\) primero la rotación \(R_1\) y después
+\(R_2\) da
+\(R_2 \cdot (R_1 \cdot \vec{v}) = (R_2 \cdot R_1) \cdot \vec{v}\). La
+composición de rotaciones es, por tanto, el producto de sus matrices,
+con la primera a la derecha. La suma de rotaciones no es una rotación:
+con ángulos nulos, \(R_x(0) + R_y(0) + R_z(0) = 3 \cdot I\), que
+multiplica todas las longitudes por \(3\).
+
+El orden del producto importa. Con giros de \(90^\circ\):
+
+\[
+\begin{aligned}
+R_x(\pi/2) \cdot R_y(\pi/2) = \begin{pmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{pmatrix},
+\qquad
+R_y(\pi/2) \cdot R_x(\pi/2) = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & -1 \\ -1 & 0 & 0 \end{pmatrix}.
+\end{aligned}
+\]
+
+La primera lleva el vector \(\vec{e}_z = (0, 0, 1)\) a \((1, 0, 0)\), y
+la segunda, a \((0, -1, 0)\). Para describir una rotación cualquiera con
+tres ángulos hay que fijar, por tanto, un orden. Aquí se gira primero un
+ángulo \(\gamma\) alrededor de \(x\), después \(\beta\) alrededor de
+\(y\) y por último \(\alpha\) alrededor de \(z\), siempre respecto de
+los ejes fijos.
+
+\subsection{La matriz de una rotación
+cualquiera}\label{la-matriz-de-una-rotaciuxf3n-cualquiera}
+
+Con las abreviaturas \(c_\alpha = \cos\alpha\) y
+\(s_\alpha = \sin\alpha\) (y lo mismo para \(\beta\) y \(\gamma\)), el
+producto
+\(R(\alpha, \beta, \gamma) = R_z(\alpha) \cdot R_y(\beta) \cdot R_x(\gamma)\)
+tiene por columnas
+
+\[
+\begin{aligned}
+\vec{c}_1 &= \begin{pmatrix} c_\alpha \cdot c_\beta \\ s_\alpha \cdot c_\beta \\ -s_\beta \end{pmatrix},
+\qquad
+\vec{c}_2 = \begin{pmatrix} c_\alpha \cdot s_\beta \cdot s_\gamma - s_\alpha \cdot c_\gamma \\ s_\alpha \cdot s_\beta \cdot s_\gamma + c_\alpha \cdot c_\gamma \\ c_\beta \cdot s_\gamma \end{pmatrix}, \\
+\vec{c}_3 &= \begin{pmatrix} c_\alpha \cdot s_\beta \cdot c_\gamma + s_\alpha \cdot s_\gamma \\ s_\alpha \cdot s_\beta \cdot c_\gamma - c_\alpha \cdot s_\gamma \\ c_\beta \cdot c_\gamma \end{pmatrix}.
+\end{aligned}
+\]
+
+Esta matriz cumple \(R^T \cdot R = I\) sin necesidad de desarrollar los
+productos. Como la transpuesta de un producto es el producto de las
+transpuestas en orden inverso, \((A \cdot B)^T = B^T \cdot A^T\):
+
+\[
+\begin{aligned}
+R^T \cdot R &= R_x^T \cdot R_y^T \cdot \left(R_z^T \cdot R_z\right) \cdot R_y \cdot R_x \\
+&= R_x^T \cdot \left(R_y^T \cdot R_y\right) \cdot R_x = R_x^T \cdot R_x = I,
+\end{aligned}
+\]
+
+donde en cada paso el paréntesis central se ha sustituido por \(I\). Del
+mismo modo, \(\det R = \det R_z \cdot \det R_y \cdot \det R_x = 1\).
+
+\subsection{Rotaciones
+infinitesimales}\label{rotaciones-infinitesimales}
+
+Una rotación próxima a la identidad se escribe \(R = I + A\), donde las
+entradas de \(A\) son de primer orden en los ángulos de giro.
+Sustituyendo en \(R^T \cdot R = I\):
+
+\[
+\begin{aligned}
+(I + A^T) \cdot (I + A) = I + A^T + A + A^T \cdot A = I.
+\end{aligned}
+\]
+
+El término \(A^T \cdot A\) es de segundo orden y se desprecia, de modo
+que a primer orden \(A^T = -A\): la matriz \(A\) es antisimétrica. Su
+diagonal es nula y sus entradas opuestas tienen signos contrarios, así
+que tiene tres entradas independientes, \(a\), \(b\) y \(c\):
+
+\[
+\begin{aligned}
+A = \begin{pmatrix} 0 & -c & b \\ c & 0 & -a \\ -b & a & 0 \end{pmatrix}.
+\end{aligned}
+\]
+
+Aplicada a un vector \(\vec{v}\), con \(\vec{\omega} = (a, b, c)\), esta
+matriz da un producto vectorial:
+
+\[
+\begin{aligned}
+A \cdot \vec{v} &= (b \cdot v_3 - c \cdot v_2,\ c \cdot v_1 - a \cdot v_3,\ a \cdot v_2 - b \cdot v_1) = \vec{\omega} \times \vec{v}, \\
+R \cdot \vec{v} &\approx \vec{v} + \vec{\omega} \times \vec{v}.
+\end{aligned}
+\]
+
+La rotación infinitesimal desplaza cada vector en
+\(\delta\vec{v} = \vec{\omega} \times \vec{v}\), perpendicular al eje
+\(\vec{\omega}\) y al propio vector. El vector \(\vec{\omega}\) reúne el
+eje de giro (su dirección) y el ángulo (su módulo). Por ejemplo,
+desarrollando \(R_z(\varepsilon)\) con \(\cos\varepsilon \approx 1\) y
+\(\sin\varepsilon \approx \varepsilon\), se obtiene \(A\) con
+\(a = b = 0\) y \(c = \varepsilon\):
+\(\vec{\omega} = (0, 0, \varepsilon)\), un giro de ángulo
+\(\varepsilon\) alrededor del eje \(z\). Esta es la forma de la rotación
+que usa el teorema de Noether para obtener la conservación del momento
+angular.
+
+A primer orden, además, dos rotaciones infinitesimales conmutan: en el
+producto \((I + A_1) \cdot (I + A_2) = I + A_1 + A_2 + A_1 \cdot A_2\),
+el término que depende del orden, \(A_1 \cdot A_2\), es de segundo
+orden. Las rotaciones finitas, en cambio, no conmutan, como se ha visto.
+
 \section{Simetrías de la acción y primer teorema de
 Noether}\label{simetruxedas-de-la-acciuxf3n-y-primer-teorema-de-noether}
 
