@@ -206,10 +206,19 @@ $A^T \cdot A$ es de segundo orden y se desprecia. A primer orden queda $A^T = -A
 
 $$
 \begin{aligned}
-A = \begin{pmatrix} 0 & -c & b \\ c & 0 & -a \\ -b & a & 0 \end{pmatrix}
+A = 
+\begin{pmatrix} 0 & -c & b \\ 
+c & 0 & -a \\ 
+-b & a & 0 
+\end{pmatrix}
 = a \cdot J_x + b \cdot J_y + c \cdot J_z,
 \qquad
-J_z = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix},
+J_z = 
+\begin{pmatrix} 
+0 & -1 & 0 \\ 
+1 & 0 & 0 \\ 
+0 & 0 & 0 
+\end{pmatrix}
 \end{aligned}
 $$
 
@@ -327,7 +336,7 @@ Una transformación de Galileo queda dada por una rotación $R$ (matriz $3 \time
 
 $$
 \begin{aligned}
-\vec{x}\,' &= R \cdot \vec{x} + \vec{v} \cdot t + \vec{a}, \\
+\vec{x}' &= R \cdot \vec{x} + \vec{v} \cdot t + \vec{a}, \\
 t' &= t + b.
 \end{aligned}
 $$
@@ -336,9 +345,23 @@ Con los vectores escritos como columnas, se reúne en una sola matriz que actúa
 
 $$
 \begin{aligned}
-G(R, \vec{v}, \vec{a}, b) = \begin{pmatrix} R & \vec{v} & \vec{a} \\ \vec{0}^T & 1 & b \\ \vec{0}^T & 0 & 1 \end{pmatrix},
+G(R, \vec{v}, \vec{a}, b) = 
+\begin{pmatrix} 
+R & \vec{v} & \vec{a} \\ 
+\vec{0}^T & 1 & b \\ 
+\vec{0}^T & 0 & 1 
+\end{pmatrix},
 \qquad
-\begin{pmatrix} \vec{x}\,' \\ t' \\ 1 \end{pmatrix} = G(R, \vec{v}, \vec{a}, b) \cdot \begin{pmatrix} \vec{x} \\ t \\ 1 \end{pmatrix}.
+\begin{pmatrix} 
+\vec{x}' \\ 
+t' \\ 
+1 
+\end{pmatrix} 
+= G(R, \vec{v}, \vec{a}, b) \cdot 
+\begin{pmatrix} \vec{x} 
+\\ t 
+\\ 1 
+\end{pmatrix}.
 \end{aligned}
 $$
 
@@ -367,11 +390,11 @@ b &= b_1 + b_2.
 \end{aligned}
 $$
 
-Comprobación aplicando las transformaciones una tras otra. La primera da $\vec{x}\,' = R_1 \cdot \vec{x} + \vec{v}_1 \cdot t + \vec{a}_1$ y $t' = t + b_1$. La segunda, aplicada a ese resultado:
+Comprobación aplicando las transformaciones una tras otra. La primera da $\vec{x}' = R_1 \cdot \vec{x} + \vec{v}_1 \cdot t + \vec{a}_1$ y $t' = t + b_1$. La segunda, aplicada a ese resultado:
 
 $$
 \begin{aligned}
-\vec{x}\,'' &= R_2 \cdot \vec{x}\,' + \vec{v}_2 \cdot t' + \vec{a}_2 \\
+\vec{x}'' &= R_2 \cdot \vec{x}' + \vec{v}_2 \cdot t' + \vec{a}_2 \\
 &= R_2 \cdot (R_1 \cdot \vec{x} + \vec{v}_1 \cdot t + \vec{a}_1) + \vec{v}_2 \cdot (t + b_1) + \vec{a}_2 \\
 &= (R_2 \cdot R_1) \cdot \vec{x} + (R_2 \cdot \vec{v}_1 + \vec{v}_2) \cdot t + (R_2 \cdot \vec{a}_1 + \vec{v}_2 \cdot b_1 + \vec{a}_2), \\
 t'' &= t' + b_2 = t + (b_1 + b_2).
@@ -389,12 +412,12 @@ Son los mismos parámetros. Significado de cada uno:
 
 - **Composición.** El producto de dos matrices de Galileo es una matriz de Galileo: tiene la misma forma por bloques, y $R_2 \cdot R_1$ es una rotación por ser producto de rotaciones (capítulo de rotaciones, punto 7).
 - **Identidad.** $G(I, \vec{0}, \vec{0}, 0)$ es la matriz identidad $5 \times 5$: no gira, no cambia la velocidad y no desplaza.
-- **Inversa.** Se obtiene despejando $\vec{x}$ y $t$. De $t' = t + b$ sale $t = t' - b$. De $\vec{x}\,' = R \cdot \vec{x} + \vec{v} \cdot t + \vec{a}$, multiplicando por $R^T = R^{-1}$ y sustituyendo $t$:
+- **Inversa.** Se obtiene despejando $\vec{x}$ y $t$. De $t' = t + b$ sale $t = t' - b$. De $\vec{x}' = R \cdot \vec{x} + \vec{v} \cdot t + \vec{a}$, multiplicando por $R^T = R^{-1}$ y sustituyendo $t$:
 
   $$
   \begin{aligned}
-  \vec{x} &= R^T \cdot (\vec{x}\,' - \vec{v} \cdot t - \vec{a}) = R^T \cdot \left(\vec{x}\,' - \vec{v} \cdot (t' - b) - \vec{a}\right) \\
-  &= R^T \cdot \vec{x}\,' - R^T \cdot \vec{v} \cdot t' - R^T \cdot (\vec{a} - \vec{v} \cdot b).
+  \vec{x} &= R^T \cdot (\vec{x}' - \vec{v} \cdot t - \vec{a}) = R^T \cdot \left(\vec{x}' - \vec{v} \cdot (t' - b) - \vec{a}\right) \\
+  &= R^T \cdot \vec{x}' - R^T \cdot \vec{v} \cdot t' - R^T \cdot (\vec{a} - \vec{v} \cdot b).
   \end{aligned}
   $$
 
@@ -546,3 +569,184 @@ Lo mismo vale para las familias de un parámetro del grupo de Galileo (capítulo
 - **Cambio de velocidad en la dirección $x$:** $M$ tiene un $1$ en la fila $1$, columna $4$. **Traslación en $x$:** un $1$ en la fila $1$, columna $5$. **Traslación temporal:** un $1$ en la fila $4$, columna $5$. En los tres casos $M^2 = 0$: el único $1$ de $M$ está en una fila $i$ y una columna $j$ distintas, y $(M^2)_{ik} = M_{ij} \cdot M_{jk}$ necesitaría otro $1$ en la fila $j$, que no existe. La serie se corta en el segundo término: $e^{s \cdot M} = I + s \cdot M$, que es exactamente $G(I, s \cdot \vec{e}_x, \vec{0}, 0)$, $G(I, \vec{0}, s \cdot \vec{e}_x, 0)$ o $G(I, \vec{0}, \vec{0}, s)$.
 
 Por el punto 2, $\dfrac{d}{ds} e^{s \cdot M} = M \cdot e^{s \cdot M}$ y $e^{s \cdot M} \cdot e^{r \cdot M} = e^{(s+r) \cdot M}$: cada familia es el flujo de un campo vectorial lineal, y $M$ es su generador.
+
+
+LAS TRANSFORMACIONES DE GALILEO COMO EXPONENCIALES (26-09-2026)
+
+Capítulo de trabajo: completar el formalismo escribiendo cualquier transformación de Galileo $G(R, \vec{v}, \vec{a}, b)$ en forma exponencial. Se hace de dos maneras (como producto de cuatro exponenciales y como una sola exponencial) y se termina con el campo vectorial que genera cada exponente y su cantidad conservada. Usa los capítulos «El grupo de Galileo» y «La exponencial de una matriz y las rotaciones». Todas las afirmaciones están comprobadas con SymPy.
+
+1. Los diez generadores
+
+$E_{ij}$ es la matriz $5 \times 5$ con un $1$ en la fila $i$, columna $j$, y ceros en el resto. Cada familia de un parámetro del grupo (capítulo del grupo de Galileo, punto 5) tiene como generador la derivada de la familia en $s = 0$:
+
+| Familia de un parámetro | Generador | Matriz |
+| --- | --- | --- |
+| Rotación alrededor de $x$, $y$, $z$ | $\mathcal{J}_x$, $\mathcal{J}_y$, $\mathcal{J}_z$ | $J_x$, $J_y$, $J_z$ en el bloque $3 \times 3$; ceros en el resto |
+| Cambio de velocidad en $x$, $y$, $z$ | $\mathcal{K}_x$, $\mathcal{K}_y$, $\mathcal{K}_z$ | $E_{14}$, $E_{24}$, $E_{34}$ |
+| Traslación espacial en $x$, $y$, $z$ | $\mathcal{P}_x$, $\mathcal{P}_y$, $\mathcal{P}_z$ | $E_{15}$, $E_{25}$, $E_{35}$ |
+| Traslación temporal | $\mathcal{T}$ | $E_{45}$ |
+
+Para la traslación temporal se usa $\mathcal{T}$ y no $\mathcal{H}$, para no confundirla con el hamiltoniano. Con la notación $\vec{u} \cdot \vec{\mathcal{K}} = u_1 \cdot \mathcal{K}_x + u_2 \cdot \mathcal{K}_y + u_3 \cdot \mathcal{K}_z$ (y lo mismo para $\vec{\mathcal{J}}$ y $\vec{\mathcal{P}}$), un generador general es una combinación de los diez, con diez coeficientes $\vec{\omega}$, $\vec{u}$, $\vec{d}$ y $\tau$:
+
+$$
+\begin{aligned}
+\Lambda = \vec{\omega} \cdot \vec{\mathcal{J}} + \vec{u} \cdot \vec{\mathcal{K}} + \vec{d} \cdot \vec{\mathcal{P}} + \tau \cdot \mathcal{T}
+= \begin{pmatrix} A & \vec{u} & \vec{d} \\ \vec{0}^T & 0 & \tau \\ \vec{0}^T & 0 & 0 \end{pmatrix},
+\end{aligned}
+$$
+
+donde $A$ es la matriz antisimétrica $3 \times 3$ con $A \cdot \vec{x} = \vec{\omega} \times \vec{x}$.
+
+2. Qué generadores conmutan
+
+Los productos de las matrices $E_{ij}$ siguen una regla sencilla: $E_{ij} \cdot E_{kl} = E_{il}$ si $j = k$, y es nulo si $j \neq k$. Con ella:
+
+- $\mathcal{K}_i \cdot \mathcal{K}_j = E_{i4} \cdot E_{j4} = 0$, porque $4 \neq j$. Del mismo modo, $\mathcal{P}_i \cdot \mathcal{P}_j = 0$, $\mathcal{K}_i \cdot \mathcal{P}_j = 0$, $\mathcal{P}_i \cdot \mathcal{K}_j = 0$, $\mathcal{T} \cdot \mathcal{T} = 0$, $\mathcal{P}_i \cdot \mathcal{T} = 0$, $\mathcal{T} \cdot \mathcal{P}_i = 0$ y $\mathcal{T} \cdot \mathcal{K}_i = 0$.
+- La excepción: $\mathcal{K}_i \cdot \mathcal{T} = E_{i4} \cdot E_{45} = E_{i5} = \mathcal{P}_i$, mientras que $\mathcal{T} \cdot \mathcal{K}_i = 0$.
+
+Entre los siete generadores que no son rotaciones, el único par que no conmuta es un cambio de velocidad con la traslación temporal. Es el origen del término cruzado $\vec{v}_2 \cdot b_1$ de la ley de composición y de los factores que aparecen en los puntos 3 y 4.
+
+3. Primera forma: producto de cuatro exponenciales
+
+Como $(\vec{v} \cdot \vec{\mathcal{K}})^2 = 0$, $(\vec{a} \cdot \vec{\mathcal{P}})^2 = 0$ y $\mathcal{T}^2 = 0$ (punto 2), sus exponenciales se reducen a los dos primeros términos de la serie y son matrices de Galileo sencillas:
+
+$$
+\begin{aligned}
+e^{\vec{a} \cdot \vec{\mathcal{P}}} &= I + \vec{a} \cdot \vec{\mathcal{P}} = G(I, \vec{0}, \vec{a}, 0), \\
+e^{\vec{v} \cdot \vec{\mathcal{K}}} &= I + \vec{v} \cdot \vec{\mathcal{K}} = G(I, \vec{v}, \vec{0}, 0), \\
+e^{b \cdot \mathcal{T}} &= I + b \cdot \mathcal{T} = G(I, \vec{0}, \vec{0}, b).
+\end{aligned}
+$$
+
+La rotación es $e^{\vec{\omega} \cdot \vec{\mathcal{J}}} = G(e^A, \vec{0}, \vec{0}, 0)$, con $e^A = R$ (capítulo de la exponencial, puntos 4 y 5). Se componen con la ley del capítulo del grupo de Galileo, punto 2, empezando por la derecha:
+
+- $G(I, \vec{0}, \vec{0}, b) \cdot G(R, \vec{0}, \vec{0}, 0) = G(R, \vec{0}, \vec{0}, b)$;
+- $G(I, \vec{v}, \vec{0}, 0) \cdot G(R, \vec{0}, \vec{0}, b) = G(R,\ \vec{v},\ \vec{v} \cdot b,\ b)$, donde $\vec{v} \cdot b$ es el término cruzado;
+- $G(I, \vec{0}, \vec{a}', 0) \cdot G(R, \vec{v}, \vec{v} \cdot b, b) = G(R,\ \vec{v},\ \vec{v} \cdot b + \vec{a}',\ b)$.
+
+Para obtener el desplazamiento $\vec{a}$ hay que elegir $\vec{a}' = \vec{a} - \vec{v} \cdot b$, que compensa el término cruzado. Por tanto, toda transformación de Galileo es
+
+$$
+\begin{aligned}
+G(R, \vec{v}, \vec{a}, b) 
+= e^{(\vec{a} - \vec{v} \cdot b) \cdot \vec{\mathcal{P}}} \cdot e^{\vec{v} \cdot \vec{\mathcal{K}}} \cdot e^{b \cdot \mathcal{T}} \cdot e^{\vec{\omega} \cdot \vec{\mathcal{J}}}.
+\end{aligned}
+$$
+
+Cada factor es una familia de un parámetro, y el orden importa: con otro orden, el vector que multiplica a $\vec{\mathcal{P}}$ sería distinto.
+
+4. Segunda forma: una sola exponencial
+
+**Potencias del generador.** Multiplicando por bloques (la fila de bloques $(A,\ \vec{u},\ \vec{d})$ por cada columna de bloques):
+
+$$
+\begin{aligned}
+\Lambda^2 = 
+\begin{pmatrix} A^2 & A \cdot \vec{u} & A \cdot \vec{d} + \tau \cdot \vec{u} \\ 
+\vec{0}^T & 0 & 0 \\ 
+\vec{0}^T & 0 & 0 \end{pmatrix}.
+\end{aligned}
+$$
+
+Las dos últimas filas se anulan a partir de $\Lambda^2$. Multiplicando otra vez por $\Lambda$ por la izquierda, cada potencia añade un factor $A$ en la primera fila de bloques. Por inducción, para $k \ge 2$:
+
+$$
+\begin{aligned}
+\Lambda^k = \begin{pmatrix} A^k & A^{k-1} \cdot \vec{u} & A^{k-1} \cdot \vec{d} + \tau \cdot A^{k-2} \cdot \vec{u} \\ \vec{0}^T & 0 & 0 \\ \vec{0}^T & 0 & 0 \end{pmatrix}.
+\end{aligned}
+$$
+
+**La exponencial.** Sumando la serie $\sum_k \dfrac{\Lambda^k}{k!}$ bloque a bloque:
+
+$$
+\begin{aligned}
+e^{\Lambda} = G\left(e^A,\ V \cdot \vec{u},\ V \cdot \vec{d} + \tau \cdot W \cdot \vec{u},\ \tau\right),
+\qquad
+V = \sum_{j=0}^{\infty} \dfrac{A^j}{(j+1)!},
+\qquad
+W = \sum_{j=0}^{\infty} \dfrac{A^j}{(j+2)!}.
+\end{aligned}
+$$
+
+Por ejemplo, la columna de la velocidad es $\sum_{k \ge 1} \dfrac{A^{k-1} \cdot \vec{u}}{k!}$, que con $j = k - 1$ es $V \cdot \vec{u}$.
+
+**Sin rotación** ($A = 0$): $V = I$ y $W = \dfrac{1}{2} \cdot I$, y queda
+
+$$
+\begin{aligned}
+e^{\vec{u} \cdot \vec{\mathcal{K}} + \vec{d} \cdot \vec{\mathcal{P}} + \tau \cdot \mathcal{T}} = G\left(I,\ \vec{u},\ \vec{d} + \dfrac{\tau}{2} \cdot \vec{u},\ \tau\right).
+\end{aligned}
+$$
+
+Los coeficientes del exponente no coinciden con los parámetros de la transformación: aparece $\dfrac{\tau}{2} \cdot \vec{u}$. La razón es que la exponencial aplica a la vez el cambio de velocidad y la traslación temporal, cada uno creciendo desde $0$ con el parámetro $s$ del flujo (punto 5). El punto con $t = 0$ se mueve según $\dfrac{d\vec{x}}{ds} = \vec{u} \cdot t(s) + \vec{d}$, con $t(s) = \tau \cdot s$, y entre $s = 0$ y $s = 1$ recorre $\int_0^1 (\vec{u} \cdot \tau \cdot s + \vec{d})\,ds = \dfrac{\tau}{2} \cdot \vec{u} + \vec{d}$: el tiempo desplazado vale, en promedio, $\tau/2$.
+
+**Con rotación** ($A = \theta \cdot K$, con $\theta = |\vec{\omega}|$ y $K \cdot \vec{x} = \vec{n} \times \vec{x}$ para el eje unitario $\vec{n}$). Como $K^3 = -K$, las series se agrupan como en la fórmula de Rodrigues:
+
+$$
+\begin{aligned}
+V &= I + \dfrac{1 - \cos\theta}{\theta} \cdot K + \dfrac{\theta - \sin\theta}{\theta} \cdot K^2, \\
+W &= \dfrac{1}{2} \cdot I + \dfrac{\theta - \sin\theta}{\theta^2} \cdot K + \dfrac{\theta^2/2 - 1 + \cos\theta}{\theta^2} \cdot K^2.
+\end{aligned}
+$$
+
+Por ejemplo, en $V$ las potencias impares dan $\sum_{m \ge 0} \dfrac{(-1)^m \cdot \theta^{2 \cdot m + 1}}{(2 \cdot m + 2)!} \cdot K = \dfrac{1 - \cos\theta}{\theta} \cdot K$, porque $\sum_{m \ge 0} \dfrac{(-1)^m \cdot \theta^{2 \cdot m + 2}}{(2 \cdot m + 2)!} = 1 - \cos\theta$.
+
+**Toda transformación de Galileo es una sola exponencial.** Dada $G(R, \vec{v}, \vec{a}, b)$, se elige $A$ con $e^A = R$ y ángulo $\theta \in [0, \pi]$ (siempre es posible; capítulo de la exponencial, punto 5), $\tau = b$, y se despejan $\vec{u}$ y $\vec{d}$ de
+
+$$
+\begin{aligned}
+V \cdot \vec{u} = \vec{v},
+\qquad
+V \cdot \vec{d} + b \cdot W \cdot \vec{u} = \vec{a}.
+\end{aligned}
+$$
+
+Hace falta que $V$ sea invertible. Sobre el eje, $K \cdot \vec{n} = \vec{0}$ y $V \cdot \vec{n} = \vec{n}$. En el plano perpendicular, $K$ actúa como multiplicar por $i$ y $K^2$ como multiplicar por $-1$ (capítulo de rotaciones, punto 6), así que $V$ actúa como el número complejo
+
+$$
+\begin{aligned}
+\dfrac{\sin\theta}{\theta} + i \cdot \dfrac{1 - \cos\theta}{\theta} = \dfrac{e^{i \cdot \theta} - 1}{i \cdot \theta},
+\qquad
+\left|\dfrac{e^{i \cdot \theta} - 1}{i \cdot \theta}\right|^2 = \dfrac{2 \cdot (1 - \cos\theta)}{\theta^2}.
+\end{aligned}
+$$
+
+Por tanto, $\det V = \dfrac{2 \cdot (1 - \cos\theta)}{\theta^2}$, que no se anula para $0 < \theta \le \pi$. Con $\theta = 0$, $V = I$. En ambos casos $V$ es invertible, y $\vec{u} = V^{-1} \cdot \vec{v}$, $\vec{d} = V^{-1} \cdot (\vec{a} - b \cdot W \cdot \vec{u})$.
+
+5. El campo vectorial de cada generador y su cantidad conservada
+
+Por el capítulo de la exponencial, punto 2, $\dfrac{d}{ds} e^{s \cdot \Lambda} = \Lambda \cdot e^{s \cdot \Lambda}$: la familia $e^{s \cdot \Lambda}$ es el flujo del campo lineal que $\Lambda$ define sobre la columna $(\vec{x}, t, 1)$. Multiplicando:
+
+$$
+\begin{aligned}
+\dfrac{d\vec{x}}{ds} &= \vec{\omega} \times \vec{x} + \vec{u} \cdot t + \vec{d}, \\
+\dfrac{dt}{ds} &= \tau.
+\end{aligned}
+$$
+
+Es el generador infinitesimal de «Ideas para el desarrollo», punto 1, con las diez direcciones a la vez: $\vec{\xi} = \vec{\omega} \times \vec{x} + \vec{u} \cdot t + \vec{d}$ para cada partícula y $\xi^t = \tau$. La cantidad de Noether $Q = \sum_a \vec{p}_a \cdot \vec{\xi}_a - H \cdot \tau - F$ (punto 3 de ese capítulo), con $F = \sum_a m_a \cdot \vec{u} \cdot \vec{x}_a$ para el cambio de velocidad, es lineal en los diez coeficientes:
+
+$$
+\begin{aligned}
+Q = \vec{\omega} \cdot \vec{J} - \vec{u} \cdot \vec{G} + \vec{d} \cdot \vec{P} - \tau \cdot H.
+\end{aligned}
+$$
+
+Término a término:
+
+- $\sum_a \vec{p}_a \cdot (\vec{\omega} \times \vec{x}_a) = \vec{\omega} \cdot \sum_a \vec{x}_a \times \vec{p}_a = \vec{\omega} \cdot \vec{J}$, por la propiedad cíclica del producto mixto;
+- $\sum_a \vec{p}_a \cdot (\vec{u} \cdot t) - \sum_a m_a \cdot \vec{u} \cdot \vec{x}_a = -\vec{u} \cdot \left(\sum_a m_a \cdot \vec{x}_a - \vec{P} \cdot t\right) = -\vec{u} \cdot \vec{G}$;
+- $\sum_a \vec{p}_a \cdot \vec{d} = \vec{d} \cdot \vec{P}$.
+
+Aquí $\vec{G} = M \cdot \vec{X}_{\mathrm{cm}} - \vec{P} \cdot t$ es la cantidad del cambio de velocidad, no una matriz de Galileo. Como $Q$ se conserva para cualquier elección de los diez coeficientes, se conserva cada una de las diez cantidades por separado.
+
+6. Resumen
+
+| Generador | Familia $e^{s \cdot (\dots)}$ | Campo $(\vec{\xi},\ \xi^t)$ | Cantidad conservada |
+| --- | --- | --- | --- |
+| $\vec{n} \cdot \vec{\mathcal{J}}$ | $G(e^{s \cdot K}, \vec{0}, \vec{0}, 0)$ | $(\vec{n} \times \vec{x},\ 0)$ | $\vec{n} \cdot \vec{J}$ (momento angular) |
+| $\vec{e} \cdot \vec{\mathcal{K}}$ | $G(I, s \cdot \vec{e}, \vec{0}, 0)$ | $(\vec{e} \cdot t,\ 0)$ | $-\vec{e} \cdot \vec{G}$ (centro de masas) |
+| $\vec{e} \cdot \vec{\mathcal{P}}$ | $G(I, \vec{0}, s \cdot \vec{e}, 0)$ | $(\vec{e},\ 0)$ | $\vec{e} \cdot \vec{P}$ (momento lineal) |
+| $\mathcal{T}$ | $G(I, \vec{0}, \vec{0}, s)$ | $(\vec{0},\ 1)$ | $-H$ (energía) |
+
+Toda transformación de Galileo se obtiene como producto de estas familias (punto 3) o como una sola exponencial $e^{\Lambda}$ (punto 4). Cada generador define un campo vectorial en el espacio-tiempo (punto 5) y, por el teorema de Noether, una cantidad conservada.
