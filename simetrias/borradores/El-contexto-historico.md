@@ -1,4 +1,4 @@
-# El contexto histórico (versión completa)
+# El contexto histórico del teorema de Noether (versión completa)
 
 <!--
 Documento completo del contexto histórico del trabajo «La importancia de las simetrías en física».

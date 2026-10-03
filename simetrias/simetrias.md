@@ -62,6 +62,8 @@ El capítulo 2 sitúa el problema en la historia: cómo la mecánica pasó de fo
 
 El capítulo 5 recoge las conclusiones y la reflexión personal del grupo.
 
+Los desarrollos completos en que se apoyan el capítulo 2, los apartados 4.1 a 4.3 y el anexo A están en apuntes de uno de los autores [@calderon2026contexto; @calderon2026matematicas; @calderon2026fisica; @calderon2026fisicaejemplos; @calderon2026anexos]. Otros apuntes y cuadernos de cálculo simbólico sobre los mismos temas están en su repositorio [@calderon2026mcc].
+
 # Contexto y estado de la cuestión
 
 <!-- Qué se ha hecho en el ámbito del trabajo, con la bibliografía que lo respalda. Versión para el
@@ -75,13 +77,15 @@ El resultado general llegó a raíz de un problema concreto: la conservación de
 
 Noether trabajó en el problema entre 1915 y 1918. El resultado fue el artículo *Invariante Variationsprobleme*, que Klein presentó el 26 de julio de 1918 en la Sociedad de Ciencias de Gotinga [@noether1918]. Contiene dos teoremas. El primero, el que hoy se conoce como teorema de Noether, establece que en todo sistema cuyas ecuaciones se obtienen de un principio variacional, a cada simetría continua de la acción le corresponde una cantidad conservada:
 
-- la invariancia bajo traslaciones en el tiempo da la conservación de la energía;
-- bajo traslaciones en el espacio, la del momento lineal;
-- y bajo rotaciones, la del momento angular.
+* la invariancia bajo traslaciones en el tiempo da la conservación de la energía;
+* bajo traslaciones en el espacio, la del momento lineal;
+* y bajo rotaciones, la del momento angular.
 
 Relaciones que antes se conocían caso a caso pasaron a ser consecuencias de una sola regla. El segundo teorema trata las simetrías que dependen de funciones arbitrarias, como los cambios generales de coordenadas de la relatividad general. En ese caso no aparecen cantidades conservadas independientes, y eso explica la forma peculiar que toma la conservación de la energía en esa teoría, la que había señalado Hilbert.
 
 Einstein siguió estos trabajos desde Berlín. El 27 de diciembre de 1918, al recibir el artículo, escribió a Klein que volvía a sentir como una gran injusticia que a Noether se le negara la *venia legendi*, el permiso para enseñar en la universidad, y propuso dar un paso enérgico ante el ministerio [@einstein1998, documento 677]. La negativa se debía a que Noether era mujer. Las normas de las universidades prusianas no permitían habilitarse a las mujeres: su solicitud de 1915 fue rechazada, y durante esos años impartió cursos anunciados a nombre de Hilbert. Obtuvo la habilitación en 1919, cuando las normas cambiaron tras la caída del Imperio, pero nunca llegó a tener en Gotinga una plaza de catedrática. En 1933, las leyes del régimen nazi la expulsaron de la universidad por ser judía. Emigró a Estados Unidos, donde enseñó en el Bryn Mawr College, y murió allí en 1935 [@blanco2011]. El primer teorema, en su forma más sencilla, es el que se desarrolla en el capítulo 4 de este trabajo.
+
+Este capítulo resume una versión más extensa, que incluye además la teoría de invariantes del siglo XIX y el debate de 1918 sobre la energía del campo gravitatorio [@calderon2026contexto].
 
 # Objetivos
 
@@ -100,6 +104,8 @@ Einstein siguió estos trabajos desde Berlín. El 27 de diciembre de 1918, al re
 <!-- Desarrollo, contrastando las ideas de varios autores y, si es posible, con las propias. -->
 
 ## Formalismo lagrangiano
+
+Este apartado resume el desarrollo de @calderon2026fisica, para el lagrangiano, y de @calderon2026matematicas, para la acción y la ecuación de Euler–Lagrange.
 
 **Coordenadas generalizadas.** La configuración de un sistema mecánico se describe con un conjunto de coordenadas $q_1, \dots, q_n$, que pueden ser posiciones cartesianas, ángulos o distancias: son las coordenadas generalizadas. Sus derivadas respecto del tiempo, $\dot{q}_1, \dots, \dot{q}_n$, son las velocidades generalizadas. Para una partícula de masa $m$ en coordenadas cartesianas, $n = 3$, y las leyes de Newton dicen
 
@@ -236,7 +242,7 @@ En la segunda igualdad se usan la ecuación de Euler–Lagrange, $\dfrac{\partia
 
 * **Traslación horizontal:** $Q = p_x$. La coordenada cíclica es el caso particular en que $\xi_k = 1$ y las demás $\xi_i$ son nulas.
 * **Giro en el plano:** $Q = p_x \cdot (-y) + p_y \cdot x = m \cdot (x \cdot \dot{y} - y \cdot \dot{x}) = L_z$, la componente $z$ del momento angular. Es el mismo momento angular que se obtiene en coordenadas polares en el apartado 4.3.
-* **Varias partículas:** la traslación desplaza todas las partículas a la vez, con $\xi = 1$ en la coordenada $x$ de cada una, y lo que se conserva es la suma de sus momentos, la **cantidad de movimiento total**. Cada partícula solo conserva la suya si no interacciona con las demás.
+* **Varias partículas:** la traslación desplaza todas las partículas a la vez, con $\xi = 1$ en la coordenada $x$ de cada una, y lo que se conserva es la suma de sus momentos, la **cantidad de movimiento total**. Cada partícula solo conserva la suya si no interacciona con las demás [@calderon2026fisica].
 
 ### La energía y la traslación en el tiempo
 
@@ -346,7 +352,7 @@ $$
 
 que es la componente del momento angular perpendicular al plano, la misma que da el teorema de Noether para el giro (apartado 4.2). Tiene un significado geométrico: en un tiempo $dt$, el radio barre un triángulo de área $dA = \dfrac{1}{2} \cdot r^2 \cdot d\theta$, así que el área barrida por unidad de tiempo, $\dfrac{dA}{dt} = \dfrac{1}{2} \cdot r^2 \cdot \dot{\theta} = \dfrac{L_z}{2 \cdot m}$, es constante. Es la segunda ley de Kepler.
 
-**La simetría ayuda a resolver.** La ecuación de Euler–Lagrange para $r$ es
+**La simetría ayuda a resolver.** La reducción que sigue procede de @calderon2026fisicaejemplos. La ecuación de Euler–Lagrange para $r$ es
 
 $$
 \begin{aligned}
@@ -407,6 +413,8 @@ apartado 5. -->
 \appendix
 
 # Deducción de la ecuación de Euler–Lagrange
+
+La deducción sigue @calderon2026matematicas, y la demostración del lema fundamental, @calderon2026anexos.
 
 Consideramos una coordenada $q(t)$, dos veces derivable con continuidad en $[t_1, t_2]$ y con $q(t_1)$ y $q(t_2)$ fijados, y un lagrangiano $L(q, \dot{q}, t)$ con derivadas parciales segundas continuas. Para comparar con trayectorias próximas tomamos una función $h$, también dos veces derivable con continuidad, con $h(t_1) = h(t_2) = 0$, de modo que $q + \varepsilon \cdot h$ tiene los mismos extremos.
 
