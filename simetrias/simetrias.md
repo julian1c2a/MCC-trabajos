@@ -18,7 +18,7 @@ abstract: |
   English version of the Resumen (maximum 150 words).
 keywords: [keyword 1, keyword 2, keyword 3]
 indice-figuras: false
-indice-tablas: false
+indice-tablas: true
 ---
 
 <!--
@@ -29,283 +29,375 @@ y las referencias van en referencias.bib (APA 7). REGLAS.md, sección 8.
 
 # Introducción
 
-<!--
-Resumen esquemático de cada parte del trabajo, con abundantes referencias a los trabajos
-originales (no a libros de texto que los mencionan). Tres apartados, a modo de guía:
-motivación y justificación del tema, planteamiento del trabajo y estructura del trabajo.
--->
-
 ## Motivación y justificación
+
+Un experimento de laboratorio da el mismo resultado si se repite en otra ciudad, si se gira la mesa sobre la que está montado o si se repite al día siguiente. Esta regularidad es tan habitual que apenas se nota, pero expresa una propiedad profunda de las leyes físicas: no cambian al desplazar el sistema, al girarlo ni al retrasar el reloj. Se dice que esas transformaciones son **simetrías** de las leyes.
+
+Por otra parte, la mecánica conoce desde hace siglos tres magnitudes que se conservan en un sistema aislado: la energía, el momento lineal y el momento angular. La pregunta que guía este trabajo es por qué se conservan precisamente esas tres. La respuesta que construiremos es que cada una corresponde a una de las simetrías anteriores: la energía, a la traslación en el tiempo; el momento lineal, a la traslación en el espacio; y el momento angular, a los giros. Es el contenido del teorema que Emmy Noether publicó en 1918 [@noether1918].
+
+La relación entre simetría y conservación no es una curiosidad de la mecánica clásica. En mecánica cuántica se mantiene, y además la simetría determina la estructura de los estados posibles: por ejemplo, los números cuánticos $\ell$ y $m_\ell$, que clasifican los estados de un electrón en un átomo según su momento angular, proceden de la simetría de giro. Por eso es un tema central en la formación de quien estudia computación cuántica.
 
 ## Planteamiento del trabajo
 
-Lo primero es precisar qué decimos cuando hablamos de leyes de la física. La cuestión tiene una doble vertiente.
+Conviene fijar desde el principio el significado de las palabras que usaremos:
 
-1. **Qué asumimos al plantear una ley física.** Toda ley se formula respecto de un observador, y parte de su contenido es la afirmación de que otros observadores la escriben de la misma forma. En la relatividad de Galileo, el tiempo es el mismo para todos los observadores, lo que la distingue de la relatividad especial, y las coordenadas espaciales de dos observadores inerciales se relacionan mediante una transformación afín de $\mathbb{R}^3$: una rotación, un desplazamiento del origen y un movimiento relativo con velocidad constante. De ahí se obtienen las reglas de transformación de las posiciones, las velocidades, etc. Afirmar que las leyes son las mismas para todos esos observadores lleva implícito que son invariantes bajo traslaciones en el espacio, bajo rotaciones, bajo traslaciones en el tiempo (antes y después) y bajo el paso a otro observador con velocidad constante. Estas transformaciones forman un grupo de Lie de diez parámetros, el grupo de Galileo.
+* **Transformación:** un cambio en la descripción del sistema, como trasladarlo una distancia $a$ (cada posición $x$ pasa a ser $x + a$), girarlo un ángulo o retrasar el reloj un tiempo.
+* **Simetría:** una transformación que no cambia la ley que describe el sistema.
+* **Cantidad conservada:** una magnitud cuyo valor no cambia con el tiempo mientras el sistema evoluciona.
 
-   Todas ellas se reúnen en una sola matriz de entradas constantes si se trabaja en el espacio-tiempo y se añade una coordenada auxiliar igual a 1 (coordenadas homogéneas):
+Las simetrías pueden ser **continuas**, cuando se pueden aplicar en pasos tan pequeños como se quiera (una traslación de cualquier distancia, un giro de cualquier ángulo), o **discretas**, cuando no admiten pasos intermedios (una reflexión en un espejo). El teorema de Noether trata las continuas, y son las que estudia este trabajo.
 
-   $$
-   \begin{aligned}
-   \begin{pmatrix} \vec{x}' \\ t' \\ 1 \end{pmatrix}
-   = \begin{pmatrix} R & \vec{v} & \vec{a} \\ 0 & 1 & b \\ 0 & 0 & 1 \end{pmatrix}
-   \cdot \begin{pmatrix} \vec{x} \\ t \\ 1 \end{pmatrix},
-   \qquad \text{es decir,} \qquad
-   \vec{x}' = R \cdot \vec{x} + \vec{v} \cdot t + \vec{a}, \quad t' = t + b,
-   \end{aligned}
-   $$
+Tres ejemplos intuitivos muestran la idea. Si en el espacio vacío no hay ningún punto privilegiado, desplazar todo el sistema no cambia nada, y el momento lineal se conserva. Si tampoco hay ninguna dirección privilegiada, girarlo no cambia nada, y se conserva el momento angular. Y si las leyes son las mismas hoy que mañana, retrasar el reloj no cambia nada, y se conserva la energía. Una simetría también puede romperse: cerca de la superficie de la Tierra, la gravedad distingue la dirección vertical, y el momento lineal vertical de un objeto que cae no se conserva, aunque el horizontal sí. Veremos este ejemplo con detalle.
 
-   donde $R$ es una rotación, $\vec{v}$ la velocidad relativa, $\vec{a}$ el desplazamiento del origen y $b$ el cambio del origen de tiempos. El tiempo solo entra a través del término $\vec{v} \cdot t$, una traslación que crece uniformemente con $t$. Una rotación que dependiera del tiempo, $R(t)$, no cabe en esta forma: correspondería a un observador que gira, que no es inercial. Componer dos transformaciones es multiplicar sus matrices, e invertir una es invertir su matriz; por eso forman un grupo.
-
-   Escrita con todas sus componentes, con $\vec{x} = (x_1, x_2, x_3)$, $\vec{v} = (v_1, v_2, v_3)$, $\vec{a} = (a_1, a_2, a_3)$ y $R = (r_{ij})$, la matriz es:
-
-   $$
-   \begin{aligned}
-   \begin{pmatrix} x_1' \\ x_2' \\ x_3' \\ t' \\ 1 \end{pmatrix}
-   = \begin{pmatrix}
-   r_{11} & r_{12} & r_{13} & v_1 & a_1 \\
-   r_{21} & r_{22} & r_{23} & v_2 & a_2 \\
-   r_{31} & r_{32} & r_{33} & v_3 & a_3 \\
-   0 & 0 & 0 & 1 & b \\
-   0 & 0 & 0 & 0 & 1
-   \end{pmatrix}
-   \cdot \begin{pmatrix} x_1 \\ x_2 \\ x_3 \\ t \\ 1 \end{pmatrix}.
-   \end{aligned}
-   $$
-
-   El bloque $3 \times 3$ de arriba a la izquierda es la rotación; la cuarta columna contiene la velocidad relativa, y la quinta, los desplazamientos de los orígenes: $\vec{a}$ en las filas del espacio y $b$ en la del tiempo. Los parámetros se cuentan así:
-
-   * **Rotación: 3 parámetros.** $R$ tiene 9 entradas $r_{ij}$, pero no son independientes. La condición $R^{T} \cdot R = I$ exige que sus columnas tengan longitud 1 y sean perpendiculares entre sí; como $R^{T} \cdot R$ es una matriz simétrica, son 6 ecuaciones ($3$ en la diagonal y $3$ por encima de ella). Quedan $9 - 6 = 3$ parámetros libres. La condición $\det R = 1$ no quita ninguno más: solo excluye las reflexiones, que tienen $\det R = -1$. Esos tres parámetros pueden ser, por ejemplo, tres ángulos de giro. Así, el giro de ángulo $\theta$ alrededor del eje $x_3$ es
-     $$
-     \begin{aligned}
-     R_3(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix},
-     \end{aligned}
-     $$
-     y cualquier rotación se obtiene como producto de tres giros de este tipo alrededor de los ejes coordenados (ángulos de Euler).
-   * **Cambio de velocidad: 3 parámetros**, $v_1$, $v_2$ y $v_3$.
-   * **Traslación espacial: 3 parámetros**, $a_1$, $a_2$ y $a_3$.
-   * **Traslación temporal: 1 parámetro**, $b$.
-
-   En total, $3 + 3 + 3 + 1 = 10$ parámetros.
-
-2. **Cómo formularlo con generalidad.** Lo anterior orienta el camino, pero obliga a comprobar la invariancia ley por ley. Sea, por ejemplo, la ley de Hooke para un muelle, $\vec{F} = -k \cdot \vec{r}$, donde $k > 0$ es la constante elástica del muelle, $\vec{r}$ es la elongación (el desplazamiento del extremo del muelle respecto de su posición de equilibrio) y $\vec{F}$ es la fuerza recuperadora, dirigida en sentido contrario a la elongación. Consideremos dos observadores inerciales: uno con origen en el punto $\vec{0}$ de $\mathbb{R}^3$ y otro cuyo sistema de referencia está girado y desplazado respecto del primero y se mueve con velocidad constante $\vec{v}$. Sus coordenadas se relacionan por
-
-   $$
-   \begin{aligned}
-   \vec{x}' = R \cdot \vec{x} + \vec{v} \cdot t + \vec{a},
-   \end{aligned}
-   $$
-
-   donde $R$ es una matriz de rotación constante ($R^{T} \cdot R = I$ y $\det R = 1$) y $\vec{a}$ es el desplazamiento entre los orígenes.
-
-   * La elongación es una diferencia de dos posiciones (la del extremo del muelle y la de su posición de equilibrio), así que $\vec{v} \cdot t$ y $\vec{a}$ se cancelan: $\vec{r}' = R \cdot \vec{r}$.
-   * La fuerza es la masa por la aceleración, y la aceleración no cambia al añadir una velocidad constante: $\vec{F}' = R \cdot \vec{F}$.
-   * Multiplicando la ley de Hooke por $R$ se obtiene $\vec{F}' = R \cdot \vec{F} = -k \cdot R \cdot \vec{r} = -k \cdot \vec{r}'$. El segundo observador mide la misma ley, con la misma constante $k$: la ley de Hooke es invariante bajo el grupo de Galileo.
-   * Es esencial que $R$ no dependa del tiempo. Si el segundo sistema de referencia girase, con una matriz $R(t)$, no sería inercial y aparecerían fuerzas ficticias (centrífuga y de Coriolis), de modo que la ley no conservaría su forma.
-
-Pero este razonamiento hay que repetirlo para cada ley. ¿Se puede expresar con mayor generalidad? Aquí interviene el principio de Hamilton, o principio de acción estacionaria. El formalismo lagrangiano da una forma a la vez muy general y muy precisa de la idea de teoría física, y en él cabe toda la mecánica clásica. Para un sistema de $N$ partículas, la configuración se describe con $3 \cdot N$ coordenadas $q = (q_1, \dots, q_{3 \cdot N})$, y el sistema queda definido por una función, el lagrangiano $L(q, \dot{q}, t)$, que depende de las coordenadas, de las velocidades $\dot{q} = dq/dt$ y del tiempo. Las trayectorias candidatas son las funciones $q : [t_0, t_1] \to \mathbb{R}^{3 \cdot N}$ con segundas derivadas continuas y extremos fijos, $q(t_0) = q_{\mathrm{ini}}$ y $q(t_1) = q_{\mathrm{fin}}$. Sobre ellas se define el funcional de acción
-
-$$
-\begin{aligned}
-S[q] = \int_{t_0}^{t_1} L(q(t), \dot{q}(t), t)\,dt.
-\end{aligned}
-$$
-
-La trayectoria física es la que hace estacionaria la acción: $\delta S[q] = 0$ para toda variación $\eta$ con $\eta(t_0) = \eta(t_1) = 0$. Las trayectorias con extremos fijos no forman un espacio vectorial, pero las variaciones sí. Esta condición equivale a las ecuaciones de Euler-Lagrange de $L$, que son las leyes del movimiento del sistema.
-
-En este marco, la pregunta anterior tiene una respuesta general: que las leyes sean las mismas bajo un grupo de transformaciones equivale a que la acción sea invariante bajo ese grupo, salvo un término que es la derivada respecto del tiempo de una función. Esta condición ya no depende del problema particular, y el teorema de Noether asocia a cada simetría continua de la acción una cantidad conservada. Para una partícula libre de masa $m$, con $L = \dfrac{1}{2} \cdot m \cdot |\dot{\vec{x}}|^2$, la invariancia bajo traslaciones en el tiempo da la conservación de la energía; bajo traslaciones en el espacio, la del momento lineal $\vec{p} = m \cdot \dot{\vec{x}}$, y bajo rotaciones, la del momento angular. Bajo un cambio de velocidad, $\dot{\vec{x}} \to \dot{\vec{x}} + \vec{v}$, el lagrangiano cambia justamente en una derivada total,
-
-$$
-\begin{aligned}
-L' = \dfrac{1}{2} \cdot m \cdot |\dot{\vec{x}} + \vec{v}|^2 = L + \dfrac{d}{dt}\left( m \cdot \vec{v} \cdot \vec{x} + \dfrac{1}{2} \cdot m \cdot |\vec{v}|^2 \cdot t \right),
-\end{aligned}
-$$
-
-y la cantidad conservada es $m \cdot \vec{x} - \vec{p} \cdot t$, que expresa que el centro de masas se mueve con velocidad constante.
-
-Conviene precisar qué significa que la acción sea invariante, porque aquí intervienen dos variaciones distintas. La condición de estacionariedad, $\delta S = 0$, compara una trayectoria con las que se obtienen deformándola de cualquier manera sin mover sus extremos, y selecciona las trayectorias físicas. Una simetría, en cambio, no es una trayectoria, sino una familia continua de transformaciones $\Phi_\varepsilon$, que depende de un parámetro real $\varepsilon$ y se reduce a la identidad para $\varepsilon = 0$ (por ejemplo, las rotaciones de ángulo $\varepsilon$ alrededor de un eje fijo). Lo que se exige es que no cambie la acción de ninguna trayectoria, sea física o no: $S[\Phi_\varepsilon \circ q] = S[q]$ para toda trayectoria $q$, salvo quizá un término que solo depende de los extremos. De forma equivalente, el lagrangiano cambia como mucho en la derivada total de una función, $\delta L = \varepsilon \cdot \dfrac{dF}{dt}$. La simetría es, por tanto, una propiedad de la ley, es decir, del lagrangiano, y no de una solución particular. Una de sus consecuencias es que transforma soluciones en soluciones, que es la forma general de decir que otro observador ve la misma ley.
-
-El trabajo sigue este camino. Primero se describen las transformaciones continuas mediante los campos vectoriales que las generan y sus flujos. Después se enuncia y demuestra el primer teorema de Noether, que asocia a cada simetría continua de la acción una cantidad conservada, y se aplica al grupo de Galileo: sus diez generadores dan las diez cantidades conservadas de la mecánica clásica, que son la energía, el momento lineal, el momento angular y el movimiento uniforme del centro de masas. Por último, se indica cómo se extiende esta relación a los campos y a la relatividad especial, y cómo se traduce a la mecánica cuántica, donde una cantidad se conserva si su operador conmuta con el hamiltoniano.
+Para pasar de estas ideas a un resultado demostrable hace falta un lenguaje en el que «la ley no cambia» tenga un significado matemático preciso. Ese lenguaje es el formalismo lagrangiano: el sistema se describe con una función, el lagrangiano, y la ley no cambia bajo una transformación si el lagrangiano no cambia.
 
 ## Estructura del trabajo
 
+El capítulo 2 sitúa el problema en la historia: cómo la mecánica pasó de formularse con fuerzas (Newton) a formularse con una función y un principio variacional (Lagrange y Hamilton), y cómo Emmy Noether llegó a su teorema a partir del problema de la energía en la relatividad general. El capítulo 3 enumera los objetivos. El capítulo 4 desarrolla el trabajo:
+
+* el apartado 4.1 presenta el formalismo lagrangiano mínimo necesario, cuya deducción completa está en el anexo A;
+* el 4.2 define con precisión qué es una simetría y demuestra el teorema de Noether en su forma más sencilla;
+* el 4.3 obtiene las tres conservaciones en dos ejemplos resueltos, el tiro parabólico y la fuerza central;
+* los apartados 4.4 a 4.6 trasladan la misma idea a la mecánica cuántica, donde la simetría de giro de un potencial central da los números cuánticos del momento angular, y la extienden a simetrías que no actúan sobre el espacio ni el tiempo.
+
+El capítulo 5 recoge las conclusiones y la reflexión personal del grupo.
+
 # Contexto y estado de la cuestión
 
-<!-- Qué se ha hecho en el ámbito del trabajo, con la bibliografía que lo respalda. -->
+<!-- Qué se ha hecho en el ámbito del trabajo, con la bibliografía que lo respalda. Versión para el
+trabajo; la completa está en borradores/El-contexto-historico.md. -->
 
 ## Contexto histórico
 
-Entre finales de la década de 1860 y comienzos de la de 1870, se desarrolló un movimiento matemático trascendental protagonizado por **Felix Klein** (1849–1925) y **Sophus Lie** (1842–1899). Ambos coincidieron en Berlín en el invierno de 1869 a 1870 y en París en la primavera de 1870, y de esa colaboración salió un trabajo conjunto sobre las curvas planas que quedan invariantes bajo un sistema de transformaciones lineales [@kleinlie1871]. De ahí procede la idea de que la geometría debía definirse a través de las propiedades y magnitudes que permanecen invariantes bajo un determinado grupo de transformaciones. Esta visión la formuló Klein en solitario en 1872, en el escrito programático (*Programmschrift*) que, según la costumbre de las universidades alemanas, presentó a la facultad al incorporarse como catedrático a la Universidad de Erlangen, y que se conoce como el Programa de Erlangen [@klein1893]. No debe confundirse con la lección inaugural que Klein pronunció en esa misma ocasión, con la que a menudo se identifica [@rowe2025]. El programa ordenó las distintas geometrías de la época (euclídea, afín, proyectiva...) mediante sus grupos de transformaciones: cada geometría estudia lo que deja invariante su grupo, y cuanto mayor es el grupo, menos propiedades se conservan. Su influencia inmediata fue escasa; se difundió a partir de 1890, con sus reediciones y traducciones: al italiano en 1890, por Gino Fano, y al inglés en 1893, por Mellen W. Haskell [@kleinhaskell1893]. Rowe [-@rowe2025] ha publicado una nueva traducción inglesa, con comentario y análisis histórico. Hay que decir que Klein y Lie, a pesar de tener temperamentos muy diferentes, colaboraron estrechamente durante su juventud, desarrollando ideas conjuntas sobre curvas y transformaciones geométricas. Sin embargo, con los años sus caminos se bifurcaron: mientras Klein se orientó hacia una visión global, institucional y unificadora de las matemáticas, Lie se concentró en la profunda especialización analítica que dio origen a la teoría de los grupos continuos de transformaciones (hoy llamados grupos de Lie), con la que buscaba hacer para las ecuaciones diferenciales lo que la teoría de Galois había hecho para las ecuaciones algebraicas. La expuso con Friedrich Engel en *Theorie der Transformationsgruppen*, publicada en tres volúmenes entre 1888 y 1893 [@lieengel1893]. La relación entre ambos se rompió en 1892–1893 por disputas de prioridad: en el prólogo del tercer volumen, Lie afirmó públicamente que no era discípulo de Klein, lo que terminó por distanciar profesional y personalmente a ambos genios [@guijarro2007].
+Entre los siglos XVII y XIX, la mecánica cambió dos veces de lenguaje, y esos cambios son los que hicieron posible el teorema de Noether. @newton1687 la formuló a partir de las fuerzas: el movimiento de un cuerpo se deduce de las fuerzas que actúan sobre él. Un siglo después, @lagrange1788 la reformuló por completo a partir de la energía cinética y de una función de las fuerzas (la energía potencial), sin recurrir a construcciones geométricas. Sus ecuaciones valen en cualquier sistema de coordenadas, no solo en las cartesianas. En la década de 1830, Hamilton [-@hamilton1834; -@hamilton1835] dio a esta mecánica la forma de un principio variacional. Entre todas las trayectorias posibles con los mismos extremos, el sistema sigue aquella que hace estacionaria la acción: la integral en el tiempo de la diferencia entre la energía cinética y la potencial, lo que hoy llamamos el lagrangiano. Con este lenguaje, decir que una ley física no cambia bajo una transformación (desplazar el sistema, girarlo o retrasar el reloj) pasa a ser una afirmación precisa: la acción no cambia.
 
-Esta idea de invariancia llenaba el ambiente matemático, y en paralelo se desarrolló la teoría algebraica de invariantes: el estudio de las expresiones formadas con los coeficientes de una forma (un polinomio homogéneo) que no cambian, o que solo quedan multiplicadas por una potencia del determinante, al hacer un cambio lineal de variables. En Gran Bretaña la iniciaron Arthur Cayley [-@cayley1845] y James Joseph Sylvester en la década de 1840, y el irlandés George Salmon [-@salmon1859] la sistematizó en sus libros de texto. La llamada «trinidad invariante» no incluye a Salmon: Sylvester dio ese nombre al grupo que formaba con Cayley y el francés Charles Hermite [@parshall2024]. En Alemania, la escuela principal, paralela y coetánea a la británica, fue la de **Alfred Clebsch** (1833–1872) y **Paul Gordan** (1837–1912), que desarrollaron el método simbólico para calcular invariantes [@clebsch1872]. Gordan y **Max Noether** (1844–1921) enseñaron en Erlangen, por lo que a veces se habla de una escuela de invariantes de Erlangen, que no debe confundirse con el Programa de Erlangen de Klein (Clebsch, por su parte, nunca estuvo en Erlangen: trabajó en Karlsruhe, Giessen y Gotinga). El problema central de la teoría era de finitud: demostrar que todos los invariantes de una forma se obtienen como polinomios de un número finito de ellos. El enfoque tradicional era un trabajo minucioso y descomunal de cálculo, en el que cada caso concreto (formas de un grado y un número de variables dados) debía estudiarse por separado, calculando explícitamente sus invariantes; así demostró Gordan [-@gordan1868] la finitud para las formas binarias (de dos variables) de cualquier grado. Con un enfoque mucho más novedoso, **David Hilbert** (1862–1943) resolvió el problema para cualquier número de variables con su **Teorema de la Base** (1888, publicado en 1890): todo ideal de un anillo de polinomios en un número finito de variables sobre un cuerpo es finitamente generado [@hilbert1890]. Pero su demostración era de existencia: probaba que hay una base finita de invariantes sin dar un método para construirla, y por eso Gordan llegó a calificarla de teología. Tras estudiarla, según Almira Picazo y Sabina de Lis [-@almira2007, pp. 44–45], exclamó: «¡Esto no son matemáticas: es teología!» [véanse también @derksen2002, p. 49; @weyl1944]. En 1893 Hilbert publicó una demostración más constructiva [@hilbert1893]. Gordan acabó cambiando de opinión: afirmó haberse convencido de que «incluso la teología tiene sus méritos» [@klein1979, p. 311] y en 1899 publicó una versión simplificada de la demostración de Hilbert [@gordan1899]. El resultado no hizo innecesario el cálculo explícito de invariantes, pero, al resolver con carácter general el problema de la finitud, prácticamente cerró la teoría de invariantes y le quitó durante un tiempo su interés a este campo matemático.
+El resultado general llegó a raíz de un problema concreto: la conservación de la energía en la relatividad general. Las leyes de conservación guiaron a Einstein durante toda la búsqueda de las ecuaciones del campo gravitatorio. En 1913, con Marcel Grossmann, descartó unas ecuaciones construidas a partir del tensor de Ricci porque creyó que no las cumplían [@einsteingrossmann1913]. En noviembre de 1915 volvió a unas ecuaciones de ese tipo [@einstein1915] y escribió a Arnold Sommerfeld que el error había sido precisamente creer que las leyes de conservación no se cumplían [@einstein1998, documento 153; @pitts2016]. Pero en la nueva teoría la energía se comportaba de forma extraña: la del campo gravitatorio dependía del sistema de coordenadas y no podía asignarse a cada punto del espacio. En Gotinga, David Hilbert, que en noviembre de 1915 había presentado su propia formulación variacional de la gravitación [@hilbert1915], llegó a la conclusión de que en la teoría no había teoremas de energía «propios» [@klein1918a]. Para estudiar el problema, Hilbert y Felix Klein invitaron a Gotinga ese mismo año a Emmy Noether (1882–1935), la mayor experta de la época en teoría de invariantes, en la que se había doctorado en 1907 [@noether1908]. Einstein, por su parte, mostró en 1918 que la energía total de un sistema aislado sí está bien definida y se conserva, aunque no pueda repartirse punto a punto [@einstein1918].
 
-<!-- Pendiente: Almira y Sabina (2007) narran el episodio en las pp. 40–52; como la frase de Gordan es una cita textual en español, APA exige la página exacta en que aparece: [@almira2007, p. N]. Las frases que traducimos del inglés (Derksen y Kemper; Klein) cuentan en APA como paráfrasis, y ya llevan su página. Estado: hecho (la cita empieza al final de la p. 44 y termina al comienzo de la p. 45; se cita literalmente). -->
+Noether trabajó en el problema entre 1915 y 1918. El resultado fue el artículo *Invariante Variationsprobleme*, que Klein presentó el 26 de julio de 1918 en la Sociedad de Ciencias de Gotinga [@noether1918]. Contiene dos teoremas. El primero, el que hoy se conoce como teorema de Noether, establece que en todo sistema cuyas ecuaciones se obtienen de un principio variacional, a cada simetría continua de la acción le corresponde una cantidad conservada:
 
-<!-- Pendiente: (para la IA) Falta describir el contexto en que Einstein se dio cuenta que en el marco de la teoría de la relatividad general parecía no conservarse la energía en un entorno local y aislado (cerrado). Estado: hecho. -->
+- la invariancia bajo traslaciones en el tiempo da la conservación de la energía;
+- bajo traslaciones en el espacio, la del momento lineal;
+- y bajo rotaciones, la del momento angular.
 
-La fusión definitiva entre esta potente álgebra de invariantes y la geometría de las transformaciones no tardaría en revolucionar la física. A principios del siglo XX, la física teórica se encontraba en plena ebullición con el desarrollo de la Teoría de la Relatividad General de Albert Einstein. Fue en ese escenario donde las simetrías continuas —aquellas transformaciones suaves y fluidas descritas originalmente por los grupos de Lie, como las rotaciones en el espacio o el avance del tiempo— revelaron su verdadero poder.
+Relaciones que antes se conocían caso a caso pasaron a ser consecuencias de una sola regla. El segundo teorema trata las simetrías que dependen de funciones arbitrarias, como los cambios generales de coordenadas de la relatividad general. En ese caso no aparecen cantidades conservadas independientes, y eso explica la forma peculiar que toma la conservación de la energía en esa teoría, la que había señalado Hilbert.
 
-La conservación de la energía y del momento acompañó a Einstein durante toda la búsqueda de las ecuaciones del campo gravitatorio. En 1912 y 1913, en Zúrich, Einstein y Marcel Grossmann estudiaron ecuaciones construidas a partir del tensor de Ricci, pero las descartaron porque creyeron que no eran compatibles con esas leyes de conservación ni con el límite newtoniano. Publicaron en su lugar la teoría del *Entwurf* («borrador»), cuyas ecuaciones no eran generalmente covariantes, es decir, no conservaban su forma bajo cualquier cambio de coordenadas [@einsteingrossmann1913]. En noviembre de 1915 Einstein volvió a unas ecuaciones generalmente covariantes [@einstein1915], y el 28 de noviembre escribió a Arnold Sommerfeld que el error había sido precisamente creer que las leyes de conservación no se cumplían [@einstein1998, documento 153; @pitts2016].
-
-En la nueva teoría, la conservación toma una forma distinta de la habitual. Si $T^{\mu\nu}$ es el tensor de energía-momento de la materia, las ecuaciones de campo implican que su divergencia covariante es nula:
-
-$$
-\begin{aligned}
-\nabla_\mu T^{\mu\nu} = \partial_\mu T^{\mu\nu} + \Gamma^{\mu}_{\mu\lambda} \cdot T^{\lambda\nu} + \Gamma^{\nu}_{\mu\lambda} \cdot T^{\mu\lambda} = 0.
-\end{aligned}
-$$
-
-Aquí $\partial_\mu$ es la derivada parcial respecto de la coordenada $x^\mu$, se suma sobre los índices repetidos y los símbolos de Christoffel $\Gamma^{\alpha}_{\beta\gamma}$ describen el campo gravitatorio. Los términos con $\Gamma$ representan el intercambio de energía y momento entre la materia y el campo, de modo que la energía de la materia sola no se conserva. En su exposición de 1916, Einstein introdujo unas cantidades $t_\mu^{\ \sigma}$ para la energía y el momento del propio campo gravitatorio, con las que la suma cumple una ley de conservación ordinaria, en coordenadas con $\sqrt{-g} = 1$ [@einstein1916]:
-
-$$
-\begin{aligned}
-\partial_\sigma \left( T_\mu^{\ \sigma} + t_\mu^{\ \sigma} \right) = 0.
-\end{aligned}
-$$
-
-Pero $t_\mu^{\ \sigma}$ no es un tensor, sino un pseudotensor: sus valores dependen del sistema de coordenadas y, de acuerdo con el principio de equivalencia, pueden anularse en cualquier punto eligiendo las coordenadas adecuadas. Por eso la energía del campo gravitatorio no puede localizarse, es decir, asignarse a cada punto del espacio.
-
-En Gotinga, David Hilbert, que en noviembre de 1915 había presentado una formulación variacional de la gravitación, contemporánea de las ecuaciones de campo de Einstein [@hilbert1915], llegó a la conclusión de que en la nueva teoría no había teoremas de energía «propios»: la energía no parecía conservarse de la manera local y matemática tradicional [@klein1918a]. Para estudiar este problema, David Hilbert y Felix Klein invitaron a Gotinga en 1915 a la mayor experta en álgebra de invariantes de la época: Emmy Noether (1882–1935), hija de Max Noether y discípula directa de Paul Gordan. Noether había hecho en 1907 su tesis doctoral sobre invariantes calculados a mano, un trabajo ingente: un sistema completo de 331 covariantes de la forma ternaria de cuarto grado [@noether1908]. Trabajó en el problema de la energía entre 1915 y 1918, y el resultado fue el artículo *Invariante Variationsprobleme*, que Klein presentó el 26 de julio de 1918 en la Sociedad de Ciencias de Gotinga [@noether1918]. El artículo contiene dos teoremas. El primero es el que hoy se conoce como Teorema de Noether, una de las piedras angulares de la física moderna: en todo sistema cuyas ecuaciones se obtienen de un principio variacional, a cada simetría continua de la acción (un grupo de Lie de transformaciones) le corresponde una ley de conservación. Así, la invariancia bajo traslaciones en el tiempo implica la conservación de la energía; bajo traslaciones en el espacio, la del momento lineal, y bajo rotaciones, la del momento angular. El segundo teorema trata las simetrías que dependen de funciones arbitrarias, como los cambios generales de coordenadas de la relatividad general: en ese caso no aparecen cantidades conservadas independientes, sino identidades entre las ecuaciones del movimiento. Es este segundo teorema el que explica la forma peculiar que toma la conservación de la energía en la relatividad general, la que había señalado Hilbert. El trabajo de Noether reunió así las dos líneas anteriores: los grupos continuos de Lie y los métodos de la teoría de invariantes.
-
-Mientras tanto, la naturaleza de la energía gravitatoria se discutía abiertamente. Schrödinger [-@schrodinger1918] mostró que, en coordenadas adecuadas, todas las componentes del pseudotensor de Einstein se anulan fuera de una masa con simetría esférica, y Bauer [-@bauer1918] mostró que no se anulan en el espacio-tiempo plano si se usan coordenadas no cartesianas. Einstein respondió en mayo de 1918 con *Der Energiesatz in der allgemeinen Relativitätstheorie* [@einstein1918]. Para un sistema cerrado, con la materia en una región finita y el espacio-tiempo plano lejos de ella, las integrales en todo el espacio de las componentes temporales de $T + t$ no varían con el tiempo ni dependen del sistema de coordenadas, siempre que este se reduzca lejos del sistema al de la relatividad especial. La energía total de un sistema aislado está, por tanto, bien definida y se conserva, aunque no pueda asignarse a cada punto. En Gotinga, Klein analizó la forma diferencial y la forma integral de estas leyes de conservación, con la ayuda de Noether [@klein1918b; @klein1918c; @rowe2019].
-
-Einstein, que seguía estos trabajos desde Berlín, dejó constancia de su aprecio por ellos en dos cartas [@einstein1998; @tollmien2018]. El 24 de mayo de 1918, al recibir un artículo anterior de Noether sobre la construcción de invariantes [@noether1918a], escribió a Hilbert: «me impresiona que se puedan abarcar estas cosas desde un punto de vista tan general» [@einstein1998, documento 548]. El 27 de diciembre de 1918, al recibir *Invariante Variationsprobleme*, escribió a Klein que volvía a sentir como una gran injusticia que a Noether se le negara la *venia legendi*, el permiso para enseñar en la universidad, y propuso dar un paso enérgico ante el ministerio [@einstein1998, documento 677]. Noether obtuvo la habilitación en 1919.
+Einstein siguió estos trabajos desde Berlín. El 27 de diciembre de 1918, al recibir el artículo, escribió a Klein que volvía a sentir como una gran injusticia que a Noether se le negara la *venia legendi*, el permiso para enseñar en la universidad, y propuso dar un paso enérgico ante el ministerio [@einstein1998, documento 677]. La negativa se debía a que Noether era mujer. Las normas de las universidades prusianas no permitían habilitarse a las mujeres: su solicitud de 1915 fue rechazada, y durante esos años impartió cursos anunciados a nombre de Hilbert. Obtuvo la habilitación en 1919, cuando las normas cambiaron tras la caída del Imperio, pero nunca llegó a tener en Gotinga una plaza de catedrática. En 1933, las leyes del régimen nazi la expulsaron de la universidad por ser judía. Emigró a Estados Unidos, donde enseñó en el Bryn Mawr College, y murió allí en 1935 [@blanco2011]. El primer teorema, en su forma más sencilla, es el que se desarrolla en el capítulo 4 de este trabajo.
 
 # Objetivos
 
-<!-- Objetivos del trabajo, esquematizados y ordenados. -->
+**Objetivo general:** mostrar cómo las simetrías de un sistema físico están relacionadas con sus leyes de conservación, y cómo esa relación sigue siendo fundamental en mecánica cuántica.
+
+**Objetivos específicos:**
+
+1. Presentar el formalismo lagrangiano mínimo necesario para formular con precisión qué es una simetría (apartado 4.1 y anexo A).
+2. Enunciar y demostrar el teorema de Noether en su forma más sencilla, y obtener de él la conservación del momento lineal, del momento angular y de la energía (apartado 4.2).
+3. Comprobar las tres conservaciones en dos ejemplos resueltos, el tiro parabólico y la fuerza central, y mostrar que una simetría no solo dice qué se conserva, sino que también ayuda a resolver el problema (apartado 4.3).
+4. Mostrar cómo se expresa la misma idea en mecánica cuántica, donde una transformación es una simetría si conmuta con el hamiltoniano (apartado 4.4).
+5. Relacionar la simetría de giro de un potencial central con los números cuánticos $\ell$ y $m_\ell$ del momento angular (apartado 4.5).
 
 # Desarrollo del trabajo
 
 <!-- Desarrollo, contrastando las ideas de varios autores y, si es posible, con las propias. -->
 
-## Transformaciones continuas, campos vectoriales y flujos
+## Formalismo lagrangiano
 
-<!-- Familias uniparamétricas Φ_ε (Φ_0 = identidad, Φ_ε ∘ Φ_δ = Φ_{ε+δ}); generador infinitesimal ξ = dΦ_ε/dε en ε = 0; el flujo como solución de dΦ_ε/dε = ξ(Φ_ε); tabla de los generadores del grupo de Galileo. Ideas en BORRADOR.md. -->
-
-## Rotaciones en el espacio
-
-<!-- Pendiente de reubicar en «Simetrías y conservación en mecánica clásica» cuando el grupo acuerde la estructura (comunicaciones/salientes/propuesta_3). Procede de BORRADOR.md, capítulo de rotaciones, puntos 1, 2, 3 y 5. -->
-
-La invariancia bajo rotaciones, que el teorema de Noether asocia a la conservación del momento angular, exige describir las rotaciones con precisión. En este apartado se construye la matriz de una rotación cualquiera y se obtiene su forma infinitesimal, que es la que interviene en el teorema.
-
-### Rotaciones alrededor de los ejes coordenados
-
-Una rotación de ángulo $\theta$ alrededor del eje $z$, en sentido antihorario vista desde el semieje $z$ positivo, deja fija la coordenada $z$ y gira el plano $xy$. Las rotaciones alrededor de los tres ejes son:
+**Coordenadas generalizadas.** La configuración de un sistema mecánico se describe con un conjunto de coordenadas $q_1, \dots, q_n$, que pueden ser posiciones cartesianas, ángulos o distancias: son las coordenadas generalizadas. Sus derivadas respecto del tiempo, $\dot{q}_1, \dots, \dot{q}_n$, son las velocidades generalizadas. Para una partícula de masa $m$ en coordenadas cartesianas, $n = 3$, y las leyes de Newton dicen
 
 $$
 \begin{aligned}
-R_x(\theta) &= \begin{pmatrix} 1 & 0 & 0 \\ 0 & \cos\theta & -\sin\theta \\ 0 & \sin\theta & \cos\theta \end{pmatrix},
-\qquad
-R_y(\theta) = \begin{pmatrix} \cos\theta & 0 & \sin\theta \\ 0 & 1 & 0 \\ -\sin\theta & 0 & \cos\theta \end{pmatrix}, \\
-R_z(\theta) &= \begin{pmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}.
+p_i = m \cdot \dot{q}_i, \qquad \dfrac{dp_i}{dt} = F_i, \qquad i = 1, 2, 3.
 \end{aligned}
 $$
 
-$R_x$ gira el plano $yz$, de $y$ hacia $z$, y $R_y$ gira el plano $zx$, de $z$ hacia $x$. En $R_y$ el seno negativo aparece en la tercera fila porque el orden cíclico de los ejes es $x \to y \to z \to x$: en el plano $zx$ la primera coordenada es $z$.
-
-Cada una de estas matrices cumple $R^T \cdot R = I$, es decir, conserva longitudes y ángulos. Para $R_z$, el bloque $xy$ del producto es
+**El lagrangiano, a partir de Newton.** Supongamos que la fuerza deriva de una energía potencial, $F_i = -\dfrac{\partial V}{\partial q_i}$. Buscamos una función $L(q, \dot{q}, t)$ de las coordenadas, las velocidades y el tiempo cuyas derivadas sean la cantidad de movimiento y la fuerza:
 
 $$
 \begin{aligned}
-\begin{pmatrix} \cos\theta & \sin\theta \\ -\sin\theta & \cos\theta \end{pmatrix} \cdot \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}
-&= \begin{pmatrix} \cos^2\theta + \sin^2\theta & 0 \\ 0 & \sin^2\theta + \cos^2\theta \end{pmatrix} \\
-&= \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix},
+\dfrac{\partial L}{\partial \dot{q}_i} = m \cdot \dot{q}_i = p_i, \qquad \dfrac{\partial L}{\partial q_i} = -\dfrac{\partial V}{\partial q_i} = F_i.
 \end{aligned}
 $$
 
-porque los términos fuera de la diagonal, $-\cos\theta \cdot \sin\theta + \sin\theta \cdot \cos\theta$, se anulan. El elemento $(3,3)$ vale $1$. Además, $\det R_z(\theta) = \cos^2\theta + \sin^2\theta = 1$. Las otras dos matrices se comprueban del mismo modo.
-
-### Composición de rotaciones
-
-Aplicar a un vector $\vec{v}$ primero la rotación $R_1$ y después $R_2$ da $R_2 \cdot (R_1 \cdot \vec{v}) = (R_2 \cdot R_1) \cdot \vec{v}$. La composición de rotaciones es, por tanto, el producto de sus matrices, con la primera a la derecha. La suma de rotaciones no es una rotación: con ángulos nulos, $R_x(0) + R_y(0) + R_z(0) = 3 \cdot I$, que multiplica todas las longitudes por $3$.
-
-El orden del producto importa. Con giros de $90^\circ$:
+La primera condición obliga a que $L$ sea $\dfrac{1}{2} \cdot m \cdot (\dot{q}_1^2 + \dot{q}_2^2 + \dot{q}_3^2)$ más una función que no depende de las velocidades, y la segunda, a que esa función sea $-V$, salvo un término que solo depende de $t$; ese término no depende de las coordenadas ni de las velocidades, así que no interviene en lo que sigue y lo omitimos. Queda la energía cinética menos la potencial:
 
 $$
 \begin{aligned}
-R_x(\pi/2) \cdot R_y(\pi/2) = \begin{pmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{pmatrix},
-\qquad
-R_y(\pi/2) \cdot R_x(\pi/2) = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & -1 \\ -1 & 0 & 0 \end{pmatrix}.
+L(q, \dot{q}, t) = T - V = \dfrac{1}{2} \cdot m \cdot \left(\dot{q}_1^2 + \dot{q}_2^2 + \dot{q}_3^2\right) - V(q_1, q_2, q_3).
 \end{aligned}
 $$
 
-La primera lleva el vector $\vec{e}_z = (0, 0, 1)$ a $(1, 0, 0)$, y la segunda, a $(0, -1, 0)$. Para describir una rotación cualquiera con tres ángulos hay que fijar, por tanto, un orden. Aquí se gira primero un ángulo $\gamma$ alrededor de $x$, después $\beta$ alrededor de $y$ y por último $\alpha$ alrededor de $z$, siempre respecto de los ejes fijos.
-
-### La matriz de una rotación cualquiera
-
-Con las abreviaturas $c_\alpha = \cos\alpha$ y $s_\alpha = \sin\alpha$ (y lo mismo para $\beta$ y $\gamma$), el producto $R(\alpha, \beta, \gamma) = R_z(\alpha) \cdot R_y(\beta) \cdot R_x(\gamma)$ tiene por columnas
+Con estas dos derivadas, la segunda ley de Newton, $\dfrac{dp_i}{dt} = F_i$, se escribe
 
 $$
 \begin{aligned}
-\vec{c}_1 &= \begin{pmatrix} c_\alpha \cdot c_\beta \\ s_\alpha \cdot c_\beta \\ -s_\beta \end{pmatrix},
-\qquad
-\vec{c}_2 = \begin{pmatrix} c_\alpha \cdot s_\beta \cdot s_\gamma - s_\alpha \cdot c_\gamma \\ s_\alpha \cdot s_\beta \cdot s_\gamma + c_\alpha \cdot c_\gamma \\ c_\beta \cdot s_\gamma \end{pmatrix}, \\
-\vec{c}_3 &= \begin{pmatrix} c_\alpha \cdot s_\beta \cdot c_\gamma + s_\alpha \cdot s_\gamma \\ s_\alpha \cdot s_\beta \cdot c_\gamma - c_\alpha \cdot s_\gamma \\ c_\beta \cdot c_\gamma \end{pmatrix}.
+\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_i}\right) - \dfrac{\partial L}{\partial q_i} = 0, \qquad i = 1, \dots, n,
 \end{aligned}
 $$
 
-Esta matriz cumple $R^T \cdot R = I$ sin necesidad de desarrollar los productos. Como la transpuesta de un producto es el producto de las transpuestas en orden inverso, $(A \cdot B)^T = B^T \cdot A^T$:
+que es la ecuación de Euler–Lagrange. Otros lagrangianos dan las mismas ecuaciones, por ejemplo $2 \cdot L$; lo que fija este es la primera condición.
+
+**Ejemplo: el tiro parabólico.** Para una partícula en el plano vertical, con $x$ horizontal y $z$ vertical, $L = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{z}^2) - m \cdot g \cdot z$. Las ecuaciones de Euler–Lagrange dan $m \cdot \ddot{x} = 0$ y $m \cdot \ddot{z} = -m \cdot g$: movimiento uniforme en horizontal y uniformemente acelerado en vertical.
+
+**Funcionales y puntos estacionarios.** Una función ordinaria asigna un número a cada número; un funcional asigna un número a cada función. En el cálculo de una variable, $f'(x_0) = 0$ significa que, al desplazarse una cantidad pequeña $\varepsilon$ desde $x_0$, la función solo cambia a segundo orden en $\varepsilon$; el punto se llama estacionario y no tiene por qué ser un mínimo: puede ser un máximo o un punto de inflexión. El cálculo de variaciones traslada esta idea a los funcionales.
+
+**La acción y el principio de Hamilton.** A cada trayectoria posible $q(t)$ entre los instantes $t_1$ y $t_2$, con las posiciones inicial y final fijadas, se le asocia un número, la acción:
 
 $$
 \begin{aligned}
-R^T \cdot R &= R_x^T \cdot R_y^T \cdot \left(R_z^T \cdot R_z\right) \cdot R_y \cdot R_x \\
-&= R_x^T \cdot \left(R_y^T \cdot R_y\right) \cdot R_x = R_x^T \cdot R_x = I,
+S[q] = \int_{t_1}^{t_2} L(q, \dot{q}, t) \,dt.
 \end{aligned}
 $$
 
-donde en cada paso el paréntesis central se ha sustituido por $I$. Del mismo modo, $\det R = \det R_z \cdot \det R_y \cdot \det R_x = 1$.
-
-### Rotaciones infinitesimales
-
-Una rotación próxima a la identidad se escribe $R = I + A$, donde las entradas de $A$ son de primer orden en los ángulos de giro. Sustituyendo en $R^T \cdot R = I$:
+El principio de Hamilton afirma que la trayectoria real hace **estacionaria** la acción: si se compara con una trayectoria próxima, $q + \varepsilon \cdot h$, con $h(t_1) = h(t_2) = 0$, la acción solo cambia a segundo orden en $\varepsilon$. Dicho de otro modo, su variación primera, el análogo de $f'(x_0)$,
 
 $$
 \begin{aligned}
-(I + A^T) \cdot (I + A) = I + A^T + A + A^T \cdot A = I.
+\delta S := \lim_{\varepsilon \to 0} \dfrac{S[q + \varepsilon \cdot h] - S[q]}{\varepsilon},
 \end{aligned}
 $$
 
-El término $A^T \cdot A$ es de segundo orden y se desprecia, de modo que a primer orden $A^T = -A$: la matriz $A$ es antisimétrica. Su diagonal es nula y sus entradas opuestas tienen signos contrarios, así que tiene tres entradas independientes, $a$, $b$ y $c$:
+es nula para toda $h$. Esta condición equivale a la ecuación de Euler–Lagrange; la deducción está en el anexo A. Como en el cálculo de una variable, estacionaria no significa mínima.
+
+**Varias coordenadas y cambio de coordenadas.** Con $n$ coordenadas generalizadas hay una ecuación de Euler–Lagrange para cada una. Además, la ecuación tiene la misma forma en cualquier sistema de coordenadas: basta escribir $L$ en las nuevas coordenadas. La razón es que el principio de Hamilton no depende de cómo se describa la trayectoria: su acción es el mismo número en cartesianas que en polares. Por ejemplo, en coordenadas polares del plano, $T = \dfrac{1}{2} \cdot m \cdot (\dot{r}^2 + r^2 \cdot \dot{\theta}^2)$.
+
+**El momento conjugado.** A cada coordenada generalizada se le asocia su momento conjugado, $p_i := \dfrac{\partial L}{\partial \dot{q}_i}$. En cartesianas es la cantidad de movimiento, $m \cdot \dot{q}_i$; para el ángulo de las coordenadas polares es $p_\theta = m \cdot r^2 \cdot \dot{\theta}$, la componente $L_z$ del momento angular. Con esta notación, la ecuación de Euler–Lagrange se escribe $\dot{p}_i = \dfrac{\partial L}{\partial q_i}$, que es la forma que usa el teorema de Noether.
+
+## Simetrías y teorema de Noether
+
+Con el lenguaje del apartado anterior se puede expresar con precisión qué es una simetría y demostrar que cada simetría continua lleva asociada una cantidad conservada.
+
+### La coordenada cíclica
+
+Una coordenada $q_k$ que no aparece en el lagrangiano se llama **cíclica**. Para ella, $\dfrac{\partial L}{\partial q_k} = 0$, y la ecuación de Euler–Lagrange queda
 
 $$
 \begin{aligned}
-A = \begin{pmatrix} 0 & -c & b \\ c & 0 & -a \\ -b & a & 0 \end{pmatrix}.
+\dfrac{dp_k}{dt} = \dfrac{\partial L}{\partial q_k} = 0:
 \end{aligned}
 $$
 
-Aplicada a un vector $\vec{v}$, con $\vec{\omega} = (a, b, c)$, esta matriz da un producto vectorial:
+su momento conjugado se conserva. En el tiro parabólico, $L = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{z}^2) - m \cdot g \cdot z$ no contiene $x$, así que se conserva $p_x = m \cdot \dot{x}$. Que $x$ no aparezca en $L$ significa que desplazar todo el sistema en horizontal no cambia el lagrangiano: es la forma más sencilla de la relación entre simetría y conservación.
+
+Pero que una coordenada sea cíclica depende de las coordenadas elegidas. En la fuerza central, con una energía potencial $V\left(\sqrt{x^2 + y^2}\right)$, ninguna coordenada cartesiana es cíclica; en coordenadas polares, en cambio, el ángulo $\theta$ sí lo es (apartado 4.3). Hace falta una formulación que no dependa de esa elección, y es la que da el teorema de Noether.
+
+### Simetrías continuas y transformaciones infinitesimales
+
+Una transformación continua depende de un parámetro real $\varepsilon$ (una distancia, un ángulo) y se reduce a la identidad para $\varepsilon = 0$. Para $\varepsilon$ pequeño, a primer orden, se escribe
 
 $$
 \begin{aligned}
-A \cdot \vec{v} &= (b \cdot v_3 - c \cdot v_2,\ c \cdot v_1 - a \cdot v_3,\ a \cdot v_2 - b \cdot v_1) = \vec{\omega} \times \vec{v}, \\
-R \cdot \vec{v} &\approx \vec{v} + \vec{\omega} \times \vec{v}.
+q_i \to q_i + \varepsilon \cdot \xi_i(q),
 \end{aligned}
 $$
 
-La rotación infinitesimal desplaza cada vector en $\delta\vec{v} = \vec{\omega} \times \vec{v}$, perpendicular al eje $\vec{\omega}$ y al propio vector. El vector $\vec{\omega}$ reúne el eje de giro (su dirección) y el ángulo (su módulo). Por ejemplo, desarrollando $R_z(\varepsilon)$ con $\cos\varepsilon \approx 1$ y $\sin\varepsilon \approx \varepsilon$, se obtiene $A$ con $a = b = 0$ y $c = \varepsilon$: $\vec{\omega} = (0, 0, \varepsilon)$, un giro de ángulo $\varepsilon$ alrededor del eje $z$. Esta es la forma de la rotación que usa el teorema de Noether para obtener la conservación del momento angular.
+donde las funciones $\xi_i(q)$ indican cómo se mueve cada coordenada. Las velocidades cambian entonces en $\varepsilon \cdot \dot{\xi}_i$, con $\dot{\xi}_i := \dfrac{d}{dt}\Big(\xi_i\big(q(t)\big)\Big)$. Decimos que la transformación es una **simetría** si deja el lagrangiano igual a primer orden en $\varepsilon$:
 
-A primer orden, además, dos rotaciones infinitesimales conmutan: en el producto $(I + A_1) \cdot (I + A_2) = I + A_1 + A_2 + A_1 \cdot A_2$, el término que depende del orden, $A_1 \cdot A_2$, es de segundo orden. Las rotaciones finitas, en cambio, no conmutan, como se ha visto.
+$$
+\begin{aligned}
+\delta L := L(q + \varepsilon \cdot \xi, \dot{q} + \varepsilon \cdot \dot{\xi}, t) - L(q, \dot{q}, t) = O(\varepsilon^2)
+\end{aligned}
+$$
 
-## Simetrías de la acción y primer teorema de Noether
+para cualquier trayectoria, sea o no la real. La simetría es, por tanto, una propiedad del lagrangiano, es decir, de la ley, y no de una solución particular. Dos ejemplos:
 
-<!-- Definición: S[Φ_ε ∘ q] = S[q] salvo términos de frontera, δL = ε·dF/dt. Diferencia con δS = 0. Enunciado y demostración: Q = Σ p_i·ξ_i − H·τ − F se conserva sobre las soluciones. -->
+* **Traslación horizontal** en el tiro parabólico: $x \to x + \varepsilon$, es decir, $\xi_x = 1$ y $\xi_z = 0$. Como $L$ no depende de $x$, $\delta L = 0$. La traslación vertical, $z \to z + \varepsilon$, no es una simetría: $\delta L = -m \cdot g \cdot \varepsilon$, porque la gravedad distingue unas alturas de otras.
+* **Giro de ángulo $\varepsilon$ en el plano** $xy$: $x \to x \cdot \cos\varepsilon - y \cdot \sin\varepsilon$ e $y \to x \cdot \sin\varepsilon + y \cdot \cos\varepsilon$. Con $\cos\varepsilon \approx 1$ y $\sin\varepsilon \approx \varepsilon$, queda $x \to x - \varepsilon \cdot y$ e $y \to y + \varepsilon \cdot x$, es decir, $\xi_x = -y$ y $\xi_y = x$. Para $L = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{y}^2) - V\left(\sqrt{x^2 + y^2}\right)$, la energía cinética cambia en
+  $$
+  \begin{aligned}
+  (\dot{x} - \varepsilon \cdot \dot{y})^2 + (\dot{y} + \varepsilon \cdot \dot{x})^2 - (\dot{x}^2 + \dot{y}^2) = -2 \cdot \varepsilon \cdot \dot{x} \cdot \dot{y} + 2 \cdot \varepsilon \cdot \dot{y} \cdot \dot{x} + O(\varepsilon^2) = O(\varepsilon^2),
+  \end{aligned}
+  $$
+  multiplicado por $\dfrac{1}{2} \cdot m$, y la distancia al origen no cambia a primer orden por la misma cuenta, con $x$ e $y$ en lugar de $\dot{x}$ e $\dot{y}$. Así que $\delta L = O(\varepsilon^2)$: el giro es una simetría cuando la energía potencial solo depende de la distancia al origen.
 
-## El grupo de Galileo y sus diez cantidades conservadas
+### El teorema de Noether
 
-<!-- Para L = Σ ½·m_a·|ẋ_a|² − V: condición sobre V de cada simetría y cantidad asociada (energía, P, J, G = M·X_cm − P·t). Ejemplo computacional: cuadernos/tema1/noether_galileo.py (repositorio público MCC). -->
+**Teorema.** Si la transformación $q_i \to q_i + \varepsilon \cdot \xi_i(q)$ es una simetría del lagrangiano, la cantidad
 
-## Extensión a campos y a la relatividad especial
+$$
+\begin{aligned}
+Q = \sum_i p_i \cdot \xi_i, \qquad p_i = \dfrac{\partial L}{\partial \dot{q}_i},
+\end{aligned}
+$$
 
-<!-- Opcional: grupo de Poincaré (también 10 parámetros) y tensor de energía-momento; el segundo teorema de Noether y la relatividad general, enlazando con el contexto histórico. -->
+se conserva a lo largo de las trayectorias reales.
 
-## Simetrías en mecánica cuántica
+**Demostración.** Por el desarrollo de Taylor, el término de orden $\varepsilon$ de $\delta L$ es $\varepsilon \cdot \sum_i \left(\dfrac{\partial L}{\partial q_i} \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i\right)$. Si la transformación es una simetría, ese término es nulo, así que
 
-<!-- Opcional: una simetría es un operador unitario; su generador es un observable Q̂; se conserva si y solo si [Ĥ, Q̂] = 0. Ejemplos: momento lineal y traslaciones, momento angular y rotaciones. -->
+$$
+\begin{aligned}
+0 &= \sum_i \left(\dfrac{\partial L}{\partial q_i} \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i\right) \\
+&= \sum_i \left(\dot{p}_i \cdot \xi_i + p_i \cdot \dot{\xi}_i\right) \\
+&= \dfrac{d}{dt}\left(\sum_i p_i \cdot \xi_i\right).
+\end{aligned}
+$$
+
+En la segunda igualdad se usan la ecuación de Euler–Lagrange, $\dfrac{\partial L}{\partial q_i} = \dot{p}_i$, que se cumple en las trayectorias reales, y la definición de $p_i$; en la tercera, la regla de derivación del producto. $\blacksquare$
+
+**Aplicaciones:**
+
+* **Traslación horizontal:** $Q = p_x$. La coordenada cíclica es el caso particular en que $\xi_k = 1$ y las demás $\xi_i$ son nulas.
+* **Giro en el plano:** $Q = p_x \cdot (-y) + p_y \cdot x = m \cdot (x \cdot \dot{y} - y \cdot \dot{x}) = L_z$, la componente $z$ del momento angular. Es el mismo momento angular que se obtiene en coordenadas polares en el apartado 4.3.
+* **Varias partículas:** la traslación desplaza todas las partículas a la vez, con $\xi = 1$ en la coordenada $x$ de cada una, y lo que se conserva es la suma de sus momentos, la **cantidad de movimiento total**. Cada partícula solo conserva la suya si no interacciona con las demás.
+
+### La energía y la traslación en el tiempo
+
+La traslación en el tiempo, $t \to t + \varepsilon$, no mueve las coordenadas sino el instante, y se trata aparte. Se define el **hamiltoniano**
+
+$$
+\begin{aligned}
+H := \sum_i p_i \cdot \dot{q}_i - L.
+\end{aligned}
+$$
+
+Derivando a lo largo de una trayectoria real, por la regla de la cadena,
+
+$$
+\begin{aligned}
+\dfrac{dH}{dt} &= \sum_i \left(\dot{p}_i \cdot \dot{q}_i + p_i \cdot \ddot{q}_i\right) - \sum_i \left(\dfrac{\partial L}{\partial q_i} \cdot \dot{q}_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \ddot{q}_i\right) - \dfrac{\partial L}{\partial t} \\
+&= -\dfrac{\partial L}{\partial t}.
+\end{aligned}
+$$
+
+Los términos con $\ddot{q}_i$ se cancelan porque $p_i = \dfrac{\partial L}{\partial \dot{q}_i}$, y los términos con $\dot{q}_i$, porque $\dot{p}_i = \dfrac{\partial L}{\partial q_i}$ (Euler–Lagrange). Por tanto, si $L$ no depende explícitamente del tiempo, es decir, si las leyes son las mismas hoy que mañana, **$H$ se conserva**.
+
+En los dos ejemplos del trabajo, $H$ es la energía. Cada término de la energía cinética es cuadrático en una velocidad, como $\dfrac{1}{2} \cdot m \cdot \dot{x}^2$ o $\dfrac{1}{2} \cdot m \cdot r^2 \cdot \dot{\theta}^2$, y al multiplicar su derivada por la velocidad se obtiene el doble del término: $\dot{x} \cdot (m \cdot \dot{x}) = 2 \cdot \dfrac{1}{2} \cdot m \cdot \dot{x}^2$. Como $V$ no depende de las velocidades, $\sum_i p_i \cdot \dot{q}_i = 2 \cdot T$, y
+
+$$
+\begin{aligned}
+H = 2 \cdot T - (T - V) = T + V = E.
+\end{aligned}
+$$
+
+### Resumen
+
+| Simetría de la ley | Transformación | Cantidad conservada |
+| --- | --- | --- |
+| Traslación en el espacio | $x \to x + \varepsilon$ | Cantidad de movimiento (total), $p_x$ |
+| Giro | giro de ángulo $\varepsilon$ alrededor de un eje | Momento angular, $L_z$ |
+| Traslación en el tiempo | $t \to t + \varepsilon$ | Energía, $H = T + V$ |
+
+Table: Simetrías de la ley y cantidades conservadas.
+
+## Las tres conservaciones en dos ejemplos
+
+Los dos ejemplos de este apartado muestran el teorema de Noether en casos concretos y las dos cosas que aporta una simetría: saber qué se conserva y ayudar a resolver el problema. Los dos proceden del tema 1 de la asignatura: el tiro parabólico es el lagrangiano de su ejercicio 1 antes de imponer la ligadura del plano inclinado, y la fuerza central es su ejercicio 2.
+
+### El tiro parabólico
+
+Una partícula de masa $m$ se mueve en un plano vertical, con $x$ horizontal y $z$ vertical, sometida a la gravedad $g$. Su lagrangiano es
+
+$$
+\begin{aligned}
+L = T - V = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{z}^2) - m \cdot g \cdot z.
+\end{aligned}
+$$
+
+**Dirección horizontal: una simetría que se cumple.** $x$ no aparece en $L$: es cíclica, y desplazar todo el sistema en horizontal es una simetría. Su ecuación de Euler–Lagrange da $\dfrac{d}{dt}(m \cdot \dot{x}) = 0$, así que se conserva $p_x = m \cdot \dot{x}$, y el movimiento horizontal es uniforme: $x(t) = x_0 + v_x \cdot t$.
+
+**Dirección vertical: una simetría rota.** $z$ sí aparece en $L$, en la energía potencial, y $\dfrac{\partial L}{\partial z} = -m \cdot g$. La ecuación de Euler–Lagrange da
+
+$$
+\begin{aligned}
+\dfrac{dp_z}{dt} = -m \cdot g,
+\end{aligned}
+$$
+
+así que $p_z = m \cdot \dot{z}$ cambia con el tiempo, y $z(t) = z_0 + v_z \cdot t - \dfrac{1}{2} \cdot g \cdot t^2$. La gravedad distingue unas alturas de otras: la traslación vertical no es una simetría, y la cantidad de movimiento vertical no se conserva.
+
+**Energía.** $L$ no depende explícitamente del tiempo, así que se conserva $H = T + V = E$ (apartado 4.2). Se comprueba con la solución, usando $\dot{z} = v_z - g \cdot t$:
+
+$$
+\begin{aligned}
+E &= \dfrac{1}{2} \cdot m \cdot \left(v_x^2 + (v_z - g \cdot t)^2\right) + m \cdot g \cdot \left(z_0 + v_z \cdot t - \dfrac{1}{2} \cdot g \cdot t^2\right) \\
+&= \dfrac{1}{2} \cdot m \cdot (v_x^2 + v_z^2) + m \cdot g \cdot z_0.
+\end{aligned}
+$$
+
+Los términos $-m \cdot g \cdot v_z \cdot t$ y $\dfrac{1}{2} \cdot m \cdot g^2 \cdot t^2$ de la energía cinética se cancelan con los de la potencial, y el resultado no depende de $t$.
+
+**Qué muestra el ejemplo:** una coordenada que no aparece en el lagrangiano da una cantidad conservada, y una que sí aparece, no. Simetría y conservación van juntas, y también su ruptura.
+
+### La fuerza central
+
+Una partícula de masa $m$ está sometida a una fuerza dirigida hacia un centro fijo, con una energía potencial $V(r)$ que solo depende de la distancia $r$ al centro, como la gravitatoria o la eléctrica.
+
+**Por qué basta el plano.** El momento angular $\vec{L} = \vec{r} \times \vec{p}$ cumple
+
+$$
+\begin{aligned}
+\dfrac{d\vec{L}}{dt} = \dot{\vec{r}} \times \vec{p} + \vec{r} \times \dot{\vec{p}} = \vec{0} + \vec{r} \times \vec{F} = \vec{0}.
+\end{aligned}
+$$
+
+El primer término es nulo porque $\vec{p} = m \cdot \dot{\vec{r}}$ es paralelo a $\dot{\vec{r}}$, y el segundo, porque la fuerza central es paralela a $\vec{r}$. Así que $\vec{L}$ es constante; la posición $\vec{r}$ es siempre perpendicular a ese vector fijo, y el movimiento ocurre en un plano. En ese plano usamos coordenadas polares $(r, \theta)$, en las que $\dot{x}^2 + \dot{y}^2 = \dot{r}^2 + r^2 \cdot \dot{\theta}^2$:
+
+$$
+\begin{aligned}
+L = \dfrac{1}{2} \cdot m \cdot (\dot{r}^2 + r^2 \cdot \dot{\theta}^2) - V(r).
+\end{aligned}
+$$
+
+**El momento angular.** $\theta$ no aparece en $L$: es cíclica, y girar el sistema alrededor del centro es una simetría. Se conserva su momento conjugado,
+
+$$
+\begin{aligned}
+p_\theta = \dfrac{\partial L}{\partial \dot{\theta}} = m \cdot r^2 \cdot \dot{\theta} = L_z,
+\end{aligned}
+$$
+
+que es la componente del momento angular perpendicular al plano, la misma que da el teorema de Noether para el giro (apartado 4.2). Tiene un significado geométrico: en un tiempo $dt$, el radio barre un triángulo de área $dA = \dfrac{1}{2} \cdot r^2 \cdot d\theta$, así que el área barrida por unidad de tiempo, $\dfrac{dA}{dt} = \dfrac{1}{2} \cdot r^2 \cdot \dot{\theta} = \dfrac{L_z}{2 \cdot m}$, es constante. Es la segunda ley de Kepler.
+
+**La simetría ayuda a resolver.** La ecuación de Euler–Lagrange para $r$ es
+
+$$
+\begin{aligned}
+m \cdot \ddot{r} - m \cdot r \cdot \dot{\theta}^2 + \dfrac{dV}{dr} = 0.
+\end{aligned}
+$$
+
+Sustituyendo $\dot{\theta} = \dfrac{L_z}{m \cdot r^2}$, el término $m \cdot r \cdot \dot{\theta}^2 = \dfrac{L_z^2}{m \cdot r^3}$ es la derivada de $-\dfrac{L_z^2}{2 \cdot m \cdot r^2}$ respecto de $r$, y desaparece $\theta$:
+
+$$
+\begin{aligned}
+m \cdot \ddot{r} = -\dfrac{dV_{\mathrm{ef}}}{dr}, \qquad V_{\mathrm{ef}}(r) := V(r) + \dfrac{L_z^2}{2 \cdot m \cdot r^2}.
+\end{aligned}
+$$
+
+Es el movimiento de una partícula en una sola dimensión, con un potencial efectivo. El segundo término, la barrera centrífuga, impide que la partícula llegue al centro si $L_z \neq 0$. La energía también se conserva, porque $L$ no depende de $t$, y queda $E = \dfrac{1}{2} \cdot m \cdot \dot{r}^2 + V_{\mathrm{ef}}(r)$: un problema de dos coordenadas se ha reducido a uno de una. La distancia $r$ solo puede tomar los valores en los que $V_{\mathrm{ef}}(r) \leq E$.
+
+**Qué muestra el ejemplo:** la simetría no solo dice qué se conserva, también simplifica el problema. Y la elección de coordenadas importa: en cartesianas, ninguna coordenada es cíclica; en polares, la simetría aparece como una coordenada cíclica.
+
+### Lo que hereda la parte cuántica
+
+Los dos ejemplos preparan la parte cuántica del trabajo, para que las dos no queden como explicaciones separadas:
+
+| De la parte clásica | Lo que reaparece en cuántica |
+| --- | --- |
+| La idea «simetría, cantidad conservada» | La misma idea, con operadores |
+| El momento $p_x$, conservado cuando $x$ es cíclica | El operador $\hat{p} = -i \cdot \hbar \cdot \dfrac{d}{dx}$ y la partícula libre |
+| La energía $H$ | El hamiltoniano $\hat{H}$ y la ecuación de Schrödinger |
+| La fuerza central: $L_z$ conservado y reducción a una dimensión | El potencial central: $\hat{L}^2$, $\hat{L}_z$ y los números cuánticos $\ell$ y $m_\ell$ |
+
+Table: Correspondencia entre la parte clásica y la parte cuántica.
+
+## De la mecánica clásica a la cuántica
+
+<!-- Pareja 2 (4 páginas). Guion: comunicaciones/salientes/documento_general_trabajo.md, apartado 4.4.
+Texto de partida: comunicaciones/salientes/4.3 Simetrías en mecánica cuántica-JCA-18-5929-09-2026.md. -->
+
+## Potencial central, momento angular y números cuánticos
+
+<!-- Pareja 2 (3 páginas). Guion: documento_general_trabajo.md, apartado 4.5. Continúa la fuerza
+central del apartado anterior. -->
+
+## Extensión: simetrías más allá del espacio y el tiempo
+
+<!-- Pareja 2 (1 página). Guion: documento_general_trabajo.md, apartado 4.6. -->
 
 # Conclusiones
 
-<!-- Claras; si es posible, un párrafo por idea con un pequeño título ilustrativo. -->
+<!-- Los cuatro (2 páginas). Recuperar la pregunta inicial y responderla: las leyes de conservación son
+consecuencias de las simetrías. Reflexión personal obligatoria. Guion: documento_general_trabajo.md,
+apartado 5. -->
 
 # Bibliografía {-}
 
@@ -314,6 +406,91 @@ A primer orden, además, dos rotaciones infinitesimales conmutan: en el producto
 
 \appendix
 
-# Apéndices
+# Deducción de la ecuación de Euler–Lagrange
 
-<!-- Desarrollos largos que no encajan en el cuerpo. Si no hay apéndices, se borran esta sección y la línea \appendix. -->
+Consideramos una coordenada $q(t)$, dos veces derivable con continuidad en $[t_1, t_2]$ y con $q(t_1)$ y $q(t_2)$ fijados, y un lagrangiano $L(q, \dot{q}, t)$ con derivadas parciales segundas continuas. Para comparar con trayectorias próximas tomamos una función $h$, también dos veces derivable con continuidad, con $h(t_1) = h(t_2) = 0$, de modo que $q + \varepsilon \cdot h$ tiene los mismos extremos.
+
+**1. La variación primera.** Por el desarrollo de Taylor de $L$ en sus dos primeros argumentos, con $t$ fijo,
+
+$$
+\begin{aligned}
+L(q + \varepsilon \cdot h, \dot{q} + \varepsilon \cdot \dot{h}, t) - L(q, \dot{q}, t) = \varepsilon \cdot \left(\dfrac{\partial L}{\partial q} \cdot h + \dfrac{\partial L}{\partial \dot{q}} \cdot \dot{h}\right) + O(\varepsilon^2),
+\end{aligned}
+$$
+
+con las derivadas de $L$ evaluadas en $(q(t), \dot{q}(t), t)$. Integramos entre $t_1$ y $t_2$, dividimos por $\varepsilon$ y hacemos $\varepsilon \to 0$. El resto, dividido por $\varepsilon$, tiende a $0$ en todo el intervalo a la vez, porque las derivadas segundas de $L$ son continuas en un conjunto cerrado y acotado. Queda
+
+$$
+\begin{aligned}
+\delta S = \int_{t_1}^{t_2} \left(\dfrac{\partial L}{\partial q} \cdot h + \dfrac{\partial L}{\partial \dot{q}} \cdot \dot{h}\right) dt.
+\end{aligned}
+$$
+
+**2. La integración por partes.** El segundo término se integra por partes:
+
+$$
+\begin{aligned}
+\int_{t_1}^{t_2} \dfrac{\partial L}{\partial \dot{q}} \cdot \dot{h} \,dt = \left[\dfrac{\partial L}{\partial \dot{q}} \cdot h\right]_{t_1}^{t_2} - \int_{t_1}^{t_2} \dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}}\right) \cdot h \,dt.
+\end{aligned}
+$$
+
+El término de contorno es nulo, porque $h(t_1) = h(t_2) = 0$. Queda
+
+$$
+\begin{aligned}
+\delta S = \int_{t_1}^{t_2} \varphi(t) \cdot h(t) \,dt, \qquad \varphi := \dfrac{\partial L}{\partial q} - \dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}}\right).
+\end{aligned}
+$$
+
+**3. El lema fundamental del cálculo de variaciones.**
+
+**Lema.** Sea $\varphi: [t_1, t_2] \to \mathbb{R}$ una función continua tal que $\int_{t_1}^{t_2} \varphi(t) \cdot h(t) \,dt = 0$ para toda función $h$ dos veces derivable con continuidad con $h(t_1) = h(t_2) = 0$. Entonces $\varphi(t) = 0$ para todo $t \in [t_1, t_2]$.
+
+**Demostración.** Por reducción al absurdo. Supongamos que existe un punto $t_0 \in (t_1, t_2)$ con $\varphi(t_0) \neq 0$. Podemos suponer que $\varphi(t_0) > 0$: si fuera negativo, el mismo razonamiento se aplica a $-\varphi$, que cumple la misma hipótesis.
+
+1. **Un intervalo donde $\varphi$ es positiva.** Como $\varphi$ es continua en $t_0$, existe $\eta > 0$ tal que $\varphi(t) > \dfrac{\varphi(t_0)}{2} > 0$ siempre que $|t - t_0| < \eta$. Elegimos $\alpha$ y $\beta$ con $\max(t_1, t_0 - \eta) < \alpha < t_0 < \beta < \min(t_2, t_0 + \eta)$. Así, $[\alpha, \beta] \subset (t_1, t_2)$ y $\varphi(t) > 0$ en todo $[\alpha, \beta]$.
+
+2. **Una función $h$ que solo es distinta de cero en $(\alpha, \beta)$.** Definimos
+
+   $$
+   \begin{aligned}
+   h(t) := \begin{cases} (t - \alpha)^3 \cdot (\beta - t)^3 & \text{si } \alpha \leq t \leq \beta, \\ 0 & \text{en otro caso.} \end{cases}
+   \end{aligned}
+   $$
+
+3. **$h$ es admisible.** Como $t_1 < \alpha$ y $\beta < t_2$, se cumple $h(t_1) = h(t_2) = 0$. Falta ver que $h$ es dos veces derivable con continuidad. Dentro de $(\alpha, \beta)$, $h$ es un polinomio, y fuera de $[\alpha, \beta]$ es la función nula, así que solo hay que comprobar los puntos $\alpha$ y $\beta$. A la derecha de $\alpha$ escribimos $h(t) = (t - \alpha)^3 \cdot \rho(t)$, con $\rho(t) := (\beta - t)^3$, y derivamos:
+
+   $$
+   \begin{aligned}
+   h'(t) &= 3 \cdot (t - \alpha)^2 \cdot \rho(t) + (t - \alpha)^3 \cdot \rho'(t), \\
+   h''(t) &= 6 \cdot (t - \alpha) \cdot \rho(t) + 6 \cdot (t - \alpha)^2 \cdot \rho'(t) + (t - \alpha)^3 \cdot \rho''(t).
+   \end{aligned}
+   $$
+
+   A la izquierda de $\alpha$, $h$, $h'$ y $h''$ son nulas. Por la derecha, los cocientes $\dfrac{h(t) - h(\alpha)}{t - \alpha} = (t - \alpha)^2 \cdot \rho(t)$ y $\dfrac{h'(t) - 0}{t - \alpha} = 3 \cdot (t - \alpha) \cdot \rho(t) + (t - \alpha)^2 \cdot \rho'(t)$ tienden a $0$, así que $h'(\alpha) = 0$ y $h''(\alpha) = 0$. Además, $h''(t) \to 0$ cuando $t \to \alpha$ por la derecha, porque cada término contiene el factor $(t - \alpha)$. Por tanto, $h''$ es continua en $\alpha$. En $\beta$ se razona igual, con el factor $(\beta - t)^3$ y $\sigma(t) := (t - \alpha)^3$. Por eso el exponente es $3$: con exponente $2$, $h''$ saltaría en $\alpha$ de $0$ a $2 \cdot (\beta - \alpha)^3$.
+
+4. **La contradicción.** En $(\alpha, \beta)$ son positivas tanto $\varphi$ como $h$, porque $t - \alpha > 0$ y $\beta - t > 0$. Fuera de $[\alpha, \beta]$, $h = 0$. Por tanto,
+
+   $$
+   \begin{aligned}
+   \int_{t_1}^{t_2} \varphi(t) \cdot h(t) \,dt = \int_\alpha^\beta \varphi(t) \cdot h(t) \,dt > 0,
+   \end{aligned}
+   $$
+
+   porque es la integral de una función continua y positiva en $(\alpha, \beta)$. Esto contradice la hipótesis, así que $\varphi(t_0) = 0$ para todo $t_0 \in (t_1, t_2)$.
+
+5. **Los extremos.** Por la continuidad de $\varphi$, $\varphi(t_1) = \lim_{t \to t_1^+} \varphi(t) = 0$ y $\varphi(t_2) = \lim_{t \to t_2^-} \varphi(t) = 0$. $\blacksquare$
+
+**4. La conclusión.** Como $\delta S = 0$ para toda $h$, el lema da $\varphi = 0$, que es la ecuación de Euler–Lagrange:
+
+$$
+\begin{aligned}
+\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}}\right) - \dfrac{\partial L}{\partial q} = 0.
+\end{aligned}
+$$
+
+Recíprocamente, si se cumple la ecuación, $\varphi = 0$ y $\delta S = 0$ para toda $h$.
+
+**Varias coordenadas.** Con $n$ coordenadas se toma una función $h_i$ para cada una. Variando una sola coordenada cada vez, es decir, con todas las $h_j$ nulas salvo $h_i$, el mismo razonamiento da una ecuación de Euler–Lagrange para cada $q_i$.
+
+<!-- Anexos de la pareja 2, si los hay (por ejemplo, la deducción de d<A>/dt). Máximo de 3 páginas para todos los anexos. -->
