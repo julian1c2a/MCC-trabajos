@@ -1,6 +1,6 @@
 Empezaré a dar ideas sueltas sobre este primer trabajo. El trabajo se titulará «Las simetrías en la física».
 
-PLATEANDO EL PROBLEMA
+PLANTEANDO EL PROBLEMA
 
 Lo primero es saber que decimos cuando hablamos de leyes de la física.
 Tenemos una doble vertiente:
@@ -45,13 +45,13 @@ Generadores del grupo de Galileo, para partículas en posiciones $\vec{x}_a$:
 
 Son 1 + 3 + 3 + 3 = 10 generadores independientes, tantos como parámetros del grupo.
 
-2. Qué es una simetría y en qué se distingue de la estacionariedad
+1. Qué es una simetría y en qué se distingue de la estacionariedad
 
 - Estacionariedad ($\delta S = 0$): se varía la trayectoria de cualquier manera sin mover sus extremos y se busca la trayectoria cuya acción no cambia en primer orden. Selecciona las soluciones.
 - Simetría: se fija una transformación $\Phi_\varepsilon$ y se exige que no cambie la acción de ninguna trayectoria, física o no, $S[\Phi_\varepsilon \circ q] = S[q]$ para toda $q$, salvo un término de frontera. Equivale a $\delta L = \varepsilon \cdot \dfrac{dF}{dt}$.
 - La simetría la tiene la transformación (su campo $\xi$), no una trayectoria, y es una propiedad del lagrangiano, es decir, de la ley. Transforma soluciones en soluciones.
 
-3. Primer teorema de Noether en mecánica: la cuenta
+1. Primer teorema de Noether en mecánica: la cuenta
 
 Sea $q_i \to q_i + \varepsilon \cdot \xi_i(q, t)$ con $\delta L = \varepsilon \cdot \dfrac{dF}{dt}$. Por la regla de la cadena,
 
@@ -73,7 +73,7 @@ $$
 
 Si la transformación mueve también el tiempo ($t \to t + \varepsilon \cdot \tau$), aparece un término más: $Q = \sum_i p_i \cdot \xi_i - H \cdot \tau - F$, con $H$ el hamiltoniano. De ahí sale que $H$ se conserva cuando $L$ no depende explícitamente del tiempo (Tema 1, sección 7).
 
-4. Aplicación al grupo de Galileo
+1. Aplicación al grupo de Galileo
 
 Para $N$ partículas con $L = \sum_a \dfrac{1}{2} \cdot m_a \cdot |\dot{\vec{x}}_a|^2 - V$, cada simetría impone una condición sobre $V$ (la física del problema):
 
@@ -86,11 +86,10 @@ Para $N$ partículas con $L = \sum_a \dfrac{1}{2} \cdot m_a \cdot |\dot{\vec{x}}
 
 El grupo de Galileo tiene 10 parámetros: 1 desplazamiento en el tiempo, 3 desplazamientos en el espacio (uno por coordenada), 3 componentes de la velocidad relativa y 3 ángulos de rotación (alrededor de los ejes $x$, $y$ y $z$). Cada parámetro es una simetría independiente y da una cantidad conservada: la energía $E$ (1), las 3 componentes del momento lineal $\vec{P}$, las 3 de $\vec{G}$ y las 3 del momento angular $\vec{J}$. En total, $1 + 3 + 3 + 3 = 10$ cantidades conservadas. Comprobado con SymPy para tres partículas en cuadernos/tema1/noether_galileo.py (16 comprobaciones: invariancia de L bajo cada generador, cantidades de Noether y su conservación sobre las soluciones).
 
-5. Posibles extensiones (opcionales)
+1. Posibles extensiones (opcionales)
 
 - Campos y relatividad especial: grupo de Poincaré (también 10 parámetros) y tensor de energía-momento; segundo teorema de Noether y relatividad general, enlazando con el contexto histórico.
 - Mecánica cuántica (la asignatura es Fundamentos de Mecánica Cuántica): una simetría es un operador unitario; su generador es un observable $\hat{Q}$; se conserva si y solo si $[\hat{H}, \hat{Q}] = 0$. Ejemplos: momento lineal y traslaciones, momento angular y rotaciones.
-
 
 ROTACIONES EN TRES DIMENSIONES (26-09-2026)
 
@@ -124,7 +123,7 @@ $$
 
 y el elemento $(3,3)$ vale $1$. Las otras dos se comprueban igual. Además, $\det R_z(\theta) = \cos^2\theta + \sin^2\theta = 1$, y lo mismo para $R_x$ y $R_y$.
 
-2. Las rotaciones se componen multiplicando, no sumando
+1. Las rotaciones se componen multiplicando, no sumando
 
 Aplicar primero $R_x$ y después $R_y$ a un vector $\vec{v}$ da $R_y \cdot (R_x \cdot \vec{v}) = (R_y \cdot R_x) \cdot \vec{v}$: la composición es el producto de matrices, con la primera rotación a la derecha. La suma no es una rotación. Por ejemplo, con los tres ángulos nulos cada matriz es la identidad, y
 
@@ -150,7 +149,7 @@ $$
 
 La primera lleva el vector $\vec{e}_z = (0, 0, 1)$ a $(1, 0, 0)$, y la segunda a $(0, -1, 0)$. Por eso, para describir una rotación cualquiera con tres ángulos, hay que fijar un orden. Aquí se usa: primero el ángulo $\gamma$ alrededor de $x$, después $\beta$ alrededor de $y$ y por último $\alpha$ alrededor de $z$, todos respecto de los ejes fijos. Hay otros convenios (los ángulos de Euler clásicos usan $z$, $x$, $z$), y todos usan tres ángulos.
 
-3. La matriz de una rotación cualquiera
+1. La matriz de una rotación cualquiera
 
 $$
 \begin{aligned}
@@ -175,7 +174,7 @@ $$
 
 donde en cada paso se ha sustituido el paréntesis central por $I$. Del mismo modo, $\det R = \det R_z \cdot \det R_y \cdot \det R_x = 1$.
 
-4. Derivación a partir de $R^T \cdot R = I$
+1. Derivación a partir de $R^T \cdot R = I$
 
 El elemento $(i, j)$ de $R^T \cdot R$ es el producto escalar de la columna $i$ de $R$ por la columna $j$. Si las columnas son $\vec{c}_1$, $\vec{c}_2$ y $\vec{c}_3$, la condición $R^T \cdot R = I$ equivale a:
 
@@ -192,7 +191,7 @@ En total, $2 + 1 + 0 = 3$ parámetros, y la matriz $(\vec{c}_1, \vec{c}_2, \vec{
 
 Sobre el determinante: de $R^T \cdot R = I$ se deduce $\det(R^T) \cdot \det R = (\det R)^2 = 1$, así que $\det R = \pm 1$. Las matrices con $\det R = -1$ incluyen una reflexión, como $\mathrm{diag}(1, 1, -1)$, que cambia $z$ por $-z$. No se pueden alcanzar desde la identidad variando los ángulos de forma continua, porque el determinante varía de forma continua y solo puede tomar los valores $\pm 1$. Las rotaciones son las de $\det R = +1$.
 
-5. Rotaciones infinitesimales
+1. Rotaciones infinitesimales
 
 Una rotación próxima a la identidad se escribe $R = I + A$, con $A$ pequeña (sus entradas son de primer orden en los ángulos). Sustituyendo en $R^T \cdot R = I$:
 
@@ -206,18 +205,18 @@ $A^T \cdot A$ es de segundo orden y se desprecia. A primer orden queda $A^T = -A
 
 $$
 \begin{aligned}
-A = 
-\begin{pmatrix} 0 & -c & b \\ 
-c & 0 & -a \\ 
--b & a & 0 
+A =
+\begin{pmatrix} 0 & -c & b \\
+c & 0 & -a \\
+-b & a & 0
 \end{pmatrix}
 = a \cdot J_x + b \cdot J_y + c \cdot J_z,
 \qquad
-J_z = 
-\begin{pmatrix} 
-0 & -1 & 0 \\ 
-1 & 0 & 0 \\ 
-0 & 0 & 0 
+J_z =
+\begin{pmatrix}
+0 & -1 & 0 \\
+1 & 0 & 0 \\
+0 & 0 & 0
 \end{pmatrix}
 \end{aligned}
 $$
@@ -252,7 +251,7 @@ $$
 
 y el resultado es el mismo en el orden inverso. La diferencia entre los dos órdenes está en el término $\varepsilon \cdot \delta$, de segundo orden. Las rotaciones finitas no conmutan (punto 2).
 
-6. Rotación finita como composición de rotaciones infinitesimales
+1. Rotación finita como composición de rotaciones infinitesimales
 
 Las rotaciones alrededor de un mismo eje se componen sumando los ángulos: $R_z(\alpha) \cdot R_z(\beta) = R_z(\alpha + \beta)$. En el bloque $xy$, la entrada $(1,1)$ del producto es $\cos\alpha \cdot \cos\beta - \sin\alpha \cdot \sin\beta = \cos(\alpha + \beta)$, y las demás salen igual con las fórmulas del seno y del coseno de la suma. Por tanto, una rotación de ángulo $\theta$ es exactamente la composición de $N$ rotaciones de ángulo $\theta/N$:
 
@@ -301,7 +300,7 @@ $$
 
 Comprobación de la entrada $(1,1)$: $1 + (1 - \cos\theta) \cdot (-1) = \cos\theta$.
 
-7. Las rotaciones forman un grupo
+1. Las rotaciones forman un grupo
 
 Componer rotaciones es multiplicar sus matrices, así que se escribe $A \cdot B$ para $A \circ B$. El conjunto de las matrices $3 \times 3$ con $R^T \cdot R = I$ y $\det R = 1$ cumple las cuatro propiedades de grupo bajo la composición:
 
@@ -325,7 +324,6 @@ Este grupo se llama $SO(3)$, grupo especial ortogonal de orden $3$. Dos precisio
 
 El mismo razonamiento se aplica a las matrices $5 \times 5$ del grupo de Galileo del planteamiento: componer transformaciones es multiplicar sus matrices e invertir una transformación es invertir su matriz, así que también cumplen las cuatro propiedades.
 
-
 EL GRUPO DE GALILEO (26-09-2026)
 
 Capítulo de trabajo: las transformaciones de Galileo, escritas como matrices $5 \times 5$, forman un grupo, y su producto dice cómo se componen los parámetros. Todas las afirmaciones están comprobadas con SymPy.
@@ -345,29 +343,29 @@ Con los vectores escritos como columnas, se reúne en una sola matriz que actúa
 
 $$
 \begin{aligned}
-G(R, \vec{v}, \vec{a}, b) = 
-\begin{pmatrix} 
-R & \vec{v} & \vec{a} \\ 
-\vec{0}^T & 1 & b \\ 
-\vec{0}^T & 0 & 1 
+G(R, \vec{v}, \vec{a}, b) =
+\begin{pmatrix}
+R & \vec{v} & \vec{a} \\
+\vec{0}^T & 1 & b \\
+\vec{0}^T & 0 & 1
 \end{pmatrix},
 \qquad
-\begin{pmatrix} 
-\vec{x}' \\ 
-t' \\ 
-1 
-\end{pmatrix} 
-= G(R, \vec{v}, \vec{a}, b) \cdot 
-\begin{pmatrix} \vec{x} 
-\\ t 
-\\ 1 
+\begin{pmatrix}
+\vec{x}' \\
+t' \\
+1
+\end{pmatrix}
+= G(R, \vec{v}, \vec{a}, b) \cdot
+\begin{pmatrix} \vec{x}
+\\ t
+\\ 1
 \end{pmatrix}.
 \end{aligned}
 $$
 
 $\vec{0}^T = (0, 0, 0)$ es una fila de tres ceros. La matriz es $5 \times 5$: el bloque $R$ ocupa las tres primeras filas y columnas, $\vec{v}$ y $\vec{a}$ son la cuarta y la quinta columna de esas filas, y las dos últimas filas son $(0, 0, 0, 1, b)$ y $(0, 0, 0, 0, 1)$. El $1$ final de la columna $(\vec{x}, t, 1)$ es el que permite escribir los desplazamientos $\vec{a}$ y $b$ como un producto de matrices.
 
-2. La composición: cómo se combinan los parámetros
+1. La composición: cómo se combinan los parámetros
 
 Aplicar primero $G_1 = G(R_1, \vec{v}_1, \vec{a}_1, b_1)$ y después $G_2 = G(R_2, \vec{v}_2, \vec{a}_2, b_2)$ es multiplicar $G_2 \cdot G_1$. El producto se calcula por bloques, igual que el de matrices ordinarias, porque los tamaños de los bloques encajan (el bloque $3 \times 3$ multiplica a columnas de $3$ entradas):
 
@@ -408,7 +406,7 @@ Son los mismos parámetros. Significado de cada uno:
 - **Velocidades: se suman después de girar la primera**, $\vec{v} = R_2 \cdot \vec{v}_1 + \vec{v}_2$. Es la ley de adición de velocidades de Galileo. $R_2$ aparece porque la segunda transformación también gira la velocidad que dejó la primera. Sin rotaciones, $\vec{v} = \vec{v}_1 + \vec{v}_2$.
 - **Desplazamientos espaciales: se suman, girando el primero, más un término cruzado**, $\vec{a} = R_2 \cdot \vec{a}_1 + \vec{v}_2 \cdot b_1 + \vec{a}_2$. El término $\vec{v}_2 \cdot b_1$ aparece porque el cambio de velocidad $\vec{v}_2$ actúa sobre el tiempo ya desplazado $t + b_1$: durante ese tiempo adicional $b_1$, el movimiento con velocidad $\vec{v}_2$ recorre $\vec{v}_2 \cdot b_1$.
 
-3. Las cuatro propiedades de grupo
+1. Las cuatro propiedades de grupo
 
 - **Composición.** El producto de dos matrices de Galileo es una matriz de Galileo: tiene la misma forma por bloques, y $R_2 \cdot R_1$ es una rotación por ser producto de rotaciones (capítulo de rotaciones, punto 7).
 - **Identidad.** $G(I, \vec{0}, \vec{0}, 0)$ es la matriz identidad $5 \times 5$: no gira, no cambia la velocidad y no desplaza.
@@ -434,14 +432,14 @@ Son los mismos parámetros. Significado de cada uno:
 
 Por tanto, las transformaciones de Galileo forman un grupo de $3 + 3 + 3 + 1 = 10$ parámetros: 3 de la rotación, 3 de la velocidad, 3 del desplazamiento espacial y 1 del temporal.
 
-4. El grupo no es conmutativo
+1. El grupo no es conmutativo
 
 Dos ejemplos en los que el orden cambia el resultado, obtenidos con la ley del punto 2:
 
 - **Desplazamiento temporal $b$ y cambio de velocidad $\vec{u}$.** Si primero se desplaza el tiempo y después se cambia la velocidad, $\vec{a} = \vec{u} \cdot b$. En el orden inverso, $\vec{a} = \vec{0}$. La diferencia es el término cruzado del punto 2: el cambio de velocidad aplicado después actúa sobre un tiempo ya desplazado.
 - **Rotación $R$ y desplazamiento espacial $\vec{u}$.** Si primero se desplaza y después se gira, $\vec{a} = R \cdot \vec{u}$: el desplazamiento también gira. En el orden inverso, $\vec{a} = \vec{u}$.
 
-5. Subgrupos de un parámetro y flujos
+1. Subgrupos de un parámetro y flujos
 
 Si se fija una dirección y se deja libre un solo parámetro $s$, la ley de composición se reduce a una suma:
 
@@ -451,7 +449,6 @@ Si se fija una dirección y se deja libre un solo parámetro $s$, la ley de comp
 - rotaciones alrededor de un eje fijo: $G(R_{\vec{e}}(s), \vec{0}, \vec{0}, 0)$, con $s_1 + s_2$, porque los ángulos alrededor del mismo eje se suman.
 
 En los cuatro casos, $\Phi_s = G(\dots s \dots)$ cumple $\Phi_0 = I$ y $\Phi_{s_2} \circ \Phi_{s_1} = \Phi_{s_1 + s_2}$: es un flujo en el sentido del Tema 1, apartado 4.4 (apuntes públicos). Son las familias de un parámetro que usa el teorema de Noether, una por cada una de las 10 direcciones del grupo.
-
 
 LA EXPONENCIAL DE UNA MATRIZ Y LAS ROTACIONES (26-09-2026)
 
@@ -471,7 +468,7 @@ Cada entrada de $e^M$ es la suma de una serie numérica. Es la misma serie que a
 
 La serie converge para toda matriz. Se usa la norma $\|M\| = \sqrt{\sum_{i,j} M_{ij}^2}$ (la raíz de la suma de los cuadrados de las entradas), que cumple $\|M \cdot N\| \le \|M\| \cdot \|N\|$. En efecto, $(M \cdot N)_{ij} = \sum_l M_{il} \cdot N_{lj}$ y, por la desigualdad de Cauchy-Schwarz, $|(M \cdot N)_{ij}|^2 \le \left(\sum_l M_{il}^2\right) \cdot \left(\sum_l N_{lj}^2\right)$; sumando en $i$ y en $j$ se obtiene $\|M \cdot N\|^2 \le \|M\|^2 \cdot \|N\|^2$. Aplicándolo $k$ veces, $\|M^k\| \le \|M\|^k$, y cada entrada cumple $|(M^k)_{ij}| \le \|M^k\|$. Por tanto, la serie de cada entrada está acotada término a término por $\sum_k \dfrac{\|M\|^k}{k!} = e^{\|M\|}$, que es finita: la serie converge absolutamente.
 
-2. Propiedades
+1. Propiedades
 
 - **$e^0 = I$**, porque todas las potencias $0^k$ con $k \ge 1$ son nulas.
 - **$(e^M)^T = e^{M^T}$**, porque la transpuesta de una suma es la suma de las transpuestas y $(M^k)^T = (M^T)^k$.
@@ -495,7 +492,7 @@ La serie converge para toda matriz. Se usa la norma $\|M\| = \sqrt{\sum_{i,j} M_
 
   Así, $\vec{x}(s) = e^{s \cdot M} \cdot \vec{x}_0$ es la solución de $\dfrac{d\vec{x}}{ds} = M \cdot \vec{x}$ con $\vec{x}(0) = \vec{x}_0$: $e^{s \cdot M}$ es el flujo del campo vectorial lineal $M \cdot \vec{x}$ (Tema 1, apartado 4.4, de los apuntes públicos).
 
-3. La exponencial de una matriz antisimétrica es una rotación
+1. La exponencial de una matriz antisimétrica es una rotación
 
 Sea $A$ antisimétrica, $A^T = -A$. Como $-A$ y $A$ conmutan, las propiedades del punto 2 dan:
 
@@ -507,7 +504,7 @@ $$
 
 Falta ver que $\det e^A = +1$ y no $-1$. La función $f(s) = \det e^{s \cdot A}$ es continua en $s$ (las entradas de $e^{s \cdot A}$ son series de potencias en $s$, y el determinante es un polinomio en las entradas). Por lo anterior, aplicado a $s \cdot A$, que también es antisimétrica, solo toma los valores $\pm 1$. Como $f(0) = \det I = 1$ y una función continua no puede saltar de $1$ a $-1$, $f(1) = \det e^A = 1$. Por tanto, $e^A$ es una rotación.
 
-4. Fórmula cerrada: rotación de ángulo $\theta$ alrededor de un eje $\vec{n}$
+1. Fórmula cerrada: rotación de ángulo $\theta$ alrededor de un eje $\vec{n}$
 
 Toda matriz antisimétrica es $A = a \cdot J_x + b \cdot J_y + c \cdot J_z$ y actúa como $A \cdot \vec{v} = \vec{\omega} \times \vec{v}$, con $\vec{\omega} = (a, b, c)$ (capítulo de rotaciones, punto 5). Si $\vec{\omega} \neq \vec{0}$, se escribe $\vec{\omega} = \theta \cdot \vec{n}$, con $\theta = |\vec{\omega}|$ y $\vec{n}$ unitario, y $A = \theta \cdot K$, donde $K$ es la matriz que cumple $K \cdot \vec{v} = \vec{n} \times \vec{v}$. Las potencias de $K$ se repiten:
 
@@ -532,7 +529,7 @@ Es la fórmula de Rodrigues. Su significado geométrico:
 
 En resumen: $e^A$ es la rotación de ángulo $|\vec{\omega}|$ alrededor del eje $\vec{\omega}$. Los tres parámetros de la rotación son las tres componentes de $\vec{\omega}$.
 
-5. Recíproco: toda rotación es una exponencial
+1. Recíproco: toda rotación es una exponencial
 
 Sea $R$ una rotación. Primero se ve que tiene un eje, es decir, un vector $\vec{n}$ con $R \cdot \vec{n} = \vec{n}$ (teorema de Euler). Como $R - I = R \cdot (I - R^T) = R \cdot (I - R)^T$ y $\det R = 1$:
 
@@ -554,14 +551,14 @@ $$
 
 Las rotaciones son exactamente las exponenciales de las matrices antisimétricas. La correspondencia no es única: $\theta$ y $\theta + 2 \cdot \pi$ dan la misma rotación, y también el ángulo $\theta$ alrededor de $\vec{n}$ y el ángulo $2 \cdot \pi - \theta$ alrededor de $-\vec{n}$.
 
-6. Dos formas de dar una rotación con tres parámetros
+1. Dos formas de dar una rotación con tres parámetros
 
 - **Tres ángulos respecto de los ejes fijos** (capítulo de rotaciones): $R = R_z(\alpha) \cdot R_y(\beta) \cdot R_x(\gamma) = e^{\alpha \cdot J_z} \cdot e^{\beta \cdot J_y} \cdot e^{\gamma \cdot J_x}$.
 - **Un vector eje-ángulo** $\vec{\omega} = (a, b, c)$: $R = e^{a \cdot J_x + b \cdot J_y + c \cdot J_z}$.
 
 No son lo mismo: en general, $e^{\alpha \cdot J_z} \cdot e^{\beta \cdot J_y} \cdot e^{\gamma \cdot J_x} \neq e^{\alpha \cdot J_z + \beta \cdot J_y + \gamma \cdot J_x}$, porque las matrices $J$ no conmutan. Por ejemplo, $J_x \cdot J_y - J_y \cdot J_x = J_z \neq 0$. Se puede ver sin calcular ninguna exponencial. Si fuera $e^{M+N} = e^M \cdot e^N$ para $M = \dfrac{\pi}{2} \cdot J_x$ y $N = \dfrac{\pi}{2} \cdot J_y$, como $M + N = N + M$ se tendría $e^M \cdot e^N = e^{M+N} = e^N \cdot e^M$, es decir, $R_x(\pi/2) \cdot R_y(\pi/2) = R_y(\pi/2) \cdot R_x(\pi/2)$. Pero esos dos productos son distintos (capítulo de rotaciones, punto 2).
 
-7. Las familias de Galileo como exponenciales
+1. Las familias de Galileo como exponenciales
 
 Lo mismo vale para las familias de un parámetro del grupo de Galileo (capítulo del grupo de Galileo, punto 5): cada una es $e^{s \cdot M}$ para una matriz $5 \times 5$ fija $M$.
 
@@ -569,7 +566,6 @@ Lo mismo vale para las familias de un parámetro del grupo de Galileo (capítulo
 - **Cambio de velocidad en la dirección $x$:** $M$ tiene un $1$ en la fila $1$, columna $4$. **Traslación en $x$:** un $1$ en la fila $1$, columna $5$. **Traslación temporal:** un $1$ en la fila $4$, columna $5$. En los tres casos $M^2 = 0$: el único $1$ de $M$ está en una fila $i$ y una columna $j$ distintas, y $(M^2)_{ik} = M_{ij} \cdot M_{jk}$ necesitaría otro $1$ en la fila $j$, que no existe. La serie se corta en el segundo término: $e^{s \cdot M} = I + s \cdot M$, que es exactamente $G(I, s \cdot \vec{e}_x, \vec{0}, 0)$, $G(I, \vec{0}, s \cdot \vec{e}_x, 0)$ o $G(I, \vec{0}, \vec{0}, s)$.
 
 Por el punto 2, $\dfrac{d}{ds} e^{s \cdot M} = M \cdot e^{s \cdot M}$ y $e^{s \cdot M} \cdot e^{r \cdot M} = e^{(s+r) \cdot M}$: cada familia es el flujo de un campo vectorial lineal, y $M$ es su generador.
-
 
 LAS TRANSFORMACIONES DE GALILEO COMO EXPONENCIALES (26-09-2026)
 
@@ -597,7 +593,7 @@ $$
 
 donde $A$ es la matriz antisimétrica $3 \times 3$ con $A \cdot \vec{x} = \vec{\omega} \times \vec{x}$.
 
-2. Qué generadores conmutan
+1. Qué generadores conmutan
 
 Los productos de las matrices $E_{ij}$ siguen una regla sencilla: $E_{ij} \cdot E_{kl} = E_{il}$ si $j = k$, y es nulo si $j \neq k$. Con ella:
 
@@ -606,7 +602,7 @@ Los productos de las matrices $E_{ij}$ siguen una regla sencilla: $E_{ij} \cdot 
 
 Entre los siete generadores que no son rotaciones, el único par que no conmuta es un cambio de velocidad con la traslación temporal. Es el origen del término cruzado $\vec{v}_2 \cdot b_1$ de la ley de composición y de los factores que aparecen en los puntos 3 y 4.
 
-3. Primera forma: producto de cuatro exponenciales
+1. Primera forma: producto de cuatro exponenciales
 
 Como $(\vec{v} \cdot \vec{\mathcal{K}})^2 = 0$, $(\vec{a} \cdot \vec{\mathcal{P}})^2 = 0$ y $\mathcal{T}^2 = 0$ (punto 2), sus exponenciales se reducen a los dos primeros términos de la serie y son matrices de Galileo sencillas:
 
@@ -628,22 +624,22 @@ Para obtener el desplazamiento $\vec{a}$ hay que elegir $\vec{a}' = \vec{a} - \v
 
 $$
 \begin{aligned}
-G(R, \vec{v}, \vec{a}, b) 
+G(R, \vec{v}, \vec{a}, b)
 = e^{(\vec{a} - \vec{v} \cdot b) \cdot \vec{\mathcal{P}}} \cdot e^{\vec{v} \cdot \vec{\mathcal{K}}} \cdot e^{b \cdot \mathcal{T}} \cdot e^{\vec{\omega} \cdot \vec{\mathcal{J}}}.
 \end{aligned}
 $$
 
 Cada factor es una familia de un parámetro, y el orden importa: con otro orden, el vector que multiplica a $\vec{\mathcal{P}}$ sería distinto.
 
-4. Segunda forma: una sola exponencial
+1. Segunda forma: una sola exponencial
 
 **Potencias del generador.** Multiplicando por bloques (la fila de bloques $(A,\ \vec{u},\ \vec{d})$ por cada columna de bloques):
 
 $$
 \begin{aligned}
-\Lambda^2 = 
-\begin{pmatrix} A^2 & A \cdot \vec{u} & A \cdot \vec{d} + \tau \cdot \vec{u} \\ 
-\vec{0}^T & 0 & 0 \\ 
+\Lambda^2 =
+\begin{pmatrix} A^2 & A \cdot \vec{u} & A \cdot \vec{d} + \tau \cdot \vec{u} \\
+\vec{0}^T & 0 & 0 \\
 \vec{0}^T & 0 & 0 \end{pmatrix}.
 \end{aligned}
 $$
@@ -713,7 +709,7 @@ $$
 
 Por tanto, $\det V = \dfrac{2 \cdot (1 - \cos\theta)}{\theta^2}$, que no se anula para $0 < \theta \le \pi$. Con $\theta = 0$, $V = I$. En ambos casos $V$ es invertible, y $\vec{u} = V^{-1} \cdot \vec{v}$, $\vec{d} = V^{-1} \cdot (\vec{a} - b \cdot W \cdot \vec{u})$.
 
-5. El campo vectorial de cada generador y su cantidad conservada
+1. El campo vectorial de cada generador y su cantidad conservada
 
 Por el capítulo de la exponencial, punto 2, $\dfrac{d}{ds} e^{s \cdot \Lambda} = \Lambda \cdot e^{s \cdot \Lambda}$: la familia $e^{s \cdot \Lambda}$ es el flujo del campo lineal que $\Lambda$ define sobre la columna $(\vec{x}, t, 1)$. Multiplicando:
 
@@ -740,7 +736,7 @@ Término a término:
 
 Aquí $\vec{G} = M \cdot \vec{X}_{\mathrm{cm}} - \vec{P} \cdot t$ es la cantidad del cambio de velocidad, no una matriz de Galileo. Como $Q$ se conserva para cualquier elección de los diez coeficientes, se conserva cada una de las diez cantidades por separado.
 
-6. Resumen
+1. Resumen
 
 | Generador | Familia $e^{s \cdot (\dots)}$ | Campo $(\vec{\xi},\ \xi^t)$ | Cantidad conservada |
 | --- | --- | --- | --- |
