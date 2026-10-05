@@ -10,7 +10,6 @@ Tenemos una doble vertiente:
 
 **IDEAS PARA EL DESARROLLO** (conversación con la IA, 25-09-2026, modificación actual)
 
-
 Partimos del plantemaiento general del lagrangiano:
 $$
 \begin{aligned}
@@ -23,7 +22,16 @@ Podemos incluso poner las variables dependientes dentro del operador $\bsL$ como
 
 $$
 \begin{aligned}
-\bsS [\vec{q}] = \int_{\Omega} \bsL\begin{pmatrix} q^1_1 \\ q^1_2 \\ q^1_3 \\ \dot{q}^1_1 \\ \dot{q}^1_2 \\ \dot{q}^1_3 \\ t \end{pmatrix} \,dt
+\bsS [\vec{q}] = \int_{\Omega} \bsL
+\begin{pmatrix}
+q_{1,1} \\
+q_{1,2} \\
+q_{1,3} \\
+\dot{q}_{1,1} \\
+\dot{q}_{1,2} \\
+\dot{q}_{1,3} \\
+t
+\end{pmatrix} \,dt
 \end{aligned}
 $$
 
@@ -34,9 +42,107 @@ En este caso vamos a desarrollar ${\bsdelta}_{\delta\vec{q}}\bsS[\vec{q}] := \bs
 $$
 \begin{aligned}
 \bsdelta\bsS[\vec{q},\delta \vec{q}] :&= \bsS[\vec{q}+\delta \vec{q}]-\bsS[\vec{q}] = \\
-&= \int_{\Omega} \bsL \left(\vec{q}+\delta \vec{q},\dot {\vec{q}}+\dot{\delta\vec{q}},t\right)-\bsL \left(\vec{q},\dot {\vec{q}},t\right) \,dt 
+&= \int_{\Omega} \bsL \left(\vec{q}+\delta \vec{q},\dot {\vec{q}}+\dot{\delta\vec{q}},t\right) \,dt - \int_{\Omega} \bsL \left(\vec{q},\dot {\vec{q}},t\right) \,dt \\
+&= \int_{\Omega} \left( \bsL \left(\vec{q}+\delta \vec{q},\dot {\vec{q}}+\dot{\delta\vec{q}},t\right) - \bsL \left(\vec{q},\dot {\vec{q}},t\right) \right) \,dt
 \end{aligned}
 $$
+
+Ahora bien, este operador langrangiano podemos aproximarlo a tercer orden:
+
+$$
+\begin{aligned}
+\bsL \left(\vec{q}+\delta \vec{q},\dot {\vec{q}}+\dot{\delta\vec{q}},t\right)
+&= \bsL\left(\vec{q},\dot{\vec{q}},t\right) \\
+&\quad + \sum_{\alpha=1}^3 \left( \delta q_\alpha \frac{\partial \bsL}{\partial q_\alpha} + \delta \dot{q}_\alpha \frac{\partial \bsL}{\partial \dot{q}_\alpha} \right) \\
+&\quad + \frac{1}{2!} \sum_{\alpha, \beta=1}^3 \left( \delta q_\alpha \delta q_\beta \frac{\partial^2 \bsL}{\partial q_\alpha \partial q_\beta} + 2 \delta q_\alpha \delta \dot{q}_\beta \frac{\partial^2 \bsL}{\partial q_\alpha \partial \dot{q}_\beta} + \delta \dot{q}_\alpha \delta \dot{q}_\beta \frac{\partial^2 \bsL}{\partial \dot{q}_\alpha \partial \dot{q}_\beta} \right) \\
+&\quad + \frac{1}{3!} \sum_{\alpha, \beta, \gamma=1}^3 \left( \delta q_\alpha \delta q_\beta \delta q_\gamma \frac{\partial^3 \bsL}{\partial q_\alpha \partial q_\beta \partial q_\gamma} + 3 \delta q_\alpha \delta q_\beta \delta \dot{q}_\gamma \frac{\partial^3 \bsL}{\partial q_\alpha \partial q_\beta \partial \dot{q}_\gamma} \right. \\
+&\qquad\qquad\qquad\quad \left. + 3 \delta q_\alpha \delta \dot{q}_\beta \delta \dot{q}_\gamma \frac{\partial^3 \bsL}{\partial q_\alpha \partial \dot{q}_\beta \partial \dot{q}_\gamma} + \delta \dot{q}_\alpha \delta \dot{q}_\beta \delta \dot{q}_\gamma \frac{\partial^3 \bsL}{\partial \dot{q}_\alpha \partial \dot{q}_\beta \partial \dot{q}_\gamma} \right) \\
+&\quad + \dots
+\end{aligned}
+$$
+Tomando únicamente los términos de primer orden del desarrollo de Taylor, definimos la variación infinitesimal del lagrangiano (variación síncrona) como:
+
+$$
+\delta \bsL = \sum_{\alpha=1}^3 \left( \frac{\partial \bsL}{\partial q_\alpha} \delta q_\alpha + \frac{\partial \bsL}{\partial \dot{q}_\alpha} \delta \dot{q}_\alpha \right)
+$$
+
+Sabemos que la variación de la velocidad es la derivada temporal de la variación de la posición, es decir, $\delta \dot{q}_\alpha = \frac{d}{dt}(\delta q_\alpha)$. Aplicando la regla de la cadena para la derivada de un producto, podemos reescribir el segundo término:
+
+$$
+\frac{\partial \bsL}{\partial \dot{q}_\alpha} \delta \dot{q}_\alpha = \frac{\partial \bsL}{\partial \dot{q}_\alpha} \frac{d}{dt}(\delta q_\alpha) = \frac{d}{dt} \left( \frac{\partial \bsL}{\partial \dot{q}_\alpha} \delta q_\alpha \right) - \left( \frac{d}{dt} \frac{\partial \bsL}{\partial \dot{q}_\alpha} \right) \delta q_\alpha
+$$
+
+Sustituyendo esto en la variación de $\bsL$, obtenemos una expresión separada en dos partes: la asociada a las ecuaciones de Euler-Lagrange, y una derivada total respecto del tiempo:
+
+$$
+\delta \bsL = \sum_{\alpha=1}^3 \left[ \left( \frac{\partial \bsL}{\partial q_\alpha} - \frac{d}{dt} \frac{\partial \bsL}{\partial \dot{q}_\alpha} \right) \delta q_\alpha \right] + \frac{d}{dt} \left( \sum_{\alpha=1}^3 \frac{\partial \bsL}{\partial \dot{q}_\alpha} \delta q_\alpha \right)
+$$
+
+Si consideramos que las ecuaciones de movimiento (Euler-Lagrange) se cumplen para la trayectoria física, el primer sumando se anula, quedando únicamente la derivada total. 
+
+### Inclusión de variaciones temporales ($\delta t$)
+
+Si la transformación geométrica también afecta al tiempo (variación asíncrona donde $t \to t + \delta t$), la variación de la acción debe tener en cuenta la dilatación/contracción de los límites de integración. Esto, a primer orden, equivale a añadir a la variación de $\bsL$ la divergencia temporal de la propia frontera, introduciendo un término $\frac{d}{dt}(\bsL \delta t)$. La variación total efectiva, incluyendo el tiempo, resulta en:
+
+$$
+\Delta \bsL = \delta \bsL + \frac{d}{dt} (\bsL \delta t) = \sum_{\alpha=1}^3 \left[ \left( \frac{\partial \bsL}{\partial q_\alpha} - \frac{d}{dt} \frac{\partial \bsL}{\partial \dot{q}_\alpha} \right) \delta q_\alpha \right] + \frac{d}{dt} \left( \sum_{\alpha=1}^3 \frac{\partial \bsL}{\partial \dot{q}_\alpha} \delta q_\alpha + \bsL \delta t \right)
+$$
+
+### Simetrías y ligaduras
+
+Ahora podemos imponer la condición de simetría. Consideremos un grupo de transformaciones (cerrado bajo la composición) parametrizado por un parámetro $\varepsilon$, que aplicamos a las coordenadas y al tiempo. Diremos que esta transformación continua es una **simetría** del sistema si la acción $\bsS$ es invariante.
+
+La obligación (o ligadura) matemática para que la acción no cambie es que la variación del lagrangiano $\Delta \bsL$ sea, como máximo, una derivada total respecto al tiempo de alguna función $F(\vec{q}, t)$. Al estar integrada dentro de la acción, la derivada total evalúa solo en los extremos (que están fijos), por lo que $\Delta \bsS = 0$:
+
+$$
+\Delta \bsL = \frac{dF}{dt}
+$$
+
+Igualando esta condición de simetría con nuestra expresión explícita para $\Delta \bsL$ (asumiendo que se cumplen las ecuaciones de movimiento), obtenemos la ley de conservación:
+
+$$
+\frac{d}{dt} \left( \sum_{\alpha=1}^3 \frac{\partial \bsL}{\partial \dot{q}_\alpha} \delta q_\alpha + \bsL \delta t - F \right) = 0
+$$
+
+Dado que la derivada total respecto al tiempo de esta expresión es cero para cualquier trayectoria que cumpla las ecuaciones de movimiento, llegamos a la conclusión de que la cantidad entre paréntesis es una constante del movimiento (o integral primera). A esta cantidad se la denomina matemáticamente **carga de Noether**, y se denota habitualmente con la letra $Q$:
+
+$$
+Q = \sum_{\alpha=1}^3 \frac{\partial \bsL}{\partial \dot{q}_\alpha} \delta q_\alpha + \bsL \delta t - F = \text{constante}
+$$
+
+El Teorema de Noether nos dice, por tanto, que para cada transformación continua (cada parámetro $\varepsilon$ del grupo) que deje invariante la acción, existirá una carga $Q$ que se conserva a lo largo del tiempo. Dependiendo de cuál sea esa simetría geométrica concreta, la carga $Q$ se manifestará físicamente como una magnitud fundamental (como el momento lineal, el momento angular, o la energía).
+
+### Ejemplo: Partícula bajo un potencial central
+
+Para ilustrar este resultado, consideremos una partícula de masa $m$ sometida a un potencial que depende únicamente de la distancia al origen, $V(|\vec{q}|)$. El lagrangiano del sistema es:
+
+$$
+\bsL = \frac{1}{2}m \dot{\vec{q}}^2 - V(|\vec{q}|)
+$$
+
+Este sistema tiene una simetría esférica: es invariante bajo cualquier rotación espacial. Consideremos una rotación infinitesimal definida por un vector $\delta\vec{\theta}$ (cuya dirección indica el eje de rotación y su módulo el ángulo girado). La variación que sufren las coordenadas espaciales de la partícula viene dada por el producto vectorial:
+
+$$
+\delta \vec{q} = \delta\vec{\theta} \times \vec{q}
+$$
+
+Como estamos aplicando una rotación espacial pura, el tiempo no se altera ($\delta t = 0$). Además, debido a la simetría esférica, el lagrangiano no cambia en absoluto bajo esta transformación, por lo que $F = 0$.
+
+Recordando que el momento lineal conjugado es $\vec{p} = \frac{\partial \bsL}{\partial \dot{\vec{q}}} = m\dot{\vec{q}}$, podemos sustituir esto en nuestra expresión para la carga de Noether $Q$:
+
+$$
+Q = \sum_{\alpha=1}^3 \frac{\partial \bsL}{\partial \dot{q}_\alpha} \delta q_\alpha = \vec{p} \cdot \delta \vec{q} = \vec{p} \cdot (\delta\vec{\theta} \times \vec{q})
+$$
+
+Utilizando la propiedad cíclica del producto mixto de vectores ($\vec{A} \cdot (\vec{B} \times \vec{C}) = \vec{B} \cdot (\vec{C} \times \vec{A})$), reescribimos la carga como:
+
+$$
+Q = \delta\vec{\theta} \cdot (\vec{q} \times \vec{p}) = \delta\vec{\theta} \cdot \vec{L}
+$$
+
+donde $\vec{L} = \vec{q} \times \vec{p}$ es el **momento angular**. Puesto que el vector de rotación infinitesimal $\delta\vec{\theta}$ es completamente arbitrario, para que $Q$ sea constante respecto a cualquier eje de rotación que escojamos, el propio vector momento angular $\vec{L}$ debe ser una constante del movimiento. 
+
+Así, el Teorema de Noether nos demuestra de forma directa y elegante que la invariancia bajo rotaciones implica la conservación del momento angular.
 
 1. Transformaciones continuas, campos vectoriales y flujos
 
@@ -111,6 +217,50 @@ Para $N$ partículas con $L = \sum_a \dfrac{1}{2} \cdot m_a \cdot |\dot{\vec{x}}
 | Cambios de velocidad | se cumple si se cumple la de las traslaciones; $L$ cambia en $\dfrac{d}{dt}\left(\sum_a m_a \cdot \vec{u} \cdot \vec{x}_a\right)$ | $\vec{G} = M \cdot \vec{X}_{\mathrm{cm}} - \vec{P} \cdot t$ |
 
 El grupo de Galileo tiene 10 parámetros: 1 desplazamiento en el tiempo, 3 desplazamientos en el espacio (uno por coordenada), 3 componentes de la velocidad relativa y 3 ángulos de rotación (alrededor de los ejes $x$, $y$ y $z$). Cada parámetro es una simetría independiente y da una cantidad conservada: la energía $E$ (1), las 3 componentes del momento lineal $\vec{P}$, las 3 de $\vec{G}$ y las 3 del momento angular $\vec{J}$. En total, $1 + 3 + 3 + 3 = 10$ cantidades conservadas. Comprobado con SymPy para tres partículas en cuadernos/tema1/noether_galileo.py (16 comprobaciones: invariancia de L bajo cada generador, cantidades de Noether y su conservación sobre las soluciones).
+
+### Demostración unificada para las 10 cargas
+
+Podemos demostrar esto de la forma más general posible utilizando la expresión de la carga $Q$ que derivamos. Una transformación infinitesimal completamente general del grupo de Galileo sobre un sistema de $N$ partículas viene dada por:
+
+- Una traslación espacial $\delta\vec{\varepsilon}$
+- Una rotación $\delta\vec{\theta}$
+- Un "boost" o cambio de velocidad $\delta\vec{v}$
+- Una traslación temporal $\delta t$
+
+La variación asíncrona total de las coordenadas de cada partícula $a$ es:
+$$ \Delta \vec{q}_a = \delta\vec{\varepsilon} + \delta\vec{\theta} \times \vec{q}_a + \delta\vec{v} t $$
+
+Y la variación síncrona (con el tiempo congelado, que es la que se usa dentro de la suma del momento conjugado) es $\delta \vec{q}_a = \Delta \vec{q}_a - \dot{\vec{q}}_a \delta t$:
+$$ \delta \vec{q}_a = \delta\vec{\varepsilon} + \delta\vec{\theta} \times \vec{q}_a + \delta\vec{v} t - \dot{\vec{q}}_a \delta t $$
+
+Al aplicar esta transformación al lagrangiano $\bsL = \sum_a \frac{1}{2} m_a \dot{\vec{q}}_a^2 - V$, los tres primeros parámetros (traslaciones espaciales, temporales y rotaciones) dejan invariante a $\bsL$. Sin embargo, el "boost" de Galileo cambia la velocidad en $\delta\vec{v}$, lo que modifica la energía cinética:
+$$ \Delta \bsL = \sum_a m_a \dot{\vec{q}}_a \cdot \delta\vec{v} = \frac{d}{dt} \left( \delta\vec{v} \cdot \sum_a m_a \vec{q}_a \right) $$
+Esto nos dice que nuestra función $F$, la derivada total introducida por la transformación, es exactamente: $F = \delta\vec{v} \cdot \sum_a m_a \vec{q}_a$.
+
+Sustituyendo $\delta\vec{q}_a$ y $F$ en la fórmula general de la carga de Noether obtenemos:
+$$ Q = \sum_a \vec{p}_a \cdot \delta \vec{q}_a + \bsL \delta t - F $$
+$$ Q = \sum_a \vec{p}_a \cdot (\delta\vec{\varepsilon} + \delta\vec{\theta} \times \vec{q}_a + \delta\vec{v} t - \dot{\vec{q}}_a \delta t) + \bsL \delta t - \delta\vec{v} \cdot \sum_a m_a \vec{q}_a $$
+
+Ahora, agrupamos los términos según los 10 parámetros infinitesimales independientes ($\delta\vec{\varepsilon}$, $\delta\vec{\theta}$, $\delta\vec{v}$, y $\delta t$):
+
+1. **Parámetros $\delta\vec{\varepsilon}$ (3):** $\sum_a \vec{p}_a \cdot \delta\vec{\varepsilon} = \delta\vec{\varepsilon} \cdot \left( \sum_a \vec{p}_a \right) = \delta\vec{\varepsilon} \cdot \vec{P}$
+2. **Parámetros $\delta\vec{\theta}$ (3):** $\sum_a \vec{p}_a \cdot (\delta\vec{\theta} \times \vec{q}_a) = \delta\vec{\theta} \cdot \left( \sum_a \vec{q}_a \times \vec{p}_a \right) = \delta\vec{\theta} \cdot \vec{L}$
+3. **Parámetros $\delta\vec{v}$ (3):** $\sum_a \vec{p}_a \cdot (\delta\vec{v} t) - \delta\vec{v} \cdot \sum_a m_a \vec{q}_a = -\delta\vec{v} \cdot \left( \sum_a m_a \vec{q}_a - \vec{P} t \right) = -\delta\vec{v} \cdot \vec{G}$
+4. **Parámetro $\delta t$ (1):** $-\sum_a \vec{p}_a \cdot \dot{\vec{q}}_a \delta t + \bsL \delta t = -\delta t \left( \sum_a \vec{p}_a \cdot \dot{\vec{q}}_a - \bsL \right) = -\delta t H$
+
+Sumándolo todo, obtenemos la expresión de la carga $Q$ más general posible para el grupo de Galileo:
+
+$$
+Q = \delta\vec{\varepsilon} \cdot \vec{P} + \delta\vec{\theta} \cdot \vec{L} - \delta\vec{v} \cdot \vec{G} - \delta t H
+$$
+
+Puesto que $Q$ es una cantidad constante ($\frac{dQ}{dt} = 0$) para **cualquier** elección arbitraria de los 10 parámetros independientes del grupo de Galileo ($\delta\vec{\varepsilon}, \delta\vec{\theta}, \delta\vec{v}, \delta t$), la única forma matemática de que esto ocurra es que los coeficientes que acompañan a cada parámetro sean, todos y cada uno de ellos, constantes del movimiento por separado. 
+
+De un solo plumazo matemático, hemos demostrado que de la simetría de Galileo se derivan las 10 cantidades conservadas fundamentales de la mecánica clásica:
+- **3** componentes del momento lineal $\vec{P}$
+- **3** componentes del momento angular $\vec{L}$
+- **3** componentes del vector del movimiento del centro de masas $\vec{G}$
+- **1** energía total $H$
 
 1. Posibles extensiones (opcionales)
 

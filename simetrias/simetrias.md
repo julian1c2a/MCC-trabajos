@@ -169,119 +169,132 @@ es nula para toda $h$. Esta condición equivale a la ecuación de Euler–Lagran
 
 ## Simetrías y teorema de Noether
 
-Con el lenguaje del apartado anterior se puede expresar con precisión qué es una simetría y demostrar que cada simetría continua lleva asociada una cantidad conservada.
+Con el lenguaje del apartado anterior se puede formular con precisión matemática qué es una simetría, cómo se distingue de la estacionariedad de la acción, y cómo, a través del teorema de Noether, cada simetría continua lleva asociada inexorablemente una cantidad conservada.
 
 ### La coordenada cíclica
 
-Una coordenada $q_k$ que no aparece en el lagrangiano se llama **cíclica**. Para ella, $\dfrac{\partial L}{\partial q_k} = 0$, y la ecuación de Euler–Lagrange queda
+El caso más intuitivo de conservación ocurre cuando una coordenada $q_k$ no aparece explícitamente en el lagrangiano $L$, aunque sí lo haga su velocidad $\dot{q}_k$. En este caso, se dice que la coordenada es cíclica. La ecuación de Euler-Lagrange para $q_k$ es:
 
 $$
 \begin{aligned}
-\dfrac{dp_k}{dt} = \dfrac{\partial L}{\partial q_k} = 0:
+\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_k}\right) - \dfrac{\partial L}{\partial q_k} = 0
 \end{aligned}
 $$
 
-su momento conjugado se conserva. En el tiro parabólico, $L = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{z}^2) - m \cdot g \cdot z$ no contiene $x$, así que se conserva $p_x = m \cdot \dot{x}$. Que $x$ no aparezca en $L$ significa que desplazar todo el sistema en horizontal no cambia el lagrangiano: es la forma más sencilla de la relación entre simetría y conservación.
+Como $q_k$ no aparece, $\dfrac{\partial L}{\partial q_k} = 0$, lo que implica directamente que $\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_k}\right) = 0$. Por tanto, el momento conjugado $p_k = \dfrac{\partial L}{\partial \dot{q}_k}$ es una constante del movimiento. Desplazar todo el experimento a lo largo de $q_k$ no cambia la física; esa simetría de traslación conduce a una cantidad conservada.
 
-Pero que una coordenada sea cíclica depende de las coordenadas elegidas. En la fuerza central, con una energía potencial $V\left(\sqrt{x^2 + y^2}\right)$, ninguna coordenada cartesiana es cíclica; en coordenadas polares, en cambio, el ángulo $\theta$ sí lo es (apartado 4.3). Hace falta una formulación que no dependa de esa elección, y es la que da el teorema de Noether.
+Para ilustrarlo con claridad, veamos algunos ejemplos concretos:
+- **Partícula libre:** Si una partícula de masa $m$ no está sometida a ningún campo de potenciales ($V = 0$), su lagrangiano es exclusivamente su energía cinética, $L = T = \dfrac{1}{2} \cdot m \cdot \lVert\dot{\vec{q}}\rVert^2$. Al derivar, $\dfrac{\partial L}{\partial q_i} = 0$ para las tres coordenadas espaciales ($i = 1, 2, 3$). Como las tres son cíclicas, se conserva el vector momento lineal completo, $\vec{p} = m \cdot \dot{\vec{q}}$.
+- **Tiro parabólico (gravedad uniforme):** Si la gravedad actúa hacia abajo en el eje $z$, el lagrangiano es $L = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{y}^2 + \dot{z}^2) - m \cdot g \cdot z$. Las coordenadas horizontales $x$ e $y$ son cíclicas, por lo que $p_x$ y $p_y$ se conservan (simetría de traslación horizontal). Sin embargo, $z$ sí aparece en la energía potencial, rompiendo la simetría en la vertical: $\dfrac{\partial L}{\partial z} = -m \cdot g \neq 0$, y por tanto $p_z$ no se conserva.
+- **Fuerza central (coordenadas polares):** Ante un potencial que solo depende de la distancia al origen, $V(r)$, el lagrangiano en el plano es $L = \dfrac{1}{2} \cdot m \cdot (\dot{r}^2 + r^2 \cdot \dot{\theta}^2) - V(r)$. La coordenada angular $\theta$ no aparece explícitamente, demostrando que el sistema tiene simetría de rotación. Como $\theta$ es cíclica, se conserva su momento conjugado: el momento angular $p_\theta = m \cdot r^2 \cdot \dot{\theta}$.
 
-### Simetrías continuas y transformaciones infinitesimales
+### Qué es una simetría y la transformación continua
 
-Una transformación continua depende de un parámetro real $\varepsilon$ (una distancia, un ángulo) y se reduce a la identidad para $\varepsilon = 0$. Para $\varepsilon$ pequeño, a primer orden, se escribe
+El teorema de Noether generaliza esta idea. No trabaja con una transformación aislada, sino con familias de transformaciones $\Phi_\varepsilon$ que dependen de forma continua de un parámetro pequeño $\varepsilon$. Cada punto $q_i$ se mueve en una dirección dada por su generador infinitesimal $\xi_i$:
 
 $$
 \begin{aligned}
-q_i \to q_i + \varepsilon \cdot \xi_i(q),
+q_i \to q_i + \varepsilon \cdot \xi_i(q, t)
 \end{aligned}
 $$
 
-donde las funciones $\xi_i(q)$ indican cómo se mueve cada coordenada. Las velocidades cambian entonces en $\varepsilon \cdot \dot{\xi}_i$, con $\dot{\xi}_i := \dfrac{d}{dt}\Big(\xi_i\big(q(t)\big)\Big)$. Decimos que la transformación es una **simetría** si deja el lagrangiano igual a primer orden en $\varepsilon$:
+Es crucial distinguir dos conceptos que, aunque usan el lagrangiano, responden a preguntas distintas:
+- **Estacionariedad (principio de Hamilton, $\delta S = 0$):** se varía una trayectoria de cualquier manera manteniendo sus extremos fijos, buscando aquella cuya acción no cambia a primer orden. Su papel es *seleccionar las soluciones físicas* de entre todos los caminos posibles.
+- **Simetría:** se fija una transformación particular $\Phi_\varepsilon$ y se exige que *no cambie la acción de ninguna trayectoria*, sea solución o no, salvo quizá en un término de frontera. La simetría no es una propiedad de una trayectoria particular, sino del lagrangiano, es decir, de la ley física misma. Físicamente, transforma soluciones en otras soluciones válidas.
+
+A nivel infinitesimal, que la transformación sea una simetría equivale a que el lagrangiano quede igual a primer orden, o cambie a lo sumo en una derivada total respecto del tiempo: $\delta L = \varepsilon \cdot \dfrac{dF}{dt}$.
+
+### El teorema de Noether (la cuenta)
+
+El primer teorema de Noether establece que, por cada simetría continua de la acción, existe una cantidad $Q$ que se conserva. Evaluando la variación del lagrangiano mediante la regla de la cadena, tenemos:
 
 $$
 \begin{aligned}
-\delta L := L(q + \varepsilon \cdot \xi, \dot{q} + \varepsilon \cdot \dot{\xi}, t) - L(q, \dot{q}, t) = O(\varepsilon^2)
+\dfrac{\delta L}{\varepsilon} = \sum_i \left( \dfrac{\partial L}{\partial q_i} \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i \right)
 \end{aligned}
 $$
 
-para cualquier trayectoria, sea o no la real. La simetría es, por tanto, una propiedad del lagrangiano, es decir, de la ley, y no de una solución particular. Dos ejemplos:
-
-* **Traslación horizontal** en el tiro parabólico: $x \to x + \varepsilon$, es decir, $\xi_x = 1$ y $\xi_z = 0$. Como $L$ no depende de $x$, $\delta L = 0$. La traslación vertical, $z \to z + \varepsilon$, no es una simetría: $\delta L = -m \cdot g \cdot \varepsilon$, porque la gravedad distingue unas alturas de otras.
-* **Giro de ángulo $\varepsilon$ en el plano** $xy$: $x \to x \cdot \cos\varepsilon - y \cdot \sin\varepsilon$ e $y \to x \cdot \sin\varepsilon + y \cdot \cos\varepsilon$. Con $\cos\varepsilon \approx 1$ y $\sin\varepsilon \approx \varepsilon$, queda $x \to x - \varepsilon \cdot y$ e $y \to y + \varepsilon \cdot x$, es decir, $\xi_x = -y$ y $\xi_y = x$. Para $L = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{y}^2) - V\left(\sqrt{x^2 + y^2}\right)$, la energía cinética cambia en
-  $$
-  \begin{aligned}
-  (\dot{x} - \varepsilon \cdot \dot{y})^2 + (\dot{y} + \varepsilon \cdot \dot{x})^2 - (\dot{x}^2 + \dot{y}^2) = -2 \cdot \varepsilon \cdot \dot{x} \cdot \dot{y} + 2 \cdot \varepsilon \cdot \dot{y} \cdot \dot{x} + O(\varepsilon^2) = O(\varepsilon^2),
-  \end{aligned}
-  $$
-  multiplicado por $\dfrac{1}{2} \cdot m$, y la distancia al origen no cambia a primer orden por la misma cuenta, con $x$ e $y$ en lugar de $\dot{x}$ e $\dot{y}$. Así que $\delta L = O(\varepsilon^2)$: el giro es una simetría cuando la energía potencial solo depende de la distancia al origen.
-
-### El teorema de Noether
-
-**Teorema.** Si la transformación $q_i \to q_i + \varepsilon \cdot \xi_i(q)$ es una simetría del lagrangiano, la cantidad
+Sobre una trayectoria que sea solución física, se cumple la ecuación de Euler-Lagrange, $\dfrac{\partial L}{\partial q_i} = \dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_i}\right)$. Sustituyendo el primer término, la suma se convierte exactamente en la derivada de un producto:
 
 $$
 \begin{aligned}
-Q = \sum_i p_i \cdot \xi_i, \qquad p_i = \dfrac{\partial L}{\partial \dot{q}_i},
+\dfrac{\delta L}{\varepsilon} = \sum_i \left( \dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_i}\right) \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i \right) = \dfrac{d}{dt}\left( \sum_i p_i \cdot \xi_i \right)
 \end{aligned}
 $$
 
-se conserva a lo largo de las trayectorias reales.
-
-**Demostración.** Por el desarrollo de Taylor, el término de orden $\varepsilon$ de $\delta L$ es $\varepsilon \cdot \sum_i \left(\dfrac{\partial L}{\partial q_i} \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i\right)$. Si la transformación es una simetría, ese término es nulo, así que
+Como por definición de simetría $\dfrac{\delta L}{\varepsilon} = \dfrac{dF}{dt}$, igualamos ambas derivadas:
 
 $$
 \begin{aligned}
-0 &= \sum_i \left(\dfrac{\partial L}{\partial q_i} \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i\right) \\
-&= \sum_i \left(\dot{p}_i \cdot \xi_i + p_i \cdot \dot{\xi}_i\right) \\
-&= \dfrac{d}{dt}\left(\sum_i p_i \cdot \xi_i\right).
+\dfrac{d}{dt}\left( \sum_i p_i \cdot \xi_i \right) = \dfrac{dF}{dt} \quad \Longrightarrow \quad Q = \sum_i p_i \cdot \xi_i - F \text{ se conserva.}
 \end{aligned}
 $$
 
-En la segunda igualdad se usan la ecuación de Euler–Lagrange, $\dfrac{\partial L}{\partial q_i} = \dot{p}_i$, que se cumple en las trayectorias reales, y la definición de $p_i$; en la tercera, la regla de derivación del producto. $\blacksquare$
+### La energía y la traslación temporal
 
-**Aplicaciones:**
+Si la transformación afecta también al tiempo, $t \to t + \varepsilon \cdot \tau$, aparece un término adicional con el hamiltoniano, quedando $Q = \sum_i p_i \cdot \xi_i - H \cdot \tau - F$.
 
-* **Traslación horizontal:** $Q = p_x$. La coordenada cíclica es el caso particular en que $\xi_k = 1$ y las demás $\xi_i$ son nulas.
-* **Giro en el plano:** $Q = p_x \cdot (-y) + p_y \cdot x = m \cdot (x \cdot \dot{y} - y \cdot \dot{x}) = L_z$, la componente $z$ del momento angular. Es el mismo momento angular que se obtiene en coordenadas polares en el apartado 4.3.
-* **Varias partículas:** la traslación desplaza todas las partículas a la vez, con $\xi = 1$ en la coordenada $x$ de cada una, y lo que se conserva es la suma de sus momentos, la **cantidad de movimiento total**. Cada partícula solo conserva la suya si no interacciona con las demás [@calderon2026fisica].
-
-### La energía y la traslación en el tiempo
-
-La traslación en el tiempo, $t \to t + \varepsilon$, no mueve las coordenadas sino el instante, y se trata aparte. Se define el **hamiltoniano**
+En el caso particular de una traslación puramente temporal ($\tau = 1$, $\xi_i = 0$, $F = 0$), la simetría existe si el lagrangiano no depende explícitamente del tiempo ($V$ no depende de $t$). En ese caso, la cantidad conservada es directamente el hamiltoniano $H$:
 
 $$
 \begin{aligned}
-H := \sum_i p_i \cdot \dot{q}_i - L.
+H = \sum_i p_i \cdot \dot{q}_i - L
 \end{aligned}
 $$
 
-Derivando a lo largo de una trayectoria real, por la regla de la cadena,
+Para los sistemas habituales de la mecánica clásica (donde $T$ es cuadrática en las velocidades y $V$ no depende de ellas), este hamiltoniano coincide exactamente con la energía mecánica total, $E = T + V$.
+
+### Ejemplo: Partícula bajo un potencial central
+
+Antes de pasar al caso más general, ilustremos la potencia del teorema de Noether con un caso paradigmático. Consideremos una partícula sometida a un potencial central $V(|\vec{q}|)$, cuyo lagrangiano es $L = \frac{1}{2}m |\dot{\vec{q}}|^2 - V(|\vec{q}|)$. 
+
+Dado que el potencial depende exclusivamente de la distancia al origen, el sistema tiene simetría esférica: es totalmente invariante ante cualquier rotación espacial pura ($\tau = 0$). Si tomamos una rotación infinitesimal de ángulo $\varepsilon$ alrededor de un eje arbitrario dictado por un vector unitario $\vec{n}$, las coordenadas de la partícula sufren un desplazamiento cuyo campo generador viene dado por el producto vectorial:
 
 $$
 \begin{aligned}
-\dfrac{dH}{dt} &= \sum_i \left(\dot{p}_i \cdot \dot{q}_i + p_i \cdot \ddot{q}_i\right) - \sum_i \left(\dfrac{\partial L}{\partial q_i} \cdot \dot{q}_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \ddot{q}_i\right) - \dfrac{\partial L}{\partial t} \\
-&= -\dfrac{\partial L}{\partial t}.
+\vec{\xi} = \vec{n} \times \vec{q}
 \end{aligned}
 $$
 
-Los términos con $\ddot{q}_i$ se cancelan porque $p_i = \dfrac{\partial L}{\partial \dot{q}_i}$, y los términos con $\dot{q}_i$, porque $\dot{p}_i = \dfrac{\partial L}{\partial q_i}$ (Euler–Lagrange). Por tanto, si $L$ no depende explícitamente del tiempo, es decir, si las leyes son las mismas hoy que mañana, **$H$ se conserva**.
-
-En los dos ejemplos del trabajo, $H$ es la energía. Cada término de la energía cinética es cuadrático en una velocidad, como $\dfrac{1}{2} \cdot m \cdot \dot{x}^2$ o $\dfrac{1}{2} \cdot m \cdot r^2 \cdot \dot{\theta}^2$, y al multiplicar su derivada por la velocidad se obtiene el doble del término: $\dot{x} \cdot (m \cdot \dot{x}) = 2 \cdot \dfrac{1}{2} \cdot m \cdot \dot{x}^2$. Como $V$ no depende de las velocidades, $\sum_i p_i \cdot \dot{q}_i = 2 \cdot T$, y
+Como el lagrangiano completo es un escalar invariante bajo rotaciones, su variación es nula, por lo que $F=0$. Sustituyendo en la expresión general de la carga de Noether $Q = \vec{p} \cdot \vec{\xi}$:
 
 $$
 \begin{aligned}
-H = 2 \cdot T - (T - V) = T + V = E.
+Q = \vec{p} \cdot (\vec{n} \times \vec{q}) = \vec{n} \cdot (\vec{q} \times \vec{p}) = \vec{n} \cdot \vec{L}
 \end{aligned}
 $$
 
-### Resumen
+donde hemos hecho uso de la propiedad cíclica del producto mixto, y donde $\vec{L} = \vec{q} \times \vec{p}$ representa el vector momento angular. Dado que el eje de rotación $\vec{n}$ elegido es completamente arbitrario, la única forma de que la cantidad $\vec{n} \cdot \vec{L}$ sea constante siempre, es que el propio vector $\vec{L}$ sea constante. Así, Noether demuestra matemáticamente de forma irrefutable que **la simetría esférica implica la conservación de las tres componentes del momento angular**.
 
-| Simetría de la ley | Transformación | Cantidad conservada |
-| --- | --- | --- |
-| Traslación en el espacio | $x \to x + \varepsilon$ | Cantidad de movimiento (total), $p_x$ |
-| Giro | giro de ángulo $\varepsilon$ alrededor de un eje | Momento angular, $L_z$ |
-| Traslación en el tiempo | $t \to t + \varepsilon$ | Energía, $H = T + V$ |
+### Las 10 cantidades conservadas del Grupo de Galileo
 
-Table: Simetrías de la ley y cantidades conservadas.
+Elevando este razonamiento a su forma más general, podemos demostrar que la invariancia fundamental del espacio-tiempo newtoniano encierra en su seno todas las leyes de conservación de la mecánica clásica. Consideremos un sistema de $N$ partículas con un lagrangiano estándar de fuerzas internas $L = \sum_a \frac{1}{2} m_a |\dot{\vec{q}}_a|^2 - V$.
+
+El grupo de Galileo parametriza las transformaciones continuas del espacio y el tiempo mediante **10 parámetros independientes**:
+- 3 parámetros para traslaciones espaciales en una dirección $\vec{e}$.
+- 3 parámetros para rotaciones espaciales alrededor de un eje $\vec{n}$.
+- 3 parámetros para cambios de velocidad relativos (Boosts de Galileo) en una dirección $\vec{u}$.
+- 1 parámetro para traslaciones temporales.
+
+Utilizando la fórmula maestra de la carga de Noether $Q = \sum_a \vec{p}_a \cdot \vec{\xi}_a - H \tau - F$, calculemos de un solo plumazo las cantidades conservadas para cada generador:
+
+1. **Traslaciones espaciales (3 parámetros):** El tiempo se congela ($\tau=0$) y las coordenadas de todas las partículas se desplazan de manera uniforme $\vec{\xi}_a = \vec{e}$. Como el lagrangiano de fuerzas internas (donde $V$ depende solo de distancias relativas) es invariante, $F=0$. 
+   $$ Q = \sum_a \vec{p}_a \cdot \vec{e} = \vec{e} \cdot \left( \sum_a \vec{p}_a \right) = \vec{e} \cdot \vec{P} $$
+   Se conserva el **momento lineal total** $\vec{P}$.
+
+2. **Rotaciones espaciales (3 parámetros):** El tiempo se congela ($\tau=0$) y el espacio gira, $\vec{\xi}_a = \vec{n} \times \vec{q}_a$. El lagrangiano es invariante, luego $F=0$. 
+   $$ Q = \sum_a \vec{p}_a \cdot (\vec{n} \times \vec{q}_a) = \vec{n} \cdot \left( \sum_a \vec{q}_a \times \vec{p}_a \right) = \vec{n} \cdot \vec{L} $$
+   Se conserva el **momento angular total** $\vec{L}$.
+
+3. **Traslación temporal (1 parámetro):** El espacio no se toca ($\vec{\xi}_a = 0$), pero el reloj avanza un pulso ($\tau=1$). Si las fuerzas no dependen del tiempo, $F=0$.
+   $$ Q = - H \cdot 1 = -H $$
+   Se conserva la **energía mecánica total** $H$.
+
+4. **Boosts de Galileo (3 parámetros):** El tiempo se congela ($\tau=0$), pero saltamos a un sistema de referencia inercial que se mueve con velocidad relativa $\vec{u}$. El generador de la posición depende ahora explícitamente del tiempo: $\vec{\xi}_a = \vec{u} t$. Bajo esta transformación, las velocidades de las partículas cambian, modificando de facto la energía cinética y, por ende, el lagrangiano. Al calcular su variación infinitesimal, esta resulta ser sorprendentemente una derivada total exacta: $\delta L = \frac{d}{dt} \left( \vec{u} \cdot \sum_a m_a \vec{q}_a \right)$. Esto significa que nuestra función frontera no es nula, sino $F = \vec{u} \cdot \sum_a m_a \vec{q}_a$. Sustituyendo en la carga:
+   $$ Q = \sum_a \vec{p}_a \cdot (\vec{u} t) - \left( \vec{u} \cdot \sum_a m_a \vec{q}_a \right) = -\vec{u} \cdot \left( \sum_a m_a \vec{q}_a - \vec{P} t \right) = -\vec{u} \cdot \vec{G} $$
+   Se conserva el **vector del movimiento del centro de masas** $\vec{G} = M \vec{q}_{\text{CM}} - \vec{P} t$, lo que matemáticamente garantiza el principio de inercia: el centro de masas del sistema se mueve a velocidad estrictamente constante.
+
+En resumen, exigiendo pura y llanamente que las leyes de la física no cambien ante transformaciones del grupo de Galileo, la maquinaria del teorema de Noether nos ha "regalado" **de forma unificada la conservación de las 10 magnitudes fundamentales del universo clásico**: $\vec{P}$, $\vec{L}$, $\vec{G}$ y $H$.
 
 ## Las tres conservaciones en dos ejemplos
 

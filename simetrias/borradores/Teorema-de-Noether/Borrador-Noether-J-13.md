@@ -74,3 +74,55 @@ H = \sum_i p_i \cdot \dot{q}_i - L
 $$
 
 Para los sistemas habituales de la mecánica clásica (donde $T$ es cuadrática en las velocidades y $V$ no depende de ellas), este hamiltoniano coincide exactamente con la energía mecánica total, $E = T + V$.
+
+### Ejemplo: Partícula bajo un potencial central
+
+Antes de pasar al caso más general, ilustremos la potencia del teorema de Noether con un caso paradigmático. Consideremos una partícula sometida a un potencial central $V(|\vec{q}|)$, cuyo lagrangiano es $L = \frac{1}{2}m |\dot{\vec{q}}|^2 - V(|\vec{q}|)$. 
+
+Dado que el potencial depende exclusivamente de la distancia al origen, el sistema tiene simetría esférica: es totalmente invariante ante cualquier rotación espacial pura ($\tau = 0$). Si tomamos una rotación infinitesimal de ángulo $\varepsilon$ alrededor de un eje arbitrario dictado por un vector unitario $\vec{n}$, las coordenadas de la partícula sufren un desplazamiento cuyo campo generador viene dado por el producto vectorial:
+
+$$
+\begin{aligned}
+\vec{\xi} = \vec{n} \times \vec{q}
+\end{aligned}
+$$
+
+Como el lagrangiano completo es un escalar invariante bajo rotaciones, su variación es nula, por lo que $F=0$. Sustituyendo en la expresión general de la carga de Noether $Q = \vec{p} \cdot \vec{\xi}$:
+
+$$
+\begin{aligned}
+Q = \vec{p} \cdot (\vec{n} \times \vec{q}) = \vec{n} \cdot (\vec{q} \times \vec{p}) = \vec{n} \cdot \vec{L}
+\end{aligned}
+$$
+
+donde hemos hecho uso de la propiedad cíclica del producto mixto, y donde $\vec{L} = \vec{q} \times \vec{p}$ representa el vector momento angular. Dado que el eje de rotación $\vec{n}$ elegido es completamente arbitrario, la única forma de que la cantidad $\vec{n} \cdot \vec{L}$ sea constante siempre, es que el propio vector $\vec{L}$ sea constante. Así, Noether demuestra matemáticamente de forma irrefutable que **la simetría esférica implica la conservación de las tres componentes del momento angular**.
+
+### Las 10 cantidades conservadas del Grupo de Galileo
+
+Elevando este razonamiento a su forma más general, podemos demostrar que la invariancia fundamental del espacio-tiempo newtoniano encierra en su seno todas las leyes de conservación de la mecánica clásica. Consideremos un sistema de $N$ partículas con un lagrangiano estándar de fuerzas internas $L = \sum_a \frac{1}{2} m_a |\dot{\vec{q}}_a|^2 - V$.
+
+El grupo de Galileo parametriza las transformaciones continuas del espacio y el tiempo mediante **10 parámetros independientes**:
+- 3 parámetros para traslaciones espaciales en una dirección $\vec{e}$.
+- 3 parámetros para rotaciones espaciales alrededor de un eje $\vec{n}$.
+- 3 parámetros para cambios de velocidad relativos (Boosts de Galileo) en una dirección $\vec{u}$.
+- 1 parámetro para traslaciones temporales.
+
+Utilizando la fórmula maestra de la carga de Noether $Q = \sum_a \vec{p}_a \cdot \vec{\xi}_a - H \tau - F$, calculemos de un solo plumazo las cantidades conservadas para cada generador:
+
+1. **Traslaciones espaciales (3 parámetros):** El tiempo se congela ($\tau=0$) y las coordenadas de todas las partículas se desplazan de manera uniforme $\vec{\xi}_a = \vec{e}$. Como el lagrangiano de fuerzas internas (donde $V$ depende solo de distancias relativas) es invariante, $F=0$. 
+   $$ Q = \sum_a \vec{p}_a \cdot \vec{e} = \vec{e} \cdot \left( \sum_a \vec{p}_a \right) = \vec{e} \cdot \vec{P} $$
+   Se conserva el **momento lineal total** $\vec{P}$.
+
+2. **Rotaciones espaciales (3 parámetros):** El tiempo se congela ($\tau=0$) y el espacio gira, $\vec{\xi}_a = \vec{n} \times \vec{q}_a$. El lagrangiano es invariante, luego $F=0$. 
+   $$ Q = \sum_a \vec{p}_a \cdot (\vec{n} \times \vec{q}_a) = \vec{n} \cdot \left( \sum_a \vec{q}_a \times \vec{p}_a \right) = \vec{n} \cdot \vec{L} $$
+   Se conserva el **momento angular total** $\vec{L}$.
+
+3. **Traslación temporal (1 parámetro):** El espacio no se toca ($\vec{\xi}_a = 0$), pero el reloj avanza un pulso ($\tau=1$). Si las fuerzas no dependen del tiempo, $F=0$.
+   $$ Q = - H \cdot 1 = -H $$
+   Se conserva la **energía mecánica total** $H$.
+
+4. **Boosts de Galileo (3 parámetros):** El tiempo se congela ($\tau=0$), pero saltamos a un sistema de referencia inercial que se mueve con velocidad relativa $\vec{u}$. El generador de la posición depende ahora explícitamente del tiempo: $\vec{\xi}_a = \vec{u} t$. Bajo esta transformación, las velocidades de las partículas cambian, modificando de facto la energía cinética y, por ende, el lagrangiano. Al calcular su variación infinitesimal, esta resulta ser sorprendentemente una derivada total exacta: $\delta L = \frac{d}{dt} \left( \vec{u} \cdot \sum_a m_a \vec{q}_a \right)$. Esto significa que nuestra función frontera no es nula, sino $F = \vec{u} \cdot \sum_a m_a \vec{q}_a$. Sustituyendo en la carga:
+   $$ Q = \sum_a \vec{p}_a \cdot (\vec{u} t) - \left( \vec{u} \cdot \sum_a m_a \vec{q}_a \right) = -\vec{u} \cdot \left( \sum_a m_a \vec{q}_a - \vec{P} t \right) = -\vec{u} \cdot \vec{G} $$
+   Se conserva el **vector del movimiento del centro de masas** $\vec{G} = M \vec{q}_{\text{CM}} - \vec{P} t$, lo que matemáticamente garantiza el principio de inercia: el centro de masas del sistema se mueve a velocidad estrictamente constante.
+
+En resumen, exigiendo pura y llanamente que las leyes de la física no cambien ante transformaciones del grupo de Galileo, la maquinaria del teorema de Noether nos ha "regalado" **de forma unificada la conservación de las 10 magnitudes fundamentales del universo clásico**: $\vec{P}$, $\vec{L}$, $\vec{G}$ y $H$.

@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Jose Miguel Alcaraz Ramiro" />
+  <meta name="author" content="Julián Calderón Almendros" />
+  <meta name="author" content="Gonzalo Garcia Lasurtegui" />
+  <meta name="author" content="Maria Pérez I Pullès" />
+  <meta name="keywords" content="keyword 1, keyword 2, keyword 3" />
+  <title>La importancia de lassimetrías en física</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    div.abstract {
+      margin: 2em 2em 2em 2em;
+      text-align: left;
+      font-size: 85%;
+    }
+    div.abstract-title {
+      font-weight: bold;
+      text-align: center;
+      padding: 0;
+      margin-bottom: 0.5em;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">La importancia de lassimetrías en física</h1>
+<p class="author">Jose Miguel Alcaraz Ramiro</p>
+<p class="author">Julián Calderón Almendros</p>
+<p class="author">Gonzalo Garcia Lasurtegui</p>
+<p class="author">Maria Pérez I Pullès</p>
+<p class="date">DD de MES de AAAA</p>
+<div class="abstract">
+<div class="abstract-title">Resumen</div>
+<p>English version of the Resumen (maximum 150 words).</p>
+</div>
+</header>
+<!--
+Estructura obligatoria del modelo UNIR (material/Plantilla_LATEX_FCC_MUCC_UNIR/plantilla.tex).
+Los capítulos no se numeran a mano: LaTeX los numera. Las citas se escriben [@clave] o @clave
+y las referencias van en referencias.bib (APA 7). REGLAS.md, sección 8.
+-->
+<h1 id="introducción">Introducción</h1>
+<h2 id="motivación-y-justificación">Motivación y justificación</h2>
+<p>Un experimento de laboratorio da el mismo resultado si se repite en
+otra ciudad, si se gira la mesa sobre la que está montado o si se repite
+al día siguiente. Esta regularidad es tan habitual que apenas se nota,
+pero expresa una propiedad profunda de las leyes físicas: no cambian al
+desplazar el sistema, al girarlo ni al retrasar el reloj. Se dice que
+esas transformaciones son <strong>simetrías</strong> de las leyes.</p>
+<p>Por otra parte, la mecánica conoce desde hace siglos tres magnitudes
+que se conservan en un sistema aislado: la energía, el momento lineal y
+el momento angular. La pregunta que guía este trabajo es por qué se
+conservan precisamente esas tres. La respuesta que construiremos es que
+cada una corresponde a una de las simetrías anteriores: la energía, a la
+traslación en el tiempo; el momento lineal, a la traslación en el
+espacio; y el momento angular, a los giros. Es el contenido del teorema
+que Emmy Noether publicó en 1918 <span class="citation"
+data-cites="noether1918">[@noether1918]</span>.</p>
+<p>La relación entre simetría y conservación no es una curiosidad de la
+mecánica clásica. En mecánica cuántica se mantiene, y además la simetría
+determina la estructura de los estados posibles: por ejemplo, los
+números cuánticos <span class="math inline"><em>ℓ</em></span> y <span
+class="math inline"><em>m</em><sub><em>ℓ</em></sub></span>, que
+clasifican los estados de un electrón en un átomo según su momento
+angular, proceden de la simetría de giro. Por eso es un tema central en
+la formación de quien estudia computación cuántica.</p>
+<h2 id="planteamiento-del-trabajo">Planteamiento del trabajo</h2>
+<p>Conviene fijar desde el principio el significado de las palabras que
+usaremos:</p>
+<ul>
+<li><strong>Transformación:</strong> un cambio en la descripción del
+sistema, como trasladarlo una distancia <span
+class="math inline"><em>a</em></span> (cada posición <span
+class="math inline"><em>x</em></span> pasa a ser <span
+class="math inline"><em>x</em> + <em>a</em></span>), girarlo un ángulo o
+retrasar el reloj un tiempo.</li>
+<li><strong>Simetría:</strong> una transformación que no cambia la ley
+que describe el sistema.</li>
+<li><strong>Cantidad conservada:</strong> una magnitud cuyo valor no
+cambia con el tiempo mientras el sistema evoluciona.</li>
+</ul>
+<p>Las simetrías pueden ser <strong>continuas</strong>, cuando se pueden
+aplicar en pasos tan pequeños como se quiera (una traslación de
+cualquier distancia, un giro de cualquier ángulo), o
+<strong>discretas</strong>, cuando no admiten pasos intermedios (una
+reflexión en un espejo). El teorema de Noether trata las continuas, y
+son las que estudia este trabajo.</p>
+<p>Tres ejemplos intuitivos muestran la idea. Si en el espacio vacío no
+hay ningún punto privilegiado, desplazar todo el sistema no cambia nada,
+y el momento lineal se conserva. Si tampoco hay ninguna dirección
+privilegiada, girarlo no cambia nada, y se conserva el momento angular.
+Y si las leyes son las mismas hoy que mañana, retrasar el reloj no
+cambia nada, y se conserva la energía. Una simetría también puede
+romperse: cerca de la superficie de la Tierra, la gravedad distingue la
+dirección vertical, y el momento lineal vertical de un objeto que cae no
+se conserva, aunque el horizontal sí. Veremos este ejemplo con
+detalle.</p>
+<p>Para pasar de estas ideas a un resultado demostrable hace falta un
+lenguaje en el que «la ley no cambia» tenga un significado matemático
+preciso. Ese lenguaje es el formalismo lagrangiano: el sistema se
+describe con una función, el lagrangiano, y la ley no cambia bajo una
+transformación si el lagrangiano no cambia.</p>
+<h2 id="estructura-del-trabajo">Estructura del trabajo</h2>
+<p>El capítulo 2 sitúa el problema en la historia: cómo la mecánica pasó
+de formularse con fuerzas (Newton) a formularse con una función y un
+principio variacional (Lagrange y Hamilton), y cómo Emmy Noether llegó a
+su teorema a partir del problema de la energía en la relatividad
+general. El capítulo 3 enumera los objetivos. El capítulo 4 desarrolla
+el trabajo:</p>
+<ul>
+<li>el apartado 4.1 presenta el formalismo lagrangiano mínimo necesario,
+cuya deducción completa está en el anexo A;</li>
+<li>el 4.2 define con precisión qué es una simetría y demuestra el
+teorema de Noether en su forma más sencilla;</li>
+<li>el 4.3 obtiene las tres conservaciones en dos ejemplos resueltos, el
+tiro parabólico y la fuerza central;</li>
+<li>los apartados 4.4 a 4.6 trasladan la misma idea a la mecánica
+cuántica, donde la simetría de giro de un potencial central da los
+números cuánticos del momento angular, y la extienden a simetrías que no
+actúan sobre el espacio ni el tiempo.</li>
+</ul>
+<p>El capítulo 5 recoge las conclusiones y la reflexión personal del
+grupo.</p>
+<p>Los desarrollos completos en que se apoyan el capítulo 2, los
+apartados 4.1 a 4.3 y el anexo A están en apuntes de uno de los autores
+<span class="citation"
+data-cites="calderon2026contexto calderon2026matematicas calderon2026fisica calderon2026fisicaejemplos calderon2026anexos">[@calderon2026contexto;
+@calderon2026matematicas; @calderon2026fisica;
+@calderon2026fisicaejemplos; @calderon2026anexos]</span>. Otros apuntes
+y cuadernos de cálculo simbólico sobre los mismos temas están en su
+repositorio <span class="citation"
+data-cites="calderon2026mcc">[@calderon2026mcc]</span>.</p>
+<h1 id="contexto-y-estado-de-la-cuestión">Contexto y estado de la
+cuestión</h1>
+<!-- Qué se ha hecho en el ámbito del trabajo, con la bibliografía que lo respalda. Versión para el
+trabajo; la completa está en borradores/El-contexto-historico.md. -->
+<h2 id="contexto-histórico">Contexto histórico</h2>
+<p>Entre los siglos XVII y XIX, la mecánica cambió dos veces de
+lenguaje, y esos cambios son los que hicieron posible el teorema de
+Noether. <span class="citation"
+data-cites="newton1687">@newton1687</span> la formuló a partir de las
+fuerzas: el movimiento de un cuerpo se deduce de las fuerzas que actúan
+sobre él. Un siglo después, <span class="citation"
+data-cites="lagrange1788">@lagrange1788</span> la reformuló por completo
+a partir de la energía cinética y de una función de las fuerzas (la
+energía potencial), sin recurrir a construcciones geométricas. Sus
+ecuaciones valen en cualquier sistema de coordenadas, no solo en las
+cartesianas. En la década de 1830, Hamilton <span class="citation"
+data-cites="hamilton1834 hamilton1835">[-@hamilton1834;
+-@hamilton1835]</span> dio a esta mecánica la forma de un principio
+variacional. Entre todas las trayectorias posibles con los mismos
+extremos, el sistema sigue aquella que hace estacionaria la acción: la
+integral en el tiempo de la diferencia entre la energía cinética y la
+potencial, lo que hoy llamamos el lagrangiano. Con este lenguaje, decir
+que una ley física no cambia bajo una transformación (desplazar el
+sistema, girarlo o retrasar el reloj) pasa a ser una afirmación precisa:
+la acción no cambia.</p>
+<p>El resultado general llegó a raíz de un problema concreto: la
+conservación de la energía en la relatividad general. Las leyes de
+conservación guiaron a Einstein durante toda la búsqueda de las
+ecuaciones del campo gravitatorio. En 1913, con Marcel Grossmann,
+descartó unas ecuaciones construidas a partir del tensor de Ricci porque
+creyó que no las cumplían <span class="citation"
+data-cites="einsteingrossmann1913">[@einsteingrossmann1913]</span>. En
+noviembre de 1915 volvió a unas ecuaciones de ese tipo <span
+class="citation" data-cites="einstein1915">[@einstein1915]</span> y
+escribió a Arnold Sommerfeld que el error había sido precisamente creer
+que las leyes de conservación no se cumplían <span class="citation"
+data-cites="einstein1998 pitts2016">[@einstein1998, documento 153;
+@pitts2016]</span>. Pero en la nueva teoría la energía se comportaba de
+forma extraña: la del campo gravitatorio dependía del sistema de
+coordenadas y no podía asignarse a cada punto del espacio. En Gotinga,
+David Hilbert, que en noviembre de 1915 había presentado su propia
+formulación variacional de la gravitación <span class="citation"
+data-cites="hilbert1915">[@hilbert1915]</span>, llegó a la conclusión de
+que en la teoría no había teoremas de energía «propios» <span
+class="citation" data-cites="klein1918a">[@klein1918a]</span>. Para
+estudiar el problema, Hilbert y Felix Klein invitaron a Gotinga ese
+mismo año a Emmy Noether (1882–1935), la mayor experta de la época en
+teoría de invariantes, en la que se había doctorado en 1907 <span
+class="citation" data-cites="noether1908">[@noether1908]</span>.
+Einstein, por su parte, mostró en 1918 que la energía total de un
+sistema aislado sí está bien definida y se conserva, aunque no pueda
+repartirse punto a punto <span class="citation"
+data-cites="einstein1918">[@einstein1918]</span>.</p>
+<p>Noether trabajó en el problema entre 1915 y 1918. El resultado fue el
+artículo <em>Invariante Variationsprobleme</em>, que Klein presentó el
+26 de julio de 1918 en la Sociedad de Ciencias de Gotinga <span
+class="citation" data-cites="noether1918">[@noether1918]</span>.
+Contiene dos teoremas. El primero, el que hoy se conoce como teorema de
+Noether, establece que en todo sistema cuyas ecuaciones se obtienen de
+un principio variacional, a cada simetría continua de la acción le
+corresponde una cantidad conservada:</p>
+<ul>
+<li>la invariancia bajo traslaciones en el tiempo da la conservación de
+la energía;</li>
+<li>bajo traslaciones en el espacio, la del momento lineal;</li>
+<li>y bajo rotaciones, la del momento angular.</li>
+</ul>
+<p>Relaciones que antes se conocían caso a caso pasaron a ser
+consecuencias de una sola regla. El segundo teorema trata las simetrías
+que dependen de funciones arbitrarias, como los cambios generales de
+coordenadas de la relatividad general. En ese caso no aparecen
+cantidades conservadas independientes, y eso explica la forma peculiar
+que toma la conservación de la energía en esa teoría, la que había
+señalado Hilbert.</p>
+<p>Einstein siguió estos trabajos desde Berlín. El 27 de diciembre de
+1918, al recibir el artículo, escribió a Klein que volvía a sentir como
+una gran injusticia que a Noether se le negara la <em>venia
+legendi</em>, el permiso para enseñar en la universidad, y propuso dar
+un paso enérgico ante el ministerio <span class="citation"
+data-cites="einstein1998">[@einstein1998, documento 677]</span>. La
+negativa se debía a que Noether era mujer. Las normas de las
+universidades prusianas no permitían habilitarse a las mujeres: su
+solicitud de 1915 fue rechazada, y durante esos años impartió cursos
+anunciados a nombre de Hilbert. Obtuvo la habilitación en 1919, cuando
+las normas cambiaron tras la caída del Imperio, pero nunca llegó a tener
+en Gotinga una plaza de catedrática. En 1933, las leyes del régimen nazi
+la expulsaron de la universidad por ser judía. Emigró a Estados Unidos,
+donde enseñó en el Bryn Mawr College, y murió allí en 1935 <span
+class="citation" data-cites="blanco2011">[@blanco2011]</span>. El primer
+teorema, en su forma más sencilla, es el que se desarrolla en el
+capítulo 4 de este trabajo.</p>
+<p>Este capítulo resume una versión más extensa, que incluye además la
+teoría de invariantes del siglo XIX y el debate de 1918 sobre la energía
+del campo gravitatorio <span class="citation"
+data-cites="calderon2026contexto">[@calderon2026contexto]</span>.</p>
+<h1 id="objetivos">Objetivos</h1>
+<p><strong>Objetivo general:</strong> mostrar cómo las simetrías de un
+sistema físico están relacionadas con sus leyes de conservación, y cómo
+esa relación sigue siendo fundamental en mecánica cuántica.</p>
+<p><strong>Objetivos específicos:</strong></p>
+<ol type="1">
+<li>Presentar el formalismo lagrangiano mínimo necesario para formular
+con precisión qué es una simetría (apartado 4.1 y anexo A).</li>
+<li>Enunciar y demostrar el teorema de Noether en su forma más sencilla,
+y obtener de él la conservación del momento lineal, del momento angular
+y de la energía (apartado 4.2).</li>
+<li>Comprobar las tres conservaciones en dos ejemplos resueltos, el tiro
+parabólico y la fuerza central, y mostrar que una simetría no solo dice
+qué se conserva, sino que también ayuda a resolver el problema (apartado
+4.3).</li>
+<li>Mostrar cómo se expresa la misma idea en mecánica cuántica, donde
+una transformación es una simetría si conmuta con el hamiltoniano
+(apartado 4.4).</li>
+<li>Relacionar la simetría de giro de un potencial central con los
+números cuánticos <span class="math inline"><em>ℓ</em></span> y <span
+class="math inline"><em>m</em><sub><em>ℓ</em></sub></span> del momento
+angular (apartado 4.5).</li>
+</ol>
+<h1 id="desarrollo-del-trabajo">Desarrollo del trabajo</h1>
+<!-- Desarrollo, contrastando las ideas de varios autores y, si es posible, con las propias. -->
+<h2 id="formalismo-lagrangiano">Formalismo lagrangiano</h2>
+<p>Este apartado resume el desarrollo de <span class="citation"
+data-cites="calderon2026fisica">@calderon2026fisica</span>, para el
+lagrangiano, y de <span class="citation"
+data-cites="calderon2026matematicas">@calderon2026matematicas</span>,
+para la acción y la ecuación de Euler–Lagrange.</p>
+<p><strong>Coordenadas generalizadas.</strong> La configuración de un
+sistema mecánico se describe con un conjunto de coordenadas <span
+class="math inline"><em>q</em><sub>1</sub>, …, <em>q</em><sub><em>n</em></sub></span>,
+que pueden ser posiciones cartesianas, ángulos o distancias: son las
+coordenadas generalizadas. Sus derivadas respecto del tiempo, <span
+class="math inline"><em>q̇</em><sub>1</sub>, …, <em>q̇</em><sub><em>n</em></sub></span>,
+son las velocidades generalizadas. Para una partícula de masa <span
+class="math inline"><em>m</em></span> en coordenadas cartesianas, <span
+class="math inline"><em>n</em> = 3</span>, y las leyes de Newton
+dicen</p>
+<p><span class="math display">$$
+\begin{aligned}
+p_i = m \cdot \dot{q}_i, \qquad \dfrac{dp_i}{dt} = F_i, \qquad i = 1, 2,
+3.
+\end{aligned}
+$$</span></p>
+<p><strong>El lagrangiano, a partir de Newton.</strong> Supongamos que
+la fuerza deriva de una energía potencial, <span
+class="math inline">$F_i = -\dfrac{\partial V}{\partial q_i}$</span>.
+Buscamos una función <span
+class="math inline"><em>L</em>(<em>q</em>, <em>q̇</em>, <em>t</em>)</span>
+de las coordenadas, las velocidades y el tiempo cuyas derivadas sean la
+cantidad de movimiento y la fuerza:</p>
+<p><span class="math display">$$
+\begin{aligned}
+\dfrac{\partial L}{\partial \dot{q}_i} = m \cdot \dot{q}_i = p_i, \qquad
+\dfrac{\partial L}{\partial q_i} = -\dfrac{\partial V}{\partial q_i} =
+F_i.
+\end{aligned}
+$$</span></p>
+<p>La primera condición obliga a que <span
+class="math inline"><em>L</em></span> sea <span
+class="math inline">$\dfrac{1}{2} \cdot m \cdot (\dot{q}_1^2 +
+\dot{q}_2^2 + \dot{q}_3^2)$</span> más una función que no depende de las
+velocidades, y la segunda, a que esa función sea <span
+class="math inline">−<em>V</em></span>, salvo un término que solo
+depende de <span class="math inline"><em>t</em></span>; ese término no
+depende de las coordenadas ni de las velocidades, así que no interviene
+en lo que sigue y lo omitimos. Queda la energía cinética menos la
+potencial:</p>
+<p><span class="math display">$$
+\begin{aligned}
+L(q, \dot{q}, t) = T - V = \dfrac{1}{2} \cdot m \cdot \left(\dot{q}_1^2
++ \dot{q}_2^2 + \dot{q}_3^2\right) - V(q_1, q_2, q_3).
+\end{aligned}
+$$</span></p>
+<p>Con estas dos derivadas, la segunda ley de Newton, <span
+class="math inline">$\dfrac{dp_i}{dt} = F_i$</span>, se escribe</p>
+<p><span class="math display">$$
+\begin{aligned}
+\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_i}\right) -
+\dfrac{\partial L}{\partial q_i} = 0, \qquad i = 1, \dots, n,
+\end{aligned}
+$$</span></p>
+<p>que es la ecuación de Euler–Lagrange. Otros lagrangianos dan las
+mismas ecuaciones, por ejemplo <span
+class="math inline">2 ⋅ <em>L</em></span>; lo que fija este es la
+primera condición.</p>
+<p><strong>Ejemplo: el tiro parabólico.</strong> Para una partícula en
+el plano vertical, con <span class="math inline"><em>x</em></span>
+horizontal y <span class="math inline"><em>z</em></span> vertical, <span
+class="math inline">$L = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 +
+\dot{z}^2) - m \cdot g \cdot z$</span>. Las ecuaciones de Euler–Lagrange
+dan <span class="math inline">$m \cdot \ddot{x} = 0$</span> y <span
+class="math inline">$m \cdot \ddot{z} = -m \cdot g$</span>: movimiento
+uniforme en horizontal y uniformemente acelerado en vertical.</p>
+<p><strong>Funcionales y puntos estacionarios.</strong> Una función
+ordinaria asigna un número a cada número; un funcional asigna un número
+a cada función. En el cálculo de una variable, <span
+class="math inline"><em>f</em><sup>′</sup>(<em>x</em><sub>0</sub>) = 0</span>
+significa que, al desplazarse una cantidad pequeña <span
+class="math inline"><em>ε</em></span> desde <span
+class="math inline"><em>x</em><sub>0</sub></span>, la función solo
+cambia a segundo orden en <span class="math inline"><em>ε</em></span>;
+el punto se llama estacionario y no tiene por qué ser un mínimo: puede
+ser un máximo o un punto de inflexión. El cálculo de variaciones
+traslada esta idea a los funcionales.</p>
+<p><strong>La acción y el principio de Hamilton.</strong> A cada
+trayectoria posible <span
+class="math inline"><em>q</em>(<em>t</em>)</span> entre los instantes
+<span class="math inline"><em>t</em><sub>1</sub></span> y <span
+class="math inline"><em>t</em><sub>2</sub></span>, con las posiciones
+inicial y final fijadas, se le asocia un número, la acción:</p>
+<p><span class="math display">$$
+\begin{aligned}
+S[q] = \int_{t_1}^{t_2} L(q, \dot{q}, t) \,dt.
+\end{aligned}
+$$</span></p>
+<p>El principio de Hamilton afirma que la trayectoria real hace
+<strong>estacionaria</strong> la acción: si se compara con una
+trayectoria próxima, <span
+class="math inline"><em>q</em> + <em>ε</em> ⋅ <em>h</em></span>, con
+<span
+class="math inline"><em>h</em>(<em>t</em><sub>1</sub>) = <em>h</em>(<em>t</em><sub>2</sub>) = 0</span>,
+la acción solo cambia a segundo orden en <span
+class="math inline"><em>ε</em></span>. Dicho de otro modo, su variación
+primera, el análogo de <span
+class="math inline"><em>f</em><sup>′</sup>(<em>x</em><sub>0</sub>)</span>,</p>
+<p><span class="math display">$$
+\begin{aligned}
+\delta S := \lim_{\varepsilon \to 0} \dfrac{S[q + \varepsilon \cdot h] -
+S[q]}{\varepsilon},
+\end{aligned}
+$$</span></p>
+<p>es nula para toda <span class="math inline"><em>h</em></span>. Esta
+condición equivale a la ecuación de Euler–Lagrange; la deducción está en
+el anexo A. Como en el cálculo de una variable, estacionaria no
+significa mínima.</p>
+<p><strong>Varias coordenadas y cambio de coordenadas.</strong> Con
+<span class="math inline"><em>n</em></span> coordenadas generalizadas
+hay una ecuación de Euler–Lagrange para cada una. Además, la ecuación
+tiene la misma forma en cualquier sistema de coordenadas: basta escribir
+<span class="math inline"><em>L</em></span> en las nuevas coordenadas.
+La razón es que el principio de Hamilton no depende de cómo se describa
+la trayectoria: su acción es el mismo número en cartesianas que en
+polares. Por ejemplo, en coordenadas polares del plano, <span
+class="math inline">$T = \dfrac{1}{2} \cdot m \cdot (\dot{r}^2 + r^2
+\cdot \dot{\theta}^2)$</span>.</p>
+<p><strong>El momento conjugado.</strong> A cada coordenada generalizada
+se le asocia su momento conjugado, <span class="math inline">$p_i :=
+\dfrac{\partial L}{\partial \dot{q}_i}$</span>. En cartesianas es la
+cantidad de movimiento, <span
+class="math inline"><em>m</em> ⋅ <em>q̇</em><sub><em>i</em></sub></span>;
+para el ángulo de las coordenadas polares es <span
+class="math inline"><em>p</em><sub><em>θ</em></sub> = <em>m</em> ⋅ <em>r</em><sup>2</sup> ⋅ <em>θ̇</em></span>,
+la componente <span
+class="math inline"><em>L</em><sub><em>z</em></sub></span> del momento
+angular. Con esta notación, la ecuación de Euler–Lagrange se escribe
+<span class="math inline">$\dot{p}_i = \dfrac{\partial L}{\partial
+q_i}$</span>, que es la forma que usa el teorema de Noether.</p>
+<h2 id="simetrías-y-teorema-de-noether">Simetrías y teorema de
+Noether</h2>
+<p>Con el lenguaje del apartado anterior se puede formular con precisión
+matemática qué es una simetría, cómo se distingue de la estacionariedad
+de la acción, y cómo, a través del teorema de Noether, cada simetría
+continua lleva asociada inexorablemente una cantidad conservada.</p>
+<h3 id="la-coordenada-cíclica">La coordenada cíclica</h3>
+<p>El caso más intuitivo de conservación ocurre cuando una coordenada
+<span class="math inline"><em>q</em><sub><em>k</em></sub></span> no
+aparece explícitamente en el lagrangiano <span
+class="math inline"><em>L</em></span>, aunque sí lo haga su velocidad
+<span class="math inline"><em>q̇</em><sub><em>k</em></sub></span>. En
+este caso, se dice que la coordenada es cíclica. La ecuación de
+Euler-Lagrange para <span
+class="math inline"><em>q</em><sub><em>k</em></sub></span> es:</p>
+<p><span class="math display">$$
+\begin{aligned}
+\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_k}\right) -
+\dfrac{\partial L}{\partial q_k} = 0
+\end{aligned}
+$$</span></p>
+<p>Como <span class="math inline"><em>q</em><sub><em>k</em></sub></span>
+no aparece, <span class="math inline">$\dfrac{\partial L}{\partial q_k}
+= 0$</span>, lo que implica directamente que <span
+class="math inline">$\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial
+\dot{q}_k}\right) = 0$</span>. Por tanto, el momento conjugado <span
+class="math inline">$p_k = \dfrac{\partial L}{\partial
+\dot{q}_k}$</span> es una constante del movimiento. Desplazar todo el
+experimento a lo largo de <span
+class="math inline"><em>q</em><sub><em>k</em></sub></span> no cambia la
+física; esa simetría de traslación conduce a una cantidad
+conservada.</p>
+<p>Para ilustrarlo con claridad, veamos algunos ejemplos concretos: -
+<strong>Partícula libre:</strong> Si una partícula de masa <span
+class="math inline"><em>m</em></span> no está sometida a ningún campo de
+potenciales (<span class="math inline"><em>V</em> = 0</span>), su
+lagrangiano es exclusivamente su energía cinética, <span
+class="math inline">$L = T = \dfrac{1}{2} \cdot m \cdot
+\lVert\dot{\vec{q}}\rVert^2$</span>. Al derivar, <span
+class="math inline">$\dfrac{\partial L}{\partial q_i} = 0$</span> para
+las tres coordenadas espaciales (<span
+class="math inline"><em>i</em> = 1, 2, 3</span>). Como las tres son
+cíclicas, se conserva el vector momento lineal completo, <span
+class="math inline">$\vec{p} = m \cdot \dot{\vec{q}}$</span>. -
+<strong>Tiro parabólico (gravedad uniforme):</strong> Si la gravedad
+actúa hacia abajo en el eje <span class="math inline"><em>z</em></span>,
+el lagrangiano es <span class="math inline">$L = \dfrac{1}{2} \cdot m
+\cdot (\dot{x}^2 + \dot{y}^2 + \dot{z}^2) - m \cdot g \cdot z$</span>.
+Las coordenadas horizontales <span class="math inline"><em>x</em></span>
+e <span class="math inline"><em>y</em></span> son cíclicas, por lo que
+<span class="math inline"><em>p</em><sub><em>x</em></sub></span> y <span
+class="math inline"><em>p</em><sub><em>y</em></sub></span> se conservan
+(simetría de traslación horizontal). Sin embargo, <span
+class="math inline"><em>z</em></span> sí aparece en la energía
+potencial, rompiendo la simetría en la vertical: <span
+class="math inline">$\dfrac{\partial L}{\partial z} = -m \cdot g \neq
+0$</span>, y por tanto <span
+class="math inline"><em>p</em><sub><em>z</em></sub></span> no se
+conserva. - <strong>Fuerza central (coordenadas polares):</strong> Ante
+un potencial que solo depende de la distancia al origen, <span
+class="math inline"><em>V</em>(<em>r</em>)</span>, el lagrangiano en el
+plano es <span class="math inline">$L = \dfrac{1}{2} \cdot m \cdot
+(\dot{r}^2 + r^2 \cdot \dot{\theta}^2) - V(r)$</span>. La coordenada
+angular <span class="math inline"><em>θ</em></span> no aparece
+explícitamente, demostrando que el sistema tiene simetría de rotación.
+Como <span class="math inline"><em>θ</em></span> es cíclica, se conserva
+su momento conjugado: el momento angular <span
+class="math inline"><em>p</em><sub><em>θ</em></sub> = <em>m</em> ⋅ <em>r</em><sup>2</sup> ⋅ <em>θ̇</em></span>.</p>
+<h3 id="qué-es-una-simetría-y-la-transformación-continua">Qué es una
+simetría y la transformación continua</h3>
+<p>El teorema de Noether generaliza esta idea. No trabaja con una
+transformación aislada, sino con familias de transformaciones <span
+class="math inline"><em>Φ</em><sub><em>ε</em></sub></span> que dependen
+de forma continua de un parámetro pequeño <span
+class="math inline"><em>ε</em></span>. Cada punto <span
+class="math inline"><em>q</em><sub><em>i</em></sub></span> se mueve en
+una dirección dada por su generador infinitesimal <span
+class="math inline"><em>ξ</em><sub><em>i</em></sub></span>:</p>
+<p><span class="math display">$$
+\begin{aligned}
+q_i \to q_i + \varepsilon \cdot \xi_i(q, t)
+\end{aligned}
+$$</span></p>
+<p>Es crucial distinguir dos conceptos que, aunque usan el lagrangiano,
+responden a preguntas distintas: - <strong>Estacionariedad (principio de
+Hamilton, <span
+class="math inline"><em>δ</em><em>S</em> = 0</span>):</strong> se varía
+una trayectoria de cualquier manera manteniendo sus extremos fijos,
+buscando aquella cuya acción no cambia a primer orden. Su papel es
+<em>seleccionar las soluciones físicas</em> de entre todos los caminos
+posibles. - <strong>Simetría:</strong> se fija una transformación
+particular <span
+class="math inline"><em>Φ</em><sub><em>ε</em></sub></span> y se exige
+que <em>no cambie la acción de ninguna trayectoria</em>, sea solución o
+no, salvo quizá en un término de frontera. La simetría no es una
+propiedad de una trayectoria particular, sino del lagrangiano, es decir,
+de la ley física misma. Físicamente, transforma soluciones en otras
+soluciones válidas.</p>
+<p>A nivel infinitesimal, que la transformación sea una simetría
+equivale a que el lagrangiano quede igual a primer orden, o cambie a lo
+sumo en una derivada total respecto del tiempo: <span
+class="math inline">$\delta L = \varepsilon \cdot
+\dfrac{dF}{dt}$</span>.</p>
+<h3 id="el-teorema-de-noether-la-cuenta">El teorema de Noether (la
+cuenta)</h3>
+<p>El primer teorema de Noether establece que, por cada simetría
+continua de la acción, existe una cantidad <span
+class="math inline"><em>Q</em></span> que se conserva. Evaluando la
+variación del lagrangiano mediante la regla de la cadena, tenemos:</p>
+<p><span class="math display">$$
+\begin{aligned}
+\dfrac{\delta L}{\varepsilon} = \sum_i \left( \dfrac{\partial
+L}{\partial q_i} \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i}
+\cdot \dot{\xi}_i \right)
+\end{aligned}
+$$</span></p>
+<p>Sobre una trayectoria que sea solución física, se cumple la ecuación
+de Euler-Lagrange, <span class="math inline">$\dfrac{\partial
+L}{\partial q_i} = \dfrac{d}{dt}\left(\dfrac{\partial L}{\partial
+\dot{q}_i}\right)$</span>. Sustituyendo el primer término, la suma se
+convierte exactamente en la derivada de un producto:</p>
+<p><span class="math display">$$
+\begin{aligned}
+\dfrac{\delta L}{\varepsilon} = \sum_i \left(
+\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_i}\right) \cdot
+\xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i \right)
+= \dfrac{d}{dt}\left( \sum_i p_i \cdot \xi_i \right)
+\end{aligned}
+$$</span></p>
+<p>Como por definición de simetría <span
+class="math inline">$\dfrac{\delta L}{\varepsilon} =
+\dfrac{dF}{dt}$</span>, igualamos ambas derivadas:</p>
+<p><span class="math display">$$
+\begin{aligned}
+\dfrac{d}{dt}\left( \sum_i p_i \cdot \xi_i \right) = \dfrac{dF}{dt}
+\quad \Longrightarrow \quad Q = \sum_i p_i \cdot \xi_i - F \text{ se
+conserva.}
+\end{aligned}
+$$</span></p>
+<h3 id="la-energía-y-la-traslación-temporal">La energía y la traslación
+temporal</h3>
+<p>Si la transformación afecta también al tiempo, <span
+class="math inline"><em>t</em> → <em>t</em> + <em>ε</em> ⋅ <em>τ</em></span>,
+aparece un término adicional con el hamiltoniano, quedando <span
+class="math inline"><em>Q</em> = ∑<sub><em>i</em></sub><em>p</em><sub><em>i</em></sub> ⋅ <em>ξ</em><sub><em>i</em></sub> − <em>H</em> ⋅ <em>τ</em> − <em>F</em></span>.</p>
+<p>En el caso particular de una traslación puramente temporal (<span
+class="math inline"><em>τ</em> = 1</span>, <span
+class="math inline"><em>ξ</em><sub><em>i</em></sub> = 0</span>, <span
+class="math inline"><em>F</em> = 0</span>), la simetría existe si el
+lagrangiano no depende explícitamente del tiempo (<span
+class="math inline"><em>V</em></span> no depende de <span
+class="math inline"><em>t</em></span>). En ese caso, la cantidad
+conservada es directamente el hamiltoniano <span
+class="math inline"><em>H</em></span>:</p>
+<p><span class="math display">$$
+\begin{aligned}
+H = \sum_i p_i \cdot \dot{q}_i - L
+\end{aligned}
+$$</span></p>
+<p>Para los sistemas habituales de la mecánica clásica (donde <span
+class="math inline"><em>T</em></span> es cuadrática en las velocidades y
+<span class="math inline"><em>V</em></span> no depende de ellas), este
+hamiltoniano coincide exactamente con la energía mecánica total, <span
+class="math inline"><em>E</em> = <em>T</em> + <em>V</em></span>.</p>
+<h3 id="ejemplo-partícula-bajo-un-potencial-central">Ejemplo: Partícula
+bajo un potencial central</h3>
+<p>Antes de pasar al caso más general, ilustremos la potencia del
+teorema de Noether con un caso paradigmático. Consideremos una partícula
+sometida a un potencial central <span
+class="math inline"><em>V</em>(|<em>q⃗</em>|)</span>, cuyo lagrangiano es
+<span class="math inline">$L = \frac{1}{2}m |\dot{\vec{q}}|^2 -
+V(|\vec{q}|)$</span>.</p>
+<p>Dado que el potencial depende exclusivamente de la distancia al
+origen, el sistema tiene simetría esférica: es totalmente invariante
+ante cualquier rotación espacial pura (<span
+class="math inline"><em>τ</em> = 0</span>). Si tomamos una rotación
+infinitesimal de ángulo <span class="math inline"><em>ε</em></span>
+alrededor de un eje arbitrario dictado por un vector unitario <span
+class="math inline"><em>n⃗</em></span>, las coordenadas de la partícula
+sufren un desplazamiento cuyo campo generador viene dado por el producto
+vectorial:</p>
+<p><span class="math display">$$
+\begin{aligned}
+\vec{\xi} = \vec{n} \times \vec{q}
+\end{aligned}
+$$</span></p>
+<p>Como el lagrangiano completo es un escalar invariante bajo
+rotaciones, su variación es nula, por lo que <span
+class="math inline"><em>F</em> = 0</span>. Sustituyendo en la expresión
+general de la carga de Noether <span
+class="math inline"><em>Q</em> = <em>p⃗</em> ⋅ <em>ξ⃗</em></span>:</p>
+<p><span class="math display">$$
+\begin{aligned}
+Q = \vec{p} \cdot (\vec{n} \times \vec{q}) = \vec{n} \cdot (\vec{q}
+\times \vec{p}) = \vec{n} \cdot \vec{L}
+\end{aligned}
+$$</span></p>
+<p>donde hemos hecho uso de la propiedad cíclica del producto mixto, y
+donde <span
+class="math inline"><em>L⃗</em> = <em>q⃗</em> × <em>p⃗</em></span>
+representa el vector momento angular. Dado que el eje de rotación <span
+class="math inline"><em>n⃗</em></span> elegido es completamente
+arbitrario, la única forma de que la cantidad <span
+class="math inline"><em>n⃗</em> ⋅ <em>L⃗</em></span> sea constante
+siempre, es que el propio vector <span
+class="math inline"><em>L⃗</em></span> sea constante. Así, Noether
+demuestra matemáticamente de forma irrefutable que <strong>la simetría
+esférica implica la conservación de las tres componentes del momento
+angular</strong>.</p>
+<h3 id="las-10-cantidades-conservadas-del-grupo-de-galileo">Las 10
+cantidades conservadas del Grupo de Galileo</h3>
+<p>Elevando este razonamiento a su forma más general, podemos demostrar
+que la invariancia fundamental del espacio-tiempo newtoniano encierra en
+su seno todas las leyes de conservación de la mecánica clásica.
+Consideremos un sistema de <span class="math inline"><em>N</em></span>
+partículas con un lagrangiano estándar de fuerzas internas <span
+class="math inline">$L = \sum_a \frac{1}{2} m_a |\dot{\vec{q}}_a|^2 -
+V$</span>.</p>
+<p>El grupo de Galileo parametriza las transformaciones continuas del
+espacio y el tiempo mediante <strong>10 parámetros
+independientes</strong>: - 3 parámetros para traslaciones espaciales en
+una dirección <span class="math inline"><em>e⃗</em></span>. - 3
+parámetros para rotaciones espaciales alrededor de un eje <span
+class="math inline"><em>n⃗</em></span>. - 3 parámetros para cambios de
+velocidad relativos (Boosts de Galileo) en una dirección <span
+class="math inline"><em>u⃗</em></span>. - 1 parámetro para traslaciones
+temporales.</p>
+<p>Utilizando la fórmula maestra de la carga de Noether <span
+class="math inline"><em>Q</em> = ∑<sub><em>a</em></sub><em>p⃗</em><sub><em>a</em></sub> ⋅ <em>ξ⃗</em><sub><em>a</em></sub> − <em>H</em><em>τ</em> − <em>F</em></span>,
+calculemos de un solo plumazo las cantidades conservadas para cada
+generador:</p>
+<ol type="1">
+<li><p><strong>Traslaciones espaciales (3 parámetros):</strong> El
+tiempo se congela (<span class="math inline"><em>τ</em> = 0</span>) y
+las coordenadas de todas las partículas se desplazan de manera uniforme
+<span
+class="math inline"><em>ξ⃗</em><sub><em>a</em></sub> = <em>e⃗</em></span>.
+Como el lagrangiano de fuerzas internas (donde <span
+class="math inline"><em>V</em></span> depende solo de distancias
+relativas) es invariante, <span
+class="math inline"><em>F</em> = 0</span>. <span
+class="math display"><em>Q</em> = ∑<sub><em>a</em></sub><em>p⃗</em><sub><em>a</em></sub> ⋅ <em>e⃗</em> = <em>e⃗</em> ⋅ (∑<sub><em>a</em></sub><em>p⃗</em><sub><em>a</em></sub>) = <em>e⃗</em> ⋅ <em>P⃗</em></span>
+Se conserva el <strong>momento lineal total</strong> <span
+class="math inline"><em>P⃗</em></span>.</p></li>
+<li><p><strong>Rotaciones espaciales (3 parámetros):</strong> El tiempo
+se congela (<span class="math inline"><em>τ</em> = 0</span>) y el
+espacio gira, <span
+class="math inline"><em>ξ⃗</em><sub><em>a</em></sub> = <em>n⃗</em> × <em>q⃗</em><sub><em>a</em></sub></span>.
+El lagrangiano es invariante, luego <span
+class="math inline"><em>F</em> = 0</span>. <span
+class="math display"><em>Q</em> = ∑<sub><em>a</em></sub><em>p⃗</em><sub><em>a</em></sub> ⋅ (<em>n⃗</em> × <em>q⃗</em><sub><em>a</em></sub>) = <em>n⃗</em> ⋅ (∑<sub><em>a</em></sub><em>q⃗</em><sub><em>a</em></sub> × <em>p⃗</em><sub><em>a</em></sub>) = <em>n⃗</em> ⋅ <em>L⃗</em></span>
+Se conserva el <strong>momento angular total</strong> <span
+class="math inline"><em>L⃗</em></span>.</p></li>
+<li><p><strong>Traslación temporal (1 parámetro):</strong> El espacio no
+se toca (<span
+class="math inline"><em>ξ⃗</em><sub><em>a</em></sub> = 0</span>), pero el
+reloj avanza un pulso (<span class="math inline"><em>τ</em> = 1</span>).
+Si las fuerzas no dependen del tiempo, <span
+class="math inline"><em>F</em> = 0</span>. <span
+class="math display"><em>Q</em> = −<em>H</em> ⋅ 1 = −<em>H</em></span>
+Se conserva la <strong>energía mecánica total</strong> <span
+class="math inline"><em>H</em></span>.</p></li>
+<li><p><strong>Boosts de Galileo (3 parámetros):</strong> El tiempo se
+congela (<span class="math inline"><em>τ</em> = 0</span>), pero saltamos
+a un sistema de referencia inercial que se mueve con velocidad relativa
+<span class="math inline"><em>u⃗</em></span>. El generador de la posición
+depende ahora explícitamente del tiempo: <span
+class="math inline"><em>ξ⃗</em><sub><em>a</em></sub> = <em>u⃗</em><em>t</em></span>.
+Bajo esta transformación, las velocidades de las partículas cambian,
+modificando de facto la energía cinética y, por ende, el lagrangiano. Al
+calcular su variación infinitesimal, esta resulta ser sorprendentemente
+una derivada total exacta: <span class="math inline">$\delta L =
+\frac{d}{dt} \left( \vec{u} \cdot \sum_a m_a \vec{q}_a \right)$</span>.
+Esto significa que nuestra función frontera no es nula, sino <span
+class="math inline"><em>F</em> = <em>u⃗</em> ⋅ ∑<sub><em>a</em></sub><em>m</em><sub><em>a</em></sub><em>q⃗</em><sub><em>a</em></sub></span>.
+Sustituyendo en la carga: <span
+class="math display"><em>Q</em> = ∑<sub><em>a</em></sub><em>p⃗</em><sub><em>a</em></sub> ⋅ (<em>u⃗</em><em>t</em>) − (<em>u⃗</em> ⋅ ∑<sub><em>a</em></sub><em>m</em><sub><em>a</em></sub><em>q⃗</em><sub><em>a</em></sub>) = −<em>u⃗</em> ⋅ (∑<sub><em>a</em></sub><em>m</em><sub><em>a</em></sub><em>q⃗</em><sub><em>a</em></sub> − <em>P⃗</em><em>t</em>) = −<em>u⃗</em> ⋅ <em>G⃗</em></span>
+Se conserva el <strong>vector del movimiento del centro de
+masas</strong> <span
+class="math inline"><em>G⃗</em> = <em>M</em><em>q⃗</em><sub>CM</sub> − <em>P⃗</em><em>t</em></span>,
+lo que matemáticamente garantiza el principio de inercia: el centro de
+masas del sistema se mueve a velocidad estrictamente constante.</p></li>
+</ol>
+<p>En resumen, exigiendo pura y llanamente que las leyes de la física no
+cambien ante transformaciones del grupo de Galileo, la maquinaria del
+teorema de Noether nos ha “regalado” <strong>de forma unificada la
+conservación de las 10 magnitudes fundamentales del universo
+clásico</strong>: <span class="math inline"><em>P⃗</em></span>, <span
+class="math inline"><em>L⃗</em></span>, <span
+class="math inline"><em>G⃗</em></span> y <span
+class="math inline"><em>H</em></span>.</p>
+<h2 id="las-tres-conservaciones-en-dos-ejemplos">Las tres conservaciones
+en dos ejemplos</h2>
+<p>Los dos ejemplos de este apartado muestran el teorema de Noether en
+casos concretos y las dos cosas que aporta una simetría: saber qué se
+conserva y ayudar a resolver el problema. Los dos proceden del tema 1 de
+la asignatura: el tiro parabólico es el lagrangiano de su ejercicio 1
+antes de imponer la ligadura del plano inclinado, y la fuerza central es
+su ejercicio 2.</p>
+<h3 id="el-tiro-parabólico">El tiro parabólico</h3>
+<p>Una partícula de masa <span class="math inline"><em>m</em></span> se
+mueve en un plano vertical, con <span
+class="math inline"><em>x</em></span> horizontal y <span
+class="math inline"><em>z</em></span> vertical, sometida a la gravedad
+<span class="math inline"><em>g</em></span>. Su lagrangiano es</p>
+<p><span class="math display">$$
+\begin{aligned}
+L = T - V = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{z}^2) - m \cdot
+g \cdot z.
+\end{aligned}
+$$</span></p>
+<p><strong>Dirección horizontal: una simetría que se cumple.</strong>
+<span class="math inline"><em>x</em></span> no aparece en <span
+class="math inline"><em>L</em></span>: es cíclica, y desplazar todo el
+sistema en horizontal es una simetría. Su ecuación de Euler–Lagrange da
+<span class="math inline">$\dfrac{d}{dt}(m \cdot \dot{x}) = 0$</span>,
+así que se conserva <span
+class="math inline"><em>p</em><sub><em>x</em></sub> = <em>m</em> ⋅ <em>ẋ</em></span>,
+y el movimiento horizontal es uniforme: <span
+class="math inline"><em>x</em>(<em>t</em>) = <em>x</em><sub>0</sub> + <em>v</em><sub><em>x</em></sub> ⋅ <em>t</em></span>.</p>
+<p><strong>Dirección vertical: una simetría rota.</strong> <span
+class="math inline"><em>z</em></span> sí aparece en <span
+class="math inline"><em>L</em></span>, en la energía potencial, y <span
+class="math inline">$\dfrac{\partial L}{\partial z} = -m \cdot
+g$</span>. La ecuación de Euler–Lagrange da</p>
+<p><span class="math display">$$
+\begin{aligned}
+\dfrac{dp_z}{dt} = -m \cdot g,
+\end{aligned}
+$$</span></p>
+<p>así que <span
+class="math inline"><em>p</em><sub><em>z</em></sub> = <em>m</em> ⋅ <em>ż</em></span>
+cambia con el tiempo, y <span class="math inline">$z(t) = z_0 + v_z
+\cdot t - \dfrac{1}{2} \cdot g \cdot t^2$</span>. La gravedad distingue
+unas alturas de otras: la traslación vertical no es una simetría, y la
+cantidad de movimiento vertical no se conserva.</p>
+<p><strong>Energía.</strong> <span class="math inline"><em>L</em></span>
+no depende explícitamente del tiempo, así que se conserva <span
+class="math inline"><em>H</em> = <em>T</em> + <em>V</em> = <em>E</em></span>
+(apartado 4.2). Se comprueba con la solución, usando <span
+class="math inline"><em>ż</em> = <em>v</em><sub><em>z</em></sub> − <em>g</em> ⋅ <em>t</em></span>:</p>
+<p><span class="math display">$$
+\begin{aligned}
+E &amp;= \dfrac{1}{2} \cdot m \cdot \left(v_x^2 + (v_z - g \cdot
+t)^2\right) + m \cdot g \cdot \left(z_0 + v_z \cdot t - \dfrac{1}{2}
+\cdot g \cdot t^2\right) \\
+&amp;= \dfrac{1}{2} \cdot m \cdot (v_x^2 + v_z^2) + m \cdot g \cdot z_0.
+\end{aligned}
+$$</span></p>
+<p>Los términos <span
+class="math inline">−<em>m</em> ⋅ <em>g</em> ⋅ <em>v</em><sub><em>z</em></sub> ⋅ <em>t</em></span>
+y <span class="math inline">$\dfrac{1}{2} \cdot m \cdot g^2 \cdot
+t^2$</span> de la energía cinética se cancelan con los de la potencial,
+y el resultado no depende de <span
+class="math inline"><em>t</em></span>.</p>
+<p><strong>Qué muestra el ejemplo:</strong> una coordenada que no
+aparece en el lagrangiano da una cantidad conservada, y una que sí
+aparece, no. Simetría y conservación van juntas, y también su
+ruptura.</p>
+<h3 id="la-fuerza-central">La fuerza central</h3>
+<p>Una partícula de masa <span class="math inline"><em>m</em></span>
+está sometida a una fuerza dirigida hacia un centro fijo, con una
+energía potencial <span
+class="math inline"><em>V</em>(<em>r</em>)</span> que solo depende de la
+distancia <span class="math inline"><em>r</em></span> al centro, como la
+gravitatoria o la eléctrica.</p>
+<p><strong>Por qué basta el plano.</strong> El momento angular <span
+class="math inline"><em>L⃗</em> = <em>r⃗</em> × <em>p⃗</em></span>
+cumple</p>
+<p><span class="math display">$$
+\begin{aligned}
+\dfrac{d\vec{L}}{dt} = \dot{\vec{r}} \times \vec{p} + \vec{r} \times
+\dot{\vec{p}} = \vec{0} + \vec{r} \times \vec{F} = \vec{0}.
+\end{aligned}
+$$</span></p>
+<p>El primer término es nulo porque <span class="math inline">$\vec{p} =
+m \cdot \dot{\vec{r}}$</span> es paralelo a <span
+class="math inline">$\dot{\vec{r}}$</span>, y el segundo, porque la
+fuerza central es paralela a <span
+class="math inline"><em>r⃗</em></span>. Así que <span
+class="math inline"><em>L⃗</em></span> es constante; la posición <span
+class="math inline"><em>r⃗</em></span> es siempre perpendicular a ese
+vector fijo, y el movimiento ocurre en un plano. En ese plano usamos
+coordenadas polares <span
+class="math inline">(<em>r</em>, <em>θ</em>)</span>, en las que <span
+class="math inline"><em>ẋ</em><sup>2</sup> + <em>ẏ</em><sup>2</sup> = <em>ṙ</em><sup>2</sup> + <em>r</em><sup>2</sup> ⋅ <em>θ̇</em><sup>2</sup></span>:</p>
+<p><span class="math display">$$
+\begin{aligned}
+L = \dfrac{1}{2} \cdot m \cdot (\dot{r}^2 + r^2 \cdot \dot{\theta}^2) -
+V(r).
+\end{aligned}
+$$</span></p>
+<p><strong>El momento angular.</strong> <span
+class="math inline"><em>θ</em></span> no aparece en <span
+class="math inline"><em>L</em></span>: es cíclica, y girar el sistema
+alrededor del centro es una simetría. Se conserva su momento
+conjugado,</p>
+<p><span class="math display">$$
+\begin{aligned}
+p_\theta = \dfrac{\partial L}{\partial \dot{\theta}} = m \cdot r^2 \cdot
+\dot{\theta} = L_z,
+\end{aligned}
+$$</span></p>
+<p>que es la componente del momento angular perpendicular al plano, la
+misma que da el teorema de Noether para el giro (apartado 4.2). Tiene un
+significado geométrico: en un tiempo <span
+class="math inline"><em>d</em><em>t</em></span>, el radio barre un
+triángulo de área <span class="math inline">$dA = \dfrac{1}{2} \cdot r^2
+\cdot d\theta$</span>, así que el área barrida por unidad de tiempo,
+<span class="math inline">$\dfrac{dA}{dt} = \dfrac{1}{2} \cdot r^2 \cdot
+\dot{\theta} = \dfrac{L_z}{2 \cdot m}$</span>, es constante. Es la
+segunda ley de Kepler.</p>
+<p><strong>La simetría ayuda a resolver.</strong> La reducción que sigue
+procede de <span class="citation"
+data-cites="calderon2026fisicaejemplos">@calderon2026fisicaejemplos</span>.
+La ecuación de Euler–Lagrange para <span
+class="math inline"><em>r</em></span> es</p>
+<p><span class="math display">$$
+\begin{aligned}
+m \cdot \ddot{r} - m \cdot r \cdot \dot{\theta}^2 + \dfrac{dV}{dr} = 0.
+\end{aligned}
+$$</span></p>
+<p>Sustituyendo <span class="math inline">$\dot{\theta} = \dfrac{L_z}{m
+\cdot r^2}$</span>, el término <span class="math inline">$m \cdot r
+\cdot \dot{\theta}^2 = \dfrac{L_z^2}{m \cdot r^3}$</span> es la derivada
+de <span class="math inline">$-\dfrac{L_z^2}{2 \cdot m \cdot
+r^2}$</span> respecto de <span class="math inline"><em>r</em></span>, y
+desaparece <span class="math inline"><em>θ</em></span>:</p>
+<p><span class="math display">$$
+\begin{aligned}
+m \cdot \ddot{r} = -\dfrac{dV_{\mathrm{ef}}}{dr}, \qquad
+V_{\mathrm{ef}}(r) := V(r) + \dfrac{L_z^2}{2 \cdot m \cdot r^2}.
+\end{aligned}
+$$</span></p>
+<p>Es el movimiento de una partícula en una sola dimensión, con un
+potencial efectivo. El segundo término, la barrera centrífuga, impide
+que la partícula llegue al centro si <span
+class="math inline"><em>L</em><sub><em>z</em></sub> ≠ 0</span>. La
+energía también se conserva, porque <span
+class="math inline"><em>L</em></span> no depende de <span
+class="math inline"><em>t</em></span>, y queda <span
+class="math inline">$E = \dfrac{1}{2} \cdot m \cdot \dot{r}^2 +
+V_{\mathrm{ef}}(r)$</span>: un problema de dos coordenadas se ha
+reducido a uno de una. La distancia <span
+class="math inline"><em>r</em></span> solo puede tomar los valores en
+los que <span
+class="math inline"><em>V</em><sub>ef</sub>(<em>r</em>) ≤ <em>E</em></span>.</p>
+<p><strong>Qué muestra el ejemplo:</strong> la simetría no solo dice qué
+se conserva, también simplifica el problema. Y la elección de
+coordenadas importa: en cartesianas, ninguna coordenada es cíclica; en
+polares, la simetría aparece como una coordenada cíclica.</p>
+<h3 id="lo-que-hereda-la-parte-cuántica">Lo que hereda la parte
+cuántica</h3>
+<p>Los dos ejemplos preparan la parte cuántica del trabajo, para que las
+dos no queden como explicaciones separadas:</p>
+<table>
+<caption>Correspondencia entre la parte clásica y la parte
+cuántica.</caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>De la parte clásica</th>
+<th>Lo que reaparece en cuántica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>La idea «simetría, cantidad conservada»</td>
+<td>La misma idea, con operadores</td>
+</tr>
+<tr>
+<td>El momento <span
+class="math inline"><em>p</em><sub><em>x</em></sub></span>, conservado
+cuando <span class="math inline"><em>x</em></span> es cíclica</td>
+<td>El operador <span class="math inline">$\hat{p} = -i \cdot \hbar
+\cdot \dfrac{d}{dx}$</span> y la partícula libre</td>
+</tr>
+<tr>
+<td>La energía <span class="math inline"><em>H</em></span></td>
+<td>El hamiltoniano <span class="math inline"><em>Ĥ</em></span> y la
+ecuación de Schrödinger</td>
+</tr>
+<tr>
+<td>La fuerza central: <span
+class="math inline"><em>L</em><sub><em>z</em></sub></span> conservado y
+reducción a una dimensión</td>
+<td>El potencial central: <span
+class="math inline"><em>L̂</em><sup>2</sup></span>, <span
+class="math inline"><em>L̂</em><sub><em>z</em></sub></span> y los números
+cuánticos <span class="math inline"><em>ℓ</em></span> y <span
+class="math inline"><em>m</em><sub><em>ℓ</em></sub></span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="de-la-mecánica-clásica-a-la-cuántica">De la mecánica clásica a
+la cuántica</h2>
+<!-- Pareja 2 (4 páginas). Guion: comunicaciones/salientes/documento_general_trabajo.md, apartado 4.4.
+Texto de partida: comunicaciones/salientes/4.3 Simetrías en mecánica cuántica-JCA-18-5929-09-2026.md. -->
+<h2 id="potencial-central-momento-angular-y-números-cuánticos">Potencial
+central, momento angular y números cuánticos</h2>
+<!-- Pareja 2 (3 páginas). Guion: documento_general_trabajo.md, apartado 4.5. Continúa la fuerza
+central del apartado anterior. -->
+<h2 id="extensión-simetrías-más-allá-del-espacio-y-el-tiempo">Extensión:
+simetrías más allá del espacio y el tiempo</h2>
+<!-- Pareja 2 (1 página). Guion: documento_general_trabajo.md, apartado 4.6. -->
+<h1 id="conclusiones">Conclusiones</h1>
+<!-- Los cuatro (2 páginas). Recuperar la pregunta inicial y responderla: las leyes de conservación son
+consecuencias de las simetrías. Reflexión personal obligatoria. Guion: documento_general_trabajo.md,
+apartado 5. -->
+<h1 class="unnumbered" id="bibliografía">Bibliografía</h1>
+<div id="refs" role="list">
+
+</div>
+<h1 id="deducción-de-la-ecuación-de-eulerlagrange">Deducción de la
+ecuación de Euler–Lagrange</h1>
+<p>La deducción sigue <span class="citation"
+data-cites="calderon2026matematicas">@calderon2026matematicas</span>, y
+la demostración del lema fundamental, <span class="citation"
+data-cites="calderon2026anexos">@calderon2026anexos</span>.</p>
+<p>Consideramos una coordenada <span
+class="math inline"><em>q</em>(<em>t</em>)</span>, dos veces derivable
+con continuidad en <span
+class="math inline">[<em>t</em><sub>1</sub>, <em>t</em><sub>2</sub>]</span>
+y con <span
+class="math inline"><em>q</em>(<em>t</em><sub>1</sub>)</span> y <span
+class="math inline"><em>q</em>(<em>t</em><sub>2</sub>)</span> fijados, y
+un lagrangiano <span
+class="math inline"><em>L</em>(<em>q</em>, <em>q̇</em>, <em>t</em>)</span>
+con derivadas parciales segundas continuas. Para comparar con
+trayectorias próximas tomamos una función <span
+class="math inline"><em>h</em></span>, también dos veces derivable con
+continuidad, con <span
+class="math inline"><em>h</em>(<em>t</em><sub>1</sub>) = <em>h</em>(<em>t</em><sub>2</sub>) = 0</span>,
+de modo que <span
+class="math inline"><em>q</em> + <em>ε</em> ⋅ <em>h</em></span> tiene
+los mismos extremos.</p>
+<p><strong>1. La variación primera.</strong> Por el desarrollo de Taylor
+de <span class="math inline"><em>L</em></span> en sus dos primeros
+argumentos, con <span class="math inline"><em>t</em></span> fijo,</p>
+<p><span class="math display">$$
+\begin{aligned}
+L(q + \varepsilon \cdot h, \dot{q} + \varepsilon \cdot \dot{h}, t) -
+L(q, \dot{q}, t) = \varepsilon \cdot \left(\dfrac{\partial L}{\partial
+q} \cdot h + \dfrac{\partial L}{\partial \dot{q}} \cdot \dot{h}\right) +
+O(\varepsilon^2),
+\end{aligned}
+$$</span></p>
+<p>con las derivadas de <span class="math inline"><em>L</em></span>
+evaluadas en <span
+class="math inline">(<em>q</em>(<em>t</em>), <em>q̇</em>(<em>t</em>), <em>t</em>)</span>.
+Integramos entre <span class="math inline"><em>t</em><sub>1</sub></span>
+y <span class="math inline"><em>t</em><sub>2</sub></span>, dividimos por
+<span class="math inline"><em>ε</em></span> y hacemos <span
+class="math inline"><em>ε</em> → 0</span>. El resto, dividido por <span
+class="math inline"><em>ε</em></span>, tiende a <span
+class="math inline">0</span> en todo el intervalo a la vez, porque las
+derivadas segundas de <span class="math inline"><em>L</em></span> son
+continuas en un conjunto cerrado y acotado. Queda</p>
+<p><span class="math display">$$
+\begin{aligned}
+\delta S = \int_{t_1}^{t_2} \left(\dfrac{\partial L}{\partial q} \cdot h
++ \dfrac{\partial L}{\partial \dot{q}} \cdot \dot{h}\right) dt.
+\end{aligned}
+$$</span></p>
+<p><strong>2. La integración por partes.</strong> El segundo término se
+integra por partes:</p>
+<p><span class="math display">$$
+\begin{aligned}
+\int_{t_1}^{t_2} \dfrac{\partial L}{\partial \dot{q}} \cdot \dot{h} \,dt
+= \left[\dfrac{\partial L}{\partial \dot{q}} \cdot h\right]_{t_1}^{t_2}
+- \int_{t_1}^{t_2} \dfrac{d}{dt}\left(\dfrac{\partial L}{\partial
+\dot{q}}\right) \cdot h \,dt.
+\end{aligned}
+$$</span></p>
+<p>El término de contorno es nulo, porque <span
+class="math inline"><em>h</em>(<em>t</em><sub>1</sub>) = <em>h</em>(<em>t</em><sub>2</sub>) = 0</span>.
+Queda</p>
+<p><span class="math display">$$
+\begin{aligned}
+\delta S = \int_{t_1}^{t_2} \varphi(t) \cdot h(t) \,dt, \qquad \varphi
+:= \dfrac{\partial L}{\partial q} - \dfrac{d}{dt}\left(\dfrac{\partial
+L}{\partial \dot{q}}\right).
+\end{aligned}
+$$</span></p>
+<p><strong>3. El lema fundamental del cálculo de
+variaciones.</strong></p>
+<p><strong>Lema.</strong> Sea <span
+class="math inline"><em>φ</em> : [<em>t</em><sub>1</sub>, <em>t</em><sub>2</sub>] → ℝ</span>
+una función continua tal que <span
+class="math inline">∫<sub><em>t</em><sub>1</sub></sub><sup><em>t</em><sub>2</sub></sup><em>φ</em>(<em>t</em>) ⋅ <em>h</em>(<em>t</em>) <em>d</em><em>t</em> = 0</span>
+para toda función <span class="math inline"><em>h</em></span> dos veces
+derivable con continuidad con <span
+class="math inline"><em>h</em>(<em>t</em><sub>1</sub>) = <em>h</em>(<em>t</em><sub>2</sub>) = 0</span>.
+Entonces <span class="math inline"><em>φ</em>(<em>t</em>) = 0</span>
+para todo <span
+class="math inline"><em>t</em> ∈ [<em>t</em><sub>1</sub>, <em>t</em><sub>2</sub>]</span>.</p>
+<p><strong>Demostración.</strong> Por reducción al absurdo. Supongamos
+que existe un punto <span
+class="math inline"><em>t</em><sub>0</sub> ∈ (<em>t</em><sub>1</sub>, <em>t</em><sub>2</sub>)</span>
+con <span
+class="math inline"><em>φ</em>(<em>t</em><sub>0</sub>) ≠ 0</span>.
+Podemos suponer que <span
+class="math inline"><em>φ</em>(<em>t</em><sub>0</sub>) &gt; 0</span>: si
+fuera negativo, el mismo razonamiento se aplica a <span
+class="math inline">−<em>φ</em></span>, que cumple la misma
+hipótesis.</p>
+<ol type="1">
+<li><p><strong>Un intervalo donde <span
+class="math inline"><em>φ</em></span> es positiva.</strong> Como <span
+class="math inline"><em>φ</em></span> es continua en <span
+class="math inline"><em>t</em><sub>0</sub></span>, existe <span
+class="math inline"><em>η</em> &gt; 0</span> tal que <span
+class="math inline">$\varphi(t) &gt; \dfrac{\varphi(t_0)}{2} &gt;
+0$</span> siempre que <span
+class="math inline">|<em>t</em> − <em>t</em><sub>0</sub>| &lt; <em>η</em></span>.
+Elegimos <span class="math inline"><em>α</em></span> y <span
+class="math inline"><em>β</em></span> con <span
+class="math inline">max (<em>t</em><sub>1</sub>, <em>t</em><sub>0</sub> − <em>η</em>) &lt; <em>α</em> &lt; <em>t</em><sub>0</sub> &lt; <em>β</em> &lt; min (<em>t</em><sub>2</sub>, <em>t</em><sub>0</sub> + <em>η</em>)</span>.
+Así, <span
+class="math inline">[<em>α</em>, <em>β</em>] ⊂ (<em>t</em><sub>1</sub>, <em>t</em><sub>2</sub>)</span>
+y <span class="math inline"><em>φ</em>(<em>t</em>) &gt; 0</span> en todo
+<span class="math inline">[<em>α</em>, <em>β</em>]</span>.</p></li>
+<li><p><strong>Una función <span class="math inline"><em>h</em></span>
+que solo es distinta de cero en <span
+class="math inline">(<em>α</em>, <em>β</em>)</span>.</strong>
+Definimos</p>
+<p><span class="math display">$$
+\begin{aligned}
+h(t) := \begin{cases} (t - \alpha)^3 \cdot (\beta - t)^3 &amp; \text{si
+} \alpha \leq t \leq \beta, \\ 0 &amp; \text{en otro caso.} \end{cases}
+\end{aligned}
+$$</span></p></li>
+<li><p><strong><span class="math inline"><em>h</em></span> es
+admisible.</strong> Como <span
+class="math inline"><em>t</em><sub>1</sub> &lt; <em>α</em></span> y
+<span class="math inline"><em>β</em> &lt; <em>t</em><sub>2</sub></span>,
+se cumple <span
+class="math inline"><em>h</em>(<em>t</em><sub>1</sub>) = <em>h</em>(<em>t</em><sub>2</sub>) = 0</span>.
+Falta ver que <span class="math inline"><em>h</em></span> es dos veces
+derivable con continuidad. Dentro de <span
+class="math inline">(<em>α</em>, <em>β</em>)</span>, <span
+class="math inline"><em>h</em></span> es un polinomio, y fuera de <span
+class="math inline">[<em>α</em>, <em>β</em>]</span> es la función nula,
+así que solo hay que comprobar los puntos <span
+class="math inline"><em>α</em></span> y <span
+class="math inline"><em>β</em></span>. A la derecha de <span
+class="math inline"><em>α</em></span> escribimos <span
+class="math inline"><em>h</em>(<em>t</em>) = (<em>t</em> − <em>α</em>)<sup>3</sup> ⋅ <em>ρ</em>(<em>t</em>)</span>,
+con <span
+class="math inline"><em>ρ</em>(<em>t</em>) := (<em>β</em> − <em>t</em>)<sup>3</sup></span>,
+y derivamos:</p>
+<p><span class="math display">$$
+\begin{aligned}
+h'(t) &amp;= 3 \cdot (t - \alpha)^2 \cdot \rho(t) + (t - \alpha)^3 \cdot
+\rho'(t), \\
+h''(t) &amp;= 6 \cdot (t - \alpha) \cdot \rho(t) + 6 \cdot (t -
+\alpha)^2 \cdot \rho'(t) + (t - \alpha)^3 \cdot \rho''(t).
+\end{aligned}
+$$</span></p>
+<p>A la izquierda de <span class="math inline"><em>α</em></span>, <span
+class="math inline"><em>h</em></span>, <span
+class="math inline"><em>h</em><sup>′</sup></span> y <span
+class="math inline"><em>h</em><sup>″</sup></span> son nulas. Por la
+derecha, los cocientes <span class="math inline">$\dfrac{h(t) -
+h(\alpha)}{t - \alpha} = (t - \alpha)^2 \cdot \rho(t)$</span> y <span
+class="math inline">$\dfrac{h'(t) - 0}{t - \alpha} = 3 \cdot (t -
+\alpha) \cdot \rho(t) + (t - \alpha)^2 \cdot \rho'(t)$</span> tienden a
+<span class="math inline">0</span>, así que <span
+class="math inline"><em>h</em><sup>′</sup>(<em>α</em>) = 0</span> y
+<span class="math inline"><em>h</em><sup>″</sup>(<em>α</em>) = 0</span>.
+Además, <span
+class="math inline"><em>h</em><sup>″</sup>(<em>t</em>) → 0</span> cuando
+<span class="math inline"><em>t</em> → <em>α</em></span> por la derecha,
+porque cada término contiene el factor <span
+class="math inline">(<em>t</em> − <em>α</em>)</span>. Por tanto, <span
+class="math inline"><em>h</em><sup>″</sup></span> es continua en <span
+class="math inline"><em>α</em></span>. En <span
+class="math inline"><em>β</em></span> se razona igual, con el factor
+<span class="math inline">(<em>β</em> − <em>t</em>)<sup>3</sup></span> y
+<span
+class="math inline"><em>σ</em>(<em>t</em>) := (<em>t</em> − <em>α</em>)<sup>3</sup></span>.
+Por eso el exponente es <span class="math inline">3</span>: con
+exponente <span class="math inline">2</span>, <span
+class="math inline"><em>h</em><sup>″</sup></span> saltaría en <span
+class="math inline"><em>α</em></span> de <span
+class="math inline">0</span> a <span
+class="math inline">2 ⋅ (<em>β</em> − <em>α</em>)<sup>3</sup></span>.</p></li>
+<li><p><strong>La contradicción.</strong> En <span
+class="math inline">(<em>α</em>, <em>β</em>)</span> son positivas tanto
+<span class="math inline"><em>φ</em></span> como <span
+class="math inline"><em>h</em></span>, porque <span
+class="math inline"><em>t</em> − <em>α</em> &gt; 0</span> y <span
+class="math inline"><em>β</em> − <em>t</em> &gt; 0</span>. Fuera de
+<span class="math inline">[<em>α</em>, <em>β</em>]</span>, <span
+class="math inline"><em>h</em> = 0</span>. Por tanto,</p>
+<p><span class="math display">$$
+\begin{aligned}
+\int_{t_1}^{t_2} \varphi(t) \cdot h(t) \,dt = \int_\alpha^\beta
+\varphi(t) \cdot h(t) \,dt &gt; 0,
+\end{aligned}
+$$</span></p>
+<p>porque es la integral de una función continua y positiva en <span
+class="math inline">(<em>α</em>, <em>β</em>)</span>. Esto contradice la
+hipótesis, así que <span
+class="math inline"><em>φ</em>(<em>t</em><sub>0</sub>) = 0</span> para
+todo <span
+class="math inline"><em>t</em><sub>0</sub> ∈ (<em>t</em><sub>1</sub>, <em>t</em><sub>2</sub>)</span>.</p></li>
+<li><p><strong>Los extremos.</strong> Por la continuidad de <span
+class="math inline"><em>φ</em></span>, <span
+class="math inline"><em>φ</em>(<em>t</em><sub>1</sub>) = lim<sub><em>t</em> → <em>t</em><sub>1</sub><sup>+</sup></sub><em>φ</em>(<em>t</em>) = 0</span>
+y <span
+class="math inline"><em>φ</em>(<em>t</em><sub>2</sub>) = lim<sub><em>t</em> → <em>t</em><sub>2</sub><sup>−</sup></sub><em>φ</em>(<em>t</em>) = 0</span>.
+<span class="math inline">◼</span></p></li>
+</ol>
+<p><strong>4. La conclusión.</strong> Como <span
+class="math inline"><em>δ</em><em>S</em> = 0</span> para toda <span
+class="math inline"><em>h</em></span>, el lema da <span
+class="math inline"><em>φ</em> = 0</span>, que es la ecuación de
+Euler–Lagrange:</p>
+<p><span class="math display">$$
+\begin{aligned}
+\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}}\right) -
+\dfrac{\partial L}{\partial q} = 0.
+\end{aligned}
+$$</span></p>
+<p>Recíprocamente, si se cumple la ecuación, <span
+class="math inline"><em>φ</em> = 0</span> y <span
+class="math inline"><em>δ</em><em>S</em> = 0</span> para toda <span
+class="math inline"><em>h</em></span>.</p>
+<p><strong>Varias coordenadas.</strong> Con <span
+class="math inline"><em>n</em></span> coordenadas se toma una función
+<span class="math inline"><em>h</em><sub><em>i</em></sub></span> para
+cada una. Variando una sola coordenada cada vez, es decir, con todas las
+<span class="math inline"><em>h</em><sub><em>j</em></sub></span> nulas
+salvo <span class="math inline"><em>h</em><sub><em>i</em></sub></span>,
+el mismo razonamiento da una ecuación de Euler–Lagrange para cada <span
+class="math inline"><em>q</em><sub><em>i</em></sub></span>.</p>
+<!-- Anexos de la pareja 2, si los hay (por ejemplo, la deducción de d<A>/dt). Máximo de 3 páginas para todos los anexos. -->
+</body>
+</html>
