@@ -36,6 +36,35 @@
 \makeatother
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
+% Citas y referencias generadas por citeproc (APA 7): lista con sangría francesa.
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.27cm}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2]
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  \setlength{\itemsep}{#2\baselineskip}}%
+  % APA 7: referencias alineadas a la izquierda (sin justificar); así las URL/DOI
+  % largas no estiran la línea.
+  \raggedright
+  % El modelo carga natbib (author-year), cuyo \bibitem no acepta las entradas de
+  % citeproc; dentro de esta lista cada entrada es un \item normal.
+  \renewcommand{\bibitem}[2][]{\item}}
+ {\end{list}}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 %---------------------------
 %título del trabajo y autor
@@ -79,9 +108,15 @@ English version of the Resumen (maximum 150 words).
 {\bf Keywords:} keyword 1, keyword 2, keyword 3
 
 \mainmatter
-\section{Introducción}\label{introducciuxf3n}
+\newcommand{\bsS}{\boldsymbol{S}}
+\newcommand{\bsL}{\boldsymbol{L}}
+\newcommand{\bsH}{\boldsymbol{H}}
+\newcommand{\bsT}{\boldsymbol{T}}
+\newcommand{\bsdelta}{\boldsymbol{\delta}}
 
-\subsection{Motivación y
+\chapter{Introducción}\label{introducciuxf3n}
+
+\section{Motivación y
 justificación}\label{motivaciuxf3n-y-justificaciuxf3n}
 
 Un experimento de laboratorio da el mismo resultado si se repite en otra
@@ -98,7 +133,7 @@ conservan precisamente esas tres. La respuesta que construiremos es que
 cada una corresponde a una de las simetrías anteriores: la energía, a la
 traslación en el tiempo; el momento lineal, a la traslación en el
 espacio; y el momento angular, a los giros. Es el contenido del teorema
-que Emmy Noether publicó en 1918 {[}@noether1918{]}.
+que Emmy Noether publicó en 1918 (Noether, 1918).
 
 La relación entre simetría y conservación no es una curiosidad de la
 mecánica clásica. En mecánica cuántica se mantiene, y además la simetría
@@ -108,7 +143,7 @@ un electrón en un átomo según su momento angular, proceden de la
 simetría de giro. Por eso es un tema central en la formación de quien
 estudia computación cuántica.
 
-\subsection{Planteamiento del trabajo}\label{planteamiento-del-trabajo}
+\section{Planteamiento del trabajo}\label{planteamiento-del-trabajo}
 
 Conviene fijar desde el principio el significado de las palabras que
 usaremos:
@@ -149,7 +184,7 @@ preciso. Ese lenguaje es el formalismo lagrangiano: el sistema se
 describe con una función, el lagrangiano, y la ley no cambia bajo una
 transformación si el lagrangiano no cambia.
 
-\subsection{Estructura del trabajo}\label{estructura-del-trabajo}
+\section{Estructura del trabajo}\label{estructura-del-trabajo}
 
 El capítulo 2 sitúa el problema en la historia: cómo la mecánica pasó de
 formularse con fuerzas (Newton) a formularse con una función y un
@@ -164,79 +199,76 @@ el trabajo:
   el apartado 4.1 presenta el formalismo lagrangiano mínimo necesario,
   cuya deducción completa está en el anexo A;
 \item
-  el 4.2 define con precisión qué es una simetría y demuestra el teorema
-  de Noether en su forma más sencilla;
+  el 4.2 define con precisión qué es una simetría, demuestra el teorema
+  de Noether en su forma más sencilla y obtiene las tres conservaciones
+  en tres ejemplos resueltos: la partícula libre, el tiro parabólico y
+  la fuerza central; el anexo B lo completa con los cambios de velocidad
+  y el grupo de Galileo;
 \item
-  el 4.3 obtiene las tres conservaciones en dos ejemplos resueltos, el
-  tiro parabólico y la fuerza central;
-\item
-  los apartados 4.4 a 4.6 trasladan la misma idea a la mecánica
+  los apartados 4.3 y 4.4 trasladan la misma idea a la mecánica
   cuántica, donde la simetría de giro de un potencial central da los
-  números cuánticos del momento angular, y la extienden a simetrías que
-  no actúan sobre el espacio ni el tiempo.
+  números cuánticos del momento angular.
 \end{itemize}
 
 El capítulo 5 recoge las conclusiones y la reflexión personal del grupo.
 
 Los desarrollos completos en que se apoyan el capítulo 2, los apartados
-4.1 a 4.3 y el anexo A están en apuntes de uno de los autores
-{[}@calderon2026contexto; @calderon2026matematicas; @calderon2026fisica;
-@calderon2026fisicaejemplos; @calderon2026anexos{]}. Otros apuntes y
-cuadernos de cálculo simbólico sobre los mismos temas están en su
-repositorio {[}@calderon2026mcc{]}.
+4.1 y 4.2 y los anexos están en apuntes de uno de los autores (Calderón
+Almendros, 2026a, 2026e, 2026d, 2026c, 2026b, 2026i, 2026h, 2026g,
+2026f). Otros apuntes y cuadernos de cálculo simbólico sobre los mismos
+temas están en su repositorio (Calderón Almendros, 2026j).
 
-\section{Contexto y estado de la
+\chapter{Contexto y estado de la
 cuestión}\label{contexto-y-estado-de-la-cuestiuxf3n}
 
-\subsection{Contexto histórico}\label{contexto-histuxf3rico}
+\section{Contexto histórico}\label{contexto-histuxf3rico}
 
 Entre los siglos XVII y XIX, la mecánica cambió dos veces de lenguaje, y
-esos cambios son los que hicieron posible el teorema de Noether.
-@newton1687 la formuló a partir de las fuerzas: el movimiento de un
-cuerpo se deduce de las fuerzas que actúan sobre él. Un siglo después,
-@lagrange1788 la reformuló por completo a partir de la energía cinética
-y de una función de las fuerzas (la energía potencial), sin recurrir a
+esos cambios son los que hicieron posible el teorema de Noether. Newton
+(1687) la formuló a partir de las fuerzas: el movimiento de un cuerpo se
+deduce de las fuerzas que actúan sobre él. Un siglo después, Lagrange
+(1788) la reformuló por completo a partir de la energía cinética y de
+una función de las fuerzas (la energía potencial), sin recurrir a
 construcciones geométricas. Sus ecuaciones valen en cualquier sistema de
 coordenadas, no solo en las cartesianas. En la década de 1830, Hamilton
-{[}-@hamilton1834; -@hamilton1835{]} dio a esta mecánica la forma de un
-principio variacional. Entre todas las trayectorias posibles con los
-mismos extremos, el sistema sigue aquella que hace estacionaria la
-acción: la integral en el tiempo de la diferencia entre la energía
-cinética y la potencial, lo que hoy llamamos el lagrangiano. Con este
-lenguaje, decir que una ley física no cambia bajo una transformación
-(desplazar el sistema, girarlo o retrasar el reloj) pasa a ser una
-afirmación precisa: la acción no cambia.
+(1834, 1835) dio a esta mecánica la forma de un principio variacional.
+Entre todas las trayectorias posibles con los mismos extremos, el
+sistema sigue aquella que hace estacionaria la acción: la integral en el
+tiempo de la diferencia entre la energía cinética y la potencial, lo que
+hoy llamamos el lagrangiano. Con este lenguaje, decir que una ley física
+no cambia bajo una transformación (desplazar el sistema, girarlo o
+retrasar el reloj) pasa a ser una afirmación precisa: la acción no
+cambia.
 
 El resultado general llegó a raíz de un problema concreto: la
 conservación de la energía en la relatividad general. Las leyes de
 conservación guiaron a Einstein durante toda la búsqueda de las
 ecuaciones del campo gravitatorio. En 1913, con Marcel Grossmann,
 descartó unas ecuaciones construidas a partir del tensor de Ricci porque
-creyó que no las cumplían {[}@einsteingrossmann1913{]}. En noviembre de
-1915 volvió a unas ecuaciones de ese tipo {[}@einstein1915{]} y escribió
-a Arnold Sommerfeld que el error había sido precisamente creer que las
-leyes de conservación no se cumplían {[}@einstein1998, documento 153;
-@pitts2016{]}. Pero en la nueva teoría la energía se comportaba de forma
+creyó que no las cumplían (Einstein y Grossmann, 1913). En noviembre de
+1915 volvió a unas ecuaciones de ese tipo (Einstein, 1915) y escribió a
+Arnold Sommerfeld que el error había sido precisamente creer que las
+leyes de conservación no se cumplían (Einstein, 1998, documento 153;
+Pitts, 2016). Pero en la nueva teoría la energía se comportaba de forma
 extraña: la del campo gravitatorio dependía del sistema de coordenadas y
 no podía asignarse a cada punto del espacio. En Gotinga, David Hilbert,
 que en noviembre de 1915 había presentado su propia formulación
-variacional de la gravitación {[}@hilbert1915{]}, llegó a la conclusión
-de que en la teoría no había teoremas de energía «propios»
-{[}@klein1918a{]}. Para estudiar el problema, Hilbert y Felix Klein
-invitaron a Gotinga ese mismo año a Emmy Noether (1882--1935), la mayor
-experta de la época en teoría de invariantes, en la que se había
-doctorado en 1907 {[}@noether1908{]}. Einstein, por su parte, mostró en
-1918 que la energía total de un sistema aislado sí está bien definida y
-se conserva, aunque no pueda repartirse punto a punto
-{[}@einstein1918{]}.
+variacional de la gravitación (Hilbert, 1915), llegó a la conclusión de
+que en la teoría no había teoremas de energía «propios» (Klein, 1918).
+Para estudiar el problema, Hilbert y Felix Klein invitaron a Gotinga ese
+mismo año a Emmy Noether (1882--1935), la mayor experta de la época en
+teoría de invariantes, en la que se había doctorado en 1907 (Noether,
+1908). Einstein, por su parte, mostró en 1918 que la energía total de un
+sistema aislado sí está bien definida y se conserva, aunque no pueda
+repartirse punto a punto (Einstein, 1918).
 
 Noether trabajó en el problema entre 1915 y 1918. El resultado fue el
 artículo \emph{Invariante Variationsprobleme}, que Klein presentó el 26
-de julio de 1918 en la Sociedad de Ciencias de Gotinga
-{[}@noether1918{]}. Contiene dos teoremas. El primero, el que hoy se
-conoce como teorema de Noether, establece que en todo sistema cuyas
-ecuaciones se obtienen de un principio variacional, a cada simetría
-continua de la acción le corresponde una cantidad conservada:
+de julio de 1918 en la Sociedad de Ciencias de Gotinga (Noether, 1918).
+Contiene dos teoremas. El primero, el que hoy se conoce como teorema de
+Noether, establece que en todo sistema cuyas ecuaciones se obtienen de
+un principio variacional, a cada simetría continua de la acción le
+corresponde una cantidad conservada:
 
 \begin{itemize}
 \tightlist
@@ -260,23 +292,23 @@ Einstein siguió estos trabajos desde Berlín. El 27 de diciembre de 1918,
 al recibir el artículo, escribió a Klein que volvía a sentir como una
 gran injusticia que a Noether se le negara la \emph{venia legendi}, el
 permiso para enseñar en la universidad, y propuso dar un paso enérgico
-ante el ministerio {[}@einstein1998, documento 677{]}. La negativa se
-debía a que Noether era mujer. Las normas de las universidades prusianas
-no permitían habilitarse a las mujeres: su solicitud de 1915 fue
-rechazada, y durante esos años impartió cursos anunciados a nombre de
-Hilbert. Obtuvo la habilitación en 1919, cuando las normas cambiaron
-tras la caída del Imperio, pero nunca llegó a tener en Gotinga una plaza
-de catedrática. En 1933, las leyes del régimen nazi la expulsaron de la
+ante el ministerio (Einstein, 1998, documento 677). La negativa se debía
+a que Noether era mujer. Las normas de las universidades prusianas no
+permitían habilitarse a las mujeres: su solicitud de 1915 fue rechazada,
+y durante esos años impartió cursos anunciados a nombre de Hilbert.
+Obtuvo la habilitación en 1919, cuando las normas cambiaron tras la
+caída del Imperio, pero nunca llegó a tener en Gotinga una plaza de
+catedrática. En 1933, las leyes del régimen nazi la expulsaron de la
 universidad por ser judía. Emigró a Estados Unidos, donde enseñó en el
-Bryn Mawr College, y murió allí en 1935 {[}@blanco2011{]}. El primer
-teorema, en su forma más sencilla, es el que se desarrolla en el
+Bryn Mawr College, y murió allí en 1935 (Blanco Laserna, 2011). El
+primer teorema, en su forma más sencilla, es el que se desarrolla en el
 capítulo 4 de este trabajo.
 
 Este capítulo resume una versión más extensa, que incluye además la
 teoría de invariantes del siglo XIX y el debate de 1918 sobre la energía
-del campo gravitatorio {[}@calderon2026contexto{]}.
+del campo gravitatorio (Calderón Almendros, 2026a).
 
-\section{Objetivos}\label{objetivos}
+\chapter{Objetivos}\label{objetivos}
 
 \textbf{Objetivo general:} mostrar cómo las simetrías de un sistema
 físico están relacionadas con sus leyes de conservación, y cómo esa
@@ -295,26 +327,26 @@ relación sigue siendo fundamental en mecánica cuántica.
   obtener de él la conservación del momento lineal, del momento angular
   y de la energía (apartado 4.2).
 \item
-  Comprobar las tres conservaciones en dos ejemplos resueltos, el tiro
-  parabólico y la fuerza central, y mostrar que una simetría no solo
-  dice qué se conserva, sino que también ayuda a resolver el problema
-  (apartado 4.3).
+  Comprobar las tres conservaciones en tres ejemplos resueltos, la
+  partícula libre, el tiro parabólico y la fuerza central, y mostrar que
+  una simetría no solo dice qué se conserva, sino que también ayuda a
+  resolver el problema (apartado 4.2).
 \item
   Mostrar cómo se expresa la misma idea en mecánica cuántica, donde una
   transformación es una simetría si conmuta con el hamiltoniano
-  (apartado 4.4).
+  (apartado 4.3).
 \item
   Relacionar la simetría de giro de un potencial central con los números
-  cuánticos \(\ell\) y \(m_\ell\) del momento angular (apartado 4.5).
+  cuánticos \(\ell\) y \(m_\ell\) del momento angular (apartado 4.4).
 \end{enumerate}
 
-\section{Desarrollo del trabajo}\label{desarrollo-del-trabajo}
+\chapter{Desarrollo del trabajo}\label{desarrollo-del-trabajo}
 
-\subsection{Formalismo lagrangiano}\label{formalismo-lagrangiano}
+\section{Formalismo lagrangiano}\label{formalismo-lagrangiano}
 
-Este apartado resume el desarrollo de @calderon2026fisica, para el
-lagrangiano, y de @calderon2026matematicas, para la acción y la ecuación
-de Euler--Lagrange.
+Este apartado resume el desarrollo de Calderón Almendros (2026d), para
+el lagrangiano, y de Calderón Almendros (2026e), para la acción y la
+ecuación de Euler--Lagrange.
 
 \textbf{Coordenadas generalizadas.} La configuración de un sistema
 mecánico se describe con un conjunto de coordenadas \(q_1, \dots, q_n\),
@@ -430,337 +462,421 @@ de Euler--Lagrange se escribe
 \(\dot{p}_i = \dfrac{\partial L}{\partial q_i}\), que es la forma que
 usa el teorema de Noether.
 
-\subsection{Simetrías y teorema de
+\section{Simetrías y teorema de
 Noether}\label{simetruxedas-y-teorema-de-noether}
 
-Con el lenguaje del apartado anterior se puede formular con precisión
-matemática qué es una simetría, cómo se distingue de la estacionariedad
-de la acción, y cómo, a través del teorema de Noether, cada simetría
-continua lleva asociada inexorablemente una cantidad conservada.
+Este apartado resume Calderón Almendros (2026i), para la definición de
+simetría y el teorema, y Calderón Almendros (2026h) y Calderón Almendros
+(2026g), para los ejemplos. Con el lenguaje del apartado anterior se
+puede precisar qué es una simetría y demostrar que cada simetría
+continua lleva asociada una cantidad conservada. Después, tres ejemplos
+aplican el teorema paso a paso, de más a menos simétricos: la partícula
+libre, el tiro parabólico y la fuerza central.
 
-\subsubsection{La coordenada cíclica}\label{la-coordenada-cuxedclica}
+\subsection{La coordenada cíclica}\label{la-coordenada-cuxedclica}
 
-El caso más intuitivo de conservación ocurre cuando una coordenada
-\(q_k\) no aparece explícitamente en el lagrangiano \(L\), aunque sí lo
-haga su velocidad \(\dot{q}_k\). En este caso, se dice que la coordenada
-es cíclica. La ecuación de Euler-Lagrange para \(q_k\) es:
-
-\[
-\begin{aligned}
-\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_k}\right) - \dfrac{\partial L}{\partial q_k} = 0
-\end{aligned}
-\]
-
-Como \(q_k\) no aparece, \(\dfrac{\partial L}{\partial q_k} = 0\), lo
-que implica directamente que
-\(\dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_k}\right) = 0\).
-Por tanto, el momento conjugado
-\(p_k = \dfrac{\partial L}{\partial \dot{q}_k}\) es una constante del
-movimiento. Desplazar todo el experimento a lo largo de \(q_k\) no
-cambia la física; esa simetría de traslación conduce a una cantidad
-conservada.
-
-Para ilustrarlo con claridad, veamos algunos ejemplos concretos: -
-\textbf{Partícula libre:} Si una partícula de masa \(m\) no está
-sometida a ningún campo de potenciales (\(V = 0\)), su lagrangiano es
-exclusivamente su energía cinética,
-\(L = T = \dfrac{1}{2} \cdot m \cdot \lVert\dot{\vec{q}}\rVert^2\). Al
-derivar, \(\dfrac{\partial L}{\partial q_i} = 0\) para las tres
-coordenadas espaciales (\(i = 1, 2, 3\)). Como las tres son cíclicas, se
-conserva el vector momento lineal completo,
-\(\vec{p} = m \cdot \dot{\vec{q}}\). - \textbf{Tiro parabólico (gravedad
-uniforme):} Si la gravedad actúa hacia abajo en el eje \(z\), el
-lagrangiano es
-\(L = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{y}^2 + \dot{z}^2) - m \cdot g \cdot z\).
-Las coordenadas horizontales \(x\) e \(y\) son cíclicas, por lo que
-\(p_x\) y \(p_y\) se conservan (simetría de traslación horizontal). Sin
-embargo, \(z\) sí aparece en la energía potencial, rompiendo la simetría
-en la vertical: \(\dfrac{\partial L}{\partial z} = -m \cdot g \neq 0\),
-y por tanto \(p_z\) no se conserva. - \textbf{Fuerza central
-(coordenadas polares):} Ante un potencial que solo depende de la
-distancia al origen, \(V(r)\), el lagrangiano en el plano es
-\(L = \dfrac{1}{2} \cdot m \cdot (\dot{r}^2 + r^2 \cdot \dot{\theta}^2) - V(r)\).
-La coordenada angular \(\theta\) no aparece explícitamente, demostrando
-que el sistema tiene simetría de rotación. Como \(\theta\) es cíclica,
-se conserva su momento conjugado: el momento angular
-\(p_\theta = m \cdot r^2 \cdot \dot{\theta}\).
-
-\subsubsection{Qué es una simetría y la transformación
-continua}\label{quuxe9-es-una-simetruxeda-y-la-transformaciuxf3n-continua}
-
-El teorema de Noether generaliza esta idea. No trabaja con una
-transformación aislada, sino con familias de transformaciones
-\(\Phi_\varepsilon\) que dependen de forma continua de un parámetro
-pequeño \(\varepsilon\). Cada punto \(q_i\) se mueve en una dirección
-dada por su generador infinitesimal \(\xi_i\):
+Una coordenada \(q_k\) que no aparece en el lagrangiano, aunque sí
+aparezca su velocidad \(\dot{q}_k\), se llama \textbf{cíclica}. Para
+ella, \(\dfrac{\partial L}{\partial q_k} = 0\), y la ecuación de
+Euler--Lagrange queda
 
 \[
 \begin{aligned}
-q_i \to q_i + \varepsilon \cdot \xi_i(q, t)
+\dfrac{dp_k}{dt} = \dfrac{\partial L}{\partial q_k} = 0:
 \end{aligned}
 \]
 
-Es crucial distinguir dos conceptos que, aunque usan el lagrangiano,
-responden a preguntas distintas: - \textbf{Estacionariedad (principio de
-Hamilton, \(\delta S = 0\)):} se varía una trayectoria de cualquier
-manera manteniendo sus extremos fijos, buscando aquella cuya acción no
-cambia a primer orden. Su papel es \emph{seleccionar las soluciones
-físicas} de entre todos los caminos posibles. - \textbf{Simetría:} se
-fija una transformación particular \(\Phi_\varepsilon\) y se exige que
-\emph{no cambie la acción de ninguna trayectoria}, sea solución o no,
-salvo quizá en un término de frontera. La simetría no es una propiedad
-de una trayectoria particular, sino del lagrangiano, es decir, de la ley
-física misma. Físicamente, transforma soluciones en otras soluciones
-válidas.
+su momento conjugado se conserva. Que \(q_k\) no aparezca en \(L\)
+significa que desplazar el sistema en esa coordenada no cambia el
+lagrangiano. Dos ejemplos:
 
-A nivel infinitesimal, que la transformación sea una simetría equivale a
-que el lagrangiano quede igual a primer orden, o cambie a lo sumo en una
-derivada total respecto del tiempo:
-\(\delta L = \varepsilon \cdot \dfrac{dF}{dt}\).
-
-\subsubsection{El teorema de Noether (la
-cuenta)}\label{el-teorema-de-noether-la-cuenta}
-
-El primer teorema de Noether establece que, por cada simetría continua
-de la acción, existe una cantidad \(Q\) que se conserva. Evaluando la
-variación del lagrangiano mediante la regla de la cadena, tenemos:
-
-\[
-\begin{aligned}
-\dfrac{\delta L}{\varepsilon} = \sum_i \left( \dfrac{\partial L}{\partial q_i} \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i \right)
-\end{aligned}
-\]
-
-Sobre una trayectoria que sea solución física, se cumple la ecuación de
-Euler-Lagrange,
-\(\dfrac{\partial L}{\partial q_i} = \dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_i}\right)\).
-Sustituyendo el primer término, la suma se convierte exactamente en la
-derivada de un producto:
-
-\[
-\begin{aligned}
-\dfrac{\delta L}{\varepsilon} = \sum_i \left( \dfrac{d}{dt}\left(\dfrac{\partial L}{\partial \dot{q}_i}\right) \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i \right) = \dfrac{d}{dt}\left( \sum_i p_i \cdot \xi_i \right)
-\end{aligned}
-\]
-
-Como por definición de simetría
-\(\dfrac{\delta L}{\varepsilon} = \dfrac{dF}{dt}\), igualamos ambas
-derivadas:
-
-\[
-\begin{aligned}
-\dfrac{d}{dt}\left( \sum_i p_i \cdot \xi_i \right) = \dfrac{dF}{dt} \quad \Longrightarrow \quad Q = \sum_i p_i \cdot \xi_i - F \text{ se conserva.}
-\end{aligned}
-\]
-
-\subsubsection{La energía y la traslación
-temporal}\label{la-energuxeda-y-la-traslaciuxf3n-temporal}
-
-Si la transformación afecta también al tiempo,
-\(t \to t + \varepsilon \cdot \tau\), aparece un término adicional con
-el hamiltoniano, quedando
-\(Q = \sum_i p_i \cdot \xi_i - H \cdot \tau - F\).
-
-En el caso particular de una traslación puramente temporal
-(\(\tau = 1\), \(\xi_i = 0\), \(F = 0\)), la simetría existe si el
-lagrangiano no depende explícitamente del tiempo (\(V\) no depende de
-\(t\)). En ese caso, la cantidad conservada es directamente el
-hamiltoniano \(H\):
-
-\[
-\begin{aligned}
-H = \sum_i p_i \cdot \dot{q}_i - L
-\end{aligned}
-\]
-
-Para los sistemas habituales de la mecánica clásica (donde \(T\) es
-cuadrática en las velocidades y \(V\) no depende de ellas), este
-hamiltoniano coincide exactamente con la energía mecánica total,
-\(E = T + V\).
-
-\subsubsection{Ejemplo: Partícula bajo un potencial
-central}\label{ejemplo-partuxedcula-bajo-un-potencial-central}
-
-Antes de pasar al caso más general, ilustremos la potencia del teorema
-de Noether con un caso paradigmático. Consideremos una partícula
-sometida a un potencial central \(V(|\vec{q}|)\), cuyo lagrangiano es
-\(L = \frac{1}{2}m |\dot{\vec{q}}|^2 - V(|\vec{q}|)\).
-
-Dado que el potencial depende exclusivamente de la distancia al origen,
-el sistema tiene simetría esférica: es totalmente invariante ante
-cualquier rotación espacial pura (\(\tau = 0\)). Si tomamos una rotación
-infinitesimal de ángulo \(\varepsilon\) alrededor de un eje arbitrario
-dictado por un vector unitario \(\vec{n}\), las coordenadas de la
-partícula sufren un desplazamiento cuyo campo generador viene dado por
-el producto vectorial:
-
-\[
-\begin{aligned}
-\vec{\xi} = \vec{n} \times \vec{q}
-\end{aligned}
-\]
-
-Como el lagrangiano completo es un escalar invariante bajo rotaciones,
-su variación es nula, por lo que \(F=0\). Sustituyendo en la expresión
-general de la carga de Noether \(Q = \vec{p} \cdot \vec{\xi}\):
-
-\[
-\begin{aligned}
-Q = \vec{p} \cdot (\vec{n} \times \vec{q}) = \vec{n} \cdot (\vec{q} \times \vec{p}) = \vec{n} \cdot \vec{L}
-\end{aligned}
-\]
-
-donde hemos hecho uso de la propiedad cíclica del producto mixto, y
-donde \(\vec{L} = \vec{q} \times \vec{p}\) representa el vector momento
-angular. Dado que el eje de rotación \(\vec{n}\) elegido es
-completamente arbitrario, la única forma de que la cantidad
-\(\vec{n} \cdot \vec{L}\) sea constante siempre, es que el propio vector
-\(\vec{L}\) sea constante. Así, Noether demuestra matemáticamente de
-forma irrefutable que \textbf{la simetría esférica implica la
-conservación de las tres componentes del momento angular}.
-
-\subsubsection{Las 10 cantidades conservadas del Grupo de
-Galileo}\label{las-10-cantidades-conservadas-del-grupo-de-galileo}
-
-Elevando este razonamiento a su forma más general, podemos demostrar que
-la invariancia fundamental del espacio-tiempo newtoniano encierra en su
-seno todas las leyes de conservación de la mecánica clásica.
-Consideremos un sistema de \(N\) partículas con un lagrangiano estándar
-de fuerzas internas
-\(L = \sum_a \frac{1}{2} m_a |\dot{\vec{q}}_a|^2 - V\).
-
-El grupo de Galileo parametriza las transformaciones continuas del
-espacio y el tiempo mediante \textbf{10 parámetros independientes}: - 3
-parámetros para traslaciones espaciales en una dirección \(\vec{e}\). -
-3 parámetros para rotaciones espaciales alrededor de un eje \(\vec{n}\).
-- 3 parámetros para cambios de velocidad relativos (Boosts de Galileo)
-en una dirección \(\vec{u}\). - 1 parámetro para traslaciones
-temporales.
-
-Utilizando la fórmula maestra de la carga de Noether
-\(Q = \sum_a \vec{p}_a \cdot \vec{\xi}_a - H \tau - F\), calculemos de
-un solo plumazo las cantidades conservadas para cada generador:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\begin{itemize}
+\tightlist
 \item
-  \textbf{Traslaciones espaciales (3 parámetros):} El tiempo se congela
-  (\(\tau=0\)) y las coordenadas de todas las partículas se desplazan de
-  manera uniforme \(\vec{\xi}_a = \vec{e}\). Como el lagrangiano de
-  fuerzas internas (donde \(V\) depende solo de distancias relativas) es
-  invariante, \(F=0\).
-  \[ Q = \sum_a \vec{p}_a \cdot \vec{e} = \vec{e} \cdot \left( \sum_a \vec{p}_a \right) = \vec{e} \cdot \vec{P} \]
-  Se conserva el \textbf{momento lineal total} \(\vec{P}\).
+  \textbf{Partícula libre.} Sin fuerzas,
+  \(L = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{y}^2 + \dot{z}^2)\)
+  no contiene ninguna coordenada. Las tres son cíclicas, y se conserva
+  \(\vec{p} = m \cdot \dot{\vec{r}}\): la partícula se mueve con
+  velocidad constante. La primera ley de Newton aparece como
+  consecuencia de que en el espacio vacío ningún punto es privilegiado.
 \item
-  \textbf{Rotaciones espaciales (3 parámetros):} El tiempo se congela
-  (\(\tau=0\)) y el espacio gira,
-  \(\vec{\xi}_a = \vec{n} \times \vec{q}_a\). El lagrangiano es
-  invariante, luego \(F=0\).
-  \[ Q = \sum_a \vec{p}_a \cdot (\vec{n} \times \vec{q}_a) = \vec{n} \cdot \left( \sum_a \vec{q}_a \times \vec{p}_a \right) = \vec{n} \cdot \vec{L} \]
-  Se conserva el \textbf{momento angular total} \(\vec{L}\).
-\item
-  \textbf{Traslación temporal (1 parámetro):} El espacio no se toca
-  (\(\vec{\xi}_a = 0\)), pero el reloj avanza un pulso (\(\tau=1\)). Si
-  las fuerzas no dependen del tiempo, \(F=0\).
-  \[ Q = - H \cdot 1 = -H \] Se conserva la \textbf{energía mecánica
-  total} \(H\).
-\item
-  \textbf{Boosts de Galileo (3 parámetros):} El tiempo se congela
-  (\(\tau=0\)), pero saltamos a un sistema de referencia inercial que se
-  mueve con velocidad relativa \(\vec{u}\). El generador de la posición
-  depende ahora explícitamente del tiempo: \(\vec{\xi}_a = \vec{u} t\).
-  Bajo esta transformación, las velocidades de las partículas cambian,
-  modificando de facto la energía cinética y, por ende, el lagrangiano.
-  Al calcular su variación infinitesimal, esta resulta ser
-  sorprendentemente una derivada total exacta:
-  \(\delta L = \frac{d}{dt} \left( \vec{u} \cdot \sum_a m_a \vec{q}_a \right)\).
-  Esto significa que nuestra función frontera no es nula, sino
-  \(F = \vec{u} \cdot \sum_a m_a \vec{q}_a\). Sustituyendo en la carga:
-  \[ Q = \sum_a \vec{p}_a \cdot (\vec{u} t) - \left( \vec{u} \cdot \sum_a m_a \vec{q}_a \right) = -\vec{u} \cdot \left( \sum_a m_a \vec{q}_a - \vec{P} t \right) = -\vec{u} \cdot \vec{G} \]
-  Se conserva el \textbf{vector del movimiento del centro de masas}
-  \(\vec{G} = M \vec{q}_{\text{CM}} - \vec{P} t\), lo que
-  matemáticamente garantiza el principio de inercia: el centro de masas
-  del sistema se mueve a velocidad estrictamente constante.
-\end{enumerate}
+  \textbf{Partícula en un campo uniforme.} Con la gravedad y el eje
+  \(z\) vertical hacia arriba,
+  \(L = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{y}^2 + \dot{z}^2) - m \cdot g \cdot z\).
+  Las coordenadas \(x\) e \(y\) son cíclicas, y se conservan \(p_x\) y
+  \(p_y\). La coordenada \(z\) no lo es, y \(p_z\) no se conserva.
+\end{itemize}
 
-En resumen, exigiendo pura y llanamente que las leyes de la física no
-cambien ante transformaciones del grupo de Galileo, la maquinaria del
-teorema de Noether nos ha ``regalado'' \textbf{de forma unificada la
-conservación de las 10 magnitudes fundamentales del universo clásico}:
-\(\vec{P}\), \(\vec{L}\), \(\vec{G}\) y \(H\).
+Pero que una coordenada sea cíclica depende de las coordenadas elegidas.
+En la fuerza central, con una energía potencial \(V(r)\) que solo
+depende de la distancia al centro, ninguna coordenada cartesiana es
+cíclica; en coordenadas polares, el ángulo sí lo es (tercer ejemplo de
+este apartado). Hace falta una formulación que no dependa de esa
+elección, y es la que da el teorema de Noether.
 
-\subsection{Las tres conservaciones en dos
-ejemplos}\label{las-tres-conservaciones-en-dos-ejemplos}
+\subsection{Transformaciones continuas y
+simetrías}\label{transformaciones-continuas-y-simetruxedas}
 
-Los dos ejemplos de este apartado muestran el teorema de Noether en
-casos concretos y las dos cosas que aporta una simetría: saber qué se
-conserva y ayudar a resolver el problema. Los dos proceden del tema 1 de
-la asignatura: el tiro parabólico es el lagrangiano de su ejercicio 1
-antes de imponer la ligadura del plano inclinado, y la fuerza central es
-su ejercicio 2.
-
-\subsubsection{El tiro parabólico}\label{el-tiro-parabuxf3lico}
-
-Una partícula de masa \(m\) se mueve en un plano vertical, con \(x\)
-horizontal y \(z\) vertical, sometida a la gravedad \(g\). Su
-lagrangiano es
+Una \textbf{transformación continua} es una familia \(\Phi_\varepsilon\)
+de transformaciones que depende de un parámetro real \(\varepsilon\),
+como una distancia o un ángulo, y que para \(\varepsilon = 0\) es la
+identidad. Por ejemplo, las traslaciones de longitud \(\varepsilon\) en
+una dirección fija, o los giros de ángulo \(\varepsilon\) alrededor de
+un eje fijo. A primer orden en \(\varepsilon\), cada coordenada cambia
+en
 
 \[
 \begin{aligned}
-L = T - V = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{z}^2) - m \cdot g \cdot z.
+q_i \to q_i + \varepsilon \cdot \xi_i,
 \end{aligned}
 \]
 
-\textbf{Dirección horizontal: una simetría que se cumple.} \(x\) no
-aparece en \(L\): es cíclica, y desplazar todo el sistema en horizontal
-es una simetría. Su ecuación de Euler--Lagrange da
-\(\dfrac{d}{dt}(m \cdot \dot{x}) = 0\), así que se conserva
-\(p_x = m \cdot \dot{x}\), y el movimiento horizontal es uniforme:
-\(x(t) = x_0 + v_x \cdot t\).
-
-\textbf{Dirección vertical: una simetría rota.} \(z\) sí aparece en
-\(L\), en la energía potencial, y
-\(\dfrac{\partial L}{\partial z} = -m \cdot g\). La ecuación de
-Euler--Lagrange da
+donde \(\xi_i\), el \textbf{generador}, indica en qué dirección empieza
+a moverse la coordenada \(q_i\); puede depender de las coordenadas, de
+las velocidades y del tiempo. Las velocidades cambian entonces en
+\(\varepsilon \cdot \dot{\xi}_i\), donde \(\dot{\xi}_i\) es la derivada
+de \(\xi_i\) respecto del tiempo a lo largo de la trayectoria. Por el
+desarrollo de Taylor, el lagrangiano cambia en
 
 \[
 \begin{aligned}
-\dfrac{dp_z}{dt} = -m \cdot g,
+\delta L &:= L(q + \varepsilon \cdot \xi, \dot{q} + \varepsilon \cdot \dot{\xi}, t) - L(q, \dot{q}, t) \\
+&= \varepsilon \cdot \sum_i \left( \dfrac{\partial L}{\partial q_i} \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i \right) + O(\varepsilon^2).
 \end{aligned}
 \]
 
-así que \(p_z = m \cdot \dot{z}\) cambia con el tiempo, y
-\(z(t) = z_0 + v_z \cdot t - \dfrac{1}{2} \cdot g \cdot t^2\). La
-gravedad distingue unas alturas de otras: la traslación vertical no es
-una simetría, y la cantidad de movimiento vertical no se conserva.
+\textbf{Definición.} La transformación es una \textbf{simetría} si el
+término de primer orden es la derivada respecto del tiempo de alguna
+función \(F(q, \dot{q}, t)\),
+
+\[
+\begin{aligned}
+\sum_i \left( \dfrac{\partial L}{\partial q_i} \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i \right) = \dfrac{dF}{dt},
+\end{aligned}
+\]
+
+para \textbf{cualquier} trayectoria \(q(t)\), sea o no la real. En la
+mayoría de los casos, \(F = 0\): el lagrangiano no cambia a primer
+orden. Se admite una derivada total porque la acción cambia entonces, a
+primer orden, en \(\varepsilon \cdot \big(F(t_2) - F(t_1)\big)\), que
+solo depende de lo que ocurre en los extremos; y cuando \(F\) solo
+depende de las coordenadas y del tiempo, sumar \(\dfrac{dF}{dt}\) al
+lagrangiano no cambia las ecuaciones de Euler--Lagrange (Calderón
+Almendros, 2026b).
+
+\textbf{Simetría y estacionariedad.} Las dos ideas usan la variación del
+lagrangiano, pero responden a preguntas distintas. La estacionariedad
+(el principio de Hamilton) fija los extremos, varía la trayectoria de
+cualquier manera y selecciona las trayectorias reales. La simetría fija
+una transformación y exige una propiedad para todas las trayectorias: es
+una propiedad del lagrangiano, es decir, de la ley, y no de una solución
+particular.
+
+\textbf{Un ejemplo, en la partícula libre.} Con
+\(L = \dfrac{1}{2} \cdot m \cdot |\dot{\vec{r}}|^2\), \(L\) no depende
+de las coordenadas y
+\(\dfrac{\partial L}{\partial \dot{q}_i} = m \cdot \dot{q}_i\), así que
+el término de primer orden es
+\(m \cdot \dot{\vec{r}} \cdot \dot{\vec{\xi}}\). Para la traslación en
+la dirección de un vector fijo \(\vec{a}\),
+\(\vec{r} \to \vec{r} + \varepsilon \cdot \vec{a}\), con
+\(\vec{\xi} = \vec{a}\) y \(\dot{\vec{\xi}} = \vec{0}\), el término es
+nulo: es una simetría con \(F = 0\). Los casos con \(F \neq 0\) aparecen
+más adelante, en la energía y en el tiro parabólico, y en los cambios de
+velocidad del anexo B.
+
+\subsection{El teorema de Noether}\label{el-teorema-de-noether}
+
+\textbf{Teorema.} Si la transformación de generador \(\xi_i\) es una
+simetría, con la función \(F\), la cantidad
+
+\[
+\begin{aligned}
+Q = \sum_i p_i \cdot \xi_i - F, \qquad p_i = \dfrac{\partial L}{\partial \dot{q}_i},
+\end{aligned}
+\]
+
+se conserva a lo largo de las trayectorias reales.
+
+\textbf{Demostración.} Por la definición de simetría y, en las
+trayectorias reales, por la ecuación de Euler--Lagrange,
+\(\dfrac{\partial L}{\partial q_i} = \dot{p}_i\):
+
+\[
+\begin{aligned}
+\dfrac{dF}{dt} = \sum_i \left( \dfrac{\partial L}{\partial q_i} \cdot \xi_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \dot{\xi}_i \right) = \sum_i \left( \dot{p}_i \cdot \xi_i + p_i \cdot \dot{\xi}_i \right) = \dfrac{d}{dt}\left( \sum_i p_i \cdot \xi_i \right).
+\end{aligned}
+\]
+
+La última igualdad es la regla de derivación del producto. Por tanto,
+
+\[
+\begin{aligned}
+\dfrac{d}{dt}\left(\sum_i p_i \cdot \xi_i - F\right) = 0. \qquad \blacksquare
+\end{aligned}
+\]
+
+La demostración solo usa que \(\xi_i\) es una función derivable del
+tiempo a lo largo de cada trayectoria, así que vale igual si el
+generador depende de las velocidades o del tiempo.
+
+\textbf{Cómo se aplica.} En todos los ejemplos se siguen cuatro pasos:
+obtener el generador \(\xi_i\); calcular el término de primer orden de
+\(\delta L\) y ver si es una derivada total \(\dfrac{dF}{dt}\); escribir
+\(Q\); y comprobar que \(Q\) es constante sobre la solución. La
+coordenada cíclica es el caso más sencillo: \(\xi_k = 1\), las demás
+\(\xi_i\) nulas y \(F = 0\) dan \(Q = p_k\).
+
+\subsection{La energía y la traslación en el
+tiempo}\label{la-energuxeda-y-la-traslaciuxf3n-en-el-tiempo}
+
+Desplazar una trayectoria en el tiempo,
+\(q(t) \to q(t + \varepsilon) = q(t) + \varepsilon \cdot \dot{q}(t) + O(\varepsilon^2)\),
+es una transformación de generador \(\xi_i = \dot{q}_i\), con
+\(\dot{\xi}_i = \ddot{q}_i\). Por la regla de la cadena, el término de
+primer orden de \(\delta L\) es
+
+\[
+\begin{aligned}
+\sum_i \left( \dfrac{\partial L}{\partial q_i} \cdot \dot{q}_i + \dfrac{\partial L}{\partial \dot{q}_i} \cdot \ddot{q}_i \right) = \dfrac{dL}{dt} - \dfrac{\partial L}{\partial t}.
+\end{aligned}
+\]
+
+Si \(L\) no depende explícitamente del tiempo, es decir, si las leyes
+son las mismas hoy que mañana, el término es \(\dfrac{dL}{dt}\): es una
+simetría con \(F = L\), y el teorema da que se conserva el
+\textbf{hamiltoniano}
+
+\[
+\begin{aligned}
+H := \sum_i p_i \cdot \dot{q}_i - L.
+\end{aligned}
+\]
+
+La misma cuenta que en la demostración del teorema, sin suponer nada
+sobre \(L\), da sobre las trayectorias reales
+
+\[
+\begin{aligned}
+\dfrac{d}{dt}\left(\sum_i p_i \cdot \dot{q}_i\right) = \dfrac{dL}{dt} - \dfrac{\partial L}{\partial t}, \qquad \text{es decir,} \qquad \dfrac{dH}{dt} = -\dfrac{\partial L}{\partial t}.
+\end{aligned}
+\]
+
+En los ejemplos del trabajo, \(H\) es la energía. Cada término de la
+energía cinética es cuadrático en una velocidad, como
+\(\dfrac{1}{2} \cdot m \cdot \dot{x}^2\) o
+\(\dfrac{1}{2} \cdot m \cdot r^2 \cdot \dot{\theta}^2\), y al
+multiplicar su derivada por la velocidad se obtiene el doble del
+término:
+\(\dot{x} \cdot (m \cdot \dot{x}) = 2 \cdot \dfrac{1}{2} \cdot m \cdot \dot{x}^2\).
+Como \(V\) no depende de las velocidades,
+\(\sum_i p_i \cdot \dot{q}_i = 2 \cdot T\), y
+
+\[
+\begin{aligned}
+H = 2 \cdot T - (T - V) = T + V = E.
+\end{aligned}
+\]
+
+\subsection{Primer ejemplo: la partícula
+libre}\label{primer-ejemplo-la-partuxedcula-libre}
+
+Sin fuerzas, además de las traslaciones, ya vistas, son simetrías los
+giros y la traslación en el tiempo:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Giros.} Un giro de ángulo \(\varepsilon\) alrededor del eje
+  \(z\) lleva \((x, y)\) a
+  \((x \cdot \cos\varepsilon - y \cdot \sin\varepsilon,\ x \cdot \sin\varepsilon + y \cdot \cos\varepsilon)\).
+  Con \(\cos\varepsilon = 1 + O(\varepsilon^2)\) y
+  \(\sin\varepsilon = \varepsilon + O(\varepsilon^2)\), el generador es
+  \((-y, x, 0) = \vec{e}_z \times \vec{r}\), y alrededor de un eje
+  unitario cualquiera \(\vec{n}\),
+  \(\vec{\xi} = \vec{n} \times \vec{r}\). El término de primer orden es
+  \(m \cdot \dot{\vec{r}} \cdot (\vec{n} \times \dot{\vec{r}}) = 0\),
+  porque un producto mixto con un vector repetido es nulo: simetría con
+  \(F = 0\).
+\item
+  \textbf{Traslación en el tiempo.} \(L\) no depende de \(t\).
+\end{itemize}
+
+Con el teorema:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\caption{Simetrías de la partícula libre y sus cantidades
+conservadas.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Transformación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Generador \(\vec{\xi}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(F\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cantidad conservada
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Transformación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Generador \(\vec{\xi}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(F\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cantidad conservada
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Traslaciones (3) & \(\vec{a}\) & \(0\) & \(\vec{a} \cdot \vec{p}\): la
+cantidad de movimiento \(\vec{p}\) \\
+Giros (3) & \(\vec{n} \times \vec{r}\) & \(0\) &
+\(\vec{p} \cdot (\vec{n} \times \vec{r}) = \vec{n} \cdot \vec{L}\): el
+momento angular \(\vec{L} = \vec{r} \times \vec{p}\) \\
+Traslación en el tiempo (1) & \(\dot{\vec{r}}\) & \(L\) &
+\(H = E = \dfrac{1}{2} \cdot m \cdot \lvert\dot{\vec{r}}\rvert^2\) \\
+\end{longtable}
+
+En la fila de los giros se usa la propiedad cíclica del producto mixto,
+\(\vec{p} \cdot (\vec{n} \times \vec{r}) = \vec{n} \cdot (\vec{r} \times \vec{p})\).
+Cada cantidad se conserva para cualquier \(\vec{a}\) o \(\vec{n}\), así
+que se conservan los vectores \(\vec{p}\) y \(\vec{L}\) completos.
+
+\textbf{Comprobación sobre la solución.} La solución es el movimiento
+uniforme \(\vec{r}(t) = \vec{r}_0 + \vec{v}_0 \cdot t\). Sobre ella,
+\(\vec{p} = m \cdot \vec{v}_0\);
+\(\vec{L} = (\vec{r}_0 + \vec{v}_0 \cdot t) \times m \cdot \vec{v}_0 = m \cdot \vec{r}_0 \times \vec{v}_0\),
+porque \(\vec{v}_0 \times \vec{v}_0 = \vec{0}\); y
+\(E = \dfrac{1}{2} \cdot m \cdot |\vec{v}_0|^2\). Las tres son
+constantes.
+
+Las tres conservaciones aparecen juntas porque el espacio vacío no tiene
+puntos ni direcciones privilegiados, y el tiempo no tiene instantes
+privilegiados. La partícula libre tiene además una cuarta familia de
+simetrías, los cambios de velocidad, que completan las diez simetrías de
+la mecánica de Newton (anexo B). Con varias partículas que interaccionan
+con fuerzas que solo dependen de las distancias entre ellas, las mismas
+transformaciones, aplicadas a todas las partículas a la vez, siguen
+siendo simetrías, y lo que se conserva son las cantidades
+\textbf{totales}: cada partícula conserva su propia cantidad de
+movimiento solo si no interacciona con las demás (anexo B).
+
+\subsection{Segundo ejemplo: el tiro
+parabólico}\label{segundo-ejemplo-el-tiro-parabuxf3lico}
+
+Este ejemplo y el siguiente muestran qué simetrías de la partícula libre
+rompe un campo exterior, y qué cantidades conservadas se pierden con
+ellas. Proceden del tema 1 de la asignatura: el tiro parabólico es el
+lagrangiano de su ejercicio 1 antes de imponer la ligadura del plano
+inclinado, y la fuerza central es su ejercicio 2.
+
+Una partícula de masa \(m\) está sometida a la gravedad \(g\), con el
+eje \(z\) vertical hacia arriba:
+
+\[
+\begin{aligned}
+L = T - V = \dfrac{1}{2} \cdot m \cdot (\dot{x}^2 + \dot{y}^2 + \dot{z}^2) - m \cdot g \cdot z.
+\end{aligned}
+\]
+
+Las ecuaciones de Euler--Lagrange dan \(\ddot{x} = \ddot{y} = 0\) y
+\(\ddot{z} = -g\), con solución \(x = x_0 + v_x \cdot t\),
+\(y = y_0 + v_y \cdot t\) y
+\(z = z_0 + v_z \cdot t - \dfrac{1}{2} \cdot g \cdot t^2\).
+
+\textbf{Traslaciones horizontales.} \(x\) e \(y\) no aparecen en \(L\):
+el desplazamiento horizontal es una simetría con \(F = 0\), y se
+conservan \(p_x = m \cdot \dot{x} = m \cdot v_x\) y
+\(p_y = m \cdot v_y\).
+
+\textbf{Traslación vertical: una simetría con \(F \neq 0\).} Para
+\(z \to z + \varepsilon\), con generador \((0, 0, 1)\), el término de
+primer orden de \(\delta L\) es
+\(\dfrac{\partial L}{\partial z} = -m \cdot g\). No es nulo, pero es
+constante, y una constante es la derivada de una función del tiempo:
+\(-m \cdot g = \dfrac{d}{dt}(-m \cdot g \cdot t)\). Es una simetría con
+\(F = -m \cdot g \cdot t\), y el teorema da que se conserva
+
+\[
+\begin{aligned}
+Q = p_z - F = p_z + m \cdot g \cdot t.
+\end{aligned}
+\]
+
+En efecto, sobre la solución, \(p_z = m \cdot (v_z - g \cdot t)\), y
+\(Q = m \cdot v_z\). La cantidad de movimiento vertical \(p_z\) no se
+conserva: la gravedad la cambia a ritmo constante. Pero desplazar la
+trayectoria en vertical sigue siendo una simetría: una parábola
+desplazada hacia arriba es otra solución, porque la gravedad es la misma
+a todas las alturas. \(Q\) no dice nada que no diga ya la ecuación
+\(\dot{p}_z = -m \cdot g\), integrada una vez, pero muestra que la
+energía potencial distingue unas alturas de otras solo en una constante
+aditiva, que no afecta al movimiento.
+
+\textbf{Giros: la gravedad distingue la vertical.} El giro alrededor del
+eje \(z\) tiene generador \(\vec{e}_z \times \vec{r} = (-y, x, 0)\), que
+no cambia \(z\): \(V\) no cambia, la energía cinética tampoco (primer
+ejemplo), y es una simetría con \(F = 0\). Se conserva
+\(L_z = m \cdot (x \cdot \dot{y} - y \cdot \dot{x})\), y sobre la
+solución,
+\(L_z = m \cdot \big((x_0 + v_x \cdot t) \cdot v_y - (y_0 + v_y \cdot t) \cdot v_x\big) = m \cdot (x_0 \cdot v_y - y_0 \cdot v_x)\).
+El giro alrededor del eje \(x\), en cambio, tiene generador
+\(\vec{e}_x \times \vec{r} = (0, -z, y)\) y cambia la altura: el término
+de primer orden de \(\delta L\) es \(-m \cdot g \cdot y\). Ninguna \(F\)
+lo produce, porque \(\dfrac{dF}{dt}\) contiene las velocidades o las
+aceleraciones, salvo que \(F\) solo dependa de \(t\), y entonces es una
+función del tiempo, no de \(y\). No es una simetría, y \(L_x\) no se
+conserva: \(\dfrac{dL_x}{dt} = -m \cdot g \cdot y\), el momento de la
+fuerza de la gravedad respecto del eje \(x\).
 
 \textbf{Energía.} \(L\) no depende explícitamente del tiempo, así que se
-conserva \(H = T + V = E\) (apartado 4.2). Se comprueba con la solución,
-usando \(\dot{z} = v_z - g \cdot t\):
+conserva \(H = T + V = E\). Con la solución, usando
+\(\dot{z} = v_z - g \cdot t\):
 
 \[
 \begin{aligned}
-E &= \dfrac{1}{2} \cdot m \cdot \left(v_x^2 + (v_z - g \cdot t)^2\right) + m \cdot g \cdot \left(z_0 + v_z \cdot t - \dfrac{1}{2} \cdot g \cdot t^2\right) \\
-&= \dfrac{1}{2} \cdot m \cdot (v_x^2 + v_z^2) + m \cdot g \cdot z_0.
+E &= \dfrac{1}{2} \cdot m \cdot \left(v_x^2 + v_y^2 + (v_z - g \cdot t)^2\right) + m \cdot g \cdot \left(z_0 + v_z \cdot t - \dfrac{1}{2} \cdot g \cdot t^2\right) \\
+&= \dfrac{1}{2} \cdot m \cdot (v_x^2 + v_y^2 + v_z^2) + m \cdot g \cdot z_0.
 \end{aligned}
 \]
 
 Los términos \(-m \cdot g \cdot v_z \cdot t\) y
 \(\dfrac{1}{2} \cdot m \cdot g^2 \cdot t^2\) de la energía cinética se
-cancelan con los de la potencial, y el resultado no depende de \(t\).
+cancelan con los de la potencial.
 
-\textbf{Qué muestra el ejemplo:} una coordenada que no aparece en el
-lagrangiano da una cantidad conservada, y una que sí aparece, no.
-Simetría y conservación van juntas, y también su ruptura.
+\textbf{Qué muestra el ejemplo:} la gravedad uniforme no distingue unos
+puntos de otros, sino una dirección, la vertical. Rompe los giros
+alrededor de ejes horizontales, y con ellos la conservación de \(L_x\) y
+\(L_y\). La expresión «la gravedad rompe la simetría vertical» hay que
+precisarla: lo que se pierde es la conservación de \(p_z\), no la
+posibilidad de desplazar la trayectoria en vertical.
 
-\subsubsection{La fuerza central}\label{la-fuerza-central}
+\subsection{Tercer ejemplo: la fuerza
+central}\label{tercer-ejemplo-la-fuerza-central}
 
 Una partícula de masa \(m\) está sometida a una fuerza dirigida hacia un
 centro fijo, con una energía potencial \(V(r)\) que solo depende de la
-distancia \(r\) al centro, como la gravitatoria o la eléctrica.
+distancia \(r = |\vec{r}|\) al centro, como la gravitatoria o la
+eléctrica.
 
-\textbf{Por qué basta el plano.} El momento angular
-\(\vec{L} = \vec{r} \times \vec{p}\) cumple
+\textbf{Giros: el momento angular.} Para el giro alrededor de un eje
+\(\vec{n}\) que pasa por el centro,
+\(\vec{\xi} = \vec{n} \times \vec{r}\), y a primer orden \(|\vec{r}|^2\)
+cambia en
+\(2 \cdot \varepsilon \cdot \vec{r} \cdot (\vec{n} \times \vec{r}) = 0\):
+la distancia al centro no cambia, y \(V(r)\) tampoco. La energía
+cinética tampoco cambia (primer ejemplo). Es una simetría con \(F = 0\)
+para todo eje \(\vec{n}\), y se conserva el vector
+\(\vec{L} = \vec{r} \times \vec{p}\). Se comprueba directamente:
 
 \[
 \begin{aligned}
@@ -770,10 +886,12 @@ distancia \(r\) al centro, como la gravitatoria o la eléctrica.
 
 El primer término es nulo porque \(\vec{p} = m \cdot \dot{\vec{r}}\) es
 paralelo a \(\dot{\vec{r}}\), y el segundo, porque la fuerza central es
-paralela a \(\vec{r}\). Así que \(\vec{L}\) es constante; la posición
+paralela a \(\vec{r}\). Como \(\vec{L}\) es constante, la posición
 \(\vec{r}\) es siempre perpendicular a ese vector fijo, y el movimiento
-ocurre en un plano. En ese plano usamos coordenadas polares
-\((r, \theta)\), en las que
+ocurre en un plano.
+
+\textbf{El mismo giro en coordenadas polares.} En ese plano usamos
+coordenadas polares \((r, \theta)\), en las que
 \(\dot{x}^2 + \dot{y}^2 = \dot{r}^2 + r^2 \cdot \dot{\theta}^2\):
 
 \[
@@ -782,27 +900,27 @@ L = \dfrac{1}{2} \cdot m \cdot (\dot{r}^2 + r^2 \cdot \dot{\theta}^2) - V(r).
 \end{aligned}
 \]
 
-\textbf{El momento angular.} \(\theta\) no aparece en \(L\): es cíclica,
-y girar el sistema alrededor del centro es una simetría. Se conserva su
-momento conjugado,
+El giro es ahora \(\theta \to \theta + \varepsilon\): \(\theta\) es
+cíclica, y se conserva \(p_\theta = m \cdot r^2 \cdot \dot{\theta}\). Es
+la misma cantidad que da el teorema en cartesianas,
+\(L_z = m \cdot (x \cdot \dot{y} - y \cdot \dot{x}) = m \cdot r^2 \cdot \dot{\theta}\):
+la coordenada cíclica aparece cuando las coordenadas se adaptan a la
+simetría. Tiene un significado geométrico: en un tiempo \(dt\), el radio
+barre un triángulo de área
+\(dA = \dfrac{1}{2} \cdot r^2 \cdot d\theta\), así que el área barrida
+por unidad de tiempo, \(\dfrac{dA}{dt} = \dfrac{L_z}{2 \cdot m}\), es
+constante. Es la segunda ley de Kepler.
 
-\[
-\begin{aligned}
-p_\theta = \dfrac{\partial L}{\partial \dot{\theta}} = m \cdot r^2 \cdot \dot{\theta} = L_z,
-\end{aligned}
-\]
+\textbf{Traslaciones: no hay simetría.} Para \(\vec{\xi} = \vec{a}\), el
+término de primer orden de \(\delta L\) es
+\(-V'(r) \cdot \dfrac{\vec{r} \cdot \vec{a}}{r}\), que depende de la
+posición y no de las velocidades. Por el mismo argumento que en los
+giros horizontales del tiro parabólico, no es una derivada total, salvo
+que \(V' = 0\). El centro es un punto privilegiado, y \(\vec{p}\) no se
+conserva: \(\dot{\vec{p}} = \vec{F} \neq \vec{0}\).
 
-que es la componente del momento angular perpendicular al plano, la
-misma que da el teorema de Noether para el giro (apartado 4.2). Tiene un
-significado geométrico: en un tiempo \(dt\), el radio barre un triángulo
-de área \(dA = \dfrac{1}{2} \cdot r^2 \cdot d\theta\), así que el área
-barrida por unidad de tiempo,
-\(\dfrac{dA}{dt} = \dfrac{1}{2} \cdot r^2 \cdot \dot{\theta} = \dfrac{L_z}{2 \cdot m}\),
-es constante. Es la segunda ley de Kepler.
-
-\textbf{La simetría ayuda a resolver.} La reducción que sigue procede de
-@calderon2026fisicaejemplos. La ecuación de Euler--Lagrange para \(r\)
-es
+\textbf{La simetría ayuda a resolver.} La ecuación de Euler--Lagrange
+para \(r\) es
 
 \[
 \begin{aligned}
@@ -830,16 +948,61 @@ problema de dos coordenadas se ha reducido a uno de una. La distancia
 \(r\) solo puede tomar los valores en los que
 \(V_{\mathrm{ef}}(r) \leq E\).
 
-\textbf{Qué muestra el ejemplo:} la simetría no solo dice qué se
-conserva, también simplifica el problema. Y la elección de coordenadas
-importa: en cartesianas, ninguna coordenada es cíclica; en polares, la
-simetría aparece como una coordenada cíclica.
+\subsection{Lo que muestran los
+ejemplos}\label{lo-que-muestran-los-ejemplos}
 
-\subsubsection{Lo que hereda la parte
+Cada campo exterior conserva unas simetrías de la partícula libre y
+rompe otras, y las cantidades conservadas siguen a las simetrías:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\caption{Cantidades conservadas según las simetrías que deja cada
+campo.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Simetría
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Partícula libre
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Tiro parabólico
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fuerza central
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Simetría
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Partícula libre
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Tiro parabólico
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fuerza central
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Traslaciones & \(\vec{p}\) & \(p_x\), \(p_y\) y
+\(p_z + m \cdot g \cdot t\) & ninguna \\
+Giros & \(\vec{L}\) & \(L_z\) & \(\vec{L}\) \\
+Traslación en el tiempo & \(E\) & \(E\) & \(E\) \\
+\end{longtable}
+
+La gravedad uniforme distingue una dirección; la fuerza central, un
+punto. Y la elección de coordenadas importa: en cartesianas, ninguna
+coordenada de la fuerza central es cíclica; en polares, la simetría
+aparece como una coordenada cíclica.
+
+\subsection{Lo que hereda la parte
 cuántica}\label{lo-que-hereda-la-parte-cuuxe1ntica}
 
-Los dos ejemplos preparan la parte cuántica del trabajo, para que las
-dos no queden como explicaciones separadas:
+Los ejemplos preparan la parte cuántica del trabajo, para que las dos no
+queden como explicaciones separadas:
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
@@ -875,29 +1038,141 @@ potencial central: \(\hat{L}^2\), \(\hat{L}_z\) y los números cuánticos
 \(\ell\) y \(m_\ell\) \\
 \end{longtable}
 
-\subsection{De la mecánica clásica a la
-cuántica}\label{de-la-mecuxe1nica-cluxe1sica-a-la-cuuxe1ntica}
+\chapter{Conclusiones}\label{conclusiones}
 
-\subsection{Potencial central, momento angular y números
-cuánticos}\label{potencial-central-momento-angular-y-nuxfameros-cuuxe1nticos}
-
-\subsection{Extensión: simetrías más allá del espacio y el
-tiempo}\label{extensiuxf3n-simetruxedas-muxe1s-alluxe1-del-espacio-y-el-tiempo}
-
-\section{Conclusiones}\label{conclusiones}
-
-\section*{Bibliografía}\label{bibliografuxeda}
-\addcontentsline{toc}{section}{Bibliografía}
+\chapter*{Bibliografía}\label{bibliografuxeda}
+\addcontentsline{toc}{chapter}{Bibliografía}
 
 \protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-blanco2011}
+Blanco Laserna, D. (2011). \emph{Emmy Noether: Una matemática ideal}.
+Nivola.
+
+\bibitem[\citeproctext]{ref-calderon2026contexto}
+Calderón Almendros, J. (2026a). \emph{El contexto histórico del teorema
+de {Noether}} {[}Manuscrito no publicado{]}.
+
+\bibitem[\citeproctext]{ref-calderon2026anexos}
+Calderón Almendros, J. (2026b). \emph{El formalismo lagrangiano: anexos}
+{[}Manuscrito no publicado{]}.
+
+\bibitem[\citeproctext]{ref-calderon2026fisicaejemplos}
+Calderón Almendros, J. (2026c). \emph{El formalismo lagrangiano:
+ejemplos físicos} {[}Manuscrito no publicado{]}.
+
+\bibitem[\citeproctext]{ref-calderon2026fisica}
+Calderón Almendros, J. (2026d). \emph{El formalismo lagrangiano: parte
+física} {[}Manuscrito no publicado{]}.
+
+\bibitem[\citeproctext]{ref-calderon2026matematicas}
+Calderón Almendros, J. (2026e). \emph{El formalismo lagrangiano: parte
+matemática} {[}Manuscrito no publicado{]}.
+
+\bibitem[\citeproctext]{ref-calderon2026noetheranexos}
+Calderón Almendros, J. (2026f). \emph{El teorema de {Noether}: anexos}
+{[}Manuscrito no publicado{]}.
+
+\bibitem[\citeproctext]{ref-calderon2026noetherfisej}
+Calderón Almendros, J. (2026g). \emph{El teorema de {Noether}: ejemplos
+físicos} {[}Manuscrito no publicado{]}.
+
+\bibitem[\citeproctext]{ref-calderon2026noetherfis}
+Calderón Almendros, J. (2026h). \emph{El teorema de {Noether}: parte
+física} {[}Manuscrito no publicado{]}.
+
+\bibitem[\citeproctext]{ref-calderon2026noethermat}
+Calderón Almendros, J. (2026i). \emph{El teorema de {Noether}: parte
+matemática} {[}Manuscrito no publicado{]}.
+
+\bibitem[\citeproctext]{ref-calderon2026mcc}
+Calderón Almendros, J. (2026j). \emph{{MCC}: apuntes del {Máster} en
+{Computación} {Cuántica}} {[}Repositorio de GitHub{]}. GitHub.
+\url{https://github.com/julian1c2a/MCC}
+
+\bibitem[\citeproctext]{ref-einstein1915}
+Einstein, A. (1915). Die {Feldgleichungen} der {Gravitation}.
+\emph{Sitzungsberichte der Königlich Preußischen Akademie der
+Wissenschaften}, \emph{1915}, 844--847.
+\url{https://einstein-annalen.mpiwg-berlin.mpg.de/related_texts/sitzungsberichte/6E3MAXK4}
+
+\bibitem[\citeproctext]{ref-einstein1918}
+Einstein, A. (1918). Der {Energiesatz} in der allgemeinen
+{Relativitätstheorie}. \emph{Sitzungsberichte der Königlich Preußischen
+Akademie der Wissenschaften}, \emph{1918}, 448--459.
+\url{https://einstein-annalen.mpiwg-berlin.mpg.de/related_texts/sitzungsberichte/3WQBQ11D}
+
+\bibitem[\citeproctext]{ref-einstein1998}
+Einstein, A. (1998). \emph{The collected papers of {Albert Einstein}:
+Vol. 8. The {Berlin} years: Correspondence, 1914--1918} (R. Schulmann,
+A. J. Kox, M. Janssen, y J. Illy, Eds.). Princeton University Press.
+
+\bibitem[\citeproctext]{ref-einsteingrossmann1913}
+Einstein, A. y Grossmann, M. (1913). \emph{Entwurf einer
+verallgemeinerten {Relativitätstheorie} und einer {Theorie} der
+{Gravitation}}. B. G. Teubner.
+\url{https://doi.org/10.5281/zenodo.7092832}
+
+\bibitem[\citeproctext]{ref-hamilton1834}
+Hamilton, W. R. (1834). On a general method in dynamics; by which the
+study of the motions of all free systems of attracting or repelling
+points is reduced to the search and differentiation of one central
+relation, or characteristic function. \emph{Philosophical Transactions
+of the Royal Society of London}, \emph{124}, 247--308.
+\url{https://doi.org/10.1098/rstl.1834.0017}
+
+\bibitem[\citeproctext]{ref-hamilton1835}
+Hamilton, W. R. (1835). Second essay on a general method in dynamics.
+\emph{Philosophical Transactions of the Royal Society of London},
+\emph{125}, 95--144. \url{https://doi.org/10.1098/rstl.1835.0009}
+
+\bibitem[\citeproctext]{ref-hilbert1915}
+Hilbert, D. (1915). Die {Grundlagen} der {Physik} ({Erste}
+{Mitteilung}). \emph{Nachrichten von der Gesellschaft der Wissenschaften
+zu Göttingen, Mathematisch-Physikalische Klasse}, \emph{1915}, 395--408.
+\url{http://eudml.org/doc/58946}
+
+\bibitem[\citeproctext]{ref-klein1918a}
+Klein, F. (1918). Zu {Hilberts} erster {Note} über die {Grundlagen} der
+{Physik}. \emph{Nachrichten von der Gesellschaft der Wissenschaften zu
+Göttingen, Mathematisch-Physikalische Klasse}, \emph{1917}, 469--482.
+\url{https://gdz.sub.uni-goettingen.de/id/PPN252457811_1917}
+
+\bibitem[\citeproctext]{ref-lagrange1788}
+Lagrange, J.-L. (1788). \emph{Méchanique analitique}. Veuve Desaint.
+
+\bibitem[\citeproctext]{ref-newton1687}
+Newton, I. (1687). \emph{Philosophiae naturalis principia mathematica}.
+Royal Society.
+
+\bibitem[\citeproctext]{ref-noether1908}
+Noether, E. (1908). Über die {Bildung} des {Formensystems} der ternären
+biquadratischen {Form}. \emph{Journal für die reine und angewandte
+Mathematik}, \emph{134}, 23--90.
+\url{https://doi.org/10.1515/crll.1908.134.23}
+
+\bibitem[\citeproctext]{ref-noether1918}
+Noether, E. (1918). Invariante {Variationsprobleme}. \emph{Nachrichten
+von der Gesellschaft der Wissenschaften zu Göttingen,
+Mathematisch-Physikalische Klasse}, \emph{1918}, 235--257.
+\url{http://eudml.org/doc/59024}
+
+\bibitem[\citeproctext]{ref-pitts2016}
+Pitts, J. B. (2016). Einstein's physical strategy, energy conservation,
+symmetries, and stability: {«{But} {Grossmann} \& {I} believed that the
+conservation laws were not satisfied»}. \emph{Studies in History and
+Philosophy of Modern Physics}, \emph{54}, 52--72.
+\url{https://doi.org/10.1016/j.shpsb.2016.04.003}
+
+\end{CSLReferences}
 
 \appendix
 
-\section{Deducción de la ecuación de
+\chapter{Deducción de la ecuación de
 Euler--Lagrange}\label{deducciuxf3n-de-la-ecuaciuxf3n-de-eulerlagrange}
 
-La deducción sigue @calderon2026matematicas, y la demostración del lema
-fundamental, @calderon2026anexos.
+La deducción sigue Calderón Almendros (2026e), y la demostración del
+lema fundamental, Calderón Almendros (2026b).
 
 Consideramos una coordenada \(q(t)\), dos veces derivable con
 continuidad en \([t_1, t_2]\) y con \(q(t_1)\) y \(q(t_2)\) fijados, y
@@ -1041,5 +1316,150 @@ Recíprocamente, si se cumple la ecuación, \(\varphi = 0\) y
 \(h_i\) para cada una. Variando una sola coordenada cada vez, es decir,
 con todas las \(h_j\) nulas salvo \(h_i\), el mismo razonamiento da una
 ecuación de Euler--Lagrange para cada \(q_i\).
+
+\chapter{Las simetrías de Galileo}\label{las-simetruxedas-de-galileo}
+
+Este anexo completa el primer ejemplo del apartado 4.2 con la cuarta
+familia de transformaciones del espacio y del tiempo, los cambios de
+velocidad, y extiende las simetrías de la partícula libre a un sistema
+de partículas. Resume Calderón Almendros (2026h) y Calderón Almendros
+(2026f).
+
+\textbf{El cambio de velocidad.} Un observador que se mueve con
+velocidad constante \(-\varepsilon \cdot \vec{u}\) respecto de otro ve
+cada trayectoria desplazada en \(\varepsilon \cdot \vec{u} \cdot t\):
+\(\vec{r} \to \vec{r} + \varepsilon \cdot \vec{u} \cdot t\). Es una
+transformación continua, de generador \(\vec{\xi} = \vec{u} \cdot t\),
+que depende del tiempo, con \(\dot{\vec{\xi}} = \vec{u}\). Para la
+partícula libre, el término de primer orden de \(\delta L\) es
+
+\[
+\begin{aligned}
+m \cdot \dot{\vec{r}} \cdot \vec{u} = \dfrac{d}{dt}\left(m \cdot \vec{u} \cdot \vec{r}\right),
+\end{aligned}
+\]
+
+porque \(\vec{u}\) es constante. No es nulo, pero es una derivada total:
+es una simetría con \(F = m \cdot \vec{u} \cdot \vec{r}\). El teorema de
+Noether da que se conserva
+
+\[
+\begin{aligned}
+Q = \vec{p} \cdot \vec{u} \cdot t - m \cdot \vec{u} \cdot \vec{r} = -\vec{u} \cdot \vec{G}, \qquad \vec{G} := m \cdot \vec{r} - \vec{p} \cdot t,
+\end{aligned}
+\]
+
+para todo \(\vec{u}\), es decir, el vector \(\vec{G}\). Sobre la
+solución \(\vec{r} = \vec{r}_0 + \vec{v}_0 \cdot t\),
+\(\vec{G} = m \cdot (\vec{r}_0 + \vec{v}_0 \cdot t) - m \cdot \vec{v}_0 \cdot t = m \cdot \vec{r}_0\):
+es la masa por la posición inicial. Con \(\vec{p}\), determina la
+trayectoria entera,
+\(\vec{r}(t) = \dfrac{\vec{G} + \vec{p} \cdot t}{m}\).
+
+\textbf{Las diez simetrías de la partícula libre.} Con los cambios de
+velocidad, la partícula libre tiene diez simetrías independientes:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\caption{Las diez simetrías de la partícula libre.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Transformación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Generador \(\vec{\xi}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(F\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cantidad conservada
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Transformación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Generador \(\vec{\xi}\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(F\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cantidad conservada
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Traslaciones (3) & \(\vec{a}\) & \(0\) & \(\vec{p}\) \\
+Giros (3) & \(\vec{n} \times \vec{r}\) & \(0\) &
+\(\vec{L} = \vec{r} \times \vec{p}\) \\
+Cambios de velocidad (3) & \(\vec{u} \cdot t\) &
+\(m \cdot \vec{u} \cdot \vec{r}\) &
+\(\vec{G} = m \cdot \vec{r} - \vec{p} \cdot t\) \\
+Traslación en el tiempo (1) & \(\dot{\vec{r}}\) & \(L\) & \(E\) \\
+\end{longtable}
+
+Cada familia expresa una propiedad del espacio y del tiempo vacíos: no
+hay puntos, direcciones, instantes ni observadores inerciales
+privilegiados. La última es la relatividad de Galileo. Las diez
+cantidades no son independientes como datos del movimiento:
+\(\vec{L} = \dfrac{1}{m} \cdot \vec{G} \times \vec{p}\) y
+\(E = \dfrac{|\vec{p}|^2}{2 \cdot m}\) se deducen de \(\vec{p}\) y de
+\(\vec{G}\).
+
+\textbf{Varias partículas.} Con \(N\) partículas que interaccionan con
+fuerzas que solo dependen de las distancias entre ellas, y sin campo
+exterior, las diez transformaciones aplicadas a todas las partículas a
+la vez siguen siendo simetrías, y se conservan las cantidades
+\textbf{totales}:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\caption{Simetrías de un sistema de partículas y cantidades
+conservadas.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Simetría
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Condición sobre \(V\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cantidad conservada
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Simetría
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Condición sobre \(V\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cantidad conservada
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Traslación en el tiempo & \(V\) no depende de \(t\) & \(E = T + V\) \\
+Traslaciones & \(V\) solo depende de las diferencias
+\(\vec{r}_a - \vec{r}_b\) & \(\vec{P} = \sum_a \vec{p}_a\) \\
+Giros & \(V\) no cambia al girar todas las posiciones &
+\(\vec{L} = \sum_a \vec{r}_a \times \vec{p}_a\) \\
+Cambios de velocidad & la de las traslaciones &
+\(\vec{G} = M \cdot \vec{R}_{\mathrm{cm}} - \vec{P} \cdot t\) \\
+\end{longtable}
+
+Aquí \(M\) es la masa total y \(\vec{R}_{\mathrm{cm}}\), el centro de
+masas. Cada partícula conserva su propia cantidad de movimiento solo si
+no interacciona con las demás: lo que no tiene puntos privilegiados es
+el sistema en su conjunto. La conservación de \(\vec{G}\) dice que el
+centro de masas se mueve con velocidad constante,
+\(\vec{R}_{\mathrm{cm}}(t) = \dfrac{\vec{G} + \vec{P} \cdot t}{M}\). Las
+diez transformaciones se componen entre sí y forman un grupo de diez
+parámetros, el \textbf{grupo de Galileo} (Calderón Almendros, 2026f). El
+cálculo de las diez cantidades está comprobado con cálculo simbólico en
+el repositorio de uno de los autores (Calderón Almendros, 2026j).
 
 \end{document}
