@@ -313,3 +313,69 @@ En los tres casos, $p = f'$ y $D = \partial_y \bsL \cdot \xi + p \cdot \xi'$ (ap
 * **Tercera fila.** $D = 0 \cdot x + f' \cdot 1 = f' = \dfrac{d}{dx} f$, así que $F(x, y) = y$. Con $f = c_0 + c_1 \cdot x$, $Q = x \cdot c_1 - (c_0 + c_1 \cdot x) = -c_0$: menos la posición en $x = 0$. Aquí $\xi$ depende del punto, y $Q$ ya no es un momento.
 
 **Qué es $Q$.** $\xi$ dice cuánto mueve la transformación el valor de $f$ en cada punto, por unidad de $\varepsilon$; $p \cdot \xi$ es el momento en la dirección en que la transformación mueve las cosas; y $F$ es la corrección que hace falta cuando la transformación cambia $\bsL$ en una derivada total. Cada simetría tiene su $\xi$, y por eso da su propia cantidad: cambiar $\xi$ cambia el significado de $Q$. Con una sola función y $\tau = 0$ solo aparecen cantidades como las de la tabla. El momento angular necesita al menos dos funciones, porque un giro mezcla dos coordenadas, y la energía necesita mover la variable, $\tau \neq 0$.
+
+<!-- GUÍA DE LA IA (09-10-2026) para el paso 8: se sustituye por el desarrollo propio -->
+
+### 6.5. Guía para el paso 8: el caso $\tau \neq 0$
+
+La idea es reducir el caso general al del apartado 6.2, cambiando $\xi$ por el desplazamiento medido en un mismo punto $x$. Al hacerlo aparece la energía.
+
+#### Lo que hay que obtener
+
+1. **Un lema: reducción a variable fija.** Con
+
+   $$
+   \begin{aligned}
+   \bar{\xi} := \xi - \tau \cdot f',
+   \end{aligned}
+   $$
+
+   el $D$ completo del apartado 5 se escribe
+
+   $$
+   \begin{aligned}
+   D = \partial_f \bsL \cdot \bar{\xi} + p \cdot \bar{\xi}' + (\tau \cdot \bsL)'.
+   \end{aligned}
+   $$
+
+   Los dos primeros términos son el $D$ del caso $\tau = 0$ con $\bar{\xi}$ en lugar de $\xi$, y el tercero es una derivada total.
+
+2. **La identidad de Noether general**, para toda $f$:
+
+   $$
+   \begin{aligned}
+   \dfrac{d}{dx}\big(p \cdot \xi - \tau \cdot \bsH - F\big) = -\varphi \cdot \big(\xi - \tau \cdot f'\big), \qquad \bsH := p \cdot f' - \bsL.
+   \end{aligned}
+   $$
+
+3. **El teorema general.** Sobre las soluciones, $Q := p \cdot \xi - \tau \cdot \bsH - F$ es constante.
+
+Con $\tau = 0$ tiene que salir exactamente el apartado 6.3.
+
+#### Pistas
+
+1. **Partir de la definición completa de $D$**, con sus cuatro términos (apartado 5, punto (2)).
+2. **Sustituir $\xi = \bar{\xi} + \tau \cdot f'$** en todos los sitios donde aparece $\xi$, también dentro de $\xi'$. Por la regla del producto, $\xi' = \bar{\xi}' + \tau' \cdot f' + \tau \cdot f''$.
+3. **Vigilar una cancelación.** El término $-\partial_{f'} \bsL \cdot \tau' \cdot f'$ de $D$ se cancela con otro que sale al desarrollar $\xi'$. Si no se cancela, hay un error de signo.
+4. **Agrupar lo que multiplica a $\tau$.** Tiene que quedar $\tau \cdot \big(\partial_f \bsL \cdot f' + \partial_{f'} \bsL \cdot f'' + \partial_x \bsL\big)$. Por la regla de la cadena es la derivada total de $\bsL$ a lo largo de $f$, $\bsL'$: la «diferencial total» del primer apartado de «El formalismo lagrangiano».
+5. **Juntar $\tau \cdot \bsL' + \bsL \cdot \tau'$** con la regla del producto: es $(\tau \cdot \bsL)'$. Con esto queda el lema.
+6. **Aplicar el apartado 6.2 a $\bar{\xi}$.** Allí solo se usó la regla del producto, así que vale con $\bar{\xi}$ en lugar de $\xi$: $\partial_f \bsL \cdot \bar{\xi} + p \cdot \bar{\xi}' = \varphi \cdot \bar{\xi} + (p \cdot \bar{\xi})'$. Advertencia de regularidad: $\bar{\xi}$ ya no es del «mismo tipo» que $\xi$, porque contiene $f'$, y $\bar{\xi}'$ contiene $f''$. Pero es de clase $C^1$, porque $f$ es de clase $C^2$, y eso basta para la regla del producto.
+7. **Añadir la hipótesis de simetría** y pasar a un lado todo lo que es derivada, como en el apartado 6.3. Después, desarrollar $p \cdot \bar{\xi} + \tau \cdot \bsL$ hasta que aparezca $\bsH$.
+8. **Qué significa $\bar{\xi}$.** Si la gráfica se desplaza $\varepsilon \cdot \tau$ en horizontal, en un punto fijo $x$ el valor cambia en $-\varepsilon \cdot \tau \cdot f'(x)$. Por eso $\bar{\xi} = \xi - \tau \cdot f'$ es el cambio vertical neto en el mismo $x$. Es la «Reducción al caso anterior» de la parte matemática de la serie.
+
+#### Comprobaciones
+
+* **La energía.** Traslación de la variable, $\Phi_\varepsilon(x, y) = (x + \varepsilon, y)$: $\tau = 1$ y $\xi = 0$. Entonces $D = \partial_x \bsL$, que es nulo si $\bsL$ no depende explícitamente de $x$; así, $F = 0$ y $Q = -\bsH$. Con $\bsL = \dfrac{1}{2} \cdot y'^2 - g \cdot y$, $\bsH = \dfrac{1}{2} \cdot f'^2 + g \cdot f$, que es la energía. Comprobación: $\bsH' = f' \cdot (f'' + g) = 0$, porque $f'' = -g$.
+* **Un caso con $\tau$ y $\xi$ a la vez (opcional).** El giro del plano, con $\tau = -y$ y $\xi = x$, y $\bsL = \sqrt{1 + y'^2}$, la longitud de la gráfica. La longitud no cambia al girar, así que $F = 0$, y debe salir
+
+  $$
+  \begin{aligned}
+  Q = \dfrac{x \cdot f' - f}{\sqrt{1 + f'^2}}.
+  \end{aligned}
+  $$
+
+  Sobre una recta $f = m \cdot x + c$, $Q = -\dfrac{c}{\sqrt{1 + m^2}}$: menos la distancia, con signo, del origen a la recta. Coincide con el camino más corto en forma paramétrica de los ejemplos matemáticos de la serie.
+
+Cuando el lema (pistas 1 a 5) esté escrito, conviene revisarlo antes de seguir: es donde es más fácil equivocarse con los signos.
+
+<!-- FIN DE LA GUÍA -->
