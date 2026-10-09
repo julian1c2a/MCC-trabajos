@@ -167,7 +167,7 @@ Las dos ideas usan la variación primera, pero responden a preguntas distintas:
 
 Para demostrar que un generador **no** es una simetría hay que ver que ninguna $F$ cumple la definición. Es fácil cuando el generador solo depende de $\vec{f}$ y de $x$, que es el caso de los giros y las traslaciones. Entonces $\xi'_i = \sum_j \partial_{f_j} \xi_i \cdot f'_j + \partial_x \xi_i$ no contiene $\vec{f}''$, y tampoco $\bsdelta_{\vec{\xi}} \bsL$.
 
-En un punto $x_0$, los valores de $\vec{f}$, $\vec{f}'$ y $\vec{f}''$ pueden elegirse con independencia: la función $\vec{f}(x) = \vec{y} + \vec{y}\,' \cdot (x - x_0) + \dfrac{1}{2} \cdot \vec{y}\,'' \cdot (x - x_0)^2$ es de clase $C^2$ y toma en $x_0$ los valores $\vec{y}$, $\vec{y}\,'$ e $\vec{y}\,''$ que se quiera. Por la regla de la cadena,
+En un punto $x_0$, los valores de $\vec{f}$, $\vec{f}'$ y $\vec{f}''$ pueden elegirse con independencia: la función $\vec{f}(x) = \vec{y} + \vec{y}' \cdot (x - x_0) + \dfrac{1}{2} \cdot \vec{y}'' \cdot (x - x_0)^2$ es de clase $C^2$ y toma en $x_0$ los valores $\vec{y}$, $\vec{y}'$ e $\vec{y}''$ que se quiera. Por la regla de la cadena,
 
 $$
 \begin{aligned}
@@ -175,9 +175,9 @@ $$
 \end{aligned}
 $$
 
-Si el lado izquierdo de la definición no contiene $\vec{f}''$, la igualdad para todos los valores de $\vec{y}\,''$ obliga a que $\partial_{f'_j} F = 0$ para todo $j$: $F$ solo depende de $\vec{f}$ y de $x$, y $\dfrac{dF}{dx}$ es una función afín de $\vec{f}'$. En particular:
+Si el lado izquierdo de la definición no contiene $\vec{f}''$, la igualdad para todos los valores de $\vec{y}''$ obliga a que $\partial_{f'_j} F = 0$ para todo $j$: $F$ solo depende de $\vec{f}$ y de $x$, y $\dfrac{dF}{dx}$ es una función afín de $\vec{f}'$. En particular:
 
-* **Criterio.** Si $\bsdelta_{\vec{\xi}} \bsL$ no depende de $\vec{f}'$, la igualdad para todos los valores de $\vec{y}\,'$ obliga a que $\partial_{f_j} F = 0$ para todo $j$, así que $F$ solo depende de $x$. Entonces $\bsdelta_{\vec{\xi}} \bsL = F'(x)$ tiene que depender solo de $x$. Si depende de $\vec{f}$, el generador no es una simetría.
+* **Criterio.** Si $\bsdelta_{\vec{\xi}} \bsL$ no depende de $\vec{f}'$, la igualdad para todos los valores de $\vec{y}'$ obliga a que $\partial_{f_j} F = 0$ para todo $j$, así que $F$ solo depende de $x$. Entonces $\bsdelta_{\vec{\xi}} \bsL = F'(x)$ tiene que depender solo de $x$. Si depende de $\vec{f}$, el generador no es una simetría.
 
 ## El teorema de Noether
 
@@ -312,15 +312,15 @@ Cambiamos de variable en la primera integral, $y = \tilde{x}(x)$, con $dy = \til
 
 $$
 \begin{aligned}
-\bsS_{[\tilde{x}(c), \tilde{x}(d)]}[\tilde{\vec{f}}] = \int_c^d \bsL\Big(\tilde{\vec{f}}\big(\tilde{x}(x)\big), \tilde{\vec{f}}\,'\big(\tilde{x}(x)\big), \tilde{x}(x)\Big) \cdot \tilde{x}'(x) \,dx.
+\bsS_{[\tilde{x}(c), \tilde{x}(d)]}[\tilde{\vec{f}}] = \int_c^d \bsL\Big(\tilde{\vec{f}}\big(\tilde{x}(x)\big), \tilde{\vec{f}}'\big(\tilde{x}(x)\big), \tilde{x}(x)\Big) \cdot \tilde{x}'(x) \,dx.
 \end{aligned}
 $$
 
-El primer argumento es $\vec{f}(x) + \epsilon \cdot \vec{\xi}(x)$, por definición. Para el segundo, derivamos esa definición respecto de $x$ con la regla de la cadena: $\tilde{\vec{f}}\,'\big(\tilde{x}(x)\big) \cdot \tilde{x}'(x) = \vec{f}'(x) + \epsilon \cdot \vec{\xi}'(x)$. Despejando y desarrollando $\dfrac{1}{1 + \epsilon \cdot \tau'} = 1 - \epsilon \cdot \tau' + O(\epsilon^2)$:
+El primer argumento es $\vec{f}(x) + \epsilon \cdot \vec{\xi}(x)$, por definición. Para el segundo, derivamos esa definición respecto de $x$ con la regla de la cadena: $\tilde{\vec{f}}'\big(\tilde{x}(x)\big) \cdot \tilde{x}'(x) = \vec{f}'(x) + \epsilon \cdot \vec{\xi}'(x)$. Despejando y desarrollando $\dfrac{1}{1 + \epsilon \cdot \tau'} = 1 - \epsilon \cdot \tau' + O(\epsilon^2)$:
 
 $$
 \begin{aligned}
-\tilde{\vec{f}}\,'\big(\tilde{x}(x)\big) = \dfrac{\vec{f}' + \epsilon \cdot \vec{\xi}'}{1 + \epsilon \cdot \tau'} = \vec{f}' + \epsilon \cdot \big(\vec{\xi}' - \tau' \cdot \vec{f}'\big) + O(\epsilon^2).
+\tilde{\vec{f}}'\big(\tilde{x}(x)\big) = \dfrac{\vec{f}' + \epsilon \cdot \vec{\xi}'}{1 + \epsilon \cdot \tau'} = \vec{f}' + \epsilon \cdot \big(\vec{\xi}' - \tau' \cdot \vec{f}'\big) + O(\epsilon^2).
 \end{aligned}
 $$
 
