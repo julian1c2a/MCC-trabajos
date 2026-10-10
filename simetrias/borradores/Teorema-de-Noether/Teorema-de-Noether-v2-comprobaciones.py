@@ -1,5 +1,6 @@
-r"""Comprobaciones simbólicas de los apartados 6.7 (casos particulares), 8 (varias funciones), 9 (varias variables), 10 (flujos) y 11 (Schrödinger)
-de borrador-Noether-v2.md y de los comentarios del final (partícula en un campo central).
+r"""Comprobaciones simbólicas de la serie «El teorema de Noether» (versión 2).
+Parte matemática (apartados 6.7, 7, 8, 9 y 10), ejemplos matemáticos (apartados 2 y 4)
+y comentarios sobre la partícula en un campo central (pendientes de pasar a los ejemplos físicos).
 Se ejecuta desde la raíz del repositorio con .venv\Scripts\python.exe."""
 import sympy as sp
 
@@ -70,16 +71,16 @@ def apartado6_casos():
     ok(sp.diff(Qc, x).doit() + EL(Lc, f), "6.7: d_y L = gamma(x), Q = p - int gamma y Q' = -phi")
 
 
-# Apartado 8.5: lagrangiano homogéneo de grado 1 (principio de Fermat en el plano)
+# Ejemplos, apartado 2.5: lagrangiano homogéneo de grado 1 (principio de Fermat en el plano)
 def apartado8_homogeneo():
     n = sp.Function("n")
     Lf = n(f1, f2) * sp.sqrt(f1.diff(x)**2 + f2.diff(x)**2)
     p1, p2 = sp.diff(Lf, f1.diff(x)), sp.diff(Lf, f2.diff(x))
-    ok(p1 * f1.diff(x) + p2 * f2.diff(x) - Lf, "8.5: L homogénea de grado 1, H = 0")
-    ok(f1.diff(x) * EL(Lf, f1) + f2.diff(x) * EL(Lf, f2), "8.5: L homogénea de grado 1, f1' phi1 + f2' phi2 = 0")
+    ok(p1 * f1.diff(x) + p2 * f2.diff(x) - Lf, "ejemplos 2.5: L homogénea de grado 1, H = 0")
+    ok(f1.diff(x) * EL(Lf, f1) + f2.diff(x) * EL(Lf, f2), "ejemplos 2.5: L homogénea de grado 1, f1' phi1 + f2' phi2 = 0")
 
 
-# Apartado 9: varias variables. Comprobaciones generales con un lagrangiano y una
+# Apartado 8: varias variables. Comprobaciones generales con un lagrangiano y una
 # transformación sin ninguna simetría especial: D desde la definición (determinante y
 # jacobiana, exactos en epsilon), forma de cuatro términos, lema e identidad.
 def apartado9(n, Ls, y, Z, var, f, tau_s, xi_s, etiqueta):
@@ -110,18 +111,18 @@ def apartado9(n, Ls, y, Z, var, f, tau_s, xi_s, etiqueta):
           + sum(u[i][l] * (d(xi[i], l) - sum(d(f[i], k) * d(tau[k], l) for k in range(m)))
                 for i in range(n) for l in range(m))
           + sum(Lx[k] * tau[k] for k in range(m)) + L * sum(d(tau[k], k) for k in range(m)))
-    ok(D - D4, f"apartado 9 ({etiqueta}): D desde la definición = forma de cuatro términos")
+    ok(D - D4, f"apartado 8 ({etiqueta}): D desde la definición = forma de cuatro términos")
     orden = max(sum(c for _, c in der.variable_count) for der in sp.expand(D4).atoms(sp.Derivative))
-    ok(orden - 1, f"apartado 9 ({etiqueta}): D no contiene derivadas segundas")
+    ok(orden - 1, f"apartado 8 ({etiqueta}): D no contiene derivadas segundas")
     xib = [xi[i] - sum(tau[k] * d(f[i], k) for k in range(m)) for i in range(n)]
     lema = (sum(Ly[i] * xib[i] + sum(u[i][k] * d(xib[i], k) for k in range(m)) for i in range(n))
             + sum(d(tau[k] * L, k) for k in range(m)))
-    ok(D4 - lema, f"apartado 9 ({etiqueta}): forma de cuatro términos = lema")
+    ok(D4 - lema, f"apartado 8 ({etiqueta}): forma de cuatro términos = lema")
     phi = [Ly[i] - sum(d(u[i][k], k) for k in range(m)) for i in range(n)]
     T = [[sum(u[i][k] * d(f[i], l) for i in range(n)) - (L if k == l else 0) for l in range(m)] for k in range(m)]
     Q = [sum(u[i][k] * xi[i] for i in range(n)) - sum(T[k][l] * tau[l] for l in range(m)) for k in range(m)]
     ok(sum(d(Q[k], k) for k in range(m)) - D + sum(phi[i] * xib[i] for i in range(n)),
-       f"apartado 9 ({etiqueta}): identidad, div(Q + F) - D = -sum phi_i xi barra_i")
+       f"apartado 8 ({etiqueta}): identidad, div(Q + F) - D = -sum phi_i xi barra_i")
 
 
 def apartado9_n1_m2():
@@ -148,15 +149,15 @@ def apartado9_n2_m2():
     # Un campo que depende de las derivadas y cuya divergencia es det J_f, un lagrangiano nulo
     div = sp.diff(f[0] * f[1].diff(x2), x1) + sp.diff(-f[0] * f[1].diff(x1), x2)
     detJ = f[0].diff(x1) * f[1].diff(x2) - f[0].diff(x2) * f[1].diff(x1)
-    ok(div - detJ, "apartado 9: div(f1 d2 f2, -f1 d1 f2) = det J_f")
+    ok(div - detJ, "apartado 8: div(f1 d2 f2, -f1 d1 f2) = det J_f")
     Ldet = Z[0, 0] * Z[1, 1] - Z[0, 1] * Z[1, 0]
     reglas = {Z[i, k]: f[i].diff(var[k]) for i in range(2) for k in range(2)}
     for i in range(2):
         phi = -sum(sp.diff(sp.diff(Ldet, Z[i, k]).subs(reglas, simultaneous=True), var[k]) for k in range(2))
-        ok(phi, f"apartado 9: det J_f es un lagrangiano nulo (expresión de Euler-Lagrange {i + 1})")
+        ok(phi, f"apartado 8: det J_f es un lagrangiano nulo (expresión de Euler-Lagrange {i + 1})")
 
 
-# Apartado 9.8: la cuerda vibrante, tensor de energía-momento y las tres traslaciones
+# Apartado 8.8: la cuerda vibrante, tensor de energía-momento y las tres traslaciones
 def cuerda():
     t, x, c = sp.symbols("t x c", real=True)
     f = sp.Function("f")(t, x)
@@ -185,7 +186,7 @@ def cuerda():
         ok(sp.diff(Q[0], t) + sp.diff(Q[1], x) + phi * xib, f"cuerda, {nombre}: div Q = -phi xi barra")
 
 
-# Apartado 10: flujos, prolongación, derivada de Lie, invariancia finita y simetrías generalizadas
+# Apartado 9: flujos, prolongación, derivada de Lie, invariancia finita y simetrías generalizadas
 def apartado10():
     eps, eta, s = sp.symbols("epsilon eta s", real=True)
     X0, Y0, P = sp.symbols("x y yp", real=True)   # punto (x, y) y pendiente y'
@@ -198,20 +199,20 @@ def apartado10():
     # 10.1: los flujos del giro y del cambio de velocidad resuelven la ecuación del campo
     Xg = X0 * sp.cos(eps) - Y0 * sp.sin(eps)
     Yg = X0 * sp.sin(eps) + Y0 * sp.cos(eps)
-    ok(sp.diff(Xg, eps) + Yg, "10.1: giro, dX/de = -Y")
-    ok(sp.diff(Yg, eps) - Xg, "10.1: giro, dY/de = X")
-    ok(sp.diff(X0 + 0 * eps, eps), "10.1: cambio de velocidad, dX/de = 0")
-    ok(sp.diff(Y0 + eps * X0, eps) - X0, "10.1: cambio de velocidad, dY/de = X")
+    ok(sp.diff(Xg, eps) + Yg, "9.1: giro, dX/de = -Y")
+    ok(sp.diff(Yg, eps) - Xg, "9.1: giro, dY/de = X")
+    ok(sp.diff(X0 + 0 * eps, eps), "9.1: cambio de velocidad, dX/de = 0")
+    ok(sp.diff(Y0 + eps * X0, eps) - X0, "9.1: cambio de velocidad, dY/de = X")
 
     # 10.3: prolongación del giro; su generador y la ley de grupo para la pendiente
     Y1 = sp.simplify(dx(Yg) / dx(Xg))
-    ok(Y1 - (sp.sin(eps) + P * sp.cos(eps)) / (sp.cos(eps) - P * sp.sin(eps)), "10.3: pendiente girada")
+    ok(Y1 - (sp.sin(eps) + P * sp.cos(eps)) / (sp.cos(eps) - P * sp.sin(eps)), "9.3: pendiente girada")
     xi1 = sp.diff(Y1, eps).subs(eps, 0)
     tau, xi = -Y0, X0
-    ok(xi1 - (dx(xi) - P * dx(tau)), "10.3: xi^(1) = d_x xi - y' d_x tau (giro)")
-    ok(xi1 - (1 + P**2), "10.3: xi^(1) = 1 + y'^2 (giro)")
+    ok(xi1 - (dx(xi) - P * dx(tau)), "9.3: xi^(1) = d_x xi - y' d_x tau (giro)")
+    ok(xi1 - (1 + P**2), "9.3: xi^(1) = 1 + y'^2 (giro)")
     comp = Y1.subs(eps, eta).subs(P, Y1)   # primero el giro eps, después el giro eta
-    ok(sp.simplify(sp.expand_trig(comp - Y1.subs(eps, eps + eta))), "10.3: ley de grupo de la pendiente prolongada")
+    ok(sp.simplify(sp.expand_trig(comp - Y1.subs(eps, eps + eta))), "9.3: ley de grupo de la pendiente prolongada")
 
     # 10.4: derivada de Lie de L dx = forma de cuatro términos = parte evolutiva + derivada total
     g, h = sp.Function("g"), sp.Function("h")
@@ -224,39 +225,39 @@ def apartado10():
     L0 = Ls(Y0, P, X0)
     xi1_g = dx(xi_g) - P * dx(tau_g)
     cuatro = sp.diff(L0, Y0) * xi_g + sp.diff(L0, P) * xi1_g + sp.diff(L0, X0) * tau_g + L0 * dx(tau_g)
-    ok(lie - cuatro, "10.4: derivada de Lie de L dx = forma de cuatro términos")
+    ok(lie - cuatro, "9.4: derivada de Lie de L dx = forma de cuatro términos")
     xib = xi_g - P * tau_g
     evolutiva = sp.diff(L0, Y0) * xib + sp.diff(L0, P) * dx(xib)
-    ok(cuatro - (evolutiva + dx(tau_g * L0)), "10.4: D = parte evolutiva + d_x(tau L)")
+    ok(cuatro - (evolutiva + dx(tau_g * L0)), "9.4: D = parte evolutiva + d_x(tau L)")
     G = sp.Function("G")(X0, Y0, P)
     lieG = tau_g * sp.diff(G, X0) + xi_g * sp.diff(G, Y0) + xi1_g * sp.diff(G, P)
-    ok(lieG - (xib * sp.diff(G, Y0) + dx(xib) * sp.diff(G, P) + tau_g * dx(G)), "10.4: V^(1) = parte evolutiva + tau d_x")
+    ok(lieG - (xib * sp.diff(G, Y0) + dx(xib) * sp.diff(G, P) + tau_g * dx(G)), "9.4: V^(1) = parte evolutiva + tau d_x")
 
     # 10.5: invariancia finita de la longitud bajo el giro, para todo epsilon
     longitud = sp.sqrt(1 + Y1**2) * dx(Xg)
-    ok(sp.simplify(longitud**2 - (1 + P**2)), "10.5: giro, sqrt(1 + y'^2) dx es invariante (al cuadrado)")
+    ok(sp.simplify(longitud**2 - (1 + P**2)), "9.5: giro, sqrt(1 + y'^2) dx es invariante (al cuadrado)")
     # Sin ley de grupo no basta el primer orden: (x, y + eps + eps^2 y) con L = y'^2 / 2
     Yn = Y0 + eps + eps**2 * Y0
     Pn = dx(Yn)
-    ok(sp.diff(Pn**2 / 2, eps).subs(eps, 0), "10.5: sin ley de grupo, D = 0")
-    ok(sp.simplify(Pn**2 / 2 - P**2 / 2 - ((1 + eps**2)**2 - 1) * P**2 / 2), "10.5: sin ley de grupo, cambio de orden eps^2")
+    ok(sp.diff(Pn**2 / 2, eps).subs(eps, 0), "9.5: sin ley de grupo, D = 0")
+    ok(sp.simplify(Pn**2 / 2 - P**2 / 2 - ((1 + eps**2)**2 - 1) * P**2 / 2), "9.5: sin ley de grupo, cambio de orden eps^2")
     # Cambio de velocidad con L = y'^2 / 2 y F = y: fórmula exacta
     c, d = sp.symbols("c d", real=True)
     f = sp.Function("f")
     exacta = sp.integrate((f(d) + s * d) - (f(c) + s * c), (s, 0, eps))
     # directamente: int_c^d ((f' + eps)^2 - f'^2) / 2 dx = eps (f(d) - f(c)) + eps^2 (d - c) / 2
-    ok(exacta - (eps * (f(d) - f(c)) + eps**2 * (d - c) / 2), "10.5: cambio de velocidad, fórmula exacta con F = y")
+    ok(exacta - (eps * (f(d) - f(c)) + eps**2 * (d - c) / 2), "9.5: cambio de velocidad, fórmula exacta con F = y")
 
     # 10.6: xi barra = y' genera la traslación por la ecuación de transporte
     xv = sp.Symbol("xv", real=True)
     u = f(xv + eps)
-    ok(sp.diff(u, eps) - sp.diff(u, xv), "10.6: u = f(x + eps) cumple du/deps = du/dx")
+    ok(sp.diff(u, eps) - sp.diff(u, xv), "9.6: u = f(x + eps) cumple du/deps = du/dx")
     # Las dos formas dan la misma Q: p xi barra - F barra = p xi - tau H - F
     pp, Fp, Lp, tp, xp = sp.symbols("p F L tau xi")
-    ok(pp * (xp - tp * P) - (Fp - tp * Lp) - (pp * xp - tp * (pp * P - Lp) - Fp), "10.6: Q barra = Q")
+    ok(pp * (xp - tp * P) - (Fp - tp * Lp) - (pp * xp - tp * (pp * P - Lp) - Fp), "9.6: Q barra = Q")
 
 
-# Apartado 10.6: el vector de Laplace–Runge–Lenz como simetría generalizada (problema de Kepler)
+# Apartado 9.6: el vector de Laplace–Runge–Lenz como simetría generalizada (problema de Kepler)
 def apartado10_lrl():
     t = sp.Symbol("t", real=True)
     m, k = sp.symbols("m k", positive=True)
@@ -273,13 +274,13 @@ def apartado10_lrl():
     xi = [m * (2 * v[i] * q[j] - q[i] * v[j] - (1 if i == j else 0) * rv) for i in range(3)]
     dL = sum(sp.diff(L, q[i]) * xi[i] + p[i] * sp.diff(xi[i], t) for i in range(3))
     Fb = sum(p[i] * xi[i] for i in range(3)) - A[j]
-    ok(dL - sp.diff(Fb, t), "10.6: LRL, el generador es una simetría con F barra = p xi - A_x")
+    ok(dL - sp.diff(Fb, t), "9.6: LRL, el generador es una simetría con F barra = p xi - A_x")
     ecs = [sp.diff(L, q[i]) - sp.diff(p[i], t) for i in range(3)]
     acc = sp.solve(ecs, [c.diff(t, 2) for c in q], dict=True)[0]
-    ok(sp.diff(A[j], t).subs(acc), "10.6: LRL, A_x constante sobre las soluciones")
+    ok(sp.diff(A[j], t).subs(acc), "9.6: LRL, A_x constante sobre las soluciones")
 
 
-# Apartado 11.3: la ecuación de Schrödinger en C^2 como lagrangiano con cuatro funciones reales
+# Apartado 10.3: la ecuación de Schrödinger en C^2 como lagrangiano con cuatro funciones reales
 def apartado11_schrodinger():
     t = sp.Symbol("t", real=True)
     hb = sp.Symbol("hbar", positive=True)
@@ -304,8 +305,8 @@ def apartado11_schrodinger():
     for j in range(2):
         Sj = sp.expand(S[j])
         ok(phi[2 * j] - al(2 * sp.re(Sj)),
-           f"11.3: phi_q{j + 1} = 2 Re S_{j + 1}")
-        ok(phi[2 * j + 1] - al(2 * sp.im(Sj)), f"11.3: phi_r{j + 1} = 2 Im S_{j + 1}")
+           f"10.3: phi_q{j + 1} = 2 Re S_{j + 1}")
+        ok(phi[2 * j + 1] - al(2 * sp.im(Sj)), f"10.3: phi_r{j + 1} = 2 Im S_{j + 1}")
 
     def reales(v):   # componentes reales (q1, r1, q2, r2) de un vector de C^2, ya a lo largo de las funciones
         v = [sp.expand(c) for c in v]
@@ -315,21 +316,54 @@ def apartado11_schrodinger():
     # Fase: xi = i psi, Q = -hbar |psi|^2
     xi = reales(I * psi)
     Q = sum(a * b for a, b in zip(p, xi))
-    ok(Q + hb * norma2, "11.3: fase, Q = -hbar |psi|^2")
-    ok(sp.diff(Q, t) + sum(a * b for a, b in zip(phi, xi)), "11.3: fase, identidad de Noether")
+    ok(Q + hb * norma2, "10.3: fase, Q = -hbar |psi|^2")
+    ok(sp.diff(Q, t) + sum(a * b for a, b in zip(phi, xi)), "10.3: fase, identidad de Noether")
     # A = H^2 conmuta con H: xi = -i A psi, Q = hbar <psi, A psi>
     A = Hm * Hm
     xi = reales(-I * A * psi)
     Q = sum(a * b for a, b in zip(p, xi))
-    ok(Q - hb * al(sp.re(prod(psi, A * psi))), "11.3: A = H^2, Q = hbar <psi, A psi>")
-    ok(sp.diff(Q, t) + sum(a * b for a, b in zip(phi, xi)), "11.3: A = H^2, identidad de Noether")
+    ok(Q - hb * al(sp.re(prod(psi, A * psi))), "10.3: A = H^2, Q = hbar <psi, A psi>")
+    ok(sp.diff(Q, t) + sum(a * b for a, b in zip(phi, xi)), "10.3: A = H^2, identidad de Noether")
     # Traslación en el tiempo: la función H es <psi, H psi>, y H' = -sum phi u'
     du = [c.diff(t) for c in fun]
     Hf = sum(a * b for a, b in zip(p, du)) - L
-    ok(Hf - al(sp.re(prod(psi, Hm * psi))), "11.3: la función H es <psi, H psi>")
-    ok(sp.diff(Hf, t) + sum(a * b for a, b in zip(phi, du)), "11.3: traslación en el tiempo, identidad")
+    ok(Hf - al(sp.re(prod(psi, Hm * psi))), "10.3: la función H es <psi, H psi>")
+    ok(sp.diff(Hf, t) + sum(a * b for a, b in zip(phi, du)), "10.3: traslación en el tiempo, identidad")
     # L es lineal en las velocidades: la matriz W es nula
-    ok(sum(sp.diff(Ls, a, b)**2 for a in V for b in V), "11.3: W = 0 (L lineal en las velocidades)")
+    ok(sum(sp.diff(Ls, a, b)**2 for a in V for b in V), "10.3: W = 0 (L lineal en las velocidades)")
+
+
+# Ejemplos matemáticos (versión 2): camino paramétrico y ecuación de Laplace
+def ejemplos_v2():
+    # 2.2: giro del camino paramétrico; D = 0 y Q constante sobre una recta
+    g1, g2 = sp.Function("g1")(x), sp.Function("g2")(x)
+    Lp = sp.sqrt(g1.diff(x)**2 + g2.diff(x)**2)
+    p1, p2 = sp.diff(Lp, g1.diff(x)), sp.diff(Lp, g2.diff(x))
+    D = p1 * (-g2.diff(x)) + p2 * g1.diff(x)
+    ok(D, "ejemplos 2.2: giro del camino paramétrico, D = 0")
+    A1, A2, w1, w2, s = sp.symbols("A1 A2 w1 w2 s", real=True)
+    Q = (A1 + s * w1) * w2 - (A2 + s * w2) * w1
+    ok(sp.diff(Q, s), "ejemplos 2.2: Q_giro no depende de s sobre la recta")
+    # 4: Laplace con dos variables, corrientes de la altura, de la traslación en x1 y del giro
+    x1, x2 = var = sp.symbols("x1 x2", real=True)
+    f = sp.Function("f")(x1, x2)
+    d1, d2 = f.diff(x1), f.diff(x2)
+    L = (d1**2 + d2**2) / 2
+    u = [d1, d2]
+    df = [d1, d2]
+    phi = -(f.diff(x1, 2) + f.diff(x2, 2))
+    T = [[u[k] * df[l] - (L if k == l else 0) for l in range(2)] for k in range(2)]
+    ok(T[0][0] - (d1**2 - d2**2) / 2, "ejemplos 4: T_11")
+    ok(T[0][1] - d1 * d2, "ejemplos 4: T_12")
+    div = lambda Qv: sp.diff(Qv[0], x1) + sp.diff(Qv[1], x2)
+    ok(div(u) + phi * 1, "ejemplos 4.1: altura, div Q = -phi xi barra")
+    Qt = [-T[k][0] for k in range(2)]
+    ok(div(Qt) + phi * (-d1), "ejemplos 4.2: traslación en x1, div Q = -phi xi barra")
+    tau = [-x2, x1]
+    Qg = [-sum(T[k][l] * tau[l] for l in range(2)) for k in range(2)]
+    xib = -sum(tau[k] * df[k] for k in range(2))
+    ok(div(Qg) + phi * xib, "ejemplos 4.3: giro, div Q = -phi xi barra")
+    ok(Qg[0] - (x2 * T[0][0] - x1 * T[0][1]), "ejemplos 4.3: Q_1 = x2 T_11 - x1 T_12")
 
 
 # Comentarios, pregunta 2: partícula en un campo central
@@ -411,4 +445,5 @@ cuerda()
 apartado10()
 apartado10_lrl()
 apartado11_schrodinger()
+ejemplos_v2()
 particula()
