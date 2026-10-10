@@ -52,6 +52,9 @@ El documento empieza con una función de una variable y lo generaliza tres veces
 * $B$: el campo magnético del apartado 8.5; una caja en el apartado 9.
 * $\eta$: el segundo parámetro de la ley de grupo (apartado 3.3); una función cualquiera de clase $C^1$ en los lemas de los apartados 6.5, 8.4 y 9.6.
 * $g$: la aceleración de la gravedad en los ejemplos; una función cualquiera en el apartado 10.2.
+* $i$: el índice de las funciones; en el apartado 11.3, la unidad imaginaria.
+* $H$: $\bsH$, en negrita, es la función del apartado 6.5; $\hat{H}$, con gorro, un operador (apartado 11.3); $\mathcal{H}$, caligráfica, un espacio de Hilbert (apartado 11).
+* $\vec{A}$: el potencial vector en el apartado 8.5 y el vector de Laplace–Runge–Lenz en el 10.6; $\hat{A}$, con gorro, un operador (apartado 11).
 * $\alpha$, $\beta$, $\gamma$, $\kappa$, $\lambda$: constantes, coeficientes o funciones auxiliares que se definen en cada lugar. Por ejemplo, $\alpha$ es un coeficiente en los apartados 6.6, 8.3 y 9.5 y el ángulo de la tangente en el apartado 7.
 
 ## 2. La transformación actúa sobre los puntos del plano
@@ -1860,9 +1863,144 @@ con $\bar{F} = \vec{p} \cdot \bar{\vec{\xi}} - A_j$. Depende de las velocidades,
 
 Las cuentas de este apartado (los flujos, la prolongación del giro, la derivada de Lie del elemento lagrangiano y su descomposición, la invariancia finita, el contraejemplo sin ley de grupo, la fórmula exacta del cambio de velocidad y el vector de Laplace–Runge–Lenz) están comprobadas con SymPy en borrador-Noether-v2-comprobaciones.py.
 
+## 11. Guía: dimensión infinita
+
+Este apartado es una guía: recoge resultados establecidos, sin derivaciones, con las referencias del apartado 11.6. Trata dos generalizaciones: funciones con valores en un espacio de dimensión infinita (apartados 11.1 a 11.4) y variables independientes en espacios más generales (apartado 11.5). La conclusión es asimétrica. Las variables dependientes admiten dimensión infinita casi sin cambios, porque la teoría es puntual en $x$: solo usa derivadas y emparejamientos. Las independientes, no, porque hay que integrar sobre ellas.
+
+### 11.1. Valores en un espacio de Banach o de Hilbert
+
+**El planteamiento.** Sean $E$ un espacio de Banach (apartado 10.2), $f: [a, b] \to E$ de clase $C^2$ y $\bsL: E \times E \times [a, b] \to \mathbb{R}$ de clase $C^2$, con las derivadas de Fréchet del apartado 10.2.
+
+* **Derivadas parciales.** $D_y \bsL(y, y', x) \in E^*$ es la derivada de Fréchet de $\bsL$ respecto de su primer argumento, con los otros dos fijos, y $D_{y'} \bsL(y, y', x) \in E^*$, la derivada respecto del segundo. En $E = \mathbb{R}^n$ son los vectores fila de las $\partial_{y_i} \bsL$ y de las $\partial_{y'_i} \bsL$.
+* **Momento, expresión de Euler–Lagrange y $\bsH$**, a lo largo de $f$:
+
+  $$
+  \begin{aligned}
+  p &:= D_{y'} \bsL(f, f', x) \in E^*, \qquad \varphi := D_y \bsL(f, f', x) - p' \in E^*, \\
+  \bsH &:= \langle p, f' \rangle - \bsL.
+  \end{aligned}
+  $$
+
+* **Estacionariedad.** $f$ hace estacionario a $\bsS$ con los extremos fijos si y solo si $\varphi = 0$ en todo $[a, b]$. El lema fundamental del cálculo de variaciones sigue valiendo: si $\varphi$ es continua y $\int_a^b \langle \varphi, h \rangle \,dx = 0$ para toda $h$ de clase $C^2$ con $h(a) = h(b) = 0$, se toma $h(x) = \lambda(x) \cdot e$, con $e \in E$ fijo y $\lambda$ una función real, y se aplica el lema de una variable a $x \mapsto \langle \varphi(x), e \rangle$. Como $e$ es cualquiera, $\varphi(x) = 0$.
+* **Las transformaciones** actúan sobre los puntos de $\mathbb{R} \times E$, con generador $(\tau, \xi)$, $\tau(x, y) \in \mathbb{R}$ y $\xi(x, y) \in E$. La condición de simetría es la del apartado 4, con $F(x, y)$ real.
+* **El resultado.** Para toda $f$ de clase $C^2$,
+
+  $$
+  \begin{aligned}
+  \dfrac{d}{dx}\big(\langle p, \xi \rangle - \tau \cdot \bsH - F\big) = -\big\langle \varphi,\ \xi - \tau \cdot f' \big\rangle,
+  \end{aligned}
+  $$
+
+  y sobre las soluciones $Q := \langle p, \xi \rangle - \tau \cdot \bsH - F$ es constante. La demostración es la de los apartados 6.5 y 8.4: solo usa las cinco reglas del apartado 10.2, con el emparejamiento $\langle \cdot, \cdot \rangle$ en el papel de la suma $\sum_i p_i \cdot \xi_i$, y la cota de los restos, con la precaución del apartado 11.2, punto 1. Las condiciones de integrabilidad del apartado 8.3 y el lema de Poincaré también valen en espacios de Banach (Lang, 1999).
+
+**Espacios de Hilbert.**
+
+* Un **producto escalar** en un espacio vectorial real $E$ es una aplicación $(u, v) \mapsto \langle u, v \rangle \in \mathbb{R}$, bilineal, simétrica y con $\langle u, u \rangle > 0$ si $u \neq 0$. Define la norma $\lVert u \rVert := \sqrt{\langle u, u \rangle}$. Un **espacio de Hilbert** es un espacio con producto escalar que, con esa norma, es de Banach.
+* **Ejemplos.** $\mathbb{R}^n$, con el producto escalar habitual. El espacio $\ell^2$ de las sucesiones reales $(a_1, a_2, \dots)$ con $\sum_k a_k^2$ finita, con $\langle a, b \rangle := \sum_k a_k \cdot b_k$, que tiene dimensión infinita.
+* **Teorema de representación de Riesz.** En un espacio de Hilbert, para cada $\alpha \in E^*$ existe un único $u_\alpha \in E$ con $\alpha(v) = \langle u_\alpha, v \rangle$ para todo $v$, y $\lVert \alpha \rVert = \lVert u_\alpha \rVert$ (Brezis, 2011). Así, el momento $p$ se identifica con un vector de $E$, y el emparejamiento $\langle p, \xi \rangle$, con el producto escalar; por eso se usa la misma notación para los dos.
+* **Espacios de Hilbert complejos.** En mecánica cuántica los vectores son complejos. Un producto escalar complejo $\langle u, v \rangle \in \mathbb{C}$ es lineal en $v$, cumple $\langle v, u \rangle = \overline{\langle u, v \rangle}$, donde la barra indica el conjugado, y $\langle u, u \rangle > 0$ si $u \neq 0$; es, por tanto, antilineal en $u$: $\langle \lambda \cdot u, v \rangle = \bar{\lambda} \cdot \langle u, v \rangle$. Como $\bsL$ tiene que ser real, el espacio complejo $\mathcal{H}$ se ve como un espacio real, en el que los vectores solo se multiplican por números reales, con el producto escalar real $\operatorname{Re}\langle u, v \rangle$, que lo hace un espacio de Hilbert real. Por ejemplo, $\mathbb{C}^N$, con $\langle u, v \rangle = \sum_j \bar{u}_j \cdot v_j$, es $\mathbb{R}^{2 \cdot N}$ con el producto escalar habitual, separando las partes real e imaginaria de las componentes.
+
+### 11.2. Lo que necesita cuidado
+
+1. **Compacidad.** Un conjunto de un espacio normado es **compacto** si toda sucesión de sus puntos tiene una subsucesión que converge a un punto del conjunto. En $\mathbb{R}^N$, los compactos son los cerrados y acotados; en dimensión infinita, no: la bola unidad cerrada de un espacio normado es compacta si y solo si la dimensión es finita (lema de Riesz; Brezis, 2011). En $\ell^2$, los vectores $e_k$, con un $1$ en el lugar $k$ y $0$ en los demás, están en la bola unidad y cumplen $\lVert e_k - e_l \rVert = \sqrt{2}$ si $k \neq l$, así que ninguna subsucesión converge. La cota uniforme del apartado 5, punto (2), se mantiene por otra razón: la imagen de un compacto por una función continua es compacta en cualquier espacio normado, y el conjunto donde se evalúan las derivadas de $\bsL$ es la imagen continua de un compacto de $\mathbb{R}^N$, como $[c, d] \times [-\varepsilon_0, \varepsilon_0]$.
+2. **La matriz $W$.** Su análogo es la derivada segunda $D^2_{y'} \bsL$, una aplicación bilineal continua de $E \times E$ en $\mathbb{R}$, que define una aplicación lineal continua de $E$ en $E^*$. Para que la transformada de Legendre, $y' \mapsto p$, sea invertible y lleve al formalismo hamiltoniano, no basta con que esa aplicación sea inyectiva (se dice **débilmente no degenerada**): hace falta que sea biyectiva con inversa continua (**fuertemente no degenerada**). En dimensión finita las dos condiciones coinciden; en dimensión infinita, no (Abraham et al., 1988; Marsden y Ratiu, 1999). La identidad de Noether no usa $W$ (apartado 8.4), así que no le afecta.
+3. **Generadores no acotados.** Es la dificultad de fondo de la mecánica cuántica.
+   * Un **operador lineal** $\hat{A}$ en un espacio de Hilbert $\mathcal{H}$ es una aplicación lineal definida en un subespacio $D(\hat{A})$, su **dominio**, con valores en $\mathcal{H}$. Es **acotado** si existe $C$ con $\lVert \hat{A}u \rVert \leq C \cdot \lVert u \rVert$ para todo $u \in D(\hat{A})$, es decir, si es continuo (apartado 10.2); si no, es **no acotado**, como la derivada (apartado 10.2). El dominio es **denso** si todo vector de $\mathcal{H}$ es límite de vectores del dominio.
+   * El **adjunto** $\hat{A}^*$ de un operador con dominio denso está definido en los $v$ para los que existe un $w$ con $\langle v, \hat{A}u \rangle = \langle w, u \rangle$ para todo $u \in D(\hat{A})$, y vale $\hat{A}^* v := w$. $\hat{A}$ es **autoadjunto** si $\hat{A}^* = \hat{A}$, con el mismo dominio. En $\mathbb{C}^N$, el adjunto es la matriz traspuesta conjugada, y autoadjunto quiere decir **hermítico**: igual a su traspuesta conjugada.
+   * Un operador $\hat{U}$ definido en todo $\mathcal{H}$ es **unitario** si es biyectivo y conserva el producto escalar: $\langle \hat{U}u, \hat{U}v \rangle = \langle u, v \rangle$.
+   * Un **grupo unitario uniparamétrico fuertemente continuo** es una familia de operadores unitarios $\hat{U}(\varepsilon)$ con la ley de grupo, $\hat{U}(\varepsilon + \eta) = \hat{U}(\varepsilon)\hat{U}(\eta)$, con $\hat{U}(0)$ igual a la identidad y con $\varepsilon \mapsto \hat{U}(\varepsilon)\,u$ continua para cada $u$.
+   * **Teorema de Stone.** Esos grupos se corresponden uno a uno con los operadores autoadjuntos. Cada uno es $\hat{U}(\varepsilon) = e^{-i \cdot \varepsilon \cdot \hat{A}}$ para un único $\hat{A}$ autoadjunto, su generador; la exponencial se define con el teorema espectral y, para matrices, es la de «El teorema de Noether: anexos». Además, $\hat{A}u = i \cdot \left.\dfrac{d}{d\varepsilon} \hat{U}(\varepsilon)\,u\right|_{\varepsilon = 0}$ para los $u$ en los que existe esa derivada, que son exactamente los de $D(\hat{A})$ (Reed y Simon, 1980, cap. VIII).
+   * **Consecuencia para el teorema de Noether.** El generador de la transformación, $\xi(\psi) = -i \cdot \hat{A}\psi$, solo está definido en $D(\hat{A})$, y la familia no es de clase $C^2$ en todo $\mathcal{H}$, como pide el apartado 3.1. Los tratamientos rigurosos trabajan en el dominio, con la norma $\lVert u \rVert + \lVert \hat{A}u \rVert$, que lo hace un espacio de Banach cuando $\hat{A}$ es autoadjunto (Chernoff y Marsden, 1974).
+
+### 11.3. Ejemplo: la ecuación de Schrödinger
+
+**Avisos de notación.** En este apartado, $i$ es la unidad imaginaria; $\mathcal{H}$, caligráfica, es el espacio de Hilbert; $\hat{H}$, con gorro, un operador (el hamiltoniano cuántico); y $\bsH$, en negrita, la función del apartado 6.5. $\hbar$ es la constante de Planck reducida, $\dfrac{h_{\mathrm{P}}}{2 \cdot \pi} \approx 1{,}055 \cdot 10^{-34}\ \mathrm{J \cdot s}$, con $h_{\mathrm{P}}$ la constante de Planck. La variable $x$ es el tiempo, $t$, y el punto indica $\dfrac{d}{dt}$.
+
+**El planteamiento.** $\mathcal{H}$ es un espacio de Hilbert complejo visto como real (apartado 11.1), y $\hat{H}$ un operador autoadjunto. Para que todo sea riguroso con lo ya visto, se puede tomar $\mathcal{H} = \mathbb{C}^N$ y $\hat{H}$ una matriz hermítica: entonces es el apartado 8 con $2 \cdot N$ funciones reales, las partes real e imaginaria de las componentes de $\psi(t)$. El lagrangiano es
+
+$$
+\begin{aligned}
+\bsL(\psi, \dot{\psi}) = \operatorname{Re}\big\langle \psi, i \cdot \hbar \cdot \dot{\psi} \big\rangle - \big\langle \psi, \hat{H}\psi \big\rangle,
+\end{aligned}
+$$
+
+real porque $\hat{H}$ es autoadjunto.
+
+* **La ecuación de Euler–Lagrange** es la **ecuación de Schrödinger**, $i \cdot \hbar \cdot \dot{\psi} = \hat{H}\psi$. En componentes reales, las expresiones de Euler–Lagrange de las partes real e imaginaria de $\psi_j$ son el doble de la parte real y de la parte imaginaria de $i \cdot \hbar \cdot \dot{\psi}_j - (\hat{H}\psi)_j$.
+* **El momento** es $p(\eta) = \operatorname{Re}\langle \psi, i \cdot \hbar \cdot \eta \rangle$, para cada $\eta \in \mathcal{H}$.
+* **Tres simetrías**, todas con $F = 0$. $[\hat{A}, \hat{H}] := \hat{A}\hat{H} - \hat{H}\hat{A}$ es el **conmutador**:
+
+| Simetría | Generador | $Q$ |
+| ---------------------------------------- | ------------------------ | ------------------------------------ |
+| Fase, $\psi \mapsto e^{i \cdot \varepsilon} \cdot \psi$ | $\xi = i \cdot \psi$ | $-\hbar \cdot \lVert \psi \rVert^2$ |
+| $\psi \mapsto e^{-i \cdot \varepsilon \cdot \hat{A}}\psi$, con $\hat{A}$ autoadjunto y $[\hat{A}, \hat{H}] = 0$ | $\xi = -i \cdot \hat{A}\psi$ | $\hbar \cdot \langle \psi, \hat{A}\psi \rangle$ |
+| Traslación en el tiempo | $\tau = 1$, $\xi = 0$ | $-\bsH = -\langle \psi, \hat{H}\psi \rangle$ |
+
+Table: Simetrías del lagrangiano de Schrödinger.
+
+**Observaciones.**
+
+* **$\bsL$ es lineal en $\dot{\psi}$**, así que $W = 0$ y la transformada de Legendre es degenerada. La identidad de Noether vale igual, porque no usa $W$ (apartado 8.4, «Qué no hemos usado»).
+* **Interpretación.** Si $\lVert \psi \rVert = 1$, $\langle \psi, \hat{A}\psi \rangle$ es el **valor esperado** del observable representado por $\hat{A}$. La regla de la mecánica cuántica «si $\hat{A}$ conmuta con $\hat{H}$, su valor esperado se conserva» es el teorema de Noether para este lagrangiano. La conservación de la norma, que es la de la probabilidad total, procede de la simetría de fase, y la de $\langle \psi, \hat{H}\psi \rangle$, el valor esperado de la energía, de la traslación en el tiempo.
+* **En dimensión infinita**, $\hat{H}$ suele ser no acotado; para una partícula contiene una derivada segunda. El resultado vale para $\psi(t)$ en $D(\hat{H})$, con las precauciones del apartado 11.2, punto 3 (Chernoff y Marsden, 1974). La ecuación de Schrödinger como sistema hamiltoniano en un espacio de Hilbert se estudia en Kibble (1979).
+* **Comprobación.** Con $N = 2$, una matriz hermítica cualquiera y $\hat{A} = \hat{H}^2$, que conmuta con $\hat{H}$, las tres filas de la tabla, la ecuación de Schrödinger y $W = 0$ están comprobadas con SymPy en borrador-Noether-v2-comprobaciones.py.
+
+### 11.4. Los campos como curvas en un espacio de funciones
+
+* **La cuerda del apartado 9.8, otra vez.** Para cada $t$, $q(t) := f(t, \cdot)$ es una función de $x$ en $[a_1, b_1]$. Con el producto escalar $\langle g_1, g_2 \rangle := \int_{a_1}^{b_1} g_1 \cdot g_2 \,dx$ entre funciones continuas, el lagrangiano del apartado 9.8, integrado en $x$, es
+
+  $$
+  \begin{aligned}
+  \bsL(q, \dot{q}) = \dfrac{1}{2} \cdot \lVert \dot{q} \rVert^2 - \dfrac{c^2}{2} \cdot \lVert \partial_x q \rVert^2.
+  \end{aligned}
+  $$
+
+  El apartado 9 con una variable espacial es el apartado 8 con valores en un espacio de funciones, y la energía de la cuerda, que en el apartado 9.8 procede de la traslación en $t$, es aquí la $\bsH$ de la traslación en el tiempo.
+* **Tres obstáculos:**
+  * las funciones continuas con esa norma no forman un espacio completo; su completado es el espacio $L^2(a_1, b_1)$ de las funciones de cuadrado integrable, que necesita la integral de Lebesgue (Brezis, 2011);
+  * $\lVert \partial_x q \rVert$ solo está definida para las $q$ derivables, que forman un subespacio denso: $\bsL$ no está definida en todo el espacio;
+  * la traslación en $x$, $q \mapsto q(\cdot - \varepsilon)$, con condiciones periódicas para que lleve el intervalo en sí mismo, tiene el generador $\xi(q) = -\partial_x q$, que no es acotado (apartado 10.2).
+* **Por eso**, en la práctica, los campos se tratan con el apartado 9, y la visión como curva en un espacio de funciones se usa sobre todo para su estructura hamiltoniana (Marsden y Ratiu, 1999; Chernoff y Marsden, 1974).
+
+### 11.5. Variables independientes más generales
+
+#### Variedades: el marco geométrico
+
+* Una **variedad diferenciable** de dimensión $m$ es un conjunto en el que cada punto tiene un entorno que se describe con $m$ coordenadas reales, una **carta**, de modo que, donde dos cartas se solapan, el cambio de coordenadas es un difeomorfismo (apartado 6.5). Ejemplo: la esfera, con las coordenadas esféricas fuera de los polos y otras cartas cerca de ellos.
+* En el marco general (Olver, 1993; Saunders, 1989), las variables recorren una variedad $M$ y los valores, otra variedad $N$; por ejemplo, un campo de vectores unitarios toma valores en la esfera. Los puntos $(x, y)$ son los de $M \times N$ o, más en general, los de un **fibrado**, un espacio que alrededor de cada punto es un producto de ese tipo.
+* El espacio de los puntos $(x, y, y')$ del apartado 10.3, o $(\vec{x}, \vec{y}, Z)$ del apartado 9.2, se llama **espacio de jets de primer orden**; la prolongación actúa sobre él.
+* **Formas de grado $m$.** En coordenadas se escriben $g(\vec{x}) \cdot dx_1 \wedge \dots \wedge dx_m$. El símbolo $\wedge$, el **producto exterior**, es antisimétrico, $dx_k \wedge dx_l = -dx_l \wedge dx_k$, y por eso, al cambiar de coordenadas, una forma de grado $m$ se multiplica por el determinante jacobiano, el factor del apartado 9.2. El elemento lagrangiano $\bsL \cdot dx_1 \wedge \dots \wedge dx_m$ es una forma de grado $m$.
+* **Formas de grado $m - 1$ y derivada exterior.** La corriente $\vec{Q}$ del apartado 9.6 se escribe como la forma $\sum_k (-1)^{k-1} \cdot Q_k \cdot dx_1 \wedge \dots \wedge dx_{k-1} \wedge dx_{k+1} \wedge \dots \wedge dx_m$. Su **derivada exterior** es $\big(\sum_k d_{x_k} Q_k\big) \cdot dx_1 \wedge \dots \wedge dx_m$: la divergencia.
+* **Teorema de Stokes.** La integral de la derivada exterior de una forma de grado $m - 1$ sobre una región es la integral de la forma sobre su frontera. Sustituye al teorema de la divergencia en una caja del apartado 9.4.
+* **El teorema de Noether en este lenguaje.** $D \cdot dx_1 \wedge \dots \wedge dx_m$ es la derivada de Lie de la forma lagrangiana a lo largo del generador prolongado (apartado 10.4); la condición de simetría pide que sea la derivada exterior de una forma de grado $m - 1$; y la corriente es una forma de grado $m - 1$ con derivada exterior nula sobre las soluciones.
+
+#### Infinitas variables independientes
+
+* Una **medida** asigna a ciertos conjuntos, al menos a los abiertos y a los que se obtienen de ellos con uniones numerables y complementos (los **conjuntos de Borel**), un número en $[0, \infty]$, de modo que la medida de una unión numerable de conjuntos disjuntos es la suma de sus medidas. En $\mathbb{R}^m$, la de Lebesgue es el volumen, y es **invariante por traslaciones**: la de $A + \vec{v}$ es la de $A$.
+* **Teorema.** En un espacio de Banach separable (con un subconjunto numerable denso) de dimensión infinita, toda medida de Borel invariante por traslaciones que dé medida finita a alguna bola es nula (Bogachev, 1998). La idea: por el **lema de Riesz** (para cada subespacio cerrado distinto de todo el espacio y cada $\theta \in (0, 1)$ hay un vector de norma $1$ a distancia al menos $\theta$ del subespacio), hay vectores $e_k$ de norma $1$ con $\lVert e_k - e_l \rVert \geq \dfrac{1}{2}$. Las bolas abiertas de radio $\dfrac{r}{8}$ centradas en los $\dfrac{r}{2} \cdot e_k$ son disjuntas, están dentro de la bola de radio $r$ y tienen todas la misma medida, que tiene que ser nula; por la separabilidad, el espacio es una unión numerable de bolas de ese radio.
+* **Consecuencia.** No hay un $dx_1 \cdots dx_m$ con infinitas variables, y con él desaparecen el determinante jacobiano y el teorema de Fubini del apartado 9.
+* **Lo que existe.** Las **medidas gaussianas**, como la **medida de Wiener** sobre los caminos continuos, que describe el movimiento browniano, no son invariantes por traslaciones, pero sí **cuasiinvariantes** en las direcciones de un subespacio, el **espacio de Cameron–Martin**: trasladarlas en esas direcciones las multiplica por una densidad, que hace el papel del determinante jacobiano; en las demás direcciones, la medida trasladada no tiene densidad respecto de la original. La integración por partes en estos espacios es el **cálculo de Malliavin**, con una divergencia propia (Bogachev, 1998; Nualart, 2006). Son análogos parciales; no hay una teoría de Noether estándar con infinitas variables independientes.
+* **La integral de camino.** En la teoría cuántica de campos se integra, de forma no rigurosa en general, sobre todas las funciones $f$, es decir, sobre las variables dependientes, con un peso que depende de $\bsS[f]$. Como la identidad de Noether vale para toda $f$, y no solo para las soluciones, integrada así da las **identidades de Ward–Takahashi**: la corriente se conserva dentro de las **funciones de correlación**, los promedios de productos de valores de $f$ con ese peso, salvo unos términos de contacto que proceden de $-\sum_i \varphi_i \cdot \bar{\xi}_i$ (Peskin y Schroeder, 1995, cap. 9).
+
+### 11.6. Referencias
+
+* Abraham, R., Marsden, J. E. y Ratiu, T. (1988). *Manifolds, tensor analysis, and applications* (2.ª ed.). Springer.
+* Bogachev, V. I. (1998). *Gaussian measures*. American Mathematical Society.
+* Brezis, H. (2011). *Functional analysis, Sobolev spaces and partial differential equations*. Springer.
+* Chernoff, P. R. y Marsden, J. E. (1974). *Properties of infinite dimensional Hamiltonian systems*. Springer.
+* Kibble, T. W. B. (1979). Geometrization of quantum mechanics. *Communications in Mathematical Physics*, *65*(2), 189–201.
+* Lang, S. (1999). *Fundamentals of differential geometry*. Springer.
+* Marsden, J. E. y Ratiu, T. S. (1999). *Introduction to mechanics and symmetry* (2.ª ed.). Springer.
+* Noether, E. (1918). Invariante Variationsprobleme. *Nachrichten von der Gesellschaft der Wissenschaften zu Göttingen, Mathematisch-Physikalische Klasse*, 235–257.
+* Nualart, D. (2006). *The Malliavin calculus and related topics* (2.ª ed.). Springer.
+* Olver, P. J. (1993). *Applications of Lie groups to differential equations* (2.ª ed.). Springer.
+* Peskin, M. E. y Schroeder, D. V. (1995). *An introduction to quantum field theory*. Addison-Wesley.
+* Reed, M. y Simon, B. (1980). *Methods of modern mathematical physics: Vol. 1. Functional analysis* (ed. rev.). Academic Press.
+* Saunders, D. J. (1989). *The geometry of jet bundles*. Cambridge University Press.
+
 ## Mapa de la notación
 
-Cómo cambia cada objeto en las generalizaciones de los apartados 8, 9 y 11. $E$ es un espacio de Banach y $E^*$, su dual (apartado 10.2); el apartado 11 está por escribir.
+Cómo cambia cada objeto en las generalizaciones de los apartados 8, 9 y 11. $E$ es un espacio de Banach y $E^*$, su dual (apartado 10.2).
 
 | Objeto | Una función (2 a 7) | $n$ funciones (8) | $m$ variables (9) | Valores en $E$ (11) |
 | ------------------------------------ | -------------------- | -------------------------- | -------------------------------- | ---------------------- |

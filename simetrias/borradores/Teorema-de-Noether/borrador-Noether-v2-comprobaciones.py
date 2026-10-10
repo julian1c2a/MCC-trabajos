@@ -1,4 +1,4 @@
-r"""Comprobaciones simbólicas de los apartados 6.7 (casos particulares), 8 (varias funciones), 9 (varias variables) y 10 (flujos)
+r"""Comprobaciones simbólicas de los apartados 6.7 (casos particulares), 8 (varias funciones), 9 (varias variables), 10 (flujos) y 11 (Schrödinger)
 de borrador-Noether-v2.md y de los comentarios del final (partícula en un campo central).
 Se ejecuta desde la raíz del repositorio con .venv\Scripts\python.exe."""
 import sympy as sp
@@ -279,6 +279,59 @@ def apartado10_lrl():
     ok(sp.diff(A[j], t).subs(acc), "10.6: LRL, A_x constante sobre las soluciones")
 
 
+# Apartado 11.3: la ecuación de Schrödinger en C^2 como lagrangiano con cuatro funciones reales
+def apartado11_schrodinger():
+    t = sp.Symbol("t", real=True)
+    hb = sp.Symbol("hbar", positive=True)
+    h11, h22, hr, hi = sp.symbols("h11 h22 hr hi", real=True)
+    I = sp.I
+    Hm = sp.Matrix([[h11, hr + I * hi], [hr - I * hi, h22]])          # matriz hermítica
+    # Primero con símbolos reales (posiciones y velocidades), para que re e im se simplifiquen
+    Y = sp.symbols("q1 r1 q2 r2", real=True)
+    V = sp.symbols("vq1 vr1 vq2 vr2", real=True)
+    psi = sp.Matrix([Y[0] + I * Y[1], Y[2] + I * Y[3]])
+    dpsi = sp.Matrix([V[0] + I * V[1], V[2] + I * V[3]])
+    prod = lambda u, v: sp.expand((u.H * v)[0, 0])                      # <u, v>, antilineal en u
+    Ls = sp.re(prod(psi, I * hb * dpsi)) - sp.re(prod(psi, Hm * psi))
+    # Después, a lo largo de cuatro funciones reales de t
+    fun = [sp.Function(n)(t) for n in ("Fq1", "Fr1", "Fq2", "Fr2")]
+    reglas = {**{Y[a]: fun[a] for a in range(4)}, **{V[a]: fun[a].diff(t) for a in range(4)}}
+    al = lambda e: sp.expand(e).subs(reglas, simultaneous=True)
+    L = al(Ls)
+    p = [al(sp.diff(Ls, v)) for v in V]
+    phi = [al(sp.diff(Ls, y)) - sp.diff(pc, t) for y, pc in zip(Y, p)]
+    S = I * hb * dpsi - Hm * psi                                         # residuo de Schrödinger
+    for j in range(2):
+        Sj = sp.expand(S[j])
+        ok(phi[2 * j] - al(2 * sp.re(Sj)),
+           f"11.3: phi_q{j + 1} = 2 Re S_{j + 1}")
+        ok(phi[2 * j + 1] - al(2 * sp.im(Sj)), f"11.3: phi_r{j + 1} = 2 Im S_{j + 1}")
+
+    def reales(v):   # componentes reales (q1, r1, q2, r2) de un vector de C^2, ya a lo largo de las funciones
+        v = [sp.expand(c) for c in v]
+        return [al(sp.re(v[0])), al(sp.im(v[0])), al(sp.re(v[1])), al(sp.im(v[1]))]
+
+    norma2 = sum(c**2 for c in fun)
+    # Fase: xi = i psi, Q = -hbar |psi|^2
+    xi = reales(I * psi)
+    Q = sum(a * b for a, b in zip(p, xi))
+    ok(Q + hb * norma2, "11.3: fase, Q = -hbar |psi|^2")
+    ok(sp.diff(Q, t) + sum(a * b for a, b in zip(phi, xi)), "11.3: fase, identidad de Noether")
+    # A = H^2 conmuta con H: xi = -i A psi, Q = hbar <psi, A psi>
+    A = Hm * Hm
+    xi = reales(-I * A * psi)
+    Q = sum(a * b for a, b in zip(p, xi))
+    ok(Q - hb * al(sp.re(prod(psi, A * psi))), "11.3: A = H^2, Q = hbar <psi, A psi>")
+    ok(sp.diff(Q, t) + sum(a * b for a, b in zip(phi, xi)), "11.3: A = H^2, identidad de Noether")
+    # Traslación en el tiempo: la función H es <psi, H psi>, y H' = -sum phi u'
+    du = [c.diff(t) for c in fun]
+    Hf = sum(a * b for a, b in zip(p, du)) - L
+    ok(Hf - al(sp.re(prod(psi, Hm * psi))), "11.3: la función H es <psi, H psi>")
+    ok(sp.diff(Hf, t) + sum(a * b for a, b in zip(phi, du)), "11.3: traslación en el tiempo, identidad")
+    # L es lineal en las velocidades: la matriz W es nula
+    ok(sum(sp.diff(Ls, a, b)**2 for a in V for b in V), "11.3: W = 0 (L lineal en las velocidades)")
+
+
 # Comentarios, pregunta 2: partícula en un campo central
 def particula():
     t, m = sp.symbols("t m", positive=True)
@@ -357,4 +410,5 @@ apartado9_n2_m2()
 cuerda()
 apartado10()
 apartado10_lrl()
+apartado11_schrodinger()
 particula()
