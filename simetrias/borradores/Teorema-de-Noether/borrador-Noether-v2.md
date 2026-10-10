@@ -4,9 +4,55 @@ No he quedado contento con lo que he escrito del teorema de Noether. Voy a ir pl
 
 ## 1. Qué buscamos
 
-Hasta ahora hemos planteado un problema de variación sobre un funcional $\bsS$, que depende de una función $f$ de una variable real, y hemos buscado las funciones $f$ que lo hacen estacionario. $\bsS[f]$ es la integral, entre los extremos del intervalo de la variable independiente, de $\bsL(f, f', x)$: un operador que convierte la función $f$, su derivada $f'$ y cada punto $x$ del intervalo en un valor a integrar.
+Hasta ahora hemos planteado un problema de variación sobre un funcional $\bsS$, que depende de una función $f$ de una variable real, y hemos buscado las funciones $f$ que lo hacen estacionario. $\bsS[f]$ es la integral, entre los extremos del intervalo de la variable independiente, de $\bsL(f, f', x)$: una función, el **lagrangiano**, que convierte la función $f$, su derivada $f'$ y cada punto $x$ del intervalo en un valor a integrar.
 
 Ahora buscamos **transformaciones de $f$ que no cambien el valor de $\bsS[f]$**.
+
+### 1.1. Planteamiento y definiciones
+
+* **El lagrangiano.** $\bsL(y, y', x)$ es una función de tres variables reales, de clase $C^2$ en un abierto de $\mathbb{R}^3$ (en los ejemplos, en todo $\mathbb{R}^3$); $y'$ es solo el nombre de su segunda variable, que a lo largo de una función ocupa el lugar de la derivada (apartado 5, punto (2)). A lo largo de una función $f$ escribimos $\bsL(f, f')(x) := \bsL\big(f(x), f'(x), x\big)$.
+* **Sus derivadas parciales.** $\partial_f \bsL$, $\partial_{f'} \bsL$ y $\partial_x \bsL$ son las derivadas parciales de $\bsL$ respecto de su primera, segunda y tercera variable, evaluadas en $\big(f(x), f'(x), x\big)$; cuando no se evalúan a lo largo de una función, las escribimos $\partial_y \bsL$ y $\partial_{y'} \bsL$. $\partial_x \bsL$ es la derivada respecto de la tercera variable con las otras dos fijas, y no la derivada de $x \mapsto \bsL(f, f')(x)$.
+* **El funcional.** Un funcional es una aplicación que asigna un número real a cada función de un conjunto. Aquí, $f: [a, b] \to \mathbb{R}$ es de clase $C^2$, y para cada subintervalo $[c, d] \subseteq [a, b]$ el funcional es
+
+  $$
+  \begin{aligned}
+  \bsS_{[c,d]}[f] := \int_c^d \bsL(f, f')(x) \,dx, \qquad \bsS := \bsS_{[a,b]}.
+  \end{aligned}
+  $$
+
+* **Estacionariedad y ecuación de Euler–Lagrange** (lo establecido en «El formalismo lagrangiano: parte matemática»). La **variación primera** de $\bsS$ en una función $f_0$, en la dirección de una función $h$ de clase $C^2$, es
+
+  $$
+  \begin{aligned}
+  \bsdelta\bsS[f_0](h) := \left.\dfrac{d}{d\varepsilon} \bsS[f_0 + \varepsilon \cdot h]\right|_{\varepsilon = 0} = \int_a^b \big(\partial_f \bsL \cdot h + \partial_{f'} \bsL \cdot h'\big) \,dx,
+  \end{aligned}
+  $$
+
+  con las derivadas de $\bsL$ evaluadas a lo largo de $f_0$. $f_0$ hace **estacionario** a $\bsS$ con los extremos fijos si $\bsdelta\bsS[f_0](h) = 0$ para toda $h$ con $h(a) = h(b) = 0$; lo escribimos $\bsdelta\bsS[f_0] = 0$. Allí se demuestra que eso ocurre si y solo si $f_0$ cumple en todo $[a, b]$ la **ecuación de Euler–Lagrange**, $\partial_f \bsL - \dfrac{d}{dx}\partial_{f'} \bsL = 0$. Sus **soluciones** son las funciones de clase $C^2$ que la cumplen.
+* **Sin condiciones de contorno.** En «El formalismo lagrangiano» todas las funciones del conjunto de partida tenían los mismos valores en los extremos, porque se buscaban las estacionarias con los extremos fijos. Aquí no se impone ninguna condición de contorno: la condición de simetría (apartado 4) se refiere a todas las funciones de clase $C^2$, y el teorema, a todas las soluciones de las ecuaciones de Euler–Lagrange, sean cuales sean sus valores en los extremos.
+* **Lo que se busca.** Una **simetría** es una familia de transformaciones, que depende de un parámetro real $\varepsilon$, que no cambia $\bsS$ salvo un término que solo depende de los extremos del intervalo y salvo términos de orden $\varepsilon^2$; la definición precisa es la del apartado 4. Una **cantidad conservada** es una expresión construida con $x$, $f(x)$ y $f'(x)$ que toma el mismo valor en todo $[a, b]$ cuando $f$ es una solución. El **teorema de Noether** asocia a cada simetría una cantidad conservada (apartados 6.3 y 6.5).
+* **Órdenes de magnitud.** $O(\varepsilon^2)$ es un término acotado, en valor absoluto, por $C \cdot \varepsilon^2$ para $|\varepsilon|$ pequeño, con $C$ constante; $o(\varepsilon)$ es un término que, dividido por $\varepsilon$, tiende a $0$ con $\varepsilon$. «Para $|\varepsilon| \ll 1$» significa «para todo $\varepsilon$ con $|\varepsilon| < \varepsilon_0$», con un $\varepsilon_0 > 0$ que depende de los datos: la familia, la función y el intervalo.
+
+### 1.2. Cómo se generaliza y avisos de notación
+
+El documento empieza con una función de una variable y lo generaliza tres veces: a $n$ funciones de una variable (apartado 8), a $n$ funciones de $m$ variables (apartado 9) y a funciones con valores en un espacio vectorial de dimensión infinita (apartado 11). La notación de cada caso se introduce en su apartado, con un aviso cuando cambia, y la tabla del final del documento la resume.
+
+**Palabras con dos usos.**
+
+* **Campo.** Un **campo vectorial** en una región del plano, o de $\mathbb{R}^N$, asigna a cada punto un vector; es el sentido de los apartados 3 y 10. Un **campo de fuerzas**, como el campo uniforme o el campo central de los ejemplos, es un campo vectorial que da la fuerza en cada punto. En física se llama también **campo** a una función de las variables espaciales y del tiempo, como el desplazamiento de una cuerda (apartado 9.7).
+* **Flujo.** El **flujo de un campo vectorial** es la familia de transformaciones que mueve cada punto a lo largo de la curva que tiene en cada punto la dirección del campo (apartados 3.3 y 10.1). El **flujo de un campo a través de una superficie** es la cantidad que la atraviesa (apartados 9.4 y 9.7).
+
+**Letras con varios usos.**
+
+* $\tilde{x}$: la función $\tilde{x}(x)$ del apartado 2 y, en las integrales de los apartados 4 y 5, la variable de integración del intervalo transformado.
+* $d$: el extremo derecho de los subintervalos $[c, d]$; en $dx$, $\dfrac{d}{dx}$, $d_x$ y $d_{x_k}$ forma parte del símbolo de derivada.
+* $c$: el extremo izquierdo de los subintervalos; en el apartado 9.8, la velocidad de propagación de las ondas.
+* $k$: el índice de las variables (apartado 9); en algunos ejemplos, una constante, con aviso en cada caso.
+* $m$: el número de variables (apartado 9); en los comentarios del final, una masa.
+* $B$: el campo magnético del apartado 8.5; una caja en el apartado 9.
+* $\eta$: el segundo parámetro de la ley de grupo (apartado 3.3); una función cualquiera de clase $C^1$ en los lemas de los apartados 6.5, 8.4 y 9.6.
+* $g$: la aceleración de la gravedad en los ejemplos; una función cualquiera en el apartado 10.2.
+* $\alpha$, $\beta$, $\gamma$, $\kappa$, $\lambda$: constantes, coeficientes o funciones auxiliares que se definen en cada lugar. Por ejemplo, $\alpha$ es un coeficiente en los apartados 6.6, 8.3 y 9.5 y el ángulo de la tangente en el apartado 7.
 
 ## 2. La transformación actúa sobre los puntos del plano
 
@@ -21,7 +67,7 @@ $$
 * $X$ dice dónde va la variable, e $Y$, dónde va el valor.
 * La nueva variable puede depender también del valor. Por ejemplo, en un giro del plano de ángulo $\varepsilon$, $X(x, y) = x \cdot \cos\varepsilon - y \cdot \sin\varepsilon$.
 
-Una función $f$ se transforma transformando su gráfica, la curva $x \mapsto \big(x, f(x)\big)$, es decir, el par de funciones $(Id, f)$. La curva transformada, $\Phi(Id, f)$, es la gráfica de una nueva función $\tilde{f}$, definida sobre una nueva variable $\tilde{x}$:
+Una función $f$ se transforma transformando su gráfica, la curva $x \mapsto \big(x, f(x)\big)$, es decir, el par de funciones $(Id, f)$, con $Id(x) := x$ la función identidad. La curva transformada, que escribimos $\Phi(Id, f)$, es $x \mapsto \Phi\big(x, f(x)\big)$, y es la gráfica de una nueva función $\tilde{f}$, definida sobre una nueva variable $\tilde{x}$:
 
 $$
 \begin{aligned}
@@ -29,20 +75,64 @@ $$
 \end{aligned}
 $$
 
+* **Cuándo existe $\tilde{f}$.** La segunda definición solo tiene sentido si cada punto nuevo procede de un solo punto viejo, es decir, si $\tilde{x}$ es invertible. Para las familias del apartado 3 lo es cuando el parámetro es pequeño (apartado 3.1).
+* **A lo largo de la gráfica.** Llamamos también $\tilde{y}(x) := Y\big(x, f(x)\big)$. La gráfica transformada es la curva $x \mapsto \big(\tilde{x}(x), \tilde{y}(x)\big)$, y la definición de $\tilde{f}$ se escribe $\tilde{f}\big(\tilde{x}(x)\big) = \tilde{y}(x)$. $X$ e $Y$ son funciones de dos variables, definidas en el plano; $\tilde{x}$ e $\tilde{y}$ son funciones de una variable, definidas a lo largo de $f$, y sus derivadas, $\tilde{x}'$ e $\tilde{y}'$, incluyen la dependencia a través de $f$.
+
+**Cómo se generaliza.** El plano es el caso de una función de una variable. En los apartados siguientes cambia el espacio de los puntos, pero no la idea: $\mathbb{R} \times \mathbb{R}^n$ con $n$ funciones (apartado 8), $\mathbb{R}^m \times \mathbb{R}^n$ con $m$ variables (apartado 9) y $\mathbb{R} \times E$, con $E$ un espacio de Banach, un espacio vectorial con una norma en el que toda sucesión de Cauchy converge (apartados 10.2 y 11). En todos los casos la transformación mueve a la vez la variable y los valores, y la función transformada se obtiene transformando su gráfica. El mapa de la notación, al final del documento, resume cómo cambia cada símbolo.
+
 ## 3. Una familia de transformaciones
 
-No trabajamos con una transformación, sino con una familia $\Phi_\varepsilon = (X_\varepsilon, Y_\varepsilon)$, que depende de un parámetro real $\varepsilon$.
+No trabajamos con una transformación, sino con una familia $\Phi_\varepsilon = (X_\varepsilon, Y_\varepsilon)$, que depende de un parámetro real $\varepsilon$. Cada $\Phi_\varepsilon$ está definida en un abierto $U$ del plano que contiene la gráfica de $f$ (en los ejemplos, todo el plano), para $|\varepsilon| < \varepsilon_0$.
 
 ### 3.1. Lo que le pedimos
 
-1. **Que para $\varepsilon = 0$ sea la identidad:** $\Phi_0(x, y) = (x, y)$, es decir, $\Phi_0(f) = f$.
+1. **Que para $\varepsilon = 0$ sea la identidad:** $\Phi_0(x, y) = (x, y)$. Entonces, con $\varepsilon = 0$, $\tilde{x}(x) = x$ y $\tilde{f} = f$: la familia empieza sin cambiar nada.
    * Es lo mismo que pedir que $\Phi_0$ sea el elemento neutro de la composición: $\Phi_0 \circ \Phi_\varepsilon = \Phi_\varepsilon \circ \Phi_0 = \Phi_\varepsilon$.
 2. **Que dependa de $\varepsilon$ de forma derivable:** $\Phi_\varepsilon(x, y)$ es de clase $C^2$ en $(\varepsilon, x, y)$.
    * Así, para $|\varepsilon| \ll 1$, $\tilde{x}(x)$ es estrictamente creciente, porque su derivada está próxima a $1$; tiene inversa, y $\tilde{f}$ está bien definida.
 
 Estas dos condiciones son las únicas que necesita el teorema de Noether, porque solo usa el primer orden en $\varepsilon$.
 
-### 3.2. Una condición más: la ley de grupo
+### 3.2. El generador
+
+Como $\Phi_\varepsilon$ es de clase $C^2$ en $\varepsilon$ y $\Phi_0$ es la identidad, el desarrollo de Taylor en $\varepsilon$ alrededor de $\varepsilon = 0$ da
+
+$$
+\begin{aligned}
+X_\varepsilon(x, y) = x + \varepsilon \cdot \tau(x, y) + O(\varepsilon^2), \qquad Y_\varepsilon(x, y) = y + \varepsilon \cdot \xi(x, y) + O(\varepsilon^2),
+\end{aligned}
+$$
+
+con
+
+$$
+\begin{aligned}
+\big(\tau(x, y),\ \xi(x, y)\big) := \left.\dfrac{\partial}{\partial \varepsilon} \Phi_\varepsilon(x, y)\right|_{\varepsilon = 0}.
+\end{aligned}
+$$
+
+* El par $(\tau, \xi)$ es el **generador** de la familia: un campo vectorial del plano que da, en cada punto, la dirección y la rapidez con que la familia empieza a moverlo. $\tau$ mueve la variable, y $\xi$, el valor.
+* Es de clase $C^1$, porque $\Phi_\varepsilon$ es de clase $C^2$.
+* El teorema de Noether solo usa el generador: dos familias con el mismo generador dan la misma condición de simetría y la misma cantidad conservada (apartado 3.3, segunda observación).
+* **Otra notación.** En el Tema 1, apartado 4.4, el parámetro se llama $s$ y el campo, $(\xi^t, \xi^x)$, con $t$ en el lugar de $x$.
+
+**Tres ejemplos**, los de la versión anterior de «El teorema de Noether: parte matemática», escritos como transformaciones de los puntos:
+
+1. **Desplazar el valor**, $\Phi_\varepsilon(x, y) = (x, y + \varepsilon)$. Entonces $\tilde{x}(x) = x$ y $\tilde{f}(x) = f(x) + \varepsilon$: la gráfica sube $\varepsilon$. El generador es $(\tau, \xi) = (0, 1)$.
+2. **Desplazar la variable**, $\Phi_\varepsilon(x, y) = (x + \varepsilon, y)$. Entonces $\tilde{x}(x) = x + \varepsilon$ y $\tilde{f}(x + \varepsilon) = f(x)$, es decir, $\tilde{f}(x) = f(x - \varepsilon)$: la gráfica se desplaza $\varepsilon$ hacia la derecha. El generador es $(\tau, \xi) = (1, 0)$.
+   * **Aviso del signo.** En la versión anterior, desplazar la variable es $f(x) \to f(x + \varepsilon)$, que desplaza la gráfica hacia la izquierda. Corresponde a $\Phi_\varepsilon(x, y) = (x - \varepsilon, y)$, con generador $(-1, 0)$: es la misma familia recorrida en sentido contrario, y cambian de signo el generador y la cantidad conservada.
+3. **Girar el plano** un ángulo $\varepsilon$ alrededor del origen:
+
+   $$
+   \begin{aligned}
+   \Phi_\varepsilon(x, y) = \big(x \cdot \cos\varepsilon - y \cdot \sin\varepsilon,\ x \cdot \sin\varepsilon + y \cdot \cos\varepsilon\big).
+   \end{aligned}
+   $$
+
+   Como $\cos\varepsilon = 1 + O(\varepsilon^2)$ y $\sin\varepsilon = \varepsilon + O(\varepsilon^2)$, el generador es $(\tau, \xi) = (-y, x)$. Mueve a la vez la variable y el valor, y $\tilde{f}$ solo existe para $\varepsilon$ pequeño (apartado 7.4).
+   * En la versión anterior, el tercer ejemplo es el giro de dos funciones, $f_1$ y $f_2$, que no mueve la variable. Necesita dos funciones y se trata en el apartado 8: los puntos son $(x, y_1, y_2)$, el generador de los valores es un vector $\vec{\xi} = (\xi_1, \xi_2)$, y el giro tiene $\tau = 0$ y $\vec{\xi} = (-y_2, y_1)$.
+
+### 3.3. Una condición más: la ley de grupo
 
 Se puede pedir además:
 
@@ -52,22 +142,28 @@ Consecuencias:
 
 * **La inversa sale sola:** $\Phi_{-\varepsilon} \circ \Phi_\varepsilon = \Phi_0 = Id$, así que la inversa de $\Phi_\varepsilon$ es $\Phi_{-\varepsilon}$.
 * **Las transformaciones de la familia conmutan entre sí**, porque $\varepsilon + \eta = \eta + \varepsilon$. No es una restricción: las que pueden no conmutar son las de familias distintas.
-  * Los giros alrededor de un mismo eje conmutan: $R_z(\alpha) \cdot R_z(\beta) = R_z(\alpha + \beta)$.
+  * Los giros alrededor de un mismo eje conmutan: $R_z(\alpha) \cdot R_z(\beta) = R_z(\alpha + \beta)$, donde $R_z(\alpha)$ es la matriz del giro de ángulo $\alpha$ alrededor del eje $z$,
+
+    $$
+    \begin{aligned}
+    R_z(\alpha) = \begin{pmatrix} \cos\alpha & -\sin\alpha & 0 \\ \sin\alpha & \cos\alpha & 0 \\ 0 & 0 & 1 \end{pmatrix}.
+    \end{aligned}
+    $$
   * Los giros alrededor de ejes distintos no conmutan, pero forman familias distintas.
 * **La familia es un grupo con la composición:** es cerrada, tiene elemento neutro ($\Phi_0$) e inversos ($\Phi_{-\varepsilon}$), y la composición es asociativa.
-  * Se llama **grupo uniparamétrico de transformaciones**. Es el flujo del campo vectorial que genera la transformación (Tema 1, apartado 4.4).
+  * Se llama **grupo uniparamétrico de transformaciones**. Es el **flujo** de su generador, el campo vectorial del apartado 3.2: para cada punto $P$, la curva $\varepsilon \mapsto \Phi_\varepsilon(P)$ es la solución de la ecuación diferencial $\dfrac{d}{d\varepsilon} \Phi_\varepsilon(P) = (\tau, \xi)\big(\Phi_\varepsilon(P)\big)$ con $\Phi_0(P) = P$, y se llama **curva integral** del campo. Así, la familia se recupera de su generador (Tema 1, apartado 4.4; apartado 10.1).
   * Si la ley solo vale para $\varepsilon$ y $\eta$ pequeños, es un grupo local de transformaciones.
 
 Dos observaciones:
 
-* **La ley tiene que ser exacta.** Con un término de error, $\Phi_\varepsilon \circ \Phi_\eta = \Phi_{\varepsilon + \eta} + O(\cdot)$, no exige nada: cualquier familia que cumpla las condiciones 1 y 2 la cumple a primer orden.
-* **El teorema no la necesita.** $\Phi_\varepsilon(x, y) = (x, y + \sin\varepsilon)$ no cumple la ley de grupo, porque $\sin\varepsilon + \sin\eta \neq \sin(\varepsilon + \eta)$; pero a primer orden es el desplazamiento vertical, $(x, y + \varepsilon)$, y da la misma cantidad conservada. La ley es útil porque siempre se puede elegir la familia de modo que la cumpla, y los ejemplos físicos (traslaciones, giros, cambios de velocidad y traslación en el tiempo) ya la cumplen.
+* **La ley tiene que ser exacta.** Con un término de error, $\Phi_\varepsilon \circ \Phi_\eta = \Phi_{\varepsilon + \eta} + O(\varepsilon^2 + \eta^2)$, no exige nada: cualquier familia que cumpla las condiciones 1 y 2 la cumple, porque los dos lados valen $P + (\varepsilon + \eta) \cdot (\tau, \xi)(P)$ salvo términos de segundo orden en $\varepsilon$ y $\eta$.
+* **El teorema no la necesita.** $\Phi_\varepsilon(x, y) = (x, y + \sin\varepsilon)$ no cumple la ley de grupo, porque $\sin\varepsilon + \sin\eta \neq \sin(\varepsilon + \eta)$; pero a primer orden es el desplazamiento vertical, $(x, y + \varepsilon)$, y da la misma cantidad conservada. La ley es útil porque siempre se puede elegir la familia de modo que la cumpla (el flujo del generador), los ejemplos físicos (traslaciones, giros, cambios de velocidad y traslación en el tiempo) ya la cumplen, y con ella la condición infinitesimal da la invariancia para todo $\varepsilon$ (apartado 10.5).
 
 ## 4. La condición de simetría
 
-Si el dominio de $f$ es $[x_1, x_2] \subseteq \mathbb{R}$, lo que buscamos tiene que ocurrir en cada subintervalo $[a, b]$, con $x_1 \leq a < b \leq x_2$:
+Si el dominio de $f$ es $[a, b] \subseteq \mathbb{R}$, lo que buscamos tiene que ocurrir en cada subintervalo $[c, d]$, con $a \leq c < d \leq b$:
 
-* el funcional de $\tilde{f}$ sobre el intervalo transformado, $[\tilde{x}(a), \tilde{x}(b)]$, es igual al de $f$ sobre $[a, b]$,
+* el funcional de $\tilde{f}$ sobre el intervalo transformado, $[\tilde{x}(c), \tilde{x}(d)]$, es igual al de $f$ sobre $[c, d]$,
 * salvo un término que solo depende de los extremos,
 * y salvo términos de orden $\varepsilon^2$.
 
@@ -75,37 +171,50 @@ Es decir:
 
 $$
 \begin{aligned}
-&\forall [a,b] \subseteq [x_1,x_2], \ \forall f \in C^2([x_1,x_2]): \\
-&\int_{\tilde{x}(a)}^{\tilde{x}(b)} \bsL\big(\tilde{f}(\tilde{x}), \tilde{f}'(\tilde{x}), \tilde{x}\big) \,d\tilde{x} \\
-&\qquad = \int_{a}^{b} \bsL\big(f(x), f'(x), x\big) \,dx + \varepsilon \cdot \big(F(b) - F(a)\big) + O(\varepsilon^2),
+&\forall [c,d] \subseteq [a,b], \ \forall f \in C^2([a,b]): \\
+&\int_{\tilde{x}(c)}^{\tilde{x}(d)} \bsL\big(\tilde{f}(\tilde{x}), \tilde{f}'(\tilde{x}), \tilde{x}\big) \,d\tilde{x} \\
+&\qquad = \int_{c}^{d} \bsL\big(f(x), f'(x), x\big) \,dx + \varepsilon \cdot \big(F(d) - F(c)\big) + O(\varepsilon^2),
 \end{aligned}
 $$
 
-donde $F(x, y)$ es una función de dos variables, la misma para todas las $f$, que se evalúa en $\big(x, f(x)\big)$: depende del punto y del valor de $f$ en él. En el apartado 5, punto (3), se ve por qué no puede depender de $f'$.
+donde $F(x, y)$ es una función de dos variables, la misma para todas las $f$, que se evalúa en $\big(x, f(x)\big)$: depende del punto y del valor de $f$ en él. En el apartado 5, punto (3), se ve por qué no puede depender de $f'$. En la fórmula abreviamos $F(x) := F\big(x, f(x)\big)$. En la integral transformada, $\tilde{x}$ es la variable de integración, que recorre el intervalo transformado; la función $\tilde{x}(x)$ del apartado 2 da sus extremos.
 
 * Con $F = 0$, el funcional no cambia a primer orden.
-* Se admite $F \neq 0$ porque sin ese término quedarían fuera casos que necesitamos, como el desplazamiento vertical en un campo uniforme o los cambios de velocidad de la relatividad de Galileo.
+* Se admite $F \neq 0$ porque sin ese término quedarían fuera casos que necesitamos, como el desplazamiento vertical en un campo uniforme (una fuerza constante, como la gravedad cerca del suelo) o los cambios de velocidad de la relatividad de Galileo. Los dos están en la tabla del apartado 6.4: con $\bsL = \dfrac{1}{2} \cdot y'^2 - g \cdot y$, el desplazamiento $(x, y + \varepsilon)$, y con $\bsL = \dfrac{1}{2} \cdot y'^2$, el cambio de velocidad $(x, y + \varepsilon \cdot x)$.
+* **Por qué un término de borde no importa.** A primer orden, el integrando transformado es $\bsL + \varepsilon \cdot \dfrac{dF}{dx}$ (apartado 5), donde $\dfrac{dF}{dx} = \partial_x F + \partial_y F \cdot f'$ es la derivada de la función compuesta $x \mapsto F\big(x, f(x)\big)$, que llamamos **derivada total** a lo largo de $f$. Sumar a $\bsL$ una derivada total no cambia qué funciones son estacionarias con los extremos fijos, porque $\int_c^d \dfrac{dF}{dx} \,dx = F(d) - F(c)$ vale lo mismo para todas las funciones con los mismos valores en los extremos. Por tanto, tampoco cambia las soluciones de las ecuaciones de Euler–Lagrange, que son esas estacionarias (apartado 1.1; véase también «El formalismo lagrangiano: anexos», «Sumar una derivada total no cambia las ecuaciones»). Lo que importa son las ecuaciones, y una derivada total no las cambia; por eso no se exige $F = 0$.
 
 La familia $\Phi_\varepsilon$ tiene que cumplir esta condición:
 
-* **para toda función $f \in C^2([x_1, x_2])$**, no solo para las soluciones de Euler–Lagrange, que forman una clase de funciones mucho más pequeña;
+* **para toda función $f \in C^2([a, b])$**, no solo para las soluciones de Euler–Lagrange, que forman una clase de funciones mucho más pequeña;
 * **sin valores fijados en los extremos**, a diferencia del problema de la estacionariedad.
+
+**Simetría y estacionariedad.** Las dos ideas usan la variación primera, pero responden a preguntas distintas:
+
+| | Estacionariedad | Simetría |
+| ---------------------- | -------------------------------------------- | -------------------------------------------- |
+| Qué se fija | una función $f_0$ | una familia $\Phi_\varepsilon$, es decir, su generador $(\tau, \xi)$ |
+| Qué se recorre | todas las variaciones $h$, nulas en los extremos | todas las funciones $f$, sin condiciones de contorno |
+| Qué se exige | $\bsdelta\bsS[f_0] = 0$ (apartado 1.1) | $D = \dfrac{dF}{dx}$, con $D$ el coeficiente de $\varepsilon$ del integrando transformado (apartado 5) |
+| De qué es propiedad | de la función $f_0$ | de $\bsL$ |
+| Para qué sirve | seleccionar las soluciones | obtener cantidades constantes a lo largo de las soluciones |
+
+Table: Estacionariedad y simetría.
 
 ## 5. La condición, paso a paso
 
-La condición del apartado 4 compara dos integrales sobre intervalos distintos. Para ver qué exige, llevamos la integral transformada al intervalo $[a, b]$ y la desarrollamos en $\varepsilon$.
+La condición del apartado 4 compara dos integrales sobre intervalos distintos. Para ver qué exige, llevamos la integral transformada al intervalo $[c, d]$ y la desarrollamos en $\varepsilon$.
 
-**Notación.** A lo largo de $f$ escribimos
+**Notación.** Usamos las funciones de una variable del apartado 2, que ahora dependen de $\varepsilon$:
 
 $$
 \begin{aligned}
-X(x) := X_\varepsilon\big(x, f(x)\big), \qquad Y(x) := Y_\varepsilon\big(x, f(x)\big),
+\tilde{x}(x) = X_\varepsilon\big(x, f(x)\big), \qquad \tilde{y}(x) = Y_\varepsilon\big(x, f(x)\big), \qquad \tilde{f}\big(\tilde{x}(x)\big) = \tilde{y}(x).
 \end{aligned}
 $$
 
-es decir, $X(x) = \text{First}\big(\Phi_\varepsilon(x, f(x))\big)$ e $Y(x) = \text{Second}\big(\Phi_\varepsilon(x, f(x))\big)$. Así, $\tilde{x}(x) = X(x)$ y $\tilde{f}\big(X(x)\big) = Y(x)$. $X'(x)$ e $Y'(x)$ son las derivadas de estas funciones de $x$, es decir, derivadas totales a lo largo de $f$, y no las derivadas parciales de $X_\varepsilon$ e $Y_\varepsilon$.
+$\tilde{x}'(x)$ e $\tilde{y}'(x)$ son las derivadas de estas funciones de $x$, es decir, derivadas totales a lo largo de $f$, y no las derivadas parciales de $X_\varepsilon$ e $Y_\varepsilon$.
 
-A primer orden, la transformación es
+Con el generador del apartado 3.2, a primer orden la transformación es
 
 $$
 \begin{aligned}
@@ -119,11 +228,11 @@ y a lo largo de $f$ escribimos $\tau(x) := \tau\big(x, f(x)\big)$ y $\xi(x) := \
 
 $$
 \begin{aligned}
-\int_{X(a)}^{X(b)} \bsL\big(\tilde{f}(\tilde{x}), \tilde{f}'(\tilde{x}), \tilde{x}\big) \,d\tilde{x}
-&\overset{(1)}{=} \int_a^b \bsL\left(Y(x),\ \dfrac{Y'(x)}{X'(x)},\ X(x)\right) \cdot X'(x) \,dx \\
-&\overset{(2)}{=} \int_a^b \Big(\bsL\big(f, f', x\big) + \varepsilon \cdot D(x)\Big) \,dx + O(\varepsilon^2) \\
-&\overset{(3)}{=} \int_a^b \left(\bsL\big(f, f', x\big) + \varepsilon \cdot \dfrac{dF}{dx}\right) dx + O(\varepsilon^2) \\
-&\overset{(4)}{=} \int_a^b \bsL\big(f, f', x\big) \,dx + \varepsilon \cdot \big(F(b) - F(a)\big) + O(\varepsilon^2).
+\int_{\tilde{x}(c)}^{\tilde{x}(d)} \bsL\big(\tilde{f}(\tilde{x}), \tilde{f}'(\tilde{x}), \tilde{x}\big) \,d\tilde{x}
+&\overset{(1)}{=} \int_c^d \bsL\left(\tilde{y}(x),\ \dfrac{\tilde{y}'(x)}{\tilde{x}'(x)},\ \tilde{x}(x)\right) \cdot \tilde{x}'(x) \,dx \\
+&\overset{(2)}{=} \int_c^d \Big(\bsL\big(f, f', x\big) + \varepsilon \cdot D(x)\Big) \,dx + O(\varepsilon^2) \\
+&\overset{(3)}{=} \int_c^d \left(\bsL\big(f, f', x\big) + \varepsilon \cdot \dfrac{dF}{dx}\right) dx + O(\varepsilon^2) \\
+&\overset{(4)}{=} \int_c^d \bsL\big(f, f', x\big) \,dx + \varepsilon \cdot \big(F(d) - F(c)\big) + O(\varepsilon^2).
 \end{aligned}
 $$
 
@@ -131,24 +240,24 @@ El primer miembro y el último son los dos lados de la condición del apartado 4
 
 **Por qué se cumple cada igualdad:**
 
-* **(1) Cambio de variable $\tilde{x} = X(x)$.** Para $|\varepsilon| \ll 1$, $X(x)$ es estrictamente creciente, así que el cambio es válido. Los límites pasan a ser $a$ y $b$, y el diferencial, $d\tilde{x} = X'(x) \cdot dx$. El primer argumento es $\tilde{f}\big(X(x)\big) = Y(x)$, por la definición de $\tilde{f}$. El segundo, $\tilde{f}'$, es la derivada respecto de la **nueva** variable; derivando respecto de $x$ la definición $\tilde{f}\big(X(x)\big) = Y(x)$, por la regla de la cadena,
+* **(1) Cambio de variable $\tilde{x} = \tilde{x}(x)$.** Para $|\varepsilon| \ll 1$, $\tilde{x}(x)$ es estrictamente creciente, así que el cambio es válido. Los límites pasan a ser $c$ y $d$, y el diferencial, $d\tilde{x} = \tilde{x}'(x) \cdot dx$. El primer argumento es $\tilde{f}\big(\tilde{x}(x)\big) = \tilde{y}(x)$, por la definición de $\tilde{f}$. El segundo, $\tilde{f}'$, es la derivada respecto de la **nueva** variable; derivando respecto de $x$ la definición $\tilde{f}\big(\tilde{x}(x)\big) = \tilde{y}(x)$, por la regla de la cadena,
 
   $$
   \begin{aligned}
-  \tilde{f}'\big(X(x)\big) \cdot X'(x) = Y'(x)
+  \tilde{f}'\big(\tilde{x}(x)\big) \cdot \tilde{x}'(x) = \tilde{y}'(x)
   \quad \Longrightarrow \quad
-  \tilde{f}'\big(X(x)\big) = \dfrac{Y'(x)}{X'(x)}:
+  \tilde{f}'\big(\tilde{x}(x)\big) = \dfrac{\tilde{y}'(x)}{\tilde{x}'(x)}:
   \end{aligned}
   $$
 
-  el cociente de las derivadas de las dos componentes de la curva transformada. El tercer argumento es el punto nuevo, $\tilde{x} = X(x)$.
+  el cociente de las derivadas de las dos componentes de la curva transformada. El tercer argumento es el punto nuevo, $\tilde{x}(x)$.
 
 * **(2) Desarrollo a primer orden en $\varepsilon$.** Con la transformación a primer orden,
 
   $$
   \begin{aligned}
-  X(x) &= x + \varepsilon \cdot \tau(x), & X'(x) &= 1 + \varepsilon \cdot \tau'(x), \\
-  Y(x) &= f(x) + \varepsilon \cdot \xi(x), & Y'(x) &= f'(x) + \varepsilon \cdot \xi'(x),
+  \tilde{x}(x) &= x + \varepsilon \cdot \tau(x), & \tilde{x}'(x) &= 1 + \varepsilon \cdot \tau'(x), \\
+  \tilde{y}(x) &= f(x) + \varepsilon \cdot \xi(x), & \tilde{y}'(x) &= f'(x) + \varepsilon \cdot \xi'(x),
   \end{aligned}
   $$
 
@@ -156,11 +265,11 @@ El primer miembro y el último son los dos lados de la condición del apartado 4
 
   $$
   \begin{aligned}
-  \dfrac{Y'(x)}{X'(x)} = f' + \varepsilon \cdot \big(\xi' - \tau' \cdot f'\big) + O(\varepsilon^2).
+  \dfrac{\tilde{y}'(x)}{\tilde{x}'(x)} = f' + \varepsilon \cdot \big(\xi' - \tau' \cdot f'\big) + O(\varepsilon^2).
   \end{aligned}
   $$
 
-  Desarrollando $\bsL$ por Taylor en sus tres argumentos y multiplicando por $X'(x) = 1 + \varepsilon \cdot \tau'$, el integrando es $\bsL(f, f', x) + \varepsilon \cdot D(x) + O(\varepsilon^2)$, con
+  Desarrollando $\bsL$ por Taylor en sus tres argumentos y multiplicando por $\tilde{x}'(x) = 1 + \varepsilon \cdot \tau'$, el integrando es $\bsL(f, f', x) + \varepsilon \cdot D(x) + O(\varepsilon^2)$, con
 
   $$
   \begin{aligned}
@@ -168,15 +277,16 @@ El primer miembro y el último son los dos lados de la condición del apartado 4
   \end{aligned}
   $$
 
-  El resto, integrado en $[a, b]$, sigue siendo de orden $\varepsilon^2$, porque las derivadas segundas de $\bsL$ son continuas en un conjunto cerrado y acotado (el argumento de la cota uniforme de «El formalismo lagrangiano»).
+  El resto, integrado en $[c, d]$, sigue siendo de orden $\varepsilon^2$. Las derivadas segundas de $\bsL$ y de $\Phi_\varepsilon$ son continuas en un conjunto cerrado y acotado que contiene todos los puntos que intervienen: para $|\varepsilon| \leq \varepsilon_0$, los puntos $\big(f(x), f'(x), x\big)$ con $x \in [c, d]$ y los que resultan de ellos al aplicar la familia. Por tanto, están acotadas, y el resto de Taylor está acotado por $C \cdot \varepsilon^2$ con $C$ independiente de $x$; integrado en $[c, d]$, por $C \cdot (d - c) \cdot \varepsilon^2$ (es el argumento de la cota uniforme de «El formalismo lagrangiano»).
 
   **$D$ es del mismo tipo que $\bsL$.** $\bsL$ es una función de tres variables reales, $(y, y', x) \mapsto \bsL(y, y', x)$, que a lo largo de $f$ se evalúa en $\big(f(x), f'(x), x\big)$; aquí $y'$ es solo el nombre de la segunda variable. $D$ también lo es: sus ingredientes son las derivadas parciales de $\bsL$, que son funciones de $(y, y', x)$, y $\tau$, $\xi$ y sus derivadas totales, que también lo son, porque $\tau' = \partial_x \tau + \partial_y \tau \cdot y'$ y $\xi' = \partial_x \xi + \partial_y \xi \cdot y'$. $D$ va, por tanto, del mismo conjunto de partida que $\bsL$ al mismo conjunto de llegada, $\mathbb{R}$, y no contiene $y''$. Si $\tau$ o $\xi$ dependieran de $f'$, sus derivadas contendrían $f''$ y $D$ ya no sería del mismo tipo; con transformaciones de los puntos del plano, como las de este documento, no ocurre.
 
 * **(3) La hipótesis de simetría.** Es la única igualdad que no vale siempre: la transformación es una simetría si $D = \dfrac{dF}{dx}$ en cada punto, para toda $f$. El término es $\varepsilon \cdot \dfrac{dF}{dx}$, con el factor $\varepsilon$.
 
-  * **Por qué en cada punto.** La condición se pide en todo subintervalo: si $\int_a^b \left(D - \dfrac{dF}{dx}\right) dx = 0$ para todo $[a, b]$, derivando respecto de $b$, por el teorema fundamental del cálculo, el integrando, que es continuo, es nulo.
-  * **Lo que se exige no es que $D$ tenga primitiva.** A lo largo de cada $f$, $D$ es una función continua de $x$ y siempre tiene primitiva, $\int_{x_1}^{x} D(s) \,ds$. Pero esa primitiva depende de todos los valores de $f$ entre $x_1$ y $x$. Lo que se exige es que la primitiva sea **local**: una sola función $F$, la misma para todas las $f$, evaluada en el punto.
-  * **La condición es una igualdad entre funciones del mismo tipo que $\bsL$.** Si $F$ dependiera de $y'$, $\dfrac{dF}{dx}$ contendría $f''$, y $D$ no la contiene. Por tanto, $F$ solo depende de $x$ y de $y$, como se ha dicho en el apartado 4, y la condición es la identidad
+  * **Por qué en cada punto.** La condición se pide en todo subintervalo: si $\int_c^d \left(D - \dfrac{dF}{dx}\right) dx = 0$ para todo $[c, d]$, derivando respecto de $d$, por el teorema fundamental del cálculo, el integrando, que es continuo, es nulo.
+  * **Lo que se exige no es que $D$ tenga primitiva.** A lo largo de cada $f$, $D$ es una función continua de $x$ y siempre tiene primitiva, $\int_{a}^{x} D(s) \,ds$. Pero esa primitiva depende de todos los valores de $f$ entre $a$ y $x$. Lo que se exige es que la primitiva sea **local**: una sola función $F$, la misma para todas las $f$, evaluada en el punto.
+  * **Los valores en un punto son libres.** En un punto $x_0$, los valores de $f$, $f'$ y $f''$ pueden elegirse con independencia: $f(x) = y_0 + y_0' \cdot (x - x_0) + \dfrac{1}{2} \cdot y_0'' \cdot (x - x_0)^2$ es de clase $C^2$ y toma en $x_0$ los valores $y_0$, $y_0'$ e $y_0''$ que se quiera. Como la condición se pide para toda $f$, una igualdad en $x_0$ entre expresiones de $f(x_0)$, $f'(x_0)$ y $f''(x_0)$ tiene que valer para todos los valores de $(y_0, y_0', y_0'', x_0)$: es una identidad entre funciones de esas variables. Es lo que permite, en los puntos siguientes, separar los términos con $y''$ y con $y'$.
+  * **La condición es una igualdad entre funciones del mismo tipo que $\bsL$.** Si $F$ dependiera de $y'$, $\dfrac{dF}{dx}$ contendría el término $\partial_{y'} F \cdot f''$, y $D$ no contiene $f''$; como $f''$ es libre, $\partial_{y'} F = 0$. Por tanto, $F$ solo depende de $x$ y de $y$, como se ha dicho en el apartado 4, y la condición es la identidad
 
     $$
     \begin{aligned}
@@ -185,14 +295,17 @@ El primer miembro y el último son los dos lados de la condición del apartado 4
     $$
 
     entre dos funciones de tres variables. Como el lado derecho es una función afín de $y'$, $D$ también tiene que serlo.
-  * **Ser afín es necesario, pero no basta.** Si $D = a(x, y) + b(x, y) \cdot y'$, hace falta una $F$ con $\partial_x F = a$ y $\partial_y F = b$. Por el teorema de Schwarz, $\partial_y \partial_x F = \partial_x \partial_y F$, y eso exige la condición de integrabilidad $\partial_y a = \partial_x b$: la forma diferencial $a \cdot dx + b \cdot dy$ tiene que ser cerrada. Si el dominio de $(x, y)$ es, por ejemplo, estrellado o simplemente conexo, esta condición basta (lema de Poincaré); en un dominio con agujeros, una forma cerrada puede no tener primitiva en todo él.
-  * **Un ejemplo de cada caso**, con $\bsL = \dfrac{1}{2} \cdot y'^2 - g \cdot y$ (el tiro vertical, con $x$ como tiempo):
+  * **Ser afín es necesario, pero no basta.** Si $D = \alpha(x, y) + \beta(x, y) \cdot y'$, hace falta una $F$ con $\partial_x F = \alpha$ y $\partial_y F = \beta$. Llamamos $\alpha$ y $\beta$ a los coeficientes, y no $a$ y $b$, para no confundirlos con los extremos de $[a, b]$. Si $\alpha$ y $\beta$ son de clase $C^1$, $F$ es de clase $C^2$ y, por el teorema de Schwarz, $\partial_y \partial_x F = \partial_x \partial_y F$, lo que exige la **condición de integrabilidad** $\partial_y \alpha = \partial_x \beta$.
+  * **El lenguaje de las formas diferenciales.** La expresión $\omega = \alpha \cdot dx + \beta \cdot dy$, con $\alpha$ y $\beta$ continuas en un abierto $U$ del plano, se llama **forma diferencial de primer grado**; aquí funciona como una notación para el par $(\alpha, \beta)$. Es **exacta** si existe una función $F$ de clase $C^1$, su **primitiva**, con $\partial_x F = \alpha$ y $\partial_y F = \beta$; con $\alpha$ y $\beta$ de clase $C^1$, es **cerrada** si $\partial_y \alpha = \partial_x \beta$. Por el teorema de Schwarz, toda forma exacta con coeficientes de clase $C^1$ es cerrada. La condición de simetría pide que la forma de $D$ sea exacta.
+  * **Cuándo basta la condición: el lema de Poincaré.** Un abierto $U$ es **estrellado** respecto de un punto $P_*$ si contiene el segmento que une $P_*$ con cada uno de sus puntos; por ejemplo, un rectángulo, un disco o todo el plano. El **lema de Poincaré** dice que, en un abierto estrellado, toda forma cerrada es exacta; la primitiva se obtiene integrando $\omega$ a lo largo de esos segmentos (la fórmula está en el apartado 8.3). En un abierto con agujeros no basta: en el plano sin el origen, $\omega = \dfrac{-y \cdot dx + x \cdot dy}{x^2 + y^2}$ es cerrada, pero no exacta. Sus primitivas en cada región estrellada que no contiene el origen son el ángulo polar más una constante, y el ángulo polar no puede definirse de forma continua a lo largo de una vuelta completa alrededor del origen.
+  * **Un caso que se reconoce enseguida.** Si $D$ no depende de $y'$, $\beta = 0$, y la condición de integrabilidad se reduce a $\partial_y \alpha = 0$: $D$ solo puede depender de $x$, y entonces $F(x) = \int_a^x D(s) \,ds$. Si $D$ depende de $y$ y no de $y'$, la transformación no es una simetría. Por ejemplo, con el oscilador, $\bsL = \dfrac{1}{2} \cdot y'^2 - \dfrac{k}{2} \cdot y^2$ ($k$ es aquí la constante elástica), el desplazamiento vertical da $D = \partial_y \bsL = -k \cdot y$, que depende de $y$: no es una simetría.
+  * **Un ejemplo de cada caso**, con $\bsL = \dfrac{1}{2} \cdot y'^2 - g \cdot y$ (el tiro vertical, con $x$ como tiempo, masa $1$ y $g > 0$ la aceleración de la gravedad):
     * desplazamiento vertical, $\Phi_\varepsilon(x, y) = (x, y + \varepsilon)$: $\tau = 0$, $\xi = 1$ y $D = \partial_y \bsL = -g$, que es $\partial_x F$ con $F = -g \cdot x$. Es una simetría;
     * escala de los valores, $\Phi_\varepsilon(x, y) = \big(x, (1 + \varepsilon) \cdot y\big)$: $\tau = 0$, $\xi = y$, $\xi' = y'$ y $D = -g \cdot y + y'^2$. A lo largo de cada $f$ tiene primitiva, pero es cuadrática en $y'$, y ninguna $F(x, y)$ la reproduce. No es una simetría.
 
-* **(4) Regla de Barrow.** $\int_a^b \dfrac{dF}{dx} \,dx = F(b) - F(a)$.
+* **(4) Regla de Barrow.** $\int_c^d \dfrac{dF}{dx} \,dx = F(d) - F(c)$.
 
-Si la variable no se mueve, $\tau = 0$, y $D$ se reduce a $\partial_f \bsL \cdot \xi + \partial_{f'} \bsL \cdot \xi'$: la variación primera de $\bsL$ en la dirección $\xi$.
+Si la variable no se mueve, $\tau = 0$, y $D$ se reduce a $\partial_f \bsL \cdot \xi + \partial_{f'} \bsL \cdot \xi'$: el integrando de la variación primera del apartado 1.1, con $\xi$ en el lugar de $h$, pero con dos diferencias: $h$ era una función cualquiera, independiente de $f$ y nula en los extremos; $\xi$ es una regla fija, $\xi\big(x, f(x)\big)$, que se calcula a partir de $f$ y no tiene por qué anularse en los extremos.
 
 ## 6. La identidad de Noether
 
@@ -245,11 +358,11 @@ Justificación de cada igualdad:
 * **(6)** Desglosamos $p'$ según la definición de $p$: $p' = \dfrac{d}{dx}\partial_{f'} \bsL$ es la derivada de la función compuesta $x \mapsto \partial_{f'} \bsL\big(f(x), f'(x), x\big)$, no la derivada parcial $\partial_x \partial_{f'} \bsL$. Así se ve la expresión de Euler–Lagrange.
 * **(7)** Usamos la definición de $\varphi$.
 
-**Qué no hemos usado.** Ni la hipótesis de simetría, $D = \dfrac{dF}{dx}$, ni que $f$ sea una solución de Euler–Lagrange. Por tanto, $D = \varphi \cdot \xi + (p \cdot \xi)'$ es una identidad: vale para toda $f \in C^2([x_1, x_2])$ y para toda transformación con $\tau = 0$. El paso siguiente consiste en añadirle la hipótesis de simetría.
+**Qué no hemos usado.** Ni la hipótesis de simetría, $D = \dfrac{dF}{dx}$, ni que $f$ sea una solución de Euler–Lagrange. Por tanto, $D = \varphi \cdot \xi + (p \cdot \xi)'$ es una identidad: vale para toda $f \in C^2([a, b])$ y para toda transformación con $\tau = 0$. El paso siguiente consiste en añadirle la hipótesis de simetría.
 
 ### 6.3. La hipótesis de simetría: identidad y teorema de Noether
 
-Ahora usamos la hipótesis de simetría (apartado 5, punto (3)): la integral del integrando transformado sobre el intervalo transformado es igual a la del integrando original sobre su intervalo, salvo un término que solo depende de los extremos, $\varepsilon \cdot \big(F(b) - F(a)\big)$, y salvo términos de orden $\varepsilon^2$. Eso equivale a $D = \dfrac{dF}{dx}$ en cada punto, también para toda $f$.
+Ahora usamos la hipótesis de simetría (apartado 5, punto (3)): la integral del integrando transformado sobre el intervalo transformado es igual a la del integrando original sobre su intervalo, salvo un término que solo depende de los extremos, $\varepsilon \cdot \big(F(d) - F(c)\big)$, y salvo términos de orden $\varepsilon^2$. Eso equivale a $D = \dfrac{dF}{dx}$ en cada punto, también para toda $f$.
 
 Antes conviene recordar de qué depende cada función, todas evaluadas a lo largo de $f$:
 
@@ -269,7 +382,7 @@ $$
 
 En la segunda línea pasamos $\varphi \cdot \xi$ a la derecha y $\dfrac{dF}{dx}$ a la izquierda; en la tercera usamos la linealidad de la derivada.
 
-**Identidad de Noether** (caso $\tau = 0$). Para toda $f \in C^2([x_1, x_2])$, sea o no una solución,
+**Identidad de Noether** (caso $\tau = 0$). Para toda $f \in C^2([a, b])$, sea o no una solución,
 
 $$
 \begin{aligned}
@@ -285,7 +398,7 @@ $$
 \end{aligned}
 $$
 
-Por el teorema del valor medio, una función continua en $[x_1, x_2]$, derivable en el interior y con derivada nula, es constante. $p \cdot \xi - F$ cumple estas hipótesis, porque $p$, $\xi$ y $F\big(x, f(x)\big)$ son de clase $C^1$. Por tanto, la cantidad
+Por el teorema del valor medio, una función continua en $[a, b]$, derivable en el interior y con derivada nula, es constante. $p \cdot \xi - F$ cumple estas hipótesis, porque $p$, $\xi$ y $F\big(x, f(x)\big)$ son de clase $C^1$. Por tanto, la cantidad
 
 $$
 \begin{aligned}
@@ -309,9 +422,9 @@ Con una sola función y $\tau = 0$, con $x$ en el papel del tiempo y la masa igu
 
 En los tres casos, $p = f'$ y $D = \partial_y \bsL \cdot \xi + p \cdot \xi'$ (apartado 6.2). Comprobación de que $Q$ es constante, con la solución explícita y sin usar el teorema:
 
-* **Primera fila.** La ecuación de Euler–Lagrange es $f'' = 0$, así que $f = c_0 + c_1 \cdot x$ y $Q = f' = c_1$: el momento. Es la coordenada cíclica: $\bsL$ no depende de $y$.
+* **Primera fila.** La ecuación de Euler–Lagrange es $f'' = 0$, así que $f = y_0 + v_0 \cdot x$, con $y_0$ y $v_0$ constantes, y $Q = f' = v_0$: el momento conjugado $p$. $\bsL$ no depende de $y$; se dice que $y$ es una **coordenada cíclica**, y su momento conjugado se conserva (apartado 6.7).
 * **Segunda fila.** La ecuación es $f'' = -g$, y $\dfrac{d}{dx}(f' + g \cdot x) = -g + g = 0$. $Q$ es la velocidad en $x = 0$.
-* **Tercera fila.** $D = 0 \cdot x + f' \cdot 1 = f' = \dfrac{d}{dx} f$, así que $F(x, y) = y$. Con $f = c_0 + c_1 \cdot x$, $Q = x \cdot c_1 - (c_0 + c_1 \cdot x) = -c_0$: menos la posición en $x = 0$. Aquí $\xi$ depende del punto, y $Q$ ya no es un momento.
+* **Tercera fila.** $D = 0 \cdot x + f' \cdot 1 = f' = \dfrac{d}{dx} f$, así que $F(x, y) = y$. Con $f = y_0 + v_0 \cdot x$, $Q = x \cdot v_0 - (y_0 + v_0 \cdot x) = -y_0$: menos la posición en $x = 0$. Aquí $\xi$ depende del punto, y $Q$ ya no es un momento.
 
 **Qué es $Q$.** $\xi$ dice cuánto mueve la transformación el valor de $f$ en cada punto, por unidad de $\varepsilon$; $p \cdot \xi$ es el momento en la dirección en que la transformación mueve las cosas; y $F$ es la corrección que hace falta cuando la transformación cambia $\bsL$ en una derivada total. Cada simetría tiene su $\xi$, y por eso da su propia cantidad: cambiar $\xi$ cambia el significado de $Q$. Con una sola función y $\tau = 0$ solo aparecen cantidades como las de la tabla. El momento angular necesita al menos dos funciones, porque un giro mezcla dos coordenadas, y la energía necesita mover la variable, $\tau \neq 0$.
 
@@ -329,13 +442,13 @@ $$
 
 $$
 \begin{aligned}
-\int_{\tilde{x}(a)}^{\tilde{x}(b)} \bsL(\tilde{f}, \tilde{f}')(\tilde{x}) \,d\tilde{x} - \int_a^b \bsL(f, f')(x) \,dx = \varepsilon \cdot \int_a^b D(x) \,dx + O(\varepsilon^2).
+\int_{\tilde{x}(c)}^{\tilde{x}(d)} \bsL(\tilde{f}, \tilde{f}')(\tilde{x}) \,d\tilde{x} - \int_c^d \bsL(f, f')(x) \,dx = \varepsilon \cdot \int_c^d D(x) \,dx + O(\varepsilon^2).
 \end{aligned}
 $$
 
-A primer orden, $\tilde{x}'(x) = 1 + \varepsilon \cdot \tau'(x) + O(\varepsilon^2)$, y el factor aporta a $D$ el término $\bsL \cdot \tau'$. Es el último sumando de la forma de cuatro términos del apartado 5 y, en el resultado de este apartado, la parte $\bsL \cdot \tau'$ de $(\tau \cdot \bsL)' = \tau \cdot \bsL' + \bsL \cdot \tau'$. No hay que confundirlo con el término $-\partial_{f'} \bsL \cdot \tau' \cdot f'$, que también lleva $\tau'$ pero tiene otro origen: sale de que $\tilde{f}'$ es la derivada respecto de la nueva variable, el cociente $\dfrac{Y'}{X'}$ del apartado 5. El primero cambia la medida con que se integra, y el segundo, la pendiente que recibe $\bsL$.
+A primer orden, $\tilde{x}'(x) = 1 + \varepsilon \cdot \tau'(x) + O(\varepsilon^2)$, y el factor aporta a $D$ el término $\bsL \cdot \tau'$. Es el último sumando de la forma de cuatro términos del apartado 5 y, en el resultado de este apartado, la parte $\bsL \cdot \tau'$ de $(\tau \cdot \bsL)' = \tau \cdot \bsL' + \bsL \cdot \tau'$. No hay que confundirlo con el término $-\partial_{f'} \bsL \cdot \tau' \cdot f'$, que también lleva $\tau'$ pero tiene otro origen: sale de que $\tilde{f}'$ es la derivada respecto de la nueva variable, el cociente $\dfrac{\tilde{y}'}{\tilde{x}'}$ del apartado 5. El primero cambia el elemento de integración, $d\tilde{x} = \tilde{x}' \cdot dx$, y el segundo, la pendiente que recibe $\bsL$.
 
-Entonces:
+Entonces, con $\bsL'(x) := \dfrac{d}{dx}\bsL(f, f')(x)$, la derivada de la función compuesta:
 
 $$
 \begin{aligned}
@@ -363,7 +476,8 @@ $$
 \end{aligned}
 $$
 
-* **La primera.** Por la definición de $\tilde{f}$, $\tilde{f}\big(\tilde{x}(x)\big) = Y(x) = f(x) + \varepsilon \cdot \xi(x) + O(\varepsilon^2)$. Y como $\tilde{x}(x) = x + \varepsilon \cdot \tau(x) + O(\varepsilon^2)$, el punto viejo es $x = \tilde{x}(x) - \varepsilon \cdot \tau(x) + O(\varepsilon^2)$. Desarrollando $\tilde{f}$ alrededor de $\tilde{x}(x)$:
+* **El punto viejo está en el dominio de $\tilde{f}$**, que es $[\tilde{x}(a), \tilde{x}(b)]$, si $x$ está en el interior de $[a, b]$ y $|\varepsilon| \ll 1$. En los extremos basta extender $f$ a un intervalo algo mayor, por ejemplo con su desarrollo de Taylor de segundo orden en cada extremo, que sigue siendo de clase $C^2$; en $[a, b]$ no cambia nada.
+* **La primera.** Por la definición de $\tilde{f}$, $\tilde{f}\big(\tilde{x}(x)\big) = \tilde{y}(x) = f(x) + \varepsilon \cdot \xi(x) + O(\varepsilon^2)$. Y como $\tilde{x}(x) = x + \varepsilon \cdot \tau(x) + O(\varepsilon^2)$, el punto viejo es $x = \tilde{x}(x) - \varepsilon \cdot \tau(x) + O(\varepsilon^2)$. Desarrollando $\tilde{f}$ alrededor de $\tilde{x}(x)$:
 
   $$
   \begin{aligned}
@@ -373,7 +487,10 @@ $$
   $$
 
   donde en el último paso $\tilde{f}'\big(\tilde{x}(x)\big) = f'(x) + O(\varepsilon)$, porque va multiplicado por $\varepsilon$. Geométricamente: si la gráfica se desplaza $\varepsilon \cdot \tau$ en horizontal, en un punto fijo el valor cambia en $-\varepsilon \cdot \tau \cdot f'$.
-* **La segunda** se obtiene derivando la primera respecto de $x$. Para no tener que estimar la derivada del resto, se usa que las derivadas respecto de $\varepsilon$ y de $x$ conmutan (teorema de Schwarz): $\left.\partial_\varepsilon \tilde{f}'(x)\right|_{\varepsilon = 0} = \left.\partial_x \partial_\varepsilon \tilde{f}(x)\right|_{\varepsilon = 0} = \bar{\xi}'(x)$. Hace falta que $\tilde{f}(x)$ sea de clase $C^2$ como función de $(\varepsilon, x)$, lo que se cumple si $\Phi_\varepsilon$ es de clase $C^2$ en $(\varepsilon, x, y)$ y $f$ es de clase $C^2$.
+* **La segunda** se obtiene derivando la primera respecto de $x$. Para no tener que estimar la derivada del resto, se usa que las derivadas respecto de $\varepsilon$ y de $x$ conmutan (teorema de Schwarz): $\left.\partial_\varepsilon \tilde{f}'(x)\right|_{\varepsilon = 0} = \left.\partial_x \partial_\varepsilon \tilde{f}(x)\right|_{\varepsilon = 0} = \bar{\xi}'(x)$. Hace falta que $\tilde{f}(x)$ sea de clase $C^2$ como función de $(\varepsilon, x)$, lo que se cumple si $\Phi_\varepsilon$ es de clase $C^2$ en $(\varepsilon, x, y)$ y $f$ es de clase $C^2$, por el teorema de la función inversa:
+  * **Teorema de la función inversa.** Si $G$ es de clase $C^k$, con $k \geq 1$, en un abierto de $\mathbb{R}^N$, y su matriz jacobiana es invertible en un punto $P_0$, existe un abierto $W$ que contiene a $P_0$ tal que $G$ es inyectiva en $W$, $G(W)$ es abierto y la inversa $G^{-1}: G(W) \to W$ es de clase $C^k$, con matriz jacobiana la inversa de la de $G$.
+  * Una aplicación biyectiva de clase $C^k$ cuya inversa también es de clase $C^k$ se llama **difeomorfismo** (de clase $C^k$).
+  * Aquí se aplica a $(\varepsilon, x) \mapsto \big(\varepsilon, \tilde{x}(x)\big)$, con $\tilde{x}$ dependiente de $\varepsilon$, cuya matriz jacobiana tiene determinante $\tilde{x}'(x) \neq 0$. Como además $\tilde{x}$ es estrictamente creciente, la inversa está definida en todo el intervalo transformado, es de clase $C^2$, y $\tilde{f} = \tilde{y} \circ \tilde{x}^{-1}$ también.
 
 Con estos dos desarrollos, el de Taylor de $\bsL$ en sus dos primeros argumentos, con $x$ fijo, da
 
@@ -404,7 +521,7 @@ D = \partial_f \bsL \cdot \bar{\xi} + p \cdot \bar{\xi}' + (\tau \cdot \bsL)'.
 \end{aligned}
 $$
 
-Es el lema de la guía del paso 8 (apartado 6.6): los dos primeros términos son el $D$ del caso $\tau = 0$ con $\bar{\xi}$ en lugar de $\xi$, y el tercero es una derivada total.
+Es el lema del caso general: los dos primeros términos son el $D$ del caso $\tau = 0$ con $\bar{\xi}$ en lugar de $\xi$, y el tercero es una derivada total.
 
 **Nota sobre los restos.** Que los restos sean de orden $\varepsilon^2$ exige un poco más de regularidad ($\Phi_\varepsilon$ y $f$ de clase $C^3$). Con clase $C^2$ son de orden menor que $\varepsilon$, $o(\varepsilon)$, y basta igual: $D$ es el coeficiente de $\varepsilon$, y solo se usa el primer orden.
 
@@ -416,6 +533,8 @@ $$
 \end{aligned}
 $$
 
+Se llama hamiltoniano porque, escrito como función de $(y, p, x)$ mediante la transformada de Legendre (Tema 1, apartados 5 y 6), es el hamiltoniano de la mecánica; aquí solo se usa a lo largo de $f$.
+
 Ahora es el momento de añadir la hipótesis de simetría, a saber, $\exists F(x, y)$ tal que $\exists \partial_x F$ y es continua y $\exists \partial_y F$ y es continua, es decir, $F$ es de clase $C^1$, además de cumplir $D = \dfrac {d} {dx}F$, donde $\dfrac{d}{dx}F = \partial_x F + \partial_y F \cdot f'$ es la derivada de la función compuesta $x \mapsto F\big(x, f(x)\big)$. $F$ no depende de $f'$, por lo visto en el apartado 5, punto (3). Teniendo esto en cuenta, y sustituyendo en la la expresión general ya obtenida de $D$:
 
 $$
@@ -424,7 +543,7 @@ $$
 \end{aligned}
 $$
 
-Desde 6.2. tenemos que, para toda función $\eta$ de clase $C^1$ en $[x_1, x_2]$ (la cadena del apartado 6.2 solo usa la regla del producto y que $\xi$ es de clase $C^1$, no que venga de una transformación):
+Desde 6.2. tenemos que, para toda función $\eta$ de clase $C^1$ en $[a, b]$ (la cadena del apartado 6.2 solo usa la regla del producto y que $\xi$ es de clase $C^1$, no que venga de una transformación):
 
 $$
 \begin{aligned}
@@ -455,8 +574,6 @@ $$
 \end{aligned}
 $$
 
-<!-- PASOS AÑADIDOS POR LA IA (10-10-2026): cómo deshacer \bar\xi y el término d/dx(tau·p·f') -->
-
 Para terminar, deshacemos $\bar{\xi}$ y vemos que el término $\dfrac{d}{dx}(\tau \cdot p \cdot f')$ desaparece. Por pasos:
 
 1. **Pasamos $\dfrac{d}{dx}(\tau \cdot p \cdot f')$ al otro lado:**
@@ -485,7 +602,7 @@ Para terminar, deshacemos $\bar{\xi}$ y vemos que el término $\dfrac{d}{dx}(\ta
    \end{aligned}
    $$
 
-4. **Sustituimos en el paso 2**, y deshacemos también $\bar{\xi}$ en el lado derecho. Queda la **identidad de Noether en el caso general**, válida para toda $f \in C^2([x_1, x_2])$:
+4. **Sustituimos en el paso 2**, y deshacemos también $\bar{\xi}$ en el lado derecho. Queda la **identidad de Noether en el caso general**, válida para toda $f \in C^2([a, b])$:
 
    $$
    \begin{aligned}
@@ -493,52 +610,58 @@ Para terminar, deshacemos $\bar{\xi}$ y vemos que el término $\dfrac{d}{dx}(\ta
    \end{aligned}
    $$
 
-5. **El teorema**, como en el apartado 6.3: sobre las soluciones $\varphi = 0$, y por el teorema del valor medio la cantidad $Q := p \cdot \xi - \tau \cdot \bsH - F$ es constante. Hace falta, además de lo del apartado 6.3, que $\bsH$ sea de clase $C^1$ a lo largo de $f$, lo que se cumple porque $p$, $f'$ y $\bsL(f, f')$ lo son. Con $\tau = 0$ se recupera el apartado 6.3; la comprobación con la energía está en la guía (apartado 6.6).
+5. **El teorema**, como en el apartado 6.3: sobre las soluciones $\varphi = 0$, y por el teorema del valor medio la cantidad $Q := p \cdot \xi - \tau \cdot \bsH - F$ es constante. Hace falta, además de lo del apartado 6.3, que $\bsH$ sea de clase $C^1$ a lo largo de $f$, lo que se cumple porque $p$, $f'$ y $\bsL(f, f')$ lo son. Con $\tau = 0$ se recupera el apartado 6.3.
 
 El término $\dfrac{d}{dx}(\tau \cdot p \cdot f')$ apareció porque, en el paréntesis del apartado anterior, $p \cdot \bar{\xi}$ y $\tau \cdot p \cdot f'$ se tratan por separado; al deshacer $\bar{\xi}$ se ve que su suma es $p \cdot \xi$, la cantidad con el generador original.
 
-<!-- FIN DE LOS PASOS AÑADIDOS -->
+**Comprobación con la energía.** La traslación de la variable, $\Phi_\varepsilon(x, y) = (x + \varepsilon, y)$, tiene $\tau = 1$ y $\xi = 0$. Por la forma de cuatro términos del apartado 5, $D = \partial_x \bsL$, que es nulo si $\bsL$ no depende explícitamente de $x$; entonces $F = 0$ y $Q = -\bsH$. Con $\bsL = \dfrac{1}{2} \cdot y'^2 - g \cdot y$ (el tiro vertical del apartado 5), $\bsH = p \cdot f' - \bsL = \dfrac{1}{2} \cdot f'^2 + g \cdot f$, que es la energía, y $\bsH' = f' \cdot (f'' + g) = 0$ sobre las soluciones, porque $f'' = -g$. El giro del plano, que mueve a la vez la variable y el valor, se trata en el apartado 7.
 
-<!-- GUÍA DE LA IA (09-10-2026) para el paso 8: se sustituye por el desarrollo propio -->
+### 6.6. Observaciones
 
-### Guía para el paso 8: el caso $\tau \neq 0$
+* **El valor de $Q$ depende de la solución.** El teorema dice que $Q$ no cambia a lo largo de cada solución, no que valga lo mismo en todas.
+* **La identidad dice más que el teorema.** Vale para toda $f$, y expresa $Q'$ en función de la expresión de Euler–Lagrange: $Q' = -\varphi \cdot \bar{\xi}$.
+* **Linealidad.** $D$ es lineal en el generador: en la forma de cuatro términos del apartado 5, cada sumando es lineal en $(\tau, \xi)$ o en sus derivadas. Si $(\tau_1, \xi_1)$ y $(\tau_2, \xi_2)$ son simetrías, con $F_1$ y $F_2$, la combinación $\alpha \cdot (\tau_1, \xi_1) + \beta \cdot (\tau_2, \xi_2)$ también lo es, con $\alpha \cdot F_1 + \beta \cdot F_2$, y su cantidad conservada es $\alpha \cdot Q_1 + \beta \cdot Q_2$, porque $Q = p \cdot \xi - \tau \cdot \bsH - F$ también es lineal. Lo mismo vale para una **familia de varios parámetros**, $\Phi_{\vec{\varepsilon}}$ con $\vec{\varepsilon} = (\varepsilon_1, \dots, \varepsilon_N)$ y $\Phi_{\vec{0}}$ igual a la identidad: cada parámetro $\varepsilon_j$ tiene su generador, la derivada parcial de $\Phi_{\vec{\varepsilon}}$ respecto de $\varepsilon_j$ en $\vec{\varepsilon} = \vec{0}$. Si los $N$ generadores son linealmente independientes, la familia da $N$ cantidades conservadas, una por parámetro. Por ejemplo, con tres funciones (apartado 8), las traslaciones en las tres direcciones del espacio dan las tres componentes de la cantidad de movimiento.
+* **$F$ y $Q$ están definidas salvo una constante aditiva**, porque $F + C$, con $C$ constante, tiene la misma derivada que $F$.
+* **$Q$ puede ser constante para toda $f$**, y no solo para las soluciones. Entonces el teorema no da información, y la identidad se reduce a $\varphi \cdot \bar{\xi} = 0$ para toda $f$. Con varias funciones es una relación entre las ecuaciones de Euler–Lagrange, que dejan de ser independientes: una combinación de sus expresiones, con coeficientes que dependen de $f$, se anula para toda $f$. Es el caso del cambio de parámetro en el camino más corto (apartado 8.5).
 
-La idea es reducir el caso general al del apartado 6.2, cambiando $\xi$ por el desplazamiento medido en un mismo punto $x$. Al hacerlo aparece la energía.
+### 6.7. Dos casos particulares
 
-#### Lo que hay que obtener
+#### La función no aparece en $\bsL$
 
-2. **La identidad de Noether general**, para toda $f$:
+Desplazar el valor, con $(\tau, \xi) = (0, 1)$. En la forma de cuatro términos del apartado 5 solo queda $D = \partial_y \bsL$, y la cantidad conservada sería $Q = p - F$:
 
-   $$
-   \begin{aligned}
-   \dfrac{d}{dx}\big(p \cdot \xi - \tau \cdot \bsH - F\big) = -\varphi \cdot \big(\xi - \tau \cdot f'\big), \qquad \bsH := p \cdot f' - \bsL.
-   \end{aligned}
-   $$
+* **Si $\bsL$ no depende de $y$**, es una simetría con $F = 0$, y se conserva $Q = p$. Se ve también directamente: la ecuación de Euler–Lagrange se reduce a $p' = 0$. Una variable de la que $\bsL$ no depende se llama **coordenada cíclica** (o ignorable): su momento conjugado se conserva (primera fila de la tabla del apartado 6.4).
+* **Si $\partial_y \bsL$ solo depende de $x$**, $\partial_y \bsL = \gamma(x)$ con $\gamma$ continua, también es una simetría, con $F(x) = \int_a^x \gamma(s) \,ds$. Se conserva $Q = p - \int_a^x \gamma(s) \,ds$, que es la ecuación de Euler–Lagrange, $p' = \gamma(x)$, integrada una vez. Es el campo uniforme (segunda fila de la tabla del apartado 6.4, con $\gamma = -g$).
+* **Si $\partial_y \bsL$ depende de $y$ y no de $y'$**, no es una simetría, por el criterio del apartado 5, punto (3).
+* **Con varias funciones** vale lo mismo para cada componente que no aparece en $\bsL$, con $\vec{\xi} = \vec{e}_k$, el vector con un $1$ en el lugar $k$ y $0$ en los demás (apartado 8).
 
-3. **El teorema general.** Sobre las soluciones, $Q := p \cdot \xi - \tau \cdot \bsH - F$ es constante.
+#### Cuando $\bsL$ no depende de la variable: la identidad de Beltrami
 
-Con $\tau = 0$ tiene que salir exactamente el apartado 6.3.
+Desplazar la variable, con $(\tau, \xi) = (1, 0)$. En la forma de cuatro términos del apartado 5 solo queda $D = \partial_x \bsL$.
 
-#### Comprobaciones
-
-* **La energía.** Traslación de la variable, $\Phi_\varepsilon(x, y) = (x + \varepsilon, y)$: $\tau = 1$ y $\xi = 0$. Entonces $D = \partial_x \bsL$, que es nulo si $\bsL$ no depende explícitamente de $x$; así, $F = 0$ y $Q = -\bsH$. Con $\bsL = \dfrac{1}{2} \cdot y'^2 - g \cdot y$, $\bsH = \dfrac{1}{2} \cdot f'^2 + g \cdot f$, que es la energía. Comprobación: $\bsH' = f' \cdot (f'' + g) = 0$, porque $f'' = -g$.
-* **Un caso con $\tau$ y $\xi$ a la vez (opcional).** El giro del plano, con $\tau = -y$ y $\xi = x$, y $\bsL = \sqrt{1 + y'^2}$, la longitud de la gráfica. La longitud no cambia al girar, así que $F = 0$, y debe salir
+* **Si $\bsL$ no depende explícitamente de $x$**, $D = 0$: es una simetría con $F = 0$, y se conserva $Q = -\bsH$. Es la **identidad de Beltrami**: si $\bsL$ no depende de $x$, $\bsH$ es constante a lo largo de las soluciones. En mecánica, con $x$ como tiempo, es la conservación de la energía (comprobación al final del apartado 6.5).
+* **Si $\bsL$ depende de $x$**, la transformación no es una simetría, pero el lema del apartado 6.5 sigue valiendo, porque no usa la hipótesis de simetría. Con $\bar{\xi} = \xi - \tau \cdot f' = -f'$:
 
   $$
   \begin{aligned}
-  Q = \dfrac{x \cdot f' - f}{\sqrt{1 + f'^2}}.
+  \partial_x \bsL = D &\overset{(1)}{=} \partial_f \bsL \cdot \bar{\xi} + p \cdot \bar{\xi}' + (\tau \cdot \bsL)' \\
+  &\overset{(2)}{=} \varphi \cdot \bar{\xi} + \big(p \cdot \bar{\xi} + \tau \cdot \bsL\big)' \\
+  &\overset{(3)}{=} -\varphi \cdot f' + \big(-p \cdot f' + \bsL\big)' \\
+  &\overset{(4)}{=} -\varphi \cdot f' - \bsH'.
   \end{aligned}
   $$
 
-  Sobre una recta $f = m \cdot x + c$, $Q = -\dfrac{c}{\sqrt{1 + m^2}}$: menos la distancia, con signo, del origen a la recta. Coincide con el camino más corto en forma paramétrica de los ejemplos matemáticos de la serie.
+  * **(1)** El lema del apartado 6.5.
+  * **(2)** El lema del apartado 6.2 con $\eta = \bar{\xi}$, y la linealidad de la derivada.
+  * **(3)** $\tau = 1$ y $\bar{\xi} = -f'$.
+  * **(4)** Definición de $\bsH = p \cdot f' - \bsL$.
 
-Cuando el lema (pistas 1 a 5) esté escrito, conviene revisarlo antes de seguir: es donde es más fácil equivocarse con los signos.
-
-<!-- FIN DE LA GUÍA -->
+  Despejando, $\bsH' = -\partial_x \bsL - \varphi \cdot f'$, y sobre las soluciones, $\bsH' = -\partial_x \bsL$: la dependencia explícita de $x$ es exactamente lo que impide que $\bsH$ se conserve.
+* **Relación con la versión anterior.** Allí la identidad de Beltrami se obtiene con el generador $\xi = f'$, que depende de la derivada, y con $F = \bsL$, y la cantidad conservada es $\bsH$, sin el signo menos. Es la misma transformación vista en un punto fijo. Desplazar la variable como en la versión anterior, $f(x) \to f(x + \varepsilon)$, es $\Phi_\varepsilon(x, y) = (x - \varepsilon, y)$ (apartado 3.2), con $\tau = -1$. Su desplazamiento en un punto fijo es $\bar{\xi} = 0 - (-1) \cdot f' = f'$, el generador de la versión anterior, y su cantidad conservada es $Q = -\tau \cdot \bsH = \bsH$. La relación general entre las dos formas se ve en el apartado 10.6.
 
 ## 7. Ejemplo: el camino más corto como gráfica
 
-El funcional de la longitud de la gráfica de $f$, el del camino más corto entre dos puntos de «El formalismo lagrangiano: ejemplos matemáticos», tiene tres simetrías continuas. Una de ellas, el giro, mueve también la variable ($\tau \neq 0$), así que necesita el caso general del apartado 6.5. Con las tres cantidades conservadas se determina la recta sin resolver la ecuación de segundo orden.
+El funcional de la longitud de la gráfica de $f$, el del camino más corto entre dos puntos de «El formalismo lagrangiano: ejemplos matemáticos», tiene tres simetrías continuas: familias de un parámetro real que cumplen la condición del apartado 4, a diferencia de una simetría discreta, como la reflexión $(x, y) \mapsto (x, -y)$, que no forma parte de ninguna familia continua que empiece en la identidad. Una de ellas, el giro, mueve también la variable ($\tau \neq 0$), así que necesita el caso general del apartado 6.5. Con las tres cantidades conservadas se determina la recta sin resolver la ecuación de segundo orden.
 
 ### 7.1. El lagrangiano y sus funciones
 
@@ -583,15 +706,15 @@ En los tres casos se usan la cantidad conservada $Q = p \cdot \xi - \tau \cdot \
 ### 7.3. Lo que se obtiene
 
 1. **La recta, sin resolver la ecuación.** La primera fila dice que la pendiente es constante: como $u \mapsto \dfrac{u}{\sqrt{1 + u^2}}$ es estrictamente creciente, $p$ constante implica $f'$ constante, y la gráfica es una recta.
-2. **La recta concreta, con el giro.** Sobre $f = m \cdot x + c$,
+2. **La recta concreta, con el giro.** Sobre la recta $f(x) = \kappa \cdot x + \lambda$, con pendiente $\kappa$ y ordenada en el origen $\lambda$,
 
    $$
    \begin{aligned}
-   Q_{\mathrm{giro}} = \dfrac{x \cdot m - (m \cdot x + c)}{\sqrt{1 + m^2}} = -\dfrac{c}{\sqrt{1 + m^2}},
+   Q_{\mathrm{giro}} = \dfrac{x \cdot \kappa - (\kappa \cdot x + \lambda)}{\sqrt{1 + \kappa^2}} = -\dfrac{\lambda}{\sqrt{1 + \kappa^2}}.
    \end{aligned}
    $$
 
-   que es menos la distancia, con signo, del origen a la recta. La pendiente y la distancia al origen determinan la recta; los extremos eligen después el segmento. Es el mismo resultado que el camino más corto en forma paramétrica de los ejemplos matemáticos de la serie. Allí hacía falta una curva con dos componentes para tratar el giro; aquí basta una función, porque el giro mueve también la variable.
+   Su valor absoluto, $\dfrac{|\lambda|}{\sqrt{1 + \kappa^2}}$, es la distancia del origen a la recta, y su signo es positivo si la recta pasa por debajo del origen ($\lambda < 0$). La pendiente y la distancia al origen determinan la recta; los extremos eligen después el segmento. Es el mismo resultado que el camino más corto en forma paramétrica de los ejemplos matemáticos de la serie. Allí hacía falta una curva con dos componentes para tratar el giro; aquí basta una función, porque el giro mueve también la variable.
 3. **Dos cantidades que no son independientes.** $p^2 + \bsH^2 = \dfrac{f'^2 + 1}{1 + f'^2} = 1$ para **toda** $f$, no solo para las soluciones: los dos desplazamientos dan la misma información, $\sin^2\alpha + \cos^2\alpha = 1$. Tres simetrías dan tres cantidades conservadas, pero no tres datos independientes.
 4. **Un ejemplo que no es simetría: la homotecia.** $\Phi_\varepsilon(x, y) = \big((1 + \varepsilon) \cdot x, (1 + \varepsilon) \cdot y\big)$, con $(\tau, \xi) = (x, y)$, multiplica la longitud por $1 + \varepsilon$. Entonces $D = \bsL = \sqrt{1 + y'^2}$, que no es afín en $y'$, y no existe $F$ (apartado 5, punto (3)).
 
@@ -605,7 +728,7 @@ Pasamos de una función $f$ a $n$ funciones $\vec{f} = (f_1, \dots, f_n)$ de la 
 
 ### 8.1. Notación
 
-* $\vec{f} = (f_1, \dots, f_n): [x_1, x_2] \to \mathbb{R}^n$ es de clase $C^2$. Los índices $i, j = 1, \dots, n$ recorren las componentes.
+* $\vec{f} = (f_1, \dots, f_n): [a, b] \to \mathbb{R}^n$ es de clase $C^2$. Los índices $i, j = 1, \dots, n$ recorren las componentes.
 * $\bsL(\vec{y}, \vec{y}', x)$ es una función de $2 \cdot n + 1$ variables reales, de clase $C^2$; $\vec{y}'$ es solo el nombre de las $n$ variables que ocupan el lugar de las derivadas. A lo largo de $\vec{f}$ escribimos $\bsL(\vec{f}, \vec{f}')(x) := \bsL\big(\vec{f}(x), \vec{f}'(x), x\big)$.
 * **La transformación** actúa sobre los puntos de $\mathbb{R} \times \mathbb{R}^n$:
 
@@ -635,7 +758,7 @@ Pasamos de una función $f$ a $n$ funciones $\vec{f} = (f_1, \dots, f_n)$ de la 
   $$
 
   Escribimos $\vec{p} = (p_1, \dots, p_n)$, $\vec{\xi} = (\xi_1, \dots, \xi_n)$ y $\vec{p} \cdot \vec{\xi} = \sum_i p_i \cdot \xi_i$.
-* **Las soluciones** cumplen las $n$ ecuaciones de Euler–Lagrange, $\varphi_i = 0$ para $i = 1, \dots, n$ (la separación de las componentes de «El formalismo lagrangiano»).
+* **Las soluciones** cumplen las $n$ ecuaciones de Euler–Lagrange, $\varphi_i = 0$ para $i = 1, \dots, n$. Son las funciones que hacen estacionario a $\bsS$ con los extremos fijos: tomando variaciones con una sola componente no nula se obtiene una ecuación por componente («El formalismo lagrangiano: parte matemática», la separación de las componentes).
 * **Regularidad**, por los mismos argumentos que en el apartado 6.1, componente a componente: las $p_i$, las $\xi_i$ a lo largo de $\vec{f}$ y $\bsH$ son de clase $C^1$, y las $\varphi_i$ son continuas.
 * La prima indica, como antes, la derivada respecto de $x$ a lo largo de $\vec{f}$.
 
@@ -693,17 +816,28 @@ Como en el apartado 5, punto (3):
   \end{aligned}
   $$
 
-* **$D$ tiene que ser afín en $\vec{y}'$:** $D = a(x, \vec{y}) + \sum_i b_i(x, \vec{y}) \cdot y_i'$, y la condición de simetría es la identidad $D = \dfrac{dF}{dx}$, es decir, $\partial_x F = a$ y $\partial_{y_i} F = b_i$ para todo $i$.
-* **Ser afín no basta.** Por el teorema de Schwarz, las derivadas cruzadas de $F$ coinciden, y eso exige las **condiciones de integrabilidad**:
+* **$D$ tiene que ser afín en $\vec{y}'$:** $D = \alpha(x, \vec{y}) + \sum_i \beta_i(x, \vec{y}) \cdot y_i'$, y la condición de simetría es la identidad $D = \dfrac{dF}{dx}$ para todos los valores de $(\vec{y}, \vec{y}', x)$, es decir, $\partial_x F = \alpha$ y $\partial_{y_i} F = \beta_i$ para todo $i$. Llamamos $\alpha$ y $\beta_i$ a los coeficientes, y no $a$ y $b_i$, para no confundirlos con los extremos de $[a, b]$.
+* **Ser afín no basta.** Si $\alpha$ y las $\beta_i$ son de clase $C^1$, $F$ es de clase $C^2$, y por el teorema de Schwarz sus derivadas cruzadas coinciden. Eso exige las **condiciones de integrabilidad**:
 
   $$
   \begin{aligned}
-  \partial_{y_i} a = \partial_x b_i, \qquad \partial_{y_j} b_i = \partial_{y_i} b_j, \qquad i, j = 1, \dots, n.
+  \partial_{y_i} \alpha = \partial_x \beta_i, \qquad \partial_{y_j} \beta_i = \partial_{y_i} \beta_j, \qquad i, j = 1, \dots, n.
   \end{aligned}
   $$
 
-  Es decir, la forma diferencial $a \cdot dx + \sum_i b_i \cdot dy_i$ tiene que ser cerrada. Con $n = 1$ queda solo la primera, la del apartado 5; con $n \geq 2$ aparecen además condiciones entre las propias $b_i$.
-* **El dominio.** Si el dominio de $(x, \vec{y})$ es, por ejemplo, estrellado o simplemente conexo, las condiciones bastan (lema de Poincaré). En un dominio con agujeros, una forma cerrada puede no tener primitiva en todo él; el ejemplo típico es la forma del ángulo alrededor de un punto excluido del plano.
+  Con $n = 1$ queda solo la primera, la del apartado 5; con $n \geq 2$ aparecen además condiciones entre las propias $\beta_i$.
+* **El lenguaje de las formas diferenciales**, el del apartado 5, punto (3), con más variables. Una **forma diferencial de primer grado** en un abierto $U$ de $\mathbb{R}^{1+n}$ es una expresión $\omega = \alpha \cdot dx + \sum_i \beta_i \cdot dy_i$, con coeficientes continuos en $U$; aquí funciona como una notación para la lista de coeficientes $(\alpha, \beta_1, \dots, \beta_n)$. Es **exacta** si existe una función $F$ de clase $C^1$, su **primitiva**, con $\partial_x F = \alpha$ y $\partial_{y_i} F = \beta_i$; con coeficientes de clase $C^1$, es **cerrada** si cumple las condiciones de integrabilidad. Por el teorema de Schwarz, toda forma exacta con coeficientes de clase $C^1$ es cerrada. La condición de simetría pide que $D$ proceda de una forma exacta.
+* **Cuándo bastan: el lema de Poincaré.** Como en el apartado 5, en un abierto estrellado (por ejemplo, una caja, una bola o todo el espacio) toda forma cerrada es exacta. Una primitiva es la integral de $\omega$ a lo largo del segmento que va de $P_* = (x_*, \vec{y}_*)$ a $P = (x, \vec{y})$:
+
+  $$
+  \begin{aligned}
+  F(P) = \int_0^1 \Big(&\alpha\big(P_* + s \cdot (P - P_*)\big) \cdot (x - x_*) \\
+  &+ \sum_{i=1}^{n} \beta_i\big(P_* + s \cdot (P - P_*)\big) \cdot (y_i - y_{*, i})\Big) \,ds.
+  \end{aligned}
+  $$
+
+  Que sus derivadas parciales son $\alpha$ y las $\beta_i$ se comprueba con las condiciones de integrabilidad y la **derivación bajo el signo integral**: si $h(s, P)$ y su derivada parcial respecto de una coordenada de $P$ son continuas para $s \in [0, 1]$ y $P$ en un abierto, la derivada de $\int_0^1 h(s, P) \,ds$ respecto de esa coordenada existe, es continua y es la integral de la derivada.
+* **En un abierto con agujeros no bastan**, como muestra la forma del ángulo del apartado 5.
 
 ### 8.4. La identidad y el teorema de Noether
 
@@ -754,18 +888,21 @@ $$
 
 es constante a lo largo de $\vec{f}_0$. Con $n = 1$ se recupera el apartado 6.5.
 
-**Qué no hemos usado.** Que $\vec{f}$ sea solución: la identidad vale para toda $\vec{f}$. Ni ninguna condición sobre la matriz de las derivadas segundas de $\bsL$ respecto de las $y_i'$ (la matriz $W$ de «El formalismo lagrangiano»): la identidad vale aunque las ecuaciones de Euler–Lagrange no determinen las $f''_i$.
+**Qué no hemos usado.** Que $\vec{f}$ sea solución: la identidad vale para toda $\vec{f}$. Ni ninguna condición sobre la matriz $W$ de las derivadas segundas de $\bsL$ respecto de las $y_i'$, de elementos $W_{ij} := \partial_{y'_i} \partial_{y'_j} \bsL$ («El formalismo lagrangiano»). Desarrollando las derivadas $p_i'$, las ecuaciones de Euler–Lagrange son $\sum_j W_{ij} \cdot f''_j = R_i$, donde $R_i$ reúne los términos sin derivadas segundas, y solo determinan las $f''_j$ si $\det W \neq 0$. La identidad vale aunque no las determinen.
 
 ### 8.5. Ejemplos
 
-Con $n = 2$ y $x$ en el papel del tiempo (masa $1$):
+Con $n = 2$ y $x$ en el papel del tiempo (masa $1$). Los dos campos de fuerzas de la tabla son:
+
+* **Campo central:** la fuerza sobre el punto $\vec{y}$ tiene la dirección de $\vec{y}$ y un módulo que solo depende de $r = |\vec{y}| > 0$. Procede de una energía potencial $U(r)$, de clase $C^2$ para $r > 0$: la fuerza es $-U'(r) \cdot \dfrac{\vec{y}}{r}$.
+* **Campo magnético:** una partícula de carga y masa $1$ se mueve en el plano, en un campo magnético uniforme, de intensidad $B$, perpendicular a él. Su lagrangiano es $\dfrac{1}{2} \cdot |\vec{y}'|^2 + \vec{A} \cdot \vec{y}'$, donde el **potencial vector** $\vec{A}$ es un campo vectorial del plano con $\partial_{y_1} A_2 - \partial_{y_2} A_1 = B$; tomamos $\vec{A} = \dfrac{B}{2} \cdot (-y_2, y_1)$. Las ecuaciones de Euler–Lagrange son $f_1'' = B \cdot f_2'$ y $f_2'' = -B \cdot f_1'$: la fuerza es perpendicular a la velocidad (fuerza de Lorentz).
 
 | Ejemplo | $\bsL$ | $(\tau, \vec{\xi})$ | $F$ | $Q$ |
 | --- | --- | --- | --- | --- |
 | Giro, campo central | $\dfrac{1}{2} \cdot \lvert\vec{y}'\rvert^2 - U(\lvert\vec{y}\rvert)$ | $\big(0, (-y_2, y_1)\big)$ | $0$ | $f_1 \cdot f_2' - f_2 \cdot f_1'$ |
 | Traslación de la variable, campo central | $\dfrac{1}{2} \cdot \lvert\vec{y}'\rvert^2 - U(\lvert\vec{y}\rvert)$ | $\big(1, (0, 0)\big)$ | $0$ | $-\bsH = -\Big(\dfrac{1}{2} \cdot \lvert\vec{f}'\rvert^2 + U\Big)$ |
 | Traslación en $y_1$, campo magnético | $\dfrac{1}{2} \cdot \lvert\vec{y}'\rvert^2 + \dfrac{B}{2} \cdot (y_1 \cdot y_2' - y_2 \cdot y_1')$ | $\big(0, (1, 0)\big)$ | $\dfrac{B}{2} \cdot y_2$ | $f_1' - B \cdot f_2$ |
-| Cambio de parámetro, camino más corto | $\lvert\vec{y}'\rvert$ | $\big(\tau(x), (0, 0)\big)$ | $0$ | $-\tau \cdot \bsH \equiv 0$ |
+| Cambio de parámetro, camino más corto | $\lvert\vec{y}'\rvert$ | $\big(\tau(x), (0, 0)\big)$ | $0$ | $-\tau \cdot \bsH = 0$ para toda $\vec{f}$ |
 
 Table: Ejemplos con dos funciones.
 
@@ -781,7 +918,7 @@ $Q = p_1 \cdot (-f_2) + p_2 \cdot f_1$ es el momento angular. Comprobación: $Q'
 
 **Traslación de la variable.** Con $\tau = 1$ y $\vec{\xi} = \vec{0}$, $D = \partial_x \bsL = 0$, y $Q = -\bsH$: se conserva la energía, $\bsH = \dfrac{1}{2} \cdot |\vec{f}'|^2 + U$.
 
-**Traslación en un campo magnético: un ejemplo con $F \neq 0$ y las condiciones de integrabilidad.** Es una carga en un campo magnético uniforme perpendicular al plano, con el potencial vector $\dfrac{B}{2} \cdot (-y_2, y_1)$ («El formalismo lagrangiano: parte física»). Con $\vec{\xi} = (1, 0)$ y $\tau = 0$, $D = \partial_{y_1} \bsL = \dfrac{B}{2} \cdot y_2'$. Es afín, con $a = 0$, $b_1 = 0$ y $b_2 = \dfrac{B}{2}$; las condiciones de integrabilidad se cumplen, porque todos los coeficientes son constantes, y $F = \dfrac{B}{2} \cdot y_2$. Con $p_1 = f_1' - \dfrac{B}{2} \cdot f_2$:
+**Traslación en un campo magnético: un ejemplo con $F \neq 0$ y las condiciones de integrabilidad.** Es la carga en el campo magnético descrita antes de la tabla («El formalismo lagrangiano: parte física»). Con $\vec{\xi} = (1, 0)$ y $\tau = 0$, $D = \partial_{y_1} \bsL = \dfrac{B}{2} \cdot y_2'$. Es afín, con $\alpha = 0$, $\beta_1 = 0$ y $\beta_2 = \dfrac{B}{2}$ (apartado 8.3); las condiciones de integrabilidad se cumplen, porque todos los coeficientes son constantes, y $F = \dfrac{B}{2} \cdot y_2$. Con $p_1 = f_1' - \dfrac{B}{2} \cdot f_2$:
 
 $$
 \begin{aligned}
@@ -789,7 +926,7 @@ Q = p_1 - F = f_1' - \dfrac{B}{2} \cdot f_2 - \dfrac{B}{2} \cdot f_2 = f_1' - B 
 \end{aligned}
 $$
 
-Comprobación: la ecuación de Euler–Lagrange de $f_1$ es $f_1'' = B \cdot f_2'$, y $Q' = f_1'' - B \cdot f_2' = 0$. Es la primera componente del vector $\vec{K}$ de «El formalismo lagrangiano: parte física»: no se conserva la cantidad de movimiento $f_1'$, sino $f_1' - B \cdot f_2$.
+Comprobación: la ecuación de Euler–Lagrange de $f_1$ es $f_1'' = B \cdot f_2'$, y $Q' = f_1'' - B \cdot f_2' = 0$. Es la primera componente del vector $\vec{K} := (f_1' - B \cdot f_2,\ f_2' + B \cdot f_1)$, que es constante sobre las soluciones, porque $(f_2' + B \cdot f_1)' = f_2'' + B \cdot f_1' = 0$ («El formalismo lagrangiano: parte física»). No se conserva la cantidad de movimiento $f_1'$, sino $f_1' - B \cdot f_2$.
 
 **Cambio de parámetro en el camino más corto: una relación entre las ecuaciones.** Con $\bsL = |\vec{y}'|$ (curvas regulares, $\vec{f}' \neq \vec{0}$), $\vec{\xi} = \vec{0}$ y $\tau(x)$ una función **cualquiera** de clase $C^1$, la forma de cuatro términos del apartado 5, componente a componente, da
 
@@ -799,7 +936,7 @@ D = \sum_{i=1}^{n} p_i \cdot \big(-\tau' \cdot f'_i\big) + \bsL \cdot \tau' = -\
 \end{aligned}
 $$
 
-y $\bsH = \sum_i \dfrac{f'_i \cdot f'_i}{|\vec{f}'|} - |\vec{f}'| = 0$ para toda $\vec{f}$. Así que $D = 0$, $F = 0$ y $Q = -\tau \cdot \bsH \equiv 0$: el teorema no da nada. Pero la identidad sí: su lado izquierdo es nulo, así que
+y $\bsH = \sum_i \dfrac{f'_i \cdot f'_i}{|\vec{f}'|} - |\vec{f}'| = 0$ para toda $\vec{f}$. Así que $D = 0$, $F = 0$ y $Q = -\tau \cdot \bsH$ es nula para toda $\vec{f}$: el teorema no da nada. Pero la identidad sí: su lado izquierdo es nulo, así que
 
 $$
 \begin{aligned}
@@ -807,204 +944,956 @@ $$
 \end{aligned}
 $$
 
-para toda $\tau$ y toda $\vec{f}$. Tomando $\tau = 1$, $\sum_i f'_i \cdot \varphi_i = 0$: las $n$ ecuaciones de Euler–Lagrange no son independientes. Es la libertad de elegir el parámetro de la curva, y el caso más sencillo del segundo teorema de Noether: una simetría que depende de una función arbitraria da una relación entre las ecuaciones, no una cantidad conservada.
+para toda $\tau$ y toda $\vec{f}$. Tomando $\tau = 1$, $\sum_i f'_i \cdot \varphi_i = 0$: las $n$ ecuaciones de Euler–Lagrange no son independientes. Es la libertad de elegir el parámetro de la curva, y el caso más sencillo del **segundo teorema de Noether**. Ese teorema trata las simetrías que dependen de funciones arbitrarias de la variable, como aquí $\tau(x)$, y no de un número finito de parámetros: no dan cantidades conservadas, sino relaciones, válidas para toda $\vec{f}$, entre las expresiones de Euler–Lagrange y sus derivadas.
+
+**El mismo argumento para cualquier $\bsL$ homogénea de grado $1$.** Supongamos que $\bsL$ no depende de $x$ y que $\bsL(\vec{y}, \lambda \cdot \vec{y}') = \lambda \cdot \bsL(\vec{y}, \vec{y}')$ para todo $\lambda > 0$, en los puntos con $\vec{y}' \neq \vec{0}$. Derivando esta igualdad respecto de $\lambda$ en $\lambda = 1$ (el teorema de Euler de las funciones homogéneas, Tema 1, apartado 7.1) se obtiene $\sum_i y'_i \cdot \partial_{y'_i} \bsL = \bsL$, es decir, $\bsH = 0$ para toda $\vec{f}$. Con $\vec{\xi} = \vec{0}$ y $\tau(x)$ cualquiera, la forma de cuatro términos da $D = \sum_i p_i \cdot \big(-\tau' \cdot f'_i\big) + \bsL \cdot \tau' = -\tau' \cdot \bsH = 0$, y se llega a la misma relación, $\sum_i f'_i \cdot \varphi_i = 0$. Les ocurre a todos los funcionales que no dependen de la parametrización de la curva. Dos ejemplos:
+
+* **La longitud de una curva sobre una superficie.** Con coordenadas $(y_1, y_2)$ sobre la superficie, la longitud es $\int \sqrt{\sum_{i,j} g_{ij}(\vec{y}) \cdot y_i' \cdot y_j'} \,dx$, donde las funciones $g_{ij}$ (la **métrica** de la superficie) dan el cuadrado de la longitud de un vector tangente a partir de sus componentes. Las curvas que hacen estacionaria la longitud se llaman **geodésicas**; en el plano son las rectas.
+* **El principio de Fermat.** La luz sigue una trayectoria que hace estacionario el tiempo de recorrido, que es proporcional a $\int n_{\mathrm{r}}(\vec{y}) \cdot |\vec{y}'| \,dx$, donde $n_{\mathrm{r}}$, el **índice de refracción** del medio, es el cociente entre la velocidad de la luz en el vacío y en el medio. Lo escribimos $n_{\mathrm{r}}$ para no confundirlo con el número de funciones, $n$.
 
 Las cuentas de los ejemplos están comprobadas con SymPy en el archivo borrador-Noether-v2-comprobaciones.py, en el mismo directorio que este borrador.
 
-<!-- COMENTARIOS DE LA IA (10-10-2026): respuestas a dos preguntas (varias variables independientes; la partícula en un campo central). Se sustituyen por el desarrollo propio -->
+## 9. Generalización a varias variables: $\bsL(\vec{f}, J_{\vec{f}}, \vec{x})$
 
-## Comentarios: varias variables independientes y la partícula en un campo central
+Pasamos de $n$ funciones de una variable a $n$ funciones de $m$ variables, $\vec{f}(\vec{x})$. Es el caso que trata el artículo original de Noether (1918), con integrales múltiples. En «El teorema de Noether: parte matemática», apartado «Varias variables», está el caso en que las variables no se mueven, $\vec{\tau} = \vec{0}$; aquí se mueven también. El esquema es el del apartado 8, con sumas sobre las variables, y hay tres cambios de fondo:
 
-### Pregunta 1: varias variables independientes, $\bsL\big(\vec{f}(\vec{x}), J_{\vec{f}}(\vec{x}), \vec{x}\big)$
+* el factor $\tilde{x}'$ pasa a ser un **determinante jacobiano** (apartado 9.2);
+* $F$ pasa a ser un **campo vectorial** $\vec{F} = (F_1, \dots, F_m)$, y la condición de simetría pide que $D$ sea su **divergencia**, la suma de las derivadas de cada componente $F_k$ respecto de la variable $x_k$ (apartados 9.4 y 9.5);
+* el teorema da una **ley de conservación local**, una igualdad que dice que la divergencia de un campo es nula en cada punto, y no una constante; para obtener una constante hacen falta además condiciones de contorno (apartados 9.6 y 9.7).
 
-Sí se generaliza. Es, de hecho, el caso que trata el artículo original de Noether (1918): integrales múltiples, con varias funciones de varias variables. El esquema es el mismo (lema, hipótesis de simetría, identidad), con tres cambios de fondo:
+Con $m = 1$, cada paso se reduce al del apartado 8.
 
-* el factor $\tilde{x}'(x)$ pasa a ser un **determinante**;
-* $F$ pasa a ser un **campo vectorial**, y la condición de simetría pide que $D$ sea una **divergencia**;
-* el resultado es una **ley de conservación local** (una divergencia nula), no una constante; para obtener una constante hacen falta además condiciones de contorno.
+### 9.1. Notación
 
-#### Notación
-
-* $\vec{x} = (x_1, \dots, x_m)$ recorre un dominio $\Omega \subset \mathbb{R}^m$, y $\vec{f} = (f_1, \dots, f_n): \Omega \to \mathbb{R}^n$ es de clase $C^2$. Los índices $i, j$ recorren las funciones y $k, l$ las variables.
-* $J_{\vec{f}}$ es la matriz jacobiana, de elementos $\partial_k f_i := \dfrac{\partial f_i}{\partial x_k}$.
-* $\bsL(\vec{y}, Z, \vec{x})$ es una función de clase $C^2$; $Z = (z_{ik})$ es el nombre de las $n \cdot m$ variables que ocupan el lugar de $J_{\vec{f}}$. El funcional es $\bsS[\vec{f}] = \int_\Omega \bsL(\vec{f}, J_{\vec{f}}, \vec{x})\, d^m x$.
-* $d_k$ es la derivada respecto de $x_k$ de una expresión evaluada a lo largo de $\vec{f}$, incluida la dependencia a través de $\vec{f}$ y de $J_{\vec{f}}$: es el papel que tenía la prima. En cambio, $\partial_{x_k} \bsL$ es la derivada respecto del argumento $x_k$, con los demás fijos.
-* **Momentos y expresiones de Euler–Lagrange.** Hay un momento por cada función y cada variable:
+* **Las variables y las funciones.** El dominio es la caja $\Omega := [a_1, b_1] \times \dots \times [a_m, b_m] \subset \mathbb{R}^m$, el producto cartesiano de $m$ intervalos, que también escribimos $\prod_k [a_k, b_k]$, como en «El formalismo lagrangiano: parte matemática», y $\vec{f} = (f_1, \dots, f_n): \Omega \to \mathbb{R}^n$ es de clase $C^2$. Los índices $i, j = 1, \dots, n$ recorren las funciones, y $k, l = 1, \dots, m$, las variables.
+* **El jacobiano.** $J_{\vec{f}}$ es la matriz de $n$ filas y $m$ columnas de elementos $\partial_k f_i := \dfrac{\partial f_i}{\partial x_k}$.
+* **El lagrangiano.** $\bsL(\vec{y}, Z, \vec{x})$ es una función de $n + n \cdot m + m$ variables reales, de clase $C^2$. $Z = (z_{ik})$ es solo el nombre de las $n \cdot m$ variables que ocupan el lugar de $J_{\vec{f}}$, como $\vec{y}'$ en el apartado 8. A lo largo de $\vec{f}$ escribimos $\bsL(\vec{f}, J_{\vec{f}})(\vec{x}) := \bsL\big(\vec{f}(\vec{x}), J_{\vec{f}}(\vec{x}), \vec{x}\big)$, y el funcional es
 
   $$
   \begin{aligned}
-  u_{ik} := \partial_{z_{ik}} \bsL(\vec{f}, J_{\vec{f}}, \vec{x}), \qquad \varphi_i := \partial_{f_i} \bsL - \sum_{k=1}^{m} d_k u_{ik}.
+  \bsS[\vec{f}] = \int_\Omega \bsL(\vec{f}, J_{\vec{f}})(\vec{x}) \,dx_1 \cdots dx_m.
   \end{aligned}
   $$
 
-  Las soluciones cumplen $\varphi_i = 0$, que ahora son ecuaciones en derivadas parciales. Con $m = 1$, $u_{i1} = p_i$ y se recupera el apartado 8.1.
-
-#### La transformación
-
-* Actúa sobre los puntos de $\mathbb{R}^m \times \mathbb{R}^n$, con generador $(\vec{\tau}, \vec{\xi})$, funciones de $(\vec{x}, \vec{y})$:
+* **La derivada a lo largo de $\vec{f}$.** Para una función $G(\vec{y}, Z, \vec{x})$, $d_{x_k} G$ es la derivada respecto de $x_k$ de la función compuesta $\vec{x} \mapsto G\big(\vec{f}(\vec{x}), J_{\vec{f}}(\vec{x}), \vec{x}\big)$. Por la regla de la cadena (el excurso de «El formalismo lagrangiano: parte matemática»),
 
   $$
   \begin{aligned}
-  X_{\varepsilon, k}(\vec{x}, \vec{y}) &= x_k + \varepsilon \cdot \tau_k(\vec{x}, \vec{y}) + O(\varepsilon^2), \\
-  Y_{\varepsilon, i}(\vec{x}, \vec{y}) &= y_i + \varepsilon \cdot \xi_i(\vec{x}, \vec{y}) + O(\varepsilon^2).
+  d_{x_k} G = \partial_{x_k} G + \sum_{j=1}^{n} \partial_{y_j} G \cdot \partial_k f_j + \sum_{j=1}^{n} \sum_{l=1}^{m} \partial_{z_{jl}} G \cdot \partial_k \partial_l f_j.
   \end{aligned}
   $$
 
-* La gráfica $(Id, \vec{f})$ es una superficie de dimensión $m$ en $\mathbb{R}^{m+n}$, y la transformada se define como en el apartado 8.1: $\tilde{\vec{x}}(\vec{x}) := \vec{X}_\varepsilon\big(\vec{x}, \vec{f}(\vec{x})\big)$ y $\tilde{f}_i\big(\tilde{\vec{x}}(\vec{x})\big) := Y_{\varepsilon, i}\big(\vec{x}, \vec{f}(\vec{x})\big)$.
-* **Hace falta que $\tilde{\vec{x}}$ sea un difeomorfismo** de $\Omega$ sobre su imagen $\tilde{\Omega}$: es el análogo de que $\tilde{x}$ sea creciente (apartado 3.1). Con $|\varepsilon|$ pequeño lo es, por ejemplo, si $\Omega$ es convexo y acotado, porque $\tilde{\vec{x}}$ es una perturbación de la identidad.
+  $d_{x_k}$ hace el papel de la prima: $\partial_{x_k} G$ es la derivada respecto del argumento $x_k$, con los demás fijos, y $d_{x_k} G$ incluye además la dependencia a través de $\vec{f}$ y de $J_{\vec{f}}$. Si $G$ solo depende de $(\vec{x}, \vec{y})$, falta la última suma. Para las propias funciones, $d_{x_k} f_i = \partial_k f_i$.
+* **La transformación** actúa sobre los puntos de $\mathbb{R}^m \times \mathbb{R}^n$:
 
-#### Lo que cambia, paso a paso
+  $$
+  \begin{aligned}
+  \Phi_\varepsilon(\vec{x}, \vec{y}) = \big(\vec{X}_\varepsilon(\vec{x}, \vec{y}),\ \vec{Y}_\varepsilon(\vec{x}, \vec{y})\big),
+  \end{aligned}
+  $$
 
-1. **El factor de $d^m \tilde{x}$ es un determinante.** Por el teorema del cambio de variables, $d^m \tilde{x} = \det J_{\tilde{\vec{x}}}(\vec{x}) \cdot d^m x$. Los elementos de $J_{\tilde{\vec{x}}}$ son $\delta_{kl} + \varepsilon \cdot d_l \tau_k + O(\varepsilon^2)$, y
+  de clase $C^2$ en $(\varepsilon, \vec{x}, \vec{y})$ y con $\Phi_0$ igual a la identidad. A primer orden,
 
-   $$
-   \begin{aligned}
-   \det J_{\tilde{\vec{x}}} = 1 + \varepsilon \cdot \sum_{k=1}^{m} d_k \tau_k + O(\varepsilon^2).
-   \end{aligned}
-   $$
+  $$
+  \begin{aligned}
+  X_{\varepsilon, k} = x_k + \varepsilon \cdot \tau_k(\vec{x}, \vec{y}) + O(\varepsilon^2), \qquad Y_{\varepsilon, i} = y_i + \varepsilon \cdot \xi_i(\vec{x}, \vec{y}) + O(\varepsilon^2).
+  \end{aligned}
+  $$
 
-   La razón: en la fórmula de Leibniz del determinante, el producto de los elementos de la diagonal es $1 + \varepsilon \cdot \sum_k d_k \tau_k + O(\varepsilon^2)$, y cualquier otro producto contiene al menos dos elementos fuera de la diagonal, cada uno de orden $\varepsilon$. La divergencia $\sum_k d_k \tau_k$ ocupa el lugar de $\tau'$.
+  El generador tiene $m$ componentes en las variables, $\vec{\tau} = (\tau_1, \dots, \tau_m)$, y $n$ en los valores, $\vec{\xi} = (\xi_1, \dots, \xi_n)$. A lo largo de $\vec{f}$ escribimos $\tau_k(\vec{x}) := \tau_k\big(\vec{x}, \vec{f}(\vec{x})\big)$ y $\xi_i(\vec{x}) := \xi_i\big(\vec{x}, \vec{f}(\vec{x})\big)$.
+* **La gráfica** de $\vec{f}$ es el conjunto $\big\{\big(\vec{x}, \vec{f}(\vec{x})\big) : \vec{x} \in \Omega\big\}$, una superficie de dimensión $m$ en $\mathbb{R}^{m+n}$. La transformada tiene una variable nueva, que ahora es un vector común a todas las funciones, y $n$ funciones nuevas:
 
-2. **Las pendientes forman una matriz.** Derivamos la definición de $\tilde{f}_i$ respecto de $x_l$ con la regla de la cadena y sustituimos los desarrollos de primer orden:
+  $$
+  \begin{aligned}
+  \tilde{\vec{x}}(\vec{x}) := \vec{X}_\varepsilon\big(\vec{x}, \vec{f}(\vec{x})\big), \qquad \tilde{f}_i\big(\tilde{\vec{x}}(\vec{x})\big) := Y_{\varepsilon, i}\big(\vec{x}, \vec{f}(\vec{x})\big).
+  \end{aligned}
+  $$
 
-   $$
-   \begin{aligned}
-   \sum_{k=1}^{m} \partial_k \tilde{f}_i(\tilde{\vec{x}}) \cdot d_l \tilde{x}_k &= d_l Y_{\varepsilon, i}, \\
-   d_l \tilde{x}_k &= \delta_{kl} + \varepsilon \cdot d_l \tau_k + O(\varepsilon^2), \\
-   d_l Y_{\varepsilon, i} &= \partial_l f_i + \varepsilon \cdot d_l \xi_i + O(\varepsilon^2).
-   \end{aligned}
-   $$
+* **$\tilde{\vec{x}}$ tiene que ser un difeomorfismo** de $\Omega$ sobre su imagen, $\tilde{\Omega} := \tilde{\vec{x}}(\Omega)$, para que las $\tilde{f}_i$ estén bien definidas. Es el análogo de que $\tilde{x}$ sea creciente (apartado 3.1), y se cumple para $|\varepsilon|$ pequeño:
+  * **Es una perturbación de la identidad:** $\tilde{\vec{x}} = Id + \varepsilon \cdot \vec{w}_\varepsilon$, con $\vec{w}_\varepsilon(\vec{x}) = \int_0^1 \partial_\varepsilon \vec{X}_{s \cdot \varepsilon}\big(\vec{x}, \vec{f}(\vec{x})\big) \,ds$ (teorema fundamental del cálculo en $\varepsilon$). Sea $\varepsilon_0 > 0$ tal que la familia está definida para $|\varepsilon| \leq \varepsilon_0$. Las derivadas de $\vec{w}_\varepsilon$ respecto de las $x_k$ existen y son continuas en $(\varepsilon, \vec{x})$, por la derivación bajo el signo integral (apartado 8.3). Como son continuas en el conjunto cerrado y acotado $[-\varepsilon_0, \varepsilon_0] \times \Omega$, están acotadas por una constante $M$.
+  * **Es inyectiva.** La caja es convexa: el segmento entre dos de sus puntos, $\vec{z}_1$ y $\vec{z}_2$, está en ella. Por la **desigualdad del valor medio**, $|\vec{w}_\varepsilon(\vec{z}_1) - \vec{w}_\varepsilon(\vec{z}_2)| \leq m \cdot M \cdot |\vec{z}_1 - \vec{z}_2|$. (Se obtiene aplicando el teorema del valor medio de una variable a $t \mapsto \vec{v} \cdot \vec{w}_\varepsilon\big(\vec{z}_2 + t \cdot (\vec{z}_1 - \vec{z}_2)\big)$, con $\vec{v}$ el vector unitario en la dirección de $\vec{w}_\varepsilon(\vec{z}_1) - \vec{w}_\varepsilon(\vec{z}_2)$; el factor $m \cdot M$ acota la matriz jacobiana de $\vec{w}_\varepsilon$, que tiene $m^2$ elementos acotados por $M$.) Entonces $|\tilde{\vec{x}}(\vec{z}_1) - \tilde{\vec{x}}(\vec{z}_2)| \geq (1 - |\varepsilon| \cdot m \cdot M) \cdot |\vec{z}_1 - \vec{z}_2|$, que es positivo si $\vec{z}_1 \neq \vec{z}_2$ y $|\varepsilon| < \dfrac{1}{m \cdot M}$.
+  * **Su inversa es de clase $C^2$**, por el teorema de la función inversa (apartado 6.5), aplicado en un abierto que contiene la caja: $\det J_{\tilde{\vec{x}}}$ está próximo a $1$ (apartado 9.2) y no se anula, y como $\tilde{\vec{x}}$ es inyectiva, las inversas locales son la inversa de $\tilde{\vec{x}}$. Por tanto, $\tilde{\vec{x}}$ es un difeomorfismo (apartado 6.5) de $\Omega$ sobre su imagen.
+* **Momentos y expresiones de Euler–Lagrange**, a lo largo de $\vec{f}$. Hay un momento por cada función y cada variable:
 
-   Igualando los coeficientes de $\varepsilon$:
+  $$
+  \begin{aligned}
+  u_{ik} := \partial_{z_{ik}} \bsL(\vec{f}, J_{\vec{f}})(\vec{x}), \qquad \varphi_i := \partial_{f_i} \bsL(\vec{f}, J_{\vec{f}})(\vec{x}) - \sum_{k=1}^{m} d_{x_k} u_{ik}.
+  \end{aligned}
+  $$
 
-   $$
-   \begin{aligned}
-   \partial_l \tilde{f}_i(\tilde{\vec{x}}) = \partial_l f_i + \varepsilon \cdot \Big(d_l \xi_i - \sum_{k=1}^{m} \partial_k f_i \cdot d_l \tau_k\Big) + O(\varepsilon^2).
-   \end{aligned}
-   $$
+  En «El formalismo lagrangiano: parte matemática», $\partial_{z_{ik}} \bsL$ se escribe $\partial_{\partial_{x_k} f_i} \bsL$. Con $m = 1$, $u_{i1} = p_i$ y $\varphi_i$ es la del apartado 8.1.
+* **Las soluciones** cumplen las $n$ ecuaciones de Euler–Lagrange, $\varphi_i = 0$, que ahora son ecuaciones en derivadas parciales: en ellas intervienen las derivadas parciales de las $f_i$ respecto de varias variables. Son las funciones que hacen estacionario a $\bsS$ con los valores fijados en la frontera de $\Omega$ («El formalismo lagrangiano: parte matemática», generalización a funciones vectoriales de varias variables).
+* **Regularidad**, por los argumentos del apartado 6.1: las $u_{ik}$, y las $\tau_k$ y las $\xi_i$ a lo largo de $\vec{f}$, son de clase $C^1$, y las $\varphi_i$ son continuas.
 
-   En forma matricial, $J_{\tilde{\vec{f}}}(\tilde{\vec{x}}) = J_{\vec{Y}} \cdot J_{\tilde{\vec{x}}}^{-1}$. Con $m = 1$ es el cociente $\tilde{f}_i' = \dfrac{Y_i'}{X'}$ de los apartados 5 y 8.
+### 9.2. Las dos piezas nuevas: el factor de volumen y las pendientes
 
-3. **En el mismo punto**, cada función transformada se diferencia de la original en $\varepsilon \cdot \bar{\xi}_i$, con
+Son los análogos de $\tilde{x}'$ y de $\dfrac{\tilde{y}'}{\tilde{x}'}$ del apartado 5, punto (2). A lo largo de $\vec{f}$ llamamos $J_{\vec{\tau}}$ y $J_{\vec{\xi}}$ a las matrices jacobianas de $\vec{x} \mapsto \vec{\tau}(\vec{x})$ y de $\vec{x} \mapsto \vec{\xi}(\vec{x})$, de elementos $d_{x_l} \tau_k$ y $d_{x_l} \xi_i$; $J_{\tilde{\vec{y}}}$ a la de $\vec{x} \mapsto \tilde{\vec{y}}(\vec{x}) := \vec{Y}_\varepsilon\big(\vec{x}, \vec{f}(\vec{x})\big)$; e $I$ a la matriz identidad $m \times m$. Las derivadas respecto de $\varepsilon$ y de $\vec{x}$ conmutan (teorema de Schwarz, como en el apartado 6.5), así que, salvo términos de orden $\varepsilon^2$,
 
-   $$
-   \begin{aligned}
-   \bar{\xi}_i := \xi_i - \sum_{k=1}^{m} \tau_k \cdot \partial_k f_i,
-   \end{aligned}
-   $$
+$$
+\begin{aligned}
+J_{\tilde{\vec{x}}} = I + \varepsilon \cdot J_{\vec{\tau}}, \qquad J_{\tilde{\vec{y}}} = J_{\vec{f}} + \varepsilon \cdot J_{\vec{\xi}}.
+\end{aligned}
+$$
 
-   porque desplazar el punto en la dirección $\vec{\tau}$ cambia $f_i$, a primer orden, en la derivada direccional $\sum_k \tau_k \cdot \partial_k f_i$. Con $m = 1$ es $\xi_i - \tau \cdot f'_i$.
+**El factor de volumen.** El **teorema del cambio de variables** dice: si $G$ es un difeomorfismo de clase $C^1$ de un abierto que contiene la caja $B$ sobre su imagen, y $h$ es continua en $G(B)$, entonces
 
-4. **El lema del apartado 8.2.** Definimos $D$ igual, como el coeficiente de $\varepsilon$ de $\bsL(\tilde{\vec{f}}, J_{\tilde{\vec{f}}}, \tilde{\vec{x}}) \cdot \det J_{\tilde{\vec{x}}}(\vec{x})$, y la misma deducción da
+$$
+\begin{aligned}
+\int_{G(B)} h(\vec{u}) \,du_1 \cdots du_m = \int_B h\big(G(\vec{x})\big) \cdot \big|\det J_G(\vec{x})\big| \,dx_1 \cdots dx_m.
+\end{aligned}
+$$
 
-   $$
-   \begin{aligned}
-   D = \sum_{i=1}^{n} \Big(\partial_{f_i} \bsL \cdot \bar{\xi}_i + \sum_{k=1}^{m} u_{ik} \cdot d_k \bar{\xi}_i\Big) + \sum_{k=1}^{m} d_k(\tau_k \cdot \bsL).
-   \end{aligned}
-   $$
+La integral de la izquierda es sobre una región que no tiene por qué ser una caja: se define como la integral, sobre una caja que la contiene, de la función que vale $h$ en la región y $0$ fuera, y existe porque la frontera de $G(B)$ tiene volumen nulo. Con $G = \tilde{\vec{x}}$, se escribe $d\tilde{x}_1 \cdots d\tilde{x}_m = \det J_{\tilde{\vec{x}}}(\vec{x}) \cdot dx_1 \cdots dx_m$, con
 
-   En el mismo punto, el desarrollo de Taylor en $\vec{y}$ y $Z$ da la primera suma; el resto, $\sum_k \big(\tau_k \cdot d_k \bsL + \bsL \cdot d_k \tau_k\big)$, es una divergencia por la regla del producto.
+$$
+\begin{aligned}
+\det J_{\tilde{\vec{x}}} = 1 + \varepsilon \cdot \operatorname{tr} J_{\vec{\tau}} + O(\varepsilon^2) = 1 + \varepsilon \cdot \sum_{k=1}^{m} d_{x_k} \tau_k + O(\varepsilon^2).
+\end{aligned}
+$$
 
-5. **La condición de simetría.** La integral transformada, sobre $\tilde{\Omega}$, tiene que ser la original más un término de borde:
+* **Por qué.** En la fórmula de Leibniz, $\det A = \sum_{\sigma} \operatorname{sgn}(\sigma) \cdot \prod_k A_{k \sigma(k)}$, con la suma sobre las permutaciones $\sigma$ de $\{1, \dots, m\}$. La identidad da el producto de la diagonal, $\prod_k (1 + \varepsilon \cdot d_{x_k} \tau_k) = 1 + \varepsilon \cdot \sum_k d_{x_k} \tau_k + O(\varepsilon^2)$. Cualquier otra permutación mueve al menos dos índices, así que su producto contiene al menos dos elementos fuera de la diagonal, cada uno de orden $\varepsilon$.
+* **La suma $\sum_k d_{x_k} \tau_k$ es la divergencia** de $\vec{\tau}$ a lo largo de $\vec{f}$, y ocupa el lugar de $\tau'$. Con $m = 1$, $\det J_{\tilde{\vec{x}}} = \tilde{x}' = 1 + \varepsilon \cdot \tau'$.
+* Para $|\varepsilon|$ pequeño, $\det J_{\tilde{\vec{x}}} > 0$, así que coincide con su valor absoluto, que es el que aparece en el teorema del cambio de variables.
 
-   $$
-   \begin{aligned}
-   &\int_{\tilde{\Omega}} \bsL(\tilde{\vec{f}}, J_{\tilde{\vec{f}}}, \tilde{\vec{x}})\, d^m \tilde{x} \\
-   &\qquad = \int_{\Omega} \bsL(\vec{f}, J_{\vec{f}}, \vec{x})\, d^m x + \varepsilon \cdot \int_{\partial\Omega} \vec{F} \cdot \vec{n}\, dS + O(\varepsilon^2),
-   \end{aligned}
-   $$
+**Las pendientes.** Derivamos la definición $\tilde{f}_i\big(\tilde{\vec{x}}(\vec{x})\big) = \tilde{y}_i(\vec{x})$ respecto de $x_l$. Por la regla de la cadena, $\sum_k \partial_k \tilde{f}_i(\tilde{\vec{x}}) \cdot d_{x_l} \tilde{x}_k = d_{x_l} \tilde{y}_i$, es decir, en forma matricial,
 
-   para todo subdominio $\Omega$, con $\vec{n}$ la normal exterior y $\vec{F} = (F_1, \dots, F_m)$ evaluado en $\big(\vec{x}, \vec{f}(\vec{x})\big)$. Con $m = 1$, el borde de $[a, b]$ son los dos extremos, con normales $-1$ y $+1$, y el término de borde es $F(b) - F(a)$, como en el apartado 4. Por el teorema de la divergencia, y porque vale en todo subdominio, la condición equivale a
+$$
+\begin{aligned}
+J_{\tilde{\vec{f}}}(\tilde{\vec{x}}) \cdot J_{\tilde{\vec{x}}} = J_{\tilde{\vec{y}}} \quad \Longrightarrow \quad J_{\tilde{\vec{f}}}(\tilde{\vec{x}}) = J_{\tilde{\vec{y}}} \cdot J_{\tilde{\vec{x}}}^{-1},
+\end{aligned}
+$$
 
-   $$
-   \begin{aligned}
-   D = \sum_{k=1}^{m} d_k F_k.
-   \end{aligned}
-   $$
+porque $J_{\tilde{\vec{x}}}$ es invertible. Como $(I + \varepsilon \cdot J_{\vec{\tau}}) \cdot (I - \varepsilon \cdot J_{\vec{\tau}}) = I - \varepsilon^2 \cdot J_{\vec{\tau}}^2$, la inversa es $J_{\tilde{\vec{x}}}^{-1} = I - \varepsilon \cdot J_{\vec{\tau}} + O(\varepsilon^2)$, y
 
-6. **Cuándo existe $\vec{F}$.**
-   * **Si cada $F_k$ solo depende de $(\vec{x}, \vec{y})$**, $\sum_k d_k F_k = \sum_k \partial_{x_k} F_k + \sum_{i, k} \partial_{y_i} F_k \cdot z_{ik}$ es afín en $Z$. Así que $D = a + \sum_{i, k} b_{ik} \cdot z_{ik}$, con $a = \sum_k \partial_{x_k} F_k$ y $b_{ik} = \partial_{y_i} F_k$, y las condiciones de integrabilidad son
+$$
+\begin{aligned}
+J_{\tilde{\vec{f}}}(\tilde{\vec{x}}) &= \big(J_{\vec{f}} + \varepsilon \cdot J_{\vec{\xi}}\big) \cdot \big(I - \varepsilon \cdot J_{\vec{\tau}}\big) + O(\varepsilon^2) \\
+&= J_{\vec{f}} + \varepsilon \cdot \big(J_{\vec{\xi}} - J_{\vec{f}} \cdot J_{\vec{\tau}}\big) + O(\varepsilon^2).
+\end{aligned}
+$$
+
+Elemento a elemento:
+
+$$
+\begin{aligned}
+\partial_l \tilde{f}_i(\tilde{\vec{x}}) = \partial_l f_i + \varepsilon \cdot \Big(d_{x_l} \xi_i - \sum_{k=1}^{m} \partial_k f_i \cdot d_{x_l} \tau_k\Big) + O(\varepsilon^2).
+\end{aligned}
+$$
+
+Con $m = 1$ es $\dfrac{\tilde{y}_i'}{\tilde{x}'} = f_i' + \varepsilon \cdot (\xi_i' - \tau' \cdot f_i') + O(\varepsilon^2)$, la del apartado 5, punto (2), para cada componente.
+
+### 9.3. El término $D$
+
+Como en el apartado 6.5, definimos $D$ como el coeficiente de $\varepsilon$ del integrando transformado, escrito en la variable vieja:
+
+$$
+\begin{aligned}
+D(\vec{x}) := \left.\dfrac{d}{d\varepsilon}\Big(\bsL(\tilde{\vec{f}}, J_{\tilde{\vec{f}}})(\tilde{\vec{x}}) \cdot \det J_{\tilde{\vec{x}}}(\vec{x})\Big)\right|_{\varepsilon = 0}.
+\end{aligned}
+$$
+
+$D$ ya incluye el factor de volumen, igual que en una variable incluía $\tilde{x}'$.
+
+**La forma de cuatro términos.** Por el apartado 9.2, los argumentos de $\bsL$ se desplazan, por unidad de $\varepsilon$, en $\xi_i$ (los valores), en $d_{x_l} \xi_i - \sum_k \partial_k f_i \cdot d_{x_l} \tau_k$ (las pendientes) y en $\tau_k$ (el punto), y el factor de volumen aporta $\bsL \cdot \sum_k d_{x_k} \tau_k$. El desarrollo de Taylor de $\bsL$ da
+
+$$
+\begin{aligned}
+D &= \sum_{i=1}^{n} \partial_{f_i} \bsL \cdot \xi_i + \sum_{i=1}^{n} \sum_{l=1}^{m} u_{il} \cdot \Big(d_{x_l} \xi_i - \sum_{k=1}^{m} \partial_k f_i \cdot d_{x_l} \tau_k\Big) \\
+&\qquad + \sum_{k=1}^{m} \partial_{x_k} \bsL \cdot \tau_k + \bsL \cdot \sum_{k=1}^{m} d_{x_k} \tau_k.
+\end{aligned}
+$$
+
+Con $m = 1$ es la del apartado 5, punto (2), componente a componente.
+
+**$D$ es del mismo tipo que $\bsL$**, como en el apartado 5: una función de $(\vec{y}, Z, \vec{x})$, sin derivadas segundas. Sus ingredientes son las derivadas parciales de $\bsL$; las $\partial_k f_i$, que son las variables $z_{ik}$; y las derivadas $d_{x_l} \xi_i = \partial_{x_l} \xi_i + \sum_j \partial_{y_j} \xi_i \cdot z_{jl}$ y $d_{x_l} \tau_k$, que tampoco contienen derivadas segundas, porque $\vec{\xi}$ y $\vec{\tau}$ solo dependen de $(\vec{x}, \vec{y})$.
+
+**El lema.** Como en el apartado 8.2:
+
+$$
+\begin{aligned}
+\varepsilon \cdot D &\overset{(1)}{=} \bsL(\tilde{\vec{f}}, J_{\tilde{\vec{f}}})(\tilde{\vec{x}}) \cdot \det J_{\tilde{\vec{x}}} - \bsL(\vec{f}, J_{\vec{f}})(\vec{x}) + O(\varepsilon^2) \\
+&\overset{(2)}{=} \Big(\bsL(\tilde{\vec{f}}, J_{\tilde{\vec{f}}})(\vec{x}) + \varepsilon \cdot \sum_{k=1}^{m} \tau_k \cdot d_{x_k} \bsL(\tilde{\vec{f}}, J_{\tilde{\vec{f}}})(\vec{x})\Big) \\
+&\qquad \cdot \Big(1 + \varepsilon \cdot \sum_{k=1}^{m} d_{x_k} \tau_k\Big) - \bsL(\vec{f}, J_{\vec{f}})(\vec{x}) + O(\varepsilon^2) \\
+&\overset{(3)}{=} \Big(\bsL(\tilde{\vec{f}}, J_{\tilde{\vec{f}}})(\vec{x}) - \bsL(\vec{f}, J_{\vec{f}})(\vec{x})\Big) \\
+&\qquad + \varepsilon \cdot \sum_{k=1}^{m} \big(\tau_k \cdot d_{x_k} \bsL + \bsL \cdot d_{x_k} \tau_k\big) + O(\varepsilon^2) \\
+&\overset{(4)}{=} \varepsilon \cdot \sum_{i=1}^{n} \Big(\partial_{f_i} \bsL \cdot \bar{\xi}_i + \sum_{k=1}^{m} u_{ik} \cdot d_{x_k} \bar{\xi}_i\Big) + \varepsilon \cdot \sum_{k=1}^{m} d_{x_k}(\tau_k \cdot \bsL) + O(\varepsilon^2),
+\end{aligned}
+$$
+
+con
+
+$$
+\begin{aligned}
+\bar{\xi}_i := \xi_i - \sum_{k=1}^{m} \tau_k \cdot \partial_k f_i.
+\end{aligned}
+$$
+
+Justificación de cada igualdad:
+
+* **(1)** Desarrollo de Taylor en $\varepsilon$. El valor en $\varepsilon = 0$ es $\bsL(\vec{f}, J_{\vec{f}})(\vec{x})$, porque entonces $\tilde{\vec{x}} = \vec{x}$, $\tilde{\vec{f}} = \vec{f}$ y $\det J_{\tilde{\vec{x}}} = 1$; el coeficiente de $\varepsilon$ es $D(\vec{x})$, por definición.
+* **(2)** El punto se mueve, $\tilde{\vec{x}} = \vec{x} + \varepsilon \cdot \vec{\tau} + O(\varepsilon^2)$, y el desarrollo de Taylor de primer orden en el punto, en $m$ variables, da la suma $\varepsilon \cdot \sum_k \tau_k \cdot d_{x_k}(\cdots)$, la derivada direccional en la dirección $\vec{\tau}$. Es la derivada de la función compuesta, porque al mover el punto se mueven todos los argumentos de $\bsL$. El segundo factor es $\det J_{\tilde{\vec{x}}}$ (apartado 9.2).
+* **(3)** Multiplicamos, llevamos los términos de orden $\varepsilon^2$ al resto y sustituimos $\tilde{\vec{f}}$ por $\vec{f}$ donde ya va multiplicado por $\varepsilon$. Ahora $d_{x_k} \bsL$ es la derivada de $\bsL(\vec{f}, J_{\vec{f}})$.
+* **(4)** Dos partes, como en el apartado 6.5:
+  * **En el mismo punto $\vec{x}$**, cada función transformada se diferencia de la original en $\varepsilon \cdot \bar{\xi}_i$. Si $\vec{x}$ es interior a $\Omega$ y $|\varepsilon| \ll 1$, está en el dominio de $\tilde{f}_i$; en la frontera basta extender $\vec{f}$, como en el apartado 6.5. El punto viejo es $\vec{x} = \tilde{\vec{x}} - \varepsilon \cdot \vec{\tau} + O(\varepsilon^2)$. El desarrollo de Taylor de $\tilde{f}_i$ alrededor de $\tilde{\vec{x}}$, la definición de $\tilde{f}_i$ y $\partial_k \tilde{f}_i(\tilde{\vec{x}}) = \partial_k f_i + O(\varepsilon)$ (apartado 9.2) dan
+
+    $$
+    \begin{aligned}
+    \tilde{f}_i(\vec{x}) = \tilde{f}_i(\tilde{\vec{x}}) - \varepsilon \cdot \sum_{k=1}^{m} \tau_k \cdot \partial_k \tilde{f}_i(\tilde{\vec{x}}) + O(\varepsilon^2) = f_i + \varepsilon \cdot \bar{\xi}_i + O(\varepsilon^2).
+    \end{aligned}
+    $$
+
+    Desplazar la gráfica $\varepsilon \cdot \vec{\tau}$ en las variables cambia el valor en un punto fijo en menos la derivada direccional, $-\varepsilon \cdot \sum_k \tau_k \cdot \partial_k f_i$. Derivando respecto de $x_k$, con el teorema de Schwarz como en el apartado 6.5, $\partial_k \tilde{f}_i(\vec{x}) = \partial_k f_i + \varepsilon \cdot d_{x_k} \bar{\xi}_i + O(\varepsilon^2)$. El desarrollo de Taylor de $\bsL$ en sus $n + n \cdot m$ primeros argumentos, con $\vec{x}$ fijo, da la primera suma.
+  * **El resto es una divergencia**, por la regla del producto en cada $k$: $\tau_k \cdot d_{x_k} \bsL + \bsL \cdot d_{x_k} \tau_k = d_{x_k}(\tau_k \cdot \bsL)$.
+
+Quedándonos con el coeficiente de $\varepsilon$, el **lema en varias variables** es
+
+$$
+\begin{aligned}
+D = \sum_{i=1}^{n} \Big(\partial_{f_i} \bsL \cdot \bar{\xi}_i + \sum_{k=1}^{m} u_{ik} \cdot d_{x_k} \bar{\xi}_i\Big) + \sum_{k=1}^{m} d_{x_k}(\tau_k \cdot \bsL).
+\end{aligned}
+$$
+
+En $d_{x_k} \bar{\xi}_i$ y en $d_{x_k}(\tau_k \cdot \bsL)$ aparecen derivadas segundas de $\vec{f}$, pero se cancelan entre sí, porque la forma de cuatro términos no las contiene.
+
+### 9.4. La condición de simetría: $D$ es una divergencia
+
+**La condición.** Como en el apartado 4, se pide en cada subcaja $B := [c_1, d_1] \times \dots \times [c_m, d_m] \subseteq \Omega$ (aquí $B$ es una caja, no el campo magnético del apartado 8.5) y para toda $\vec{f}$ de clase $C^2$, sin valores fijados en la frontera:
+
+$$
+\begin{aligned}
+&\int_{\tilde{\vec{x}}(B)} \bsL(\tilde{\vec{f}}, J_{\tilde{\vec{f}}})(\tilde{\vec{x}}) \,d\tilde{x}_1 \cdots d\tilde{x}_m \\
+&\qquad = \int_B \bsL(\vec{f}, J_{\vec{f}})(\vec{x}) \,dx_1 \cdots dx_m \\
+&\qquad\quad + \varepsilon \cdot \sum_{k=1}^{m} \int_{B_k} \Big[F_k\Big]_{x_k = c_k}^{x_k = d_k} d\hat{x}_k + O(\varepsilon^2).
+\end{aligned}
+$$
+
+* $\vec{F} = (F_1, \dots, F_m)$ es un campo de $m$ funciones $F_k(\vec{x}, \vec{y})$ de clase $C^1$, el mismo para todas las $\vec{f}$, que se evalúa en $\big(\vec{x}, \vec{f}(\vec{x})\big)$.
+* $B_k$ es la caja de las otras $m - 1$ variables y $d\hat{x}_k$, el producto de sus diferenciales, como en «El formalismo lagrangiano: parte matemática». El término de $\vec{F}$ es su **flujo** saliente a través de las caras de $B$: lo que sale por las caras $x_k = d_k$ menos lo que entra por las caras $x_k = c_k$.
+* Con $m = 1$, $B = [c_1, d_1]$ es el subintervalo $[c, d]$ del apartado 4, no hay otras variables y el término es $F(d) - F(c)$.
+* La región transformada, $\tilde{\vec{x}}(B)$, ya no es una caja. No importa, porque el cambio de variables la lleva de vuelta a $B$.
+
+**La condición, paso a paso**, como en el apartado 5, con $\bsL = \bsL(\vec{f}, J_{\vec{f}})(\vec{x})$ en el lado derecho:
+
+$$
+\begin{aligned}
+&\int_{\tilde{\vec{x}}(B)} \bsL(\tilde{\vec{f}}, J_{\tilde{\vec{f}}})(\tilde{\vec{x}}) \,d\tilde{x}_1 \cdots d\tilde{x}_m \\
+&\quad \overset{(1)}{=} \int_B \bsL(\tilde{\vec{f}}, J_{\tilde{\vec{f}}})\big(\tilde{\vec{x}}(\vec{x})\big) \cdot \det J_{\tilde{\vec{x}}}(\vec{x}) \,dx_1 \cdots dx_m \\
+&\quad \overset{(2)}{=} \int_B \big(\bsL + \varepsilon \cdot D\big) \,dx_1 \cdots dx_m + O(\varepsilon^2) \\
+&\quad \overset{(3)}{=} \int_B \Big(\bsL + \varepsilon \cdot \sum_{k=1}^{m} d_{x_k} F_k\Big) \,dx_1 \cdots dx_m + O(\varepsilon^2) \\
+&\quad \overset{(4)}{=} \int_B \bsL \,dx_1 \cdots dx_m + \varepsilon \cdot \sum_{k=1}^{m} \int_{B_k} \Big[F_k\Big]_{x_k = c_k}^{x_k = d_k} d\hat{x}_k + O(\varepsilon^2).
+\end{aligned}
+$$
+
+* **(1) Cambio de variables** $\tilde{\vec{x}} = \tilde{\vec{x}}(\vec{x})$, válido porque $\tilde{\vec{x}}$ es un difeomorfismo (apartado 9.1), con el factor de volumen del apartado 9.2.
+* **(2) Definición de $D$** (apartado 9.3). El resto, integrado en $B$, sigue siendo de orden $\varepsilon^2$: las derivadas segundas de $\bsL$ y de $\Phi_\varepsilon$ son continuas en un conjunto cerrado y acotado que contiene todos los puntos que intervienen, y por tanto están acotadas, así que el resto de Taylor está acotado por $C \cdot \varepsilon^2$ con $C$ independiente de $\vec{x}$ (como en el apartado 5, punto (2)).
+* **(3) La hipótesis de simetría:** $D = \sum_k d_{x_k} F_k$ en cada punto, para toda $\vec{f}$. Es la única igualdad que no vale siempre.
+* **(4) Teorema de Fubini y regla de Barrow** en cada variable, como en la integración por partes de «El formalismo lagrangiano: parte matemática»:
+
+  $$
+  \begin{aligned}
+  \int_B d_{x_k} F_k \,dx_1 \cdots dx_m = \int_{B_k} \left(\int_{c_k}^{d_k} d_{x_k} F_k \,dx_k\right) d\hat{x}_k = \int_{B_k} \Big[F_k\Big]_{x_k = c_k}^{x_k = d_k} d\hat{x}_k.
+  \end{aligned}
+  $$
+
+  Es el teorema de la divergencia en una caja.
+
+**Por qué en cada punto.** Si $\int_B \big(D - \sum_k d_{x_k} F_k\big) \,dx_1 \cdots dx_m = 0$ en toda subcaja $B$, el integrando, que es continuo, es nulo: si fuera positivo en un punto, lo sería en una subcaja pequeña alrededor de él, y la integral en esa subcaja sería positiva (lo mismo si fuera negativo). Es el análogo de derivar respecto de $d$ en el apartado 5, punto (3).
+
+**Lo que se exige no es que $D$ sea una divergencia a lo largo de cada $\vec{f}$.** Eso se cumple siempre: por ejemplo, $D = d_{x_1} G$ con $G(\vec{x}) = \int_{a_1}^{x_1} D(s, x_2, \dots, x_m) \,ds$. Pero ese campo depende de los valores de $\vec{f}$ en todo un segmento. Lo que se exige es un campo **local**, $F_k(\vec{x}, \vec{y})$, el mismo para todas las $\vec{f}$ y evaluado en el punto.
+
+### 9.5. Cuándo existe $\vec{F}$: las condiciones de integrabilidad
+
+Como en los apartados 5, punto (3), y 8.3:
+
+* **$D$ tiene que ser afín en $Z$.** Si cada $F_k$ solo depende de $(\vec{x}, \vec{y})$,
+
+  $$
+  \begin{aligned}
+  \sum_{k=1}^{m} d_{x_k} F_k = \sum_{k=1}^{m} \partial_{x_k} F_k + \sum_{i=1}^{n} \sum_{k=1}^{m} \partial_{y_i} F_k \cdot z_{ik}
+  \end{aligned}
+  $$
+
+  es afín en $Z$. Así que $D = \alpha(\vec{x}, \vec{y}) + \sum_{i, k} \beta_{ik}(\vec{x}, \vec{y}) \cdot z_{ik}$, y la condición de simetría es la identidad $\alpha = \sum_k \partial_{x_k} F_k$ y $\beta_{ik} = \partial_{y_i} F_k$ para todo $i$ y todo $k$.
+* **Las condiciones de integrabilidad.** Si existe $\vec{F}$, con $\alpha$ y las $\beta_{ik}$ de clase $C^1$,
+
+  $$
+  \begin{aligned}
+  \partial_{y_j} \beta_{ik} = \partial_{y_i} \beta_{jk}, \qquad \partial_{y_i} \alpha = \sum_{k=1}^{m} \partial_{x_k} \beta_{ik}.
+  \end{aligned}
+  $$
+
+  * La primera, para cada $k$, es el teorema de Schwarz para $F_k$ en las variables $\vec{y}$: $\partial_{y_j} \partial_{y_i} F_k = \partial_{y_i} \partial_{y_j} F_k$.
+  * La segunda sale de derivar $\alpha = \sum_k \partial_{x_k} F_k$ respecto de $y_i$ e intercambiar el orden de derivación (teorema de Schwarz): $\partial_{y_i} \alpha = \sum_k \partial_{x_k} \partial_{y_i} F_k = \sum_k \partial_{x_k} \beta_{ik}$.
+  * Con $m = 1$ son las del apartado 8.3, con $\beta_i := \beta_{i1}$: $\partial_{y_j} \beta_i = \partial_{y_i} \beta_j$ y $\partial_{y_i} \alpha = \partial_x \beta_i$.
+  * Con $m \geq 2$, la segunda solo fija cómo depende $\alpha$ de $\vec{y}$. Cómo depende de $\vec{x}$ es libre, porque cualquier función continua de $\vec{x}$ es una divergencia (el último paso de la demostración siguiente).
+* **También bastan**, si $\alpha$ y las $\beta_{ik}$ son de clase $C^2$ y los valores $\vec{y}$ recorren una caja $K \subseteq \mathbb{R}^n$ (o un conjunto estrellado). La demostración tiene tres pasos:
+  1. **Las $\vec{y}$.** Con $\vec{x}$ y $k$ fijos, la primera condición dice que la forma $\sum_i \beta_{ik} \cdot dy_i$ es cerrada en $K$. Por el lema de Poincaré (apartado 8.3), existe $F_k^0(\vec{x}, \vec{y})$ con $\partial_{y_i} F_k^0 = \beta_{ik}$. La fórmula explícita del lema, con $\vec{y}_*$ el centro de $K$,
 
      $$
      \begin{aligned}
-     \partial_{y_j} b_{ik} = \partial_{y_i} b_{jk}, \qquad \partial_{y_i} a = \sum_{k=1}^{m} \partial_{x_k} b_{ik}.
+     F_k^0(\vec{x}, \vec{y}) = \int_0^1 \sum_{i=1}^{n} \beta_{ik}\big(\vec{x}, \vec{y}_* + s \cdot (\vec{y} - \vec{y}_*)\big) \cdot (y_i - y_{*, i}) \,ds,
      \end{aligned}
      $$
 
-     La primera, para cada $k$, es la simetría de las derivadas segundas de $F_k$ respecto de las $y$ (teorema de Schwarz); la segunda sale de derivar $a$ respecto de $y_i$ e intercambiar el orden de derivación. Con $m = 1$ son las del apartado 8.3.
-   * **Con $m \geq 2$, $D$ no tiene por qué ser afín.** El argumento del apartado 5, punto (3), deja de valer: $F_k$ puede depender de $Z$ si las derivadas segundas se cancelan en la divergencia. Por ejemplo, con $n = m = 2$, por el teorema de Schwarz,
+     muestra que también es derivable respecto de $\vec{x}$ (derivación bajo el signo integral, apartado 8.3).
+  2. **Lo que falta no depende de $\vec{y}$.** $\chi := \alpha - \sum_k \partial_{x_k} F_k^0$ cumple $\partial_{y_i} \chi = \partial_{y_i} \alpha - \sum_k \partial_{x_k} \beta_{ik} = 0$, por la segunda condición. Como $K$ es una caja, para cada $\vec{y}$ la función $s \mapsto \chi\big(\vec{x}, \vec{y}_* + s \cdot (\vec{y} - \vec{y}_*)\big)$ tiene derivada nula en $[0, 1]$ y, por el teorema del valor medio, es constante: $\chi$ solo depende de $\vec{x}$.
+  3. **Las $\vec{x}$.** Tomamos $F_1 := F_1^0 + \int_{a_1}^{x_1} \chi(s, x_2, \dots, x_m) \,ds$ y $F_k := F_k^0$ para $k \geq 2$. Entonces $\partial_{y_i} F_k = \beta_{ik}$ y $\sum_k \partial_{x_k} F_k = \sum_k \partial_{x_k} F_k^0 + \chi = \alpha$.
+* **$\vec{F}$ no es única.** Se le puede sumar cualquier campo cuya divergencia sea nula a lo largo de toda $\vec{f}$. Con $m = 1$ solo hay constantes; con $m \geq 2$ hay muchos más, por ejemplo $(\partial_{x_2} \zeta, -\partial_{x_1} \zeta, 0, \dots, 0)$ con $\zeta(\vec{x})$ de clase $C^2$. Haber puesto $\chi$ en $F_1$, en el paso 3, es una de esas elecciones.
+* **Con $m \geq 2$, $F_k$ podría depender de $Z$.** En una variable, $F$ no podía depender de $y'$, porque $\dfrac{dF}{dx}$ contendría $y''$ y nada lo cancela. Con varias variables, las derivadas segundas pueden cancelarse en la divergencia. Con $n = m = 2$, por el teorema de Schwarz,
 
-     $$
-     \begin{aligned}
-     d_1\big(f_1 \cdot \partial_2 f_2\big) + d_2\big(-f_1 \cdot \partial_1 f_2\big) = \partial_1 f_1 \cdot \partial_2 f_2 - \partial_2 f_1 \cdot \partial_1 f_2 = \det J_{\vec{f}},
-     \end{aligned}
-     $$
+  $$
+  \begin{aligned}
+  d_{x_1}\big(f_1 \cdot \partial_2 f_2\big) + d_{x_2}\big(-f_1 \cdot \partial_1 f_2\big) = \partial_1 f_1 \cdot \partial_2 f_2 - \partial_2 f_1 \cdot \partial_1 f_2 = \det J_{\vec{f}},
+  \end{aligned}
+  $$
 
-     que es cuadrático en $Z$. Con $m = 1$ no ocurre, porque $\dfrac{dF}{dx}$ contiene $\sum_i \partial_{y_i'} F \cdot y_i''$, que no se cancela con nada.
-   * **$\vec{F}$ no es única:** se le puede sumar cualquier campo de divergencia nula. Con $m = 1$, solo una constante.
+  que es cuadrático en $Z$. Si se admiten estos campos, $D$ ya no tiene por qué ser afín. $\det J_{\vec{f}}$ es un **lagrangiano nulo**: sus expresiones de Euler–Lagrange son idénticamente nulas. Aquí nos quedamos con $F_k(\vec{x}, \vec{y})$, que basta para los ejemplos; la identidad del apartado 9.6 vale igual para cualquier campo con $D = \sum_k d_{x_k} F_k$ y $F_k$ de clase $C^1$ a lo largo de $\vec{f}$.
 
-7. **El lema del apartado 6.2 y la identidad.** Por la regla del producto en cada $k$ y la definición de $\varphi_i$, para toda $\vec{\eta}$ de clase $C^1$:
+### 9.6. La identidad y el teorema de Noether
+
+**El lema del apartado 6.2, en varias variables.** Para toda $\vec{\eta} = (\eta_1, \dots, \eta_n)$ de clase $C^1$ en $\Omega$:
+
+$$
+\begin{aligned}
+&\sum_{i=1}^{n} \Big(\partial_{f_i} \bsL \cdot \eta_i + \sum_{k=1}^{m} u_{ik} \cdot d_{x_k} \eta_i\Big) \\
+&\quad \overset{(1)}{=} \sum_{i=1}^{n} \Big(\partial_{f_i} \bsL \cdot \eta_i + \sum_{k=1}^{m} \big(d_{x_k}(u_{ik} \cdot \eta_i) - d_{x_k} u_{ik} \cdot \eta_i\big)\Big) \\
+&\quad \overset{(2)}{=} \sum_{i=1}^{n} \Big(\partial_{f_i} \bsL - \sum_{k=1}^{m} d_{x_k} u_{ik}\Big) \cdot \eta_i + \sum_{k=1}^{m} d_{x_k}\Big(\sum_{i=1}^{n} u_{ik} \cdot \eta_i\Big) \\
+&\quad \overset{(3)}{=} \sum_{i=1}^{n} \varphi_i \cdot \eta_i + \sum_{k=1}^{m} d_{x_k}\Big(\sum_{i=1}^{n} u_{ik} \cdot \eta_i\Big).
+\end{aligned}
+$$
+
+* **(1)** Regla del producto para cada $i$ y cada $k$, $d_{x_k}(u_{ik} \cdot \eta_i) = d_{x_k} u_{ik} \cdot \eta_i + u_{ik} \cdot d_{x_k} \eta_i$, despejada para $u_{ik} \cdot d_{x_k} \eta_i$.
+* **(2)** Sacamos factor común $\eta_i$ en cada sumando, y la suma de las derivadas es la derivada de la suma (linealidad).
+* **(3)** Definición de $\varphi_i$.
+
+**Notación: el tensor de energía-momento.** Como $\bsH$ en el apartado 6.5, definimos a lo largo de $\vec{f}$ la matriz $m \times m$
+
+$$
+\begin{aligned}
+T_{kl} := \sum_{i=1}^{n} u_{ik} \cdot \partial_l f_i - \delta_{kl} \cdot \bsL,
+\end{aligned}
+$$
+
+donde $\delta_{kl}$ vale $1$ si $k = l$ y $0$ si no. Con $m = 1$, $T_{11} = \sum_i p_i \cdot f'_i - \bsL = \bsH$. Se llama **tensor de energía-momento canónico**. «Tensor» es el nombre que da la física a las magnitudes con índices cuyas componentes cambian de una forma determinada al cambiar de coordenadas; aquí solo usamos que es una matriz $m \times m$ de funciones. «Canónico» indica que sale directamente del lagrangiano, sin modificarlo. «Energía-momento» se explica en el apartado 9.7.
+
+**La identidad.** Las $\bar{\xi}_i$ son de clase $C^1$, porque las $\xi_i$, las $\tau_k$ y las $\partial_k f_i$ lo son. Aplicamos el lema con $\vec{\eta} = \bar{\vec{\xi}}$ al resultado del apartado 9.3, añadimos la hipótesis de simetría, $D = \sum_k d_{x_k} F_k$, y deshacemos $\bar{\xi}_i$:
+
+$$
+\begin{aligned}
+\sum_{k=1}^{m} d_{x_k} F_k &\overset{(1)}{=} \sum_{i=1}^{n} \varphi_i \cdot \bar{\xi}_i + \sum_{k=1}^{m} d_{x_k}\Big(\sum_{i=1}^{n} u_{ik} \cdot \bar{\xi}_i + \tau_k \cdot \bsL\Big) \\
+&\overset{(2)}{=} \sum_{i=1}^{n} \varphi_i \cdot \bar{\xi}_i + \sum_{k=1}^{m} d_{x_k}\Big(\sum_{i=1}^{n} u_{ik} \cdot \xi_i - \sum_{l=1}^{m} \tau_l \cdot \sum_{i=1}^{n} u_{ik} \cdot \partial_l f_i + \tau_k \cdot \bsL\Big) \\
+&\overset{(3)}{=} \sum_{i=1}^{n} \varphi_i \cdot \bar{\xi}_i + \sum_{k=1}^{m} d_{x_k}\Big(\sum_{i=1}^{n} u_{ik} \cdot \xi_i - \sum_{l=1}^{m} T_{kl} \cdot \tau_l\Big).
+\end{aligned}
+$$
+
+* **(1)** Hipótesis de simetría, el lema del apartado 9.3 y el lema anterior con $\vec{\eta} = \bar{\vec{\xi}}$; las divergencias se juntan por linealidad.
+* **(2)** Deshacemos $\bar{\xi}_i = \xi_i - \sum_l \tau_l \cdot \partial_l f_i$ (con $l$ como índice de la suma, para no repetir $k$) y repartimos el producto.
+* **(3)** Escribimos $\tau_k \cdot \bsL = \sum_l \delta_{kl} \cdot \tau_l \cdot \bsL$ y sacamos factor común $-\tau_l$: $-\sum_l \tau_l \cdot \big(\sum_i u_{ik} \cdot \partial_l f_i - \delta_{kl} \cdot \bsL\big) = -\sum_l T_{kl} \cdot \tau_l$.
+
+Pasando $\sum_k d_{x_k} F_k$ al otro lado, por linealidad, queda la **identidad de Noether en varias variables**, válida para toda $\vec{f}$ de clase $C^2$:
+
+$$
+\begin{aligned}
+\sum_{k=1}^{m} d_{x_k} Q_k = -\sum_{i=1}^{n} \varphi_i \cdot \Big(\xi_i - \sum_{k=1}^{m} \tau_k \cdot \partial_k f_i\Big),
+\end{aligned}
+$$
+
+con
+
+$$
+\begin{aligned}
+Q_k := \sum_{i=1}^{n} u_{ik} \cdot \xi_i - \sum_{l=1}^{m} T_{kl} \cdot \tau_l - F_k.
+\end{aligned}
+$$
+
+* El campo $\vec{Q} = (Q_1, \dots, Q_m)$ es la **corriente de Noether**. Sus componentes son de clase $C^1$, porque lo son las $u_{ik}$, las $\xi_i$, las $T_{kl}$, las $\tau_l$ y las $F_k$ a lo largo de $\vec{f}$.
+* Con $m = 1$, $Q_1$ es la $Q$ del apartado 8.4.
+* Con $\vec{\tau} = \vec{0}$ es la corriente de «El teorema de Noether: parte matemática», $Q_k = \sum_i u_{ik} \cdot \xi_i - F_k$.
+
+**El teorema: una ley de conservación local.** Si $\vec{f}_0$ es una solución, todas las $\varphi_i$ son nulas en $\Omega$, y
+
+$$
+\begin{aligned}
+\sum_{k=1}^{m} d_{x_k} Q_k = 0 \qquad \text{en todo } \Omega:
+\end{aligned}
+$$
+
+la corriente de Noether tiene divergencia nula. Con $m = 1$ es $Q' = 0$, y el teorema del valor medio da una constante (apartado 6.3). Con $m \geq 2$, un campo de divergencia nula no tiene por qué ser constante; lo que ocupa el lugar de la constante se ve en el apartado 9.7.
+
+**Qué no hemos usado.** Que $\vec{f}$ sea solución: la identidad vale para toda $\vec{f}$. Ni ninguna condición sobre las derivadas segundas de $\bsL$ respecto de las variables $Z$.
+
+### 9.7. Cuando una variable es el tiempo: la cantidad conservada
+
+Seguimos el convenio de «El formalismo lagrangiano: parte matemática»: la variable temporal es $x_0 := t \in [t_1, t_2]$, y $x_1, \dots, x_m$ son las coordenadas espaciales, en una caja $\Omega$. **Atención:** hay $m + 1$ variables, y $\Omega$ es solo la caja espacial. Los índices $\mu, \nu = 0, \dots, m$ recorren todas las variables, con $d_{x_0} = d_t$, y los apartados 9.1 a 9.6 valen en el dominio $[t_1, t_2] \times \Omega$ con $\sum_\mu$ en lugar de $\sum_k$.
+
+**La ley local** es una **ecuación de continuidad**: la que cumplen una **densidad** $\rho$, una cantidad por unidad de volumen, y su **densidad de flujo** $\vec{\jmath}$, la cantidad que atraviesa, por unidad de tiempo, una unidad de superficie perpendicular a cada eje, cuando esa cantidad no se crea ni se destruye: $d_t \rho + \sum_k d_{x_k} \jmath_k = 0$. Aquí $Q_0$ hace de densidad y $(Q_1, \dots, Q_m)$, de densidad de flujo:
+
+$$
+\begin{aligned}
+d_t Q_0 + \sum_{k=1}^{m} d_{x_k} Q_k = 0.
+\end{aligned}
+$$
+
+**La ley integral.** Integramos en $\Omega$ para cada $t$ fijo:
+
+$$
+\begin{aligned}
+\dfrac{d}{dt} \int_\Omega Q_0 \,dx_1 \cdots dx_m
+&\overset{(1)}{=} \int_\Omega d_t Q_0 \,dx_1 \cdots dx_m \\
+&\overset{(2)}{=} -\sum_{k=1}^{m} \int_\Omega d_{x_k} Q_k \,dx_1 \cdots dx_m \\
+&\overset{(3)}{=} -\sum_{k=1}^{m} \int_{\Omega_k} \Big[Q_k\Big]_{x_k = a_k}^{x_k = b_k} d\hat{x}_k.
+\end{aligned}
+$$
+
+* **(1)** Derivación bajo el signo integral: $Q_0$ y $d_t Q_0$ son continuas en el conjunto cerrado y acotado $[t_1, t_2] \times \Omega$.
+* **(2)** La ley local, sobre una solución.
+* **(3)** Teorema de Fubini y regla de Barrow en cada variable espacial, como en el apartado 9.4, igualdad (4); $\Omega_k$ es la caja de las otras $m - 1$ coordenadas espaciales.
+
+**El teorema.** Si las condiciones de contorno anulan el flujo por la frontera de $\Omega$ en todo instante, la cantidad
+
+$$
+\begin{aligned}
+\mathcal{Q}(t) := \int_\Omega Q_0 \,dx_1 \cdots dx_m
+\end{aligned}
+$$
+
+tiene derivada nula y, por el teorema del valor medio, es constante en $[t_1, t_2]$. Es lo que ocupa el lugar del apartado 6.3. Ahora hay dos hipótesis de naturaleza distinta:
+
+* **la simetría**, que da la ley local para toda solución;
+* **las condiciones de contorno**, que hacen que el total se conserve.
+
+Una simetría de $\bsL$ da siempre la ley local, pero el total no se conserva si el contorno rompe la simetría (apartado 9.8).
+
+**Las traslaciones dan el tensor $T$.** Si $\bsL$ no depende explícitamente de $x_\nu$, la traslación en esa variable, $\vec{\tau} = \vec{e}_\nu$ y $\vec{\xi} = \vec{0}$, tiene $D = \partial_{x_\nu} \bsL = 0$ (forma de cuatro términos), es una simetría con $\vec{F} = \vec{0}$, y su corriente es
+
+$$
+\begin{aligned}
+Q_\mu = -T_{\mu\nu}, \qquad \mu = 0, \dots, m.
+\end{aligned}
+$$
+
+La columna $\nu$ de $T$ es, cambiada de signo, la corriente de la traslación en $x_\nu$:
+
+* **la traslación en el tiempo** ($\nu = 0$) da la densidad $-T_{00} = -\big(\sum_i u_{i0} \cdot \partial_t f_i - \bsL\big)$, menos la densidad de energía: es $\bsH$ con $\partial_t$ en el lugar de la prima;
+* **las traslaciones en el espacio** ($\nu = k \geq 1$) dan las densidades $-T_{0k} = -\sum_i u_{i0} \cdot \partial_k f_i$, las de la cantidad de movimiento del campo en la dirección $x_k$. El signo menos aparece porque trasladar las variables en $+\varepsilon$ cambia los valores, en un punto fijo, en $-\varepsilon \cdot \partial_k f_i$: es $\bar{\xi}_i = -\partial_k f_i$, y la densidad es $\sum_i u_{i0} \cdot \bar{\xi}_i$.
+
+De ahí el nombre de tensor de energía-momento.
+
+### 9.8. Ejemplo: la cuerda vibrante
+
+Es la cuerda de «El teorema de Noether: ejemplos físicos»: $f(t, x)$ es el desplazamiento transversal, en el instante $t$, del punto de la cuerda que está en reposo en $x$. Para desplazamientos pequeños, la energía cinética por unidad de longitud es $\dfrac{1}{2} \cdot \mu \cdot (\partial_t f)^2$, con $\mu$ la densidad lineal de masa, y la energía elástica por unidad de longitud es $\dfrac{1}{2} \cdot T_0 \cdot (\partial_x f)^2$, con $T_0$ la tensión; el lagrangiano es su diferencia. Tomamos $\mu = 1$ y escribimos $T_0 = c^2$, donde $c$ resulta ser la velocidad de propagación de las ondas (allí la tensión se llamaba $\tau$, que aquí es el generador). Hay una función, $n = 1$, y una coordenada espacial, $m = 1$: $(x_0, x_1) = (t, x)$, con $x \in [a_1, b_1]$. Con una sola función omitimos el índice $i$:
+
+$$
+\begin{aligned}
+\bsL = \dfrac{1}{2} \cdot (\partial_t f)^2 - \dfrac{c^2}{2} \cdot (\partial_x f)^2, \qquad u_0 = \partial_t f, \qquad u_1 = -c^2 \cdot \partial_x f.
+\end{aligned}
+$$
+
+La ecuación de Euler–Lagrange, $\varphi = -d_t(\partial_t f) + d_x(c^2 \cdot \partial_x f) = 0$, es la ecuación de ondas, $\partial_t^2 f = c^2 \cdot \partial_x^2 f$. El tensor de energía-momento, con $\mathcal{E}$ la densidad de energía, es
+
+$$
+\begin{aligned}
+T &= \begin{pmatrix} T_{00} & T_{01} \\ T_{10} & T_{11} \end{pmatrix} = \begin{pmatrix} \mathcal{E} & \partial_t f \cdot \partial_x f \\ -c^2 \cdot \partial_x f \cdot \partial_t f & -\mathcal{E} \end{pmatrix}, \\
+\mathcal{E} &:= \dfrac{1}{2} \cdot (\partial_t f)^2 + \dfrac{c^2}{2} \cdot (\partial_x f)^2.
+\end{aligned}
+$$
+
+Por ejemplo, $T_{11} = u_1 \cdot \partial_x f - \bsL = -c^2 \cdot (\partial_x f)^2 - \dfrac{1}{2} \cdot (\partial_t f)^2 + \dfrac{c^2}{2} \cdot (\partial_x f)^2 = -\mathcal{E}$.
+
+$\bsL$ no depende de $t$, de $x$ ni de $f$, así que las tres traslaciones son simetrías con $\vec{F} = \vec{0}$. Con los extremos fijos, $f(t, a_1) = f(t, b_1) = 0$ en todo instante, $\partial_t f = 0$ en los extremos:
+
+| Simetría | $(\vec{\tau}, \xi)$ | $Q_0$ | $Q_1$ | $Q_1$ en los extremos fijos |
+| ---------------------------------------- | -------------------------- | -------------------------- | -------------------------------- | ---------------------------- |
+| Traslación en $t$ | $\big((1, 0), 0\big)$ | $-\mathcal{E}$ | $c^2 \cdot \partial_x f \cdot \partial_t f$ | $0$ |
+| Traslación en $x$ | $\big((0, 1), 0\big)$ | $-\partial_t f \cdot \partial_x f$ | $\mathcal{E}$ | $\dfrac{c^2}{2} \cdot (\partial_x f)^2$ |
+| Desplazamiento vertical | $\big((0, 0), 1\big)$ | $\partial_t f$ | $-c^2 \cdot \partial_x f$ | $-c^2 \cdot \partial_x f$ |
+
+Table: Las tres traslaciones de la cuerda vibrante.
+
+* **La traslación en $t$:** el flujo se anula en los extremos y la energía, $\int_{a_1}^{b_1} \mathcal{E} \,dx$, es constante.
+* **La traslación en $x$** es la única de las tres que mueve las variables ($\vec{\tau} \neq \vec{0}$), y es la novedad respecto de «El teorema de Noether: ejemplos físicos». La ley local se cumple, pero el total no se conserva: por el apartado 9.7,
+
+  $$
+  \begin{aligned}
+  \dfrac{d}{dt} \int_{a_1}^{b_1} \big(-\partial_t f \cdot \partial_x f\big) \,dx &= -\Big[\mathcal{E}\Big]_{x = a_1}^{x = b_1} \\
+  &= -\dfrac{c^2}{2} \cdot \Big((\partial_x f)^2(t, b_1) - (\partial_x f)^2(t, a_1)\Big),
+  \end{aligned}
+  $$
+
+  que en general no es nulo. $\bsL$ es invariante por traslaciones en $x$, pero los extremos fijos no.
+* **El desplazamiento vertical:** su ley local es la propia ecuación de ondas, $d_t(\partial_t f) - d_x(c^2 \cdot \partial_x f) = 0$, y el total, la cantidad de movimiento transversal, cambia por las fuerzas de los soportes, como en «El teorema de Noether: ejemplos físicos».
+* **Con condiciones periódicas**, $f$ y $\partial_x f$ iguales en los dos extremos, los tres flujos coinciden en $a_1$ y en $b_1$, los corchetes se anulan y las tres cantidades se conservan.
+
+Comprobación de la identidad con la traslación en $x$: $\bar{\xi} = 0 - 1 \cdot \partial_x f$, y
+
+$$
+\begin{aligned}
+d_t Q_0 + d_x Q_1 &= -\partial_t^2 f \cdot \partial_x f - \partial_t f \cdot \partial_t \partial_x f + \partial_t f \cdot \partial_x \partial_t f + c^2 \cdot \partial_x f \cdot \partial_x^2 f \\
+&= \partial_x f \cdot \big(c^2 \cdot \partial_x^2 f - \partial_t^2 f\big) = -\varphi \cdot \bar{\xi},
+\end{aligned}
+$$
+
+porque $\varphi = c^2 \cdot \partial_x^2 f - \partial_t^2 f$: se anula sobre las soluciones, como dice el teorema.
+
+Las cuentas de este apartado (el $D$ calculado desde la definición, con el determinante y la jacobiana; la forma de cuatro términos; el lema; la identidad; el lagrangiano nulo; el tensor $T$ y las tres corrientes de la cuerda) están comprobadas con SymPy en borrador-Noether-v2-comprobaciones.py.
+
+## 10. Flujos, derivada de Fréchet y derivada de Lie
+
+Hasta aquí solo hemos usado el primer orden de la familia $\Phi_\varepsilon$: su generador. Este apartado completa el cuadro en seis pasos:
+
+* cómo se recupera la familia a partir del generador cuando cumple la ley de grupo (apartado 10.1);
+* la derivada de Fréchet, que da las reglas de derivación sin coordenadas y permite pasar, en el apartado 11, a funciones con valores en espacios de dimensión infinita (apartado 10.2);
+* cómo actúa la familia sobre las derivadas de $f$: la prolongación (apartado 10.3);
+* la derivada de Lie, que muestra que $D$ es la derivada del elemento $\bsL \cdot dx$ a lo largo del flujo (apartado 10.4);
+* por qué, con la ley de grupo, la condición infinitesimal da la invariancia para todo $\varepsilon$ (apartado 10.5);
+* las simetrías cuyo generador depende de las derivadas, que son las de la versión anterior (apartado 10.6).
+
+Trabajamos en el plano, con una función de una variable; al final de cada subapartado se indica qué cambia con $n$ funciones o con $m$ variables.
+
+### 10.1. Del generador a la familia: el flujo
+
+**Definiciones.** Sea $U$ un abierto del plano.
+
+* Un **campo vectorial** en $U$ asigna a cada punto $P = (x, y)$ un vector $V(P) = \big(\tau(P), \xi(P)\big)$. El generador de una familia (apartado 3.2) es un campo vectorial.
+* Una **curva integral** de $V$ es una curva $\varepsilon \mapsto \big(X(\varepsilon), Y(\varepsilon)\big)$ cuyo vector velocidad es, para cada $\varepsilon$, el del campo en el punto donde está. Es un sistema de dos ecuaciones diferenciales ordinarias de primer orden:
+
+  $$
+  \begin{aligned}
+  \dfrac{dX}{d\varepsilon} = \tau(X, Y), \qquad \dfrac{dY}{d\varepsilon} = \xi(X, Y).
+  \end{aligned}
+  $$
+
+* El **flujo** de $V$ es la familia $\Phi_\varepsilon$ que lleva cada punto $P$ al punto que alcanza, con el parámetro $\varepsilon$, la curva integral que sale de $P$ con $\varepsilon = 0$.
+
+**Lo que se sabe del Tema 1, apartado 4.4.** Allí se estudia en el plano $(t, x)$, con el parámetro $s$ y el campo $(\xi^t, \xi^x)$; las demostraciones valen igual en $\mathbb{R}^m \times \mathbb{R}^n$:
+
+* si $V$ es de clase $C^1$, por cada punto pasa una única curva integral (teorema de Picard–Lindelöf), definida al menos para $|\varepsilon|$ pequeño;
+* el flujo cumple $\Phi_0 = Id$ y la ley de grupo, $\Phi_\varepsilon \circ \Phi_\eta = \Phi_{\varepsilon + \eta}$, allí donde está definido.
+
+A eso añadimos, sin demostración, el **teorema de dependencia regular respecto de las condiciones iniciales**: si $V$ es de clase $C^k$, con $k \geq 1$, el flujo $\Phi_\varepsilon(P)$ es de clase $C^k$ como función de $(\varepsilon, P)$. Con $V$ de clase $C^2$, el flujo cumple, por tanto, lo que pide el apartado 3.1.
+
+**El recíproco: una familia con la ley de grupo es el flujo de su generador.** Sea $\Phi_\varepsilon$ una familia con la ley de grupo, derivable respecto de $\varepsilon$, con generador $V$, y sea $P$ un punto fijo:
+
+$$
+\begin{aligned}
+\dfrac{d}{d\varepsilon} \Phi_\varepsilon(P)
+&\overset{(1)}{=} \left.\dfrac{d}{d\sigma} \Phi_{\varepsilon + \sigma}(P)\right|_{\sigma = 0} \\
+&\overset{(2)}{=} \left.\dfrac{d}{d\sigma} \Phi_\sigma\big(\Phi_\varepsilon(P)\big)\right|_{\sigma = 0} \\
+&\overset{(3)}{=} V\big(\Phi_\varepsilon(P)\big).
+\end{aligned}
+$$
+
+* **(1)** La derivada respecto de $\varepsilon$ es la derivada en $\sigma = 0$ de la función desplazada $\sigma \mapsto \Phi_{\varepsilon + \sigma}(P)$.
+* **(2)** Ley de grupo: $\Phi_{\varepsilon + \sigma} = \Phi_\sigma \circ \Phi_\varepsilon$.
+* **(3)** Definición del generador (apartado 3.2), aplicada en el punto $\Phi_\varepsilon(P)$.
+
+Así, $\varepsilon \mapsto \Phi_\varepsilon(P)$ es una curva integral de $V$ que sale de $P$, y por la unicidad es la del flujo. **Con la ley de grupo, el generador determina la familia.**
+
+**Sin la ley de grupo, no la determina.** $(x, y + \varepsilon)$ y $(x, y + \sin\varepsilon)$ tienen el mismo generador, $(0, 1)$. La primera es su flujo; la segunda es la misma familia con otro parámetro, $\sin\varepsilon$ en lugar de $\varepsilon$.
+
+**Tres ejemplos.**
+
+1. **El giro**, $V = (-y, x)$. Hay que resolver $\dfrac{dX}{d\varepsilon} = -Y$ y $\dfrac{dY}{d\varepsilon} = X$, con $(X, Y) = (x, y)$ en $\varepsilon = 0$. La familia del apartado 3.2 lo cumple:
 
    $$
    \begin{aligned}
-   &\sum_{i=1}^{n} \Big(\partial_{f_i} \bsL \cdot \eta_i + \sum_{k=1}^{m} u_{ik} \cdot d_k \eta_i\Big) \\
-   &\qquad = \sum_{i=1}^{n} \varphi_i \cdot \eta_i + \sum_{k=1}^{m} d_k\Big(\sum_{i=1}^{n} u_{ik} \cdot \eta_i\Big).
+   \dfrac{d}{d\varepsilon}\big(x \cdot \cos\varepsilon - y \cdot \sin\varepsilon\big) &= -\big(x \cdot \sin\varepsilon + y \cdot \cos\varepsilon\big), \\
+   \dfrac{d}{d\varepsilon}\big(x \cdot \sin\varepsilon + y \cdot \cos\varepsilon\big) &= x \cdot \cos\varepsilon - y \cdot \sin\varepsilon,
    \end{aligned}
    $$
 
-   Lo aplicamos con $\vec{\eta} = \bar{\vec{\xi}}$, añadimos la hipótesis $D = \sum_k d_k F_k$ y deshacemos $\bar{\xi}_i$ como en el apartado 8.4:
+   y en $\varepsilon = 0$ vale $(x, y)$. Por la unicidad, es el flujo.
+2. **El cambio de velocidad**, $V = (0, x)$, con $x$ en el papel del tiempo. $\dfrac{dX}{d\varepsilon} = 0$ da $X = x$, y entonces $\dfrac{dY}{d\varepsilon} = x$ da $Y = y + \varepsilon \cdot x$. El flujo es $\Phi_\varepsilon(x, y) = (x, y + \varepsilon \cdot x)$, el de la tercera fila de la tabla del apartado 6.4.
+3. **La escala de los valores**, $V = (0, y)$. $\dfrac{dY}{d\varepsilon} = Y$ da $Y = e^\varepsilon \cdot y$, y el flujo es $(x, e^\varepsilon \cdot y)$. La familia $\big(x, (1 + \varepsilon) \cdot y\big)$ del apartado 5, punto (3), tiene el mismo generador, pero no es un flujo, porque $(1 + \varepsilon) \cdot (1 + \eta) \neq 1 + \varepsilon + \eta$.
+
+**Con $n$ funciones o $m$ variables**, el campo tiene $m + n$ componentes, $(\vec{\tau}, \vec{\xi})$, y el sistema, $m + n$ ecuaciones; lo demás no cambia.
+
+### 10.2. La derivada de Fréchet
+
+En los apartados 5 a 9 se han usado cinco herramientas del cálculo: la regla de la cadena, la regla del producto, el desarrollo de Taylor de primer orden, la desigualdad del valor medio y el teorema de Schwarz. Todas se han usado con derivadas parciales respecto de coordenadas. La derivada de Fréchet las formula sin coordenadas, y así valen también cuando los valores de $f$ están en un espacio de dimensión infinita, como un espacio de funciones (apartado 11).
+
+#### Espacios normados, espacios de Banach y dual
+
+* Un **espacio normado** es un espacio vectorial real $E$ con una **norma**: una función $\lVert \cdot \rVert: E \to [0, \infty)$ tal que $\lVert v \rVert = 0$ solo si $v = 0$, $\lVert \lambda \cdot v \rVert = |\lambda| \cdot \lVert v \rVert$ y $\lVert v + w \rVert \leq \lVert v \rVert + \lVert w \rVert$. La norma da las distancias, $\lVert v - w \rVert$, y con ellas los límites y la continuidad.
+* Un **espacio de Banach** es un espacio normado completo: toda sucesión de Cauchy, es decir, con $\lVert v_k - v_l \rVert \to 0$ cuando $k, l \to \infty$, tiene límite en $E$.
+* **Ejemplos.** $\mathbb{R}^n$, con la norma euclídea. El espacio $C^0([a, b])$ de las funciones continuas en $[a, b]$, con la norma $\lVert g \rVert_\infty := \max_{x \in [a, b]} |g(x)|$; es completo porque el límite de una sucesión de funciones continuas en esa norma, es decir, el límite uniforme, es continuo, y tiene dimensión infinita, porque las funciones $1, x, x^2, \dots$ son linealmente independientes.
+* Una aplicación lineal $A: E \to F$ entre espacios normados es **continua** si y solo si existe una constante $C$ con $\lVert A\,v \rVert \leq C \cdot \lVert v \rVert$ para todo $v$; la menor de esas constantes es la **norma** de $A$, $\lVert A \rVert$. En dimensión finita, toda aplicación lineal es continua. En dimensión infinita, no: la derivada $g \mapsto g'$, de las funciones de clase $C^1$ en $[0, 2 \cdot \pi]$ en $C^0([0, 2 \cdot \pi])$, con la norma $\lVert \cdot \rVert_\infty$ en los dos, no lo es, porque $\lVert \sin(k \cdot x) \rVert_\infty = 1$ y $\lVert k \cdot \cos(k \cdot x) \rVert_\infty = k$ para todo entero $k \geq 1$.
+* El **dual** de $E$, $E^*$, es el espacio de las aplicaciones lineales continuas $\alpha: E \to \mathbb{R}$. Escribimos $\langle \alpha, v \rangle := \alpha(v)$. En $\mathbb{R}^n$, cada $\alpha$ es un vector fila y $\langle \alpha, v \rangle = \sum_i \alpha_i \cdot v_i$: es el $\vec{p} \cdot \vec{\xi}$ del apartado 8. En el apartado 11, el momento $p$ será un elemento de $E^*$.
+
+#### La derivada
+
+Sean $E$ y $F$ espacios normados, $U \subseteq E$ abierto, $g: U \to F$ y $a \in U$. La función $g$ es **derivable en el sentido de Fréchet** en $a$ si existe una aplicación lineal continua $Dg(a): E \to F$ tal que
+
+$$
+\begin{aligned}
+&\lim_{v \to 0} \dfrac{\lVert g(a + v) - g(a) - Dg(a)\,v \rVert}{\lVert v \rVert} = 0, \\
+&\text{es decir,} \qquad g(a + v) = g(a) + Dg(a)\,v + o(\lVert v \rVert).
+\end{aligned}
+$$
+
+* **Es única.** Si $A$ y $B$ cumplen la definición, $(A - B)\,v = o(\lVert v \rVert)$. Con $v = t \cdot w$, para un $w$ fijo, y $t \to 0$, la linealidad da $(A - B)\,w = \dfrac{o(|t|)}{t} \to 0$, así que $A\,w = B\,w$ para todo $w$.
+* **Clase $C^1$.** $g$ es de clase $C^1$ si es derivable en todo $U$ y $a \mapsto Dg(a)$ es continua, con la norma de las aplicaciones lineales.
+* **En $\mathbb{R}^n$ es la matriz jacobiana.** Si $g: \mathbb{R}^n \to \mathbb{R}^l$ es derivable en $a$ y $\vec{e}_j$ es el vector $j$ de la base:
+
+  $$
+  \begin{aligned}
+  Dg(a)\,\vec{e}_j \overset{(1)}{=} \lim_{t \to 0} \dfrac{Dg(a)\,(t \cdot \vec{e}_j)}{t} \overset{(2)}{=} \lim_{t \to 0} \dfrac{g(a + t \cdot \vec{e}_j) - g(a)}{t} \overset{(3)}{=} \partial_j g(a).
+  \end{aligned}
+  $$
+
+  * **(1)** Linealidad: el cociente vale $Dg(a)\,\vec{e}_j$ para todo $t \neq 0$.
+  * **(2)** Definición: $g(a + t \cdot \vec{e}_j) - g(a) - Dg(a)\,(t \cdot \vec{e}_j) = o(|t|)$, y dividido por $t$ tiende a $0$.
+  * **(3)** Definición de derivada parcial.
+
+  Las columnas de la matriz de $Dg(a)$ son las derivadas parciales: es la matriz jacobiana. Recíprocamente, si las derivadas parciales existen y son continuas, $g$ es derivable en el sentido de Fréchet (cálculo de varias variables). En $\mathbb{R}^n$, por tanto, «de clase $C^1$» significa lo mismo en los dos sentidos.
+
+#### Las reglas de derivación
+
+Se demuestran como en $\mathbb{R}^n$, con la norma en lugar del valor absoluto.
+
+1. **Regla de la cadena.** Si $g_1: E \to F$ es derivable en $a$ y $g_2: F \to G$ lo es en $g_1(a)$, entonces $D(g_2 \circ g_1)(a) = Dg_2\big(g_1(a)\big) \circ Dg_1(a)$. Con $\delta := g_1(a + v) - g_1(a) = Dg_1(a)\,v + o(\lVert v \rVert)$ y $A := Dg_2\big(g_1(a)\big)$:
 
    $$
    \begin{aligned}
-   \sum_{i=1}^{n} u_{ik} \cdot \bar{\xi}_i + \tau_k \cdot \bsL &= \sum_{i=1}^{n} u_{ik} \cdot \xi_i - \sum_{l=1}^{m} T_{kl} \cdot \tau_l, \\
-   T_{kl} &:= \sum_{i=1}^{n} u_{ik} \cdot \partial_l f_i - \delta_{kl} \cdot \bsL.
+   g_2\big(g_1(a + v)\big) &\overset{(1)}{=} g_2\big(g_1(a) + \delta\big) \\
+   &\overset{(2)}{=} g_2\big(g_1(a)\big) + A\,\delta + o(\lVert \delta \rVert) \\
+   &\overset{(3)}{=} g_2\big(g_1(a)\big) + A\,Dg_1(a)\,v + A\,o(\lVert v \rVert) + o(\lVert \delta \rVert) \\
+   &\overset{(4)}{=} g_2\big(g_1(a)\big) + A\,Dg_1(a)\,v + o(\lVert v \rVert).
    \end{aligned}
    $$
 
-   $T$ es una matriz $m \times m$, el **tensor de energía-momento canónico**, y generaliza $\bsH$: con $m = 1$, $T_{11} = \bsH$. Queda la **identidad de Noether para campos**, válida para toda $\vec{f}$ de clase $C^2$:
+   * **(1)** Definición de $\delta$.
+   * **(2)** Derivabilidad de $g_2$ en $g_1(a)$.
+   * **(3)** Linealidad de $A$.
+   * **(4)** $A$ es continua, así que $\lVert A\,o(\lVert v \rVert) \rVert \leq \lVert A \rVert \cdot o(\lVert v \rVert)$; y $\lVert \delta \rVert \leq \big(\lVert Dg_1(a) \rVert + 1\big) \cdot \lVert v \rVert$ para $v$ pequeño, así que $o(\lVert \delta \rVert) = o(\lVert v \rVert)$.
+2. **Regla del producto.** Sea $B: F_1 \times F_2 \to G$ **bilineal** (lineal en cada argumento) y continua: $\lVert B(w_1, w_2) \rVert \leq C \cdot \lVert w_1 \rVert \cdot \lVert w_2 \rVert$. Si $g_1: E \to F_1$ y $g_2: E \to F_2$ son derivables en $a$,
 
    $$
    \begin{aligned}
-   \sum_{k=1}^{m} d_k J_k = -\sum_{i=1}^{n} \varphi_i \cdot \bar{\xi}_i, \qquad J_k := \sum_{i=1}^{n} u_{ik} \cdot \xi_i - \sum_{l=1}^{m} T_{kl} \cdot \tau_l - F_k.
+   D\big[B(g_1, g_2)\big](a)\,v = B\big(Dg_1(a)\,v,\ g_2(a)\big) + B\big(g_1(a),\ Dg_2(a)\,v\big).
    \end{aligned}
    $$
 
-   El campo $\vec{J} = (J_1, \dots, J_m)$ es la **corriente de Noether**. Con $m = 1$, $J_1$ es la $Q$ del apartado 8.4.
-
-8. **El teorema: una ley de conservación local.** Sobre una solución, $\sum_k d_k J_k = 0$: la corriente tiene divergencia nula en todo punto, pero ya no hay una constante. Para obtenerla, separamos el tiempo, $x_1 = t$, de las variables espaciales $x_2, \dots, x_m$, e integramos en una región espacial fija $R$:
+   Al desarrollar $B\big(g_1(a) + \delta_1, g_2(a) + \delta_2\big)$ por la bilinealidad aparecen los dos términos de la derecha y $B(\delta_1, \delta_2)$, cuya norma es como mucho $C \cdot \lVert \delta_1 \rVert \cdot \lVert \delta_2 \rVert = o(\lVert v \rVert)$. Ejemplos de $B$: el producto de números reales, el producto escalar de $\mathbb{R}^n$ y el emparejamiento $(\alpha, w) \mapsto \langle \alpha, w \rangle$ de $E^* \times E$ en $\mathbb{R}$, que es la regla $(p \cdot \xi)' = p' \cdot \xi + p \cdot \xi'$ de los apartados 6 y 8.
+3. **Desarrollo de Taylor de primer orden.** Es la propia definición.
+4. **Desigualdad del valor medio.** Si $g$ es de clase $C^1$ en un abierto que contiene el segmento $S := \{z_1 + t \cdot (z_2 - z_1) : t \in [0, 1]\}$, entonces
 
    $$
    \begin{aligned}
-   \dfrac{d}{dt} \int_R J_1\, d^{m-1}x = -\int_{\partial R} \sum_{k=2}^{m} J_k \cdot n_k\, dS,
+   \lVert g(z_2) - g(z_1) \rVert \leq \sup_{z \in S} \lVert Dg(z) \rVert \cdot \lVert z_2 - z_1 \rVert.
    \end{aligned}
    $$
 
-   por la derivación bajo el signo integral y el teorema de la divergencia en las variables espaciales. Si el flujo por el borde se anula (extremos fijos, condiciones periódicas o campos que se anulan en el infinito), $\int_R J_1\, d^{m-1}x$ es constante. Este paso ocupa el lugar del teorema del valor medio del apartado 6.3, y la conservación depende ahora también de las condiciones de contorno.
+   Con valores vectoriales no hay un punto intermedio que dé la igualdad, como en una variable, pero sí esta desigualdad. Es la que usa el apartado 9.1.
+5. **Derivada segunda y teorema de Schwarz.** $Dg$ es una función de $U$ en el espacio normado de las aplicaciones lineales continuas de $E$ en $F$. Su derivada en $a$, $D(Dg)(a)$, asigna a cada $v$ una de esas aplicaciones lineales, y definimos la aplicación bilineal $D^2 g(a)(v, w) := \big(D(Dg)(a)\,v\big)\,w$. Si $g$ es de clase $C^2$, es simétrica: $D^2 g(a)(v, w) = D^2 g(a)(w, v)$. En $\mathbb{R}^n$ sus elementos son las $\partial_i \partial_j g(a)$, y la simetría es el teorema de Schwarz.
 
-9. **Ejemplo: la cuerda vibrante.** Con $n = 1$, $m = 2$, $(x_1, x_2) = (t, x)$ (aquí $x$ es la posición sobre la cuerda) y la velocidad de propagación $c$:
+**Lo que se gana.** Los apartados 5 a 9 solo usan estas cinco reglas y, para acotar los restos, que una función continua en un conjunto cerrado y acotado de $\mathbb{R}^N$ está acotada. Lo primero vale igual en un espacio de Banach; lo segundo hay que sustituirlo, porque en dimensión infinita un conjunto cerrado y acotado no tiene por qué ser compacto (apartado 11). Por otra parte, el generador del apartado 3.2 y el $D$ del apartado 5 son derivadas de funciones de una variable real, $\varepsilon$: el caso $E = \mathbb{R}$ de la derivada de Fréchet.
 
-   $$
-   \begin{aligned}
-   \bsL = \dfrac{1}{2} \cdot (\partial_t f)^2 - \dfrac{c^2}{2} \cdot (\partial_x f)^2, \qquad u_1 = \partial_t f, \qquad u_2 = -c^2 \cdot \partial_x f.
-   \end{aligned}
-   $$
+### 10.3. Cómo actúa la familia sobre las derivadas: la prolongación
 
-   La traslación en el tiempo, $\vec{\tau} = (1, 0)$ y $\xi = 0$, es una simetría con $\vec{F} = \vec{0}$, porque $\bsL$ no depende de $t$. Su corriente es $J_k = -T_{k1}$:
+**La derivada total como operación sobre funciones.** Para una función $G(x, y, y')$, donde $y'$ es el nombre de una variable más, definimos
 
-   $$
-   \begin{aligned}
-   J_1 = -\mathcal{E}, \quad \mathcal{E} := \dfrac{1}{2} \cdot (\partial_t f)^2 + \dfrac{c^2}{2} \cdot (\partial_x f)^2, \qquad J_2 = c^2 \cdot \partial_x f \cdot \partial_t f.
-   \end{aligned}
-   $$
+$$
+\begin{aligned}
+d_x G := \partial_x G + y' \cdot \partial_y G + y'' \cdot \partial_{y'} G,
+\end{aligned}
+$$
 
-   La ley de conservación es $d_t \mathcal{E} = d_x\big(c^2 \cdot \partial_x f \cdot \partial_t f\big)$ sobre las soluciones de $\partial_t^2 f = c^2 \cdot \partial_x^2 f$. Con los extremos fijos, $\partial_t f = 0$ en ellos, el flujo se anula y la energía, la integral de $\mathcal{E}$ a lo largo de la cuerda, es constante.
+con $y''$ el nombre de otra variable. Por la regla de la cadena, a lo largo de $f$ es la derivada de la función compuesta:
 
-### Pregunta 2: la partícula en un campo central
+$$
+\begin{aligned}
+(d_x G)\big(x, f(x), f'(x), f''(x)\big) = \dfrac{d}{dx} G\big(x, f(x), f'(x)\big).
+\end{aligned}
+$$
 
-#### Precisiones previas
+Si $G$ solo depende de $(x, y)$, $d_x G = \partial_x G + y' \cdot \partial_y G$: es la prima de $\tau'$ y $\xi'$ del apartado 5. Con $m$ variables, es el $d_{x_k}$ del apartado 9.
 
-* **Es el apartado 8, no la pregunta 1.** Hay una sola variable independiente, $t$ (la $x$ de los apartados anteriores), y $n = 3$ funciones, $\vec{f} = \vec{r} = (x, y, z)$. Aquí $x, y, z$ son las coordenadas del punto, no la variable independiente ni los argumentos de $\bsL$; por eso escribimos los generadores y $F$ como funciones de $(t, \vec{r})$. El punto indica la derivada respecto de $t$ (la prima de antes), y $m$ es la masa (en la pregunta 1 era el número de variables).
-* **El lagrangiano** es $\bsL = \dfrac{1}{2} \cdot m \cdot |\dot{\vec{r}}|^2 - V(|\vec{r}|)$, con $\dot{\vec{r}}$ en la energía cinética (en la pregunta está escrito $|\vec{r}|^2$). Escribimos $r = |\vec{r}|$, $\vec{p} = m \cdot \dot{\vec{r}}$ y $V'$ para la derivada de $V$ respecto de $r$.
+**Definición.** La **prolongación** de $\Phi_\varepsilon$ es la transformación de los puntos $(x, y, y')$
+
+$$
+\begin{aligned}
+\Phi^{(1)}_\varepsilon(x, y, y') := \big(X_\varepsilon,\ Y_\varepsilon,\ Y^{(1)}_\varepsilon\big), \qquad Y^{(1)}_\varepsilon := \dfrac{d_x Y_\varepsilon}{d_x X_\varepsilon},
+\end{aligned}
+$$
+
+con $X_\varepsilon$ e $Y_\varepsilon$ evaluadas en $(x, y)$, y definida donde $d_x X_\varepsilon \neq 0$.
+
+* **Qué hace.** Lleva un punto de la gráfica y su pendiente al punto correspondiente de la gráfica transformada y a su pendiente. Si $(x, y, y') = \big(x, f(x), f'(x)\big)$, entonces $\Phi^{(1)}_\varepsilon(x, y, y') = \big(\tilde{x}, \tilde{f}(\tilde{x}), \tilde{f}'(\tilde{x})\big)$, con $\tilde{x} = \tilde{x}(x)$, porque $\tilde{f}'\big(\tilde{x}(x)\big) = \dfrac{\tilde{y}'(x)}{\tilde{x}'(x)}$ (apartado 5, punto (1)).
+* **Hereda la ley de grupo.** Si $\Phi_\varepsilon \circ \Phi_\eta = \Phi_{\varepsilon + \eta}$, también $\Phi^{(1)}_\varepsilon \circ \Phi^{(1)}_\eta = \Phi^{(1)}_{\varepsilon + \eta}$. Por cada punto $(x, y, y')$ pasa la gráfica de alguna función con esa pendiente, por ejemplo la recta $u \mapsto y + y' \cdot (u - x)$. Transformarla con $\Phi_\eta$ y después con $\Phi_\varepsilon$ es transformarla con $\Phi_{\varepsilon + \eta}$, y $\Phi^{(1)}$ solo registra el punto y la pendiente de la gráfica transformada, que no dependen de la función elegida.
+* **Su generador** es $V^{(1)} := (\tau, \xi, \xi^{(1)})$, con $\xi^{(1)} := \partial_\varepsilon Y^{(1)}_\varepsilon\big|_{\varepsilon = 0}$:
+
+  $$
+  \begin{aligned}
+  \xi^{(1)} &\overset{(1)}{=} \left.\dfrac{\partial_\varepsilon\big(d_x Y_\varepsilon\big) \cdot d_x X_\varepsilon - d_x Y_\varepsilon \cdot \partial_\varepsilon\big(d_x X_\varepsilon\big)}{\big(d_x X_\varepsilon\big)^2}\right|_{\varepsilon = 0} \\
+  &\overset{(2)}{=} \dfrac{d_x \xi \cdot 1 - y' \cdot d_x \tau}{1^2} \\
+  &\overset{(3)}{=} d_x \xi - y' \cdot d_x \tau.
+  \end{aligned}
+  $$
+
+  * **(1)** Regla de derivación del cociente, respecto de $\varepsilon$.
+  * **(2)** En $\varepsilon = 0$, $X_0 = x$ e $Y_0 = y$, así que $d_x X_0 = 1$ y $d_x Y_0 = y'$. Además, $\partial_\varepsilon\big(d_x Y_\varepsilon\big)\big|_{\varepsilon = 0} = d_x\big(\partial_\varepsilon Y_\varepsilon\big|_{\varepsilon = 0}\big) = d_x \xi$, porque $d_x$ solo contiene derivadas respecto de $x$ y de $y$, que conmutan con la derivada respecto de $\varepsilon$ (teorema de Schwarz); lo mismo con $X_\varepsilon$ y $\tau$.
+  * **(3)** Simplificamos.
+
+  A lo largo de $f$ es $\xi' - \tau' \cdot f'$, el coeficiente de $\varepsilon$ de la pendiente en el apartado 5, punto (2).
+* **Ejemplo: el giro.** Con $(\tau, \xi) = (-y, x)$, $\xi^{(1)} = d_x x - y' \cdot d_x(-y) = 1 + y'^2$. Comprobación directa: si la pendiente es $y' = \tan\alpha$, el giro la lleva a $\tan(\alpha + \varepsilon)$, cuya derivada en $\varepsilon = 0$ es $1 + \tan^2\alpha$.
+* **Con $m$ variables**, $\Phi^{(1)}_\varepsilon$ actúa sobre $(\vec{x}, \vec{y}, Z)$, con $Z \mapsto J_{\tilde{\vec{y}}} \cdot J_{\tilde{\vec{x}}}^{-1}$ (apartado 9.2), y su generador tiene las componentes $\xi^{(1)}_{il} = d_{x_l} \xi_i - \sum_k z_{ik} \cdot d_{x_l} \tau_k$.
+
+### 10.4. La derivada de Lie
+
+**Definición.** Sea $V$ un campo vectorial con flujo $\Phi_\varepsilon$, y $G$ una función de clase $C^1$ en el mismo espacio. La **derivada de Lie** de $G$ a lo largo de $V$ es
+
+$$
+\begin{aligned}
+\mathcal{L}_V G := \left.\dfrac{\partial}{\partial \varepsilon}\big(G \circ \Phi_\varepsilon\big)\right|_{\varepsilon = 0}:
+\end{aligned}
+$$
+
+lo que cambia $G$, por unidad de $\varepsilon$, para un punto que se mueve con el flujo. **Aviso:** $\mathcal{L}$, caligráfica, es la derivada de Lie; $\bsL$, en negrita, sigue siendo el lagrangiano.
+
+* **Fórmula.** Por la regla de la cadena (apartado 10.2), $\mathcal{L}_V G(P) = DG(P)\,V(P) = \tau \cdot \partial_x G + \xi \cdot \partial_y G$. Solo depende del valor de $V$ en $P$: cualquier familia con el mismo generador da la misma derivada de Lie, aunque no cumpla la ley de grupo.
+* **Para funciones de $(x, y, y')$**, con el campo prolongado: $\mathcal{L}_{V^{(1)}} G = \tau \cdot \partial_x G + \xi \cdot \partial_y G + \xi^{(1)} \cdot \partial_{y'} G$.
+
+**El elemento de longitud.** Al transformar la gráfica, el elemento $dx$ pasa a ser $d\tilde{x} = d_x X_\varepsilon \cdot dx$ (apartado 5, punto (1)). Su derivada de Lie es el ritmo de ese cambio, y la escribimos con el factor $dx$ para recordar que es lo que se integra:
+
+$$
+\begin{aligned}
+\mathcal{L}_V(dx) := \left.\partial_\varepsilon\big(d_x X_\varepsilon\big)\right|_{\varepsilon = 0} \cdot dx = d_x \tau \cdot dx.
+\end{aligned}
+$$
+
+Con $m$ variables, el factor es $\det J_{\tilde{\vec{x}}}$, y su derivada en $\varepsilon = 0$ es $\sum_k d_{x_k} \tau_k$ (apartado 9.2): el elemento de volumen cambia al ritmo de la divergencia de $\vec{\tau}$.
+
+**El elemento lagrangiano.** Del mismo modo,
+
+$$
+\begin{aligned}
+\mathcal{L}_V(\bsL \cdot dx) := \left.\partial_\varepsilon\Big(\big(\bsL \circ \Phi^{(1)}_\varepsilon\big) \cdot d_x X_\varepsilon\Big)\right|_{\varepsilon = 0} \cdot dx.
+\end{aligned}
+$$
+
+El coeficiente de $dx$ es exactamente el $D$ del apartado 5:
+
+$$
+\begin{aligned}
+&\left.\partial_\varepsilon\Big(\big(\bsL \circ \Phi^{(1)}_\varepsilon\big) \cdot d_x X_\varepsilon\Big)\right|_{\varepsilon = 0} \\
+&\quad \overset{(1)}{=} \left.\partial_\varepsilon\big(\bsL \circ \Phi^{(1)}_\varepsilon\big)\right|_{\varepsilon = 0} \cdot d_x X_0 + \bsL \cdot \left.\partial_\varepsilon\big(d_x X_\varepsilon\big)\right|_{\varepsilon = 0} \\
+&\quad \overset{(2)}{=} \mathcal{L}_{V^{(1)}} \bsL + \bsL \cdot d_x \tau \\
+&\quad \overset{(3)}{=} \tau \cdot \partial_x \bsL + \xi \cdot \partial_y \bsL + \big(d_x \xi - y' \cdot d_x \tau\big) \cdot \partial_{y'} \bsL + \bsL \cdot d_x \tau.
+\end{aligned}
+$$
+
+* **(1)** Regla del producto respecto de $\varepsilon$; en $\varepsilon = 0$, $\Phi^{(1)}_0$ es la identidad y $\bsL \circ \Phi^{(1)}_0 = \bsL$.
+* **(2)** Definición de la derivada de Lie con el campo prolongado; $d_x X_0 = 1$ y, como en el apartado 10.3, $\partial_\varepsilon\big(d_x X_\varepsilon\big)\big|_{\varepsilon = 0} = d_x \tau$.
+* **(3)** La fórmula de $\mathcal{L}_{V^{(1)}}$ y la de $\xi^{(1)}$ (apartado 10.3).
+
+A lo largo de $f$, la última línea es la forma de cuatro términos del apartado 5, punto (2). Así, **$D$ es la derivada de Lie del elemento lagrangiano a lo largo del generador**, y la condición de simetría dice que el flujo cambia $\bsL \cdot dx$, a primer orden, en una derivada total: $\mathcal{L}_V(\bsL \cdot dx) = d_x F \cdot dx$. Con $m$ variables, $\mathcal{L}_V\big(\bsL \cdot dx_1 \cdots dx_m\big) = D \cdot dx_1 \cdots dx_m$, con el $D$ del apartado 9.3.
+
+**El lema del apartado 6.5, leído con la derivada de Lie.** Definimos el desplazamiento en un punto fijo, $\bar{\xi} := \xi - y' \cdot \tau$, que depende de $y'$. Para toda función $G(x, y, y')$:
+
+$$
+\begin{aligned}
+\mathcal{L}_{V^{(1)}} G &= \tau \cdot \partial_x G + \xi \cdot \partial_y G + \xi^{(1)} \cdot \partial_{y'} G \\
+&\overset{(1)}{=} \tau \cdot \partial_x G + \big(\bar{\xi} + \tau \cdot y'\big) \cdot \partial_y G + \big(d_x \bar{\xi} + \tau \cdot y''\big) \cdot \partial_{y'} G \\
+&\overset{(2)}{=} \bar{\xi} \cdot \partial_y G + d_x \bar{\xi} \cdot \partial_{y'} G + \tau \cdot \big(\partial_x G + y' \cdot \partial_y G + y'' \cdot \partial_{y'} G\big) \\
+&\overset{(3)}{=} \bar{\xi} \cdot \partial_y G + d_x \bar{\xi} \cdot \partial_{y'} G + \tau \cdot d_x G.
+\end{aligned}
+$$
+
+* **(1)** $\xi = \bar{\xi} + \tau \cdot y'$ y, por la regla del producto y $d_x y' = y''$, $\xi^{(1)} = d_x \xi - y' \cdot d_x \tau = d_x \bar{\xi} + \tau \cdot y'' + y' \cdot d_x \tau - y' \cdot d_x \tau = d_x \bar{\xi} + \tau \cdot y''$.
+* **(2)** Agrupamos los términos con $\tau$.
+* **(3)** Definición de $d_x$.
+
+El campo prolongado se descompone en dos partes:
+
+* **una parte evolutiva**, que cambia los valores en un punto fijo, en $\bar{\xi}$, y las pendientes, en $d_x \bar{\xi}$;
+* **$\tau$ veces la derivada total**, que mueve el punto a lo largo de la gráfica.
+
+Con $G = \bsL$ y sumando $\bsL \cdot d_x \tau$, como en el elemento lagrangiano, queda $D = \bar{\xi} \cdot \partial_y \bsL + d_x \bar{\xi} \cdot \partial_{y'} \bsL + d_x(\tau \cdot \bsL)$: el lema del apartado 6.5. La segunda parte solo añade una derivada total, $d_x(\tau \cdot \bsL)$; por eso lo que cuenta es $\bar{\xi}$. Con $m$ variables, la segunda parte es $\sum_k \tau_k \cdot d_{x_k}$, y se obtiene el lema del apartado 9.3.
+
+### 10.5. La ley de grupo: de la condición infinitesimal a la invariancia finita
+
+La condición de simetría solo se refiere al primer orden en $\varepsilon$. Con la ley de grupo, eso basta para todos los valores de $\varepsilon$.
+
+**Notación.** Para una función $g$ de clase $C^2$ en un intervalo $[c, d]$, llamamos $\tilde{x}_s$ y $\tilde{g}_s$ a la variable y a la función transformadas por $\Phi_s$ (apartado 2), y
+
+$$
+\begin{aligned}
+I_g(s) := \int_{\tilde{x}_s(c)}^{\tilde{x}_s(d)} \bsL(\tilde{g}_s, \tilde{g}_s')(u) \,du
+\end{aligned}
+$$
+
+a la integral transformada: la del apartado 4, con $\varepsilon = s$.
+
+**Teorema.** Sea $\Phi_\varepsilon$ una familia de clase $C^2$ con la ley de grupo (apartado 3.3), que es una simetría con la función $F(x, y)$: $D = \dfrac{dF}{dx}$ para toda función de clase $C^2$. Sean $f \in C^2([a, b])$, $[c, d] \subseteq [a, b]$ y $\varepsilon$ tal que, para todo $s$ entre $0$ y $\varepsilon$, $\tilde{x}_s$ es estrictamente creciente en $[c, d]$, de modo que existen las funciones transformadas $\tilde{f}_s$. Llamamos $I := I_f$, $P_c := \big(c, f(c)\big)$ y $P_d := \big(d, f(d)\big)$.
+
+Entonces
+
+$$
+\begin{aligned}
+I(\varepsilon) - I(0) = \int_0^\varepsilon \Big(F\big(\Phi_s(P_d)\big) - F\big(\Phi_s(P_c)\big)\Big) \,ds.
+\end{aligned}
+$$
+
+En particular, si $F = 0$, $I(\varepsilon) = I(0)$: el funcional es invariante para todo $\varepsilon$, no solo a primer orden.
+
+**Demostración.** Calculamos la derivada de $I$ en un valor $s$ cualquiera:
+
+$$
+\begin{aligned}
+I'(s) &\overset{(1)}{=} \left.\dfrac{d}{d\sigma} I(s + \sigma)\right|_{\sigma = 0} \\
+&\overset{(2)}{=} \left.\dfrac{d}{d\sigma} I_{\tilde{f}_s}(\sigma)\right|_{\sigma = 0} \\
+&\overset{(3)}{=} \int_{\tilde{x}_s(c)}^{\tilde{x}_s(d)} D[\tilde{f}_s](u) \,du \\
+&\overset{(4)}{=} \int_{\tilde{x}_s(c)}^{\tilde{x}_s(d)} \dfrac{d}{du} F\big(u, \tilde{f}_s(u)\big) \,du \\
+&\overset{(5)}{=} F\Big(\tilde{x}_s(d), \tilde{f}_s\big(\tilde{x}_s(d)\big)\Big) - F\Big(\tilde{x}_s(c), \tilde{f}_s\big(\tilde{x}_s(c)\big)\Big) \\
+&\overset{(6)}{=} F\big(\Phi_s(P_d)\big) - F\big(\Phi_s(P_c)\big).
+\end{aligned}
+$$
+
+* **(1)** Definición de derivada.
+* **(2)** Ley de grupo. La gráfica de $\tilde{f}_s$ es la imagen por $\Phi_s$ de la gráfica de $f$, y aplicarle $\Phi_\sigma$ da la imagen por $\Phi_\sigma \circ \Phi_s = \Phi_{s + \sigma}$. Por tanto, transformar $f$ con $\Phi_{s + \sigma}$ es transformar $\tilde{f}_s$, definida en $[\tilde{x}_s(c), \tilde{x}_s(d)]$, con $\Phi_\sigma$: $I_f(s + \sigma) = I_{\tilde{f}_s}(\sigma)$.
+* **(3)** La derivada en $\sigma = 0$ de la integral transformada de una función es la integral de su $D$ (apartado 6.5), que para la función $\tilde{f}_s$ escribimos $D[\tilde{f}_s]$. Llevado al intervalo fijo $[\tilde{x}_s(c), \tilde{x}_s(d)]$ por el cambio de variable del apartado 5, el integrando es de clase $C^1$ en $\sigma$, y la derivada puede entrar en la integral (derivación bajo el signo integral, apartado 8.3).
+* **(4)** Hipótesis de simetría, aplicada a la función $\tilde{f}_s$, que es de clase $C^2$: la hipótesis vale para toda función.
+* **(5)** Regla de Barrow.
+* **(6)** El extremo $\big(\tilde{x}_s(d), \tilde{f}_s(\tilde{x}_s(d))\big)$ de la gráfica transformada es la imagen por $\Phi_s$ del extremo $P_d$ de la gráfica de $f$; lo mismo con $c$.
+
+$I'(s)$ es continua en $s$, e integrando entre $0$ y $\varepsilon$ (teorema fundamental del cálculo) se obtiene el enunciado. $\blacksquare$
+
+**Observaciones.**
+
+* **El recíproco es inmediato.** Si $I(\varepsilon) - I(0)$ tiene esa forma para todo $\varepsilon$, derivando en $\varepsilon = 0$ se obtiene $\int_c^d D \,dx = F(d) - F(c)$, que es la condición de simetría (apartado 5).
+* **Sin la ley de grupo no basta el primer orden.** Con $\bsL = \dfrac{1}{2} \cdot y'^2$ y la familia $\Phi_\varepsilon(x, y) = (x, y + \varepsilon + \varepsilon^2 \cdot y)$, el generador es $(0, 1)$, que es una simetría con $F = 0$. Pero $\tilde{f} = f + \varepsilon + \varepsilon^2 \cdot f$, y
+
+  $$
+  \begin{aligned}
+  \bsL(\tilde{f}') - \bsL(f') = \dfrac{1}{2} \cdot \Big(\big(1 + \varepsilon^2\big)^2 - 1\Big) \cdot f'^2,
+  \end{aligned}
+  $$
+
+  que es de orden $\varepsilon^2$ y no se anula. La familia no es un flujo, y no es invariante más allá del primer orden.
+* **Un ejemplo con $F \neq 0$: el cambio de velocidad.** Con $\bsL = \dfrac{1}{2} \cdot y'^2$, $\Phi_\varepsilon(x, y) = (x, y + \varepsilon \cdot x)$ y $F(x, y) = y$ (tercera fila de la tabla del apartado 6.4), $F\big(\Phi_s(x, y)\big) = y + s \cdot x$, y el teorema da
+
+  $$
+  \begin{aligned}
+  I(\varepsilon) - I(0) &= \int_0^\varepsilon \Big(\big(f(d) + s \cdot d\big) - \big(f(c) + s \cdot c\big)\Big) \,ds \\
+  &= \varepsilon \cdot \big(f(d) - f(c)\big) + \dfrac{\varepsilon^2}{2} \cdot (d - c).
+  \end{aligned}
+  $$
+
+  Directamente: $\tilde{f} = f + \varepsilon \cdot x$, $\tilde{f}' = f' + \varepsilon$, y $\int_c^d \dfrac{1}{2} \cdot \big((f' + \varepsilon)^2 - f'^2\big) \,dx = \varepsilon \cdot \big(f(d) - f(c)\big) + \dfrac{\varepsilon^2}{2} \cdot (d - c)$. La fórmula es exacta, no solo de primer orden.
+* **Es la razón de fondo del apartado 3.3.** Con la ley de grupo, la condición infinitesimal, que es la que se comprueba, decide lo que ocurre con las transformaciones finitas.
+* **Con $n$ funciones o $m$ variables**, la demostración es la misma; con $m$ variables, el término de los extremos es el flujo de $\vec{F}$ por la frontera de la caja (apartado 9.4).
+
+### 10.6. Simetrías cuyo generador depende de las derivadas
+
+**Generadores generalizados.** Un generador $\bar{\xi}(x, y, y')$ que depende de la pendiente define, a primer orden, la transformación de funciones $f \mapsto f + \varepsilon \cdot \bar{\xi}\big(x, f, f'\big)$, sin mover la variable. No es una transformación de los puntos del plano: lo que se desplaza un punto depende de la pendiente de la gráfica en él, que no es una propiedad del punto. Su familia no se obtiene resolviendo un sistema de ecuaciones diferenciales ordinarias, como en el apartado 10.1, sino una ecuación en derivadas parciales para una función $u(\varepsilon, x)$:
+
+$$
+\begin{aligned}
+\partial_\varepsilon u = \bar{\xi}\big(x, u, \partial_x u\big), \qquad u(0, x) = f(x).
+\end{aligned}
+$$
+
+Ejemplo: con $\bar{\xi} = y'$ es $\partial_\varepsilon u = \partial_x u$, y $u(\varepsilon, x) = f(x + \varepsilon)$ es solución, porque las dos derivadas valen $f'(x + \varepsilon)$. Es la traslación de la variable de la versión anterior (apartado 6.7).
+
+**Simetría y cantidad conservada.** Como $\bar{\xi}$ depende de $y'$, $d_x \bar{\xi}$ contiene $y''$, y la función de la condición de simetría puede depender de $y'$. Decimos que $\bar{\xi}$ es una simetría si existe $\bar{F}(x, y, y')$ de clase $C^1$ con
+
+$$
+\begin{aligned}
+\bar{\xi} \cdot \partial_y \bsL + d_x \bar{\xi} \cdot \partial_{y'} \bsL = d_x \bar{F}
+\end{aligned}
+$$
+
+para toda $f$. Entonces $\bar{Q} := p \cdot \bar{\xi} - \bar{F}$ es constante a lo largo de las soluciones. La demostración es la de los apartados 6.2 y 6.3, porque el lema del apartado 6.2 vale para cualquier $\eta$ de clase $C^1$, y $\bar{\xi}\big(x, f, f'\big)$ lo es si $f$ es de clase $C^2$.
+
+**La relación con las transformaciones de los puntos.** Por el apartado 10.4, para un generador $(\tau, \xi)$ de los puntos, $D = \bar{\xi} \cdot \partial_y \bsL + d_x \bar{\xi} \cdot \partial_{y'} \bsL + d_x(\tau \cdot \bsL)$, con $\bar{\xi} = \xi - y' \cdot \tau$. Por tanto,
+
+$$
+\begin{aligned}
+D = d_x F \quad \Longleftrightarrow \quad \bar{\xi} \cdot \partial_y \bsL + d_x \bar{\xi} \cdot \partial_{y'} \bsL = d_x F - d_x(\tau \cdot \bsL) = d_x\big(F - \tau \cdot \bsL\big):
+\end{aligned}
+$$
+
+$(\tau, \xi)$ es una simetría con $F$ si y solo si $\bar{\xi}$ es una simetría generalizada con $\bar{F} := F - \tau \cdot \bsL$. Las cantidades conservadas coinciden:
+
+$$
+\begin{aligned}
+\bar{Q} &\overset{(1)}{=} p \cdot \bar{\xi} - \bar{F} \\
+&\overset{(2)}{=} p \cdot \big(\xi - \tau \cdot f'\big) - \big(F - \tau \cdot \bsL\big) \\
+&\overset{(3)}{=} p \cdot \xi - \tau \cdot \big(p \cdot f' - \bsL\big) - F \\
+&\overset{(4)}{=} p \cdot \xi - \tau \cdot \bsH - F = Q.
+\end{aligned}
+$$
+
+* **(1)** Definición de $\bar{Q}$.
+* **(2)** Sustituimos $\bar{\xi}$ y $\bar{F}$, a lo largo de $f$.
+* **(3)** Agrupamos los términos con $\tau$.
+* **(4)** Definición de $\bsH$ (apartado 6.5).
+
+Es el procedimiento de la versión anterior («Reducción al caso anterior»), y explica la relación entre las dos formas de la identidad de Beltrami del apartado 6.7.
+
+**No todo generador generalizado procede de los puntos.** $\bar{\xi}$ procede de una transformación de los puntos si y solo si es de la forma $\xi(x, y) - \tau(x, y) \cdot y'$; con $n$ funciones, $\bar{\xi}_i = \xi_i - \tau \cdot y'_i$, con el mismo $\tau$ para todas las componentes. El ejemplo clásico de lo contrario es el problema de Kepler: una partícula de masa $m$ atraída hacia el origen por una fuerza inversamente proporcional al cuadrado de la distancia, con
+
+$$
+\begin{aligned}
+\bsL = \dfrac{1}{2} \cdot m \cdot |\dot{\vec{q}}|^2 + \dfrac{k}{|\vec{q}|}, \qquad k > 0,
+\end{aligned}
+$$
+
+donde el punto es la derivada respecto del tiempo y $k$ es aquí la constante de la fuerza. Además de la energía y del momento angular, $\vec{\ell} = \vec{q} \times \vec{p}$ con $\vec{p} = m \cdot \dot{\vec{q}}$, se conserva el **vector de Laplace–Runge–Lenz**,
+
+$$
+\begin{aligned}
+\vec{A} := \vec{p} \times \vec{\ell} - m \cdot k \cdot \dfrac{\vec{q}}{|\vec{q}|},
+\end{aligned}
+$$
+
+que apunta hacia el perihelio de la órbita, su punto más cercano al origen. Su componente $j$ procede del generador generalizado
+
+$$
+\begin{aligned}
+\bar{\xi}_i = m \cdot \big(2 \cdot \dot{q}_i \cdot q_j - q_i \cdot \dot{q}_j - \delta_{ij} \cdot \vec{q} \cdot \dot{\vec{q}}\big), \qquad i = 1, 2, 3,
+\end{aligned}
+$$
+
+con $\bar{F} = \vec{p} \cdot \bar{\vec{\xi}} - A_j$. Depende de las velocidades, pero no es de la forma $\xi_i - \tau \cdot \dot{q}_i$: los términos $-q_i \cdot \dot{q}_j$ y $-\delta_{ij} \cdot \vec{q} \cdot \dot{\vec{q}}$ no lo son. Ninguna transformación de los puntos da esta cantidad conservada.
+
+Las cuentas de este apartado (los flujos, la prolongación del giro, la derivada de Lie del elemento lagrangiano y su descomposición, la invariancia finita, el contraejemplo sin ley de grupo, la fórmula exacta del cambio de velocidad y el vector de Laplace–Runge–Lenz) están comprobadas con SymPy en borrador-Noether-v2-comprobaciones.py.
+
+## Mapa de la notación
+
+Cómo cambia cada objeto en las generalizaciones de los apartados 8, 9 y 11. $E$ es un espacio de Banach y $E^*$, su dual (apartado 10.2); el apartado 11 está por escribir.
+
+| Objeto | Una función (2 a 7) | $n$ funciones (8) | $m$ variables (9) | Valores en $E$ (11) |
+| ------------------------------------ | -------------------- | -------------------------- | -------------------------------- | ---------------------- |
+| Variable | $x \in [a, b]$ | $x \in [a, b]$ | $\vec{x} \in \Omega = \prod_k [a_k, b_k]$ | $x \in [a, b]$ |
+| Función | $f$ | $\vec{f} = (f_1, \dots, f_n)$ | $\vec{f}(\vec{x})$ | $f$, con valores en $E$ |
+| Puntos que se transforman | $\mathbb{R} \times \mathbb{R}$ | $\mathbb{R} \times \mathbb{R}^n$ | $\mathbb{R}^m \times \mathbb{R}^n$ | $\mathbb{R} \times E$ |
+| Generador | $(\tau, \xi)$ | $(\tau, \vec{\xi})$ | $(\vec{\tau}, \vec{\xi})$ | $(\tau, \xi)$, $\xi \in E$ |
+| Derivada a lo largo de $f$ | $'$, o $d_x$ (10.3) | $'$ | $d_{x_k}$ | $'$ |
+| Derivadas de $f$ | $f'$ | $\vec{f}'$ | $J_{\vec{f}} = (\partial_k f_i)$ | $f'$ |
+| Factor de $d\tilde{x}$ | $\tilde{x}'$ | $\tilde{x}'$ | $\det J_{\tilde{\vec{x}}}$ | $\tilde{x}'$ |
+| Subdominio | $[c, d]$ | $[c, d]$ | caja $B = \prod_k [c_k, d_k]$ | $[c, d]$ |
+| Momento | $p$ | $p_i$ | $u_{ik}$ | $p$, en $E^*$ |
+| Expresión de Euler–Lagrange | $\varphi$ | $\varphi_i$ | $\varphi_i$ | $\varphi$, en $E^*$ |
+| Hamiltoniano | $\bsH$ | $\bsH$ | $T_{kl}$ | $\bsH$ |
+| Término de borde | $F(x, y)$ | $F(x, \vec{y})$ | $\vec{F}$, con $F_k(\vec{x}, \vec{y})$ | $F(x, y)$ |
+| Cantidad conservada | $Q$ | $Q$ | corriente $\vec{Q}$ | $Q$ |
+
+Table: Cómo cambia la notación en cada generalización.
+
+**Otros documentos.** En la versión anterior de «El teorema de Noether: parte matemática», la familia se escribe $\bsT_\epsilon$, con el parámetro $\epsilon$, y el generador puede depender de las derivadas (apartado 10.6); en el Tema 1, apartado 4.4, el parámetro se llama $s$ y el campo, $(\xi^t, \xi^x)$. Aquí usamos $\Phi_\varepsilon$, $\varepsilon$ y $(\tau, \xi)$, como en el trabajo «La importancia de las simetrías en física».
+
+<!-- COMENTARIOS DE LA IA (10-10-2026): respuesta a la pregunta sobre la partícula en un campo central (la de varias variables independientes es ahora el apartado 9). Se sustituyen por el desarrollo propio -->
+
+## Comentarios: la partícula en un campo central
+
+La pregunta era si, para una partícula en un campo central, con $\vec{r}(t) = \big(x(t), y(t), z(t)\big)$ y coordenadas esféricas, se pueden obtener las cantidades conservadas de los giros, de la traslación en el tiempo, de las traslaciones en el espacio y del cambio a un observador que se mueve con velocidad constante.
+
+### Precisiones previas
+
+* **Es el apartado 8, no el 9.** Hay una sola variable independiente, $t$ (la $x$ de los apartados anteriores), y $n = 3$ funciones, $\vec{f} = \vec{r} = (x, y, z)$. Aquí $x, y, z$ son las coordenadas del punto, no la variable independiente ni los argumentos de $\bsL$; por eso escribimos los generadores y $F$ como funciones de $(t, \vec{r})$. El punto indica la derivada respecto de $t$ (la prima de antes), y $m$ es la masa (en el apartado 9 es el número de variables). En estos comentarios, $E$ es la energía, no un espacio de Banach.
+* **El lagrangiano** es $\bsL = \dfrac{1}{2} \cdot m \cdot |\dot{\vec{r}}|^2 - V(|\vec{r}|)$, con $\dot{\vec{r}}$ en la energía cinética (en la pregunta está escrito $|\vec{r}|^2$). $V$ es la energía potencial, de clase $C^2$ para $r > 0$ (en el apartado 8.5 se llamaba $U$). Escribimos $r = |\vec{r}|$, $\vec{p} = m \cdot \dot{\vec{r}}$, $V'$ para la derivada de $V$ respecto de $r$ y $\nabla_{\vec{r}} \bsL := (\partial_x \bsL, \partial_y \bsL, \partial_z \bsL)$.
 * **En esféricas**, $x = r \cdot \sin\theta \cdot \cos\phi$, $y = r \cdot \sin\theta \cdot \sin\phi$ y $z = r \cdot \cos\theta$, con $r > 0$ y $0 < \theta < \pi$ (fuera del eje $z$, donde las coordenadas esféricas son singulares). Aviso: $\phi$ es el ángulo; las $\varphi_i$ siguen siendo las expresiones de Euler–Lagrange. Entonces
 
   $$
@@ -1014,7 +1903,7 @@ Sí se generaliza. Es, de hecho, el caso que trata el artículo original de Noet
   \end{aligned}
   $$
 
-* **$Q$ no depende de las coordenadas.** Si $\vec{r} = \vec{R}(\vec{q})$ es un cambio de coordenadas que no depende de $t$, entonces $\dot{\vec{r}} = J_{\vec{R}} \cdot \dot{\vec{q}}$ y, por la regla de la cadena, $\vec{p}_{\vec{q}} = J_{\vec{R}}^{\mathsf{T}} \cdot \vec{p}_{\vec{r}}$. El generador se transforma como una velocidad, $\vec{\xi}_{\vec{r}} = J_{\vec{R}} \cdot \vec{\xi}_{\vec{q}}$, así que
+* **$Q$ no depende de las coordenadas.** Si $\vec{r} = \vec{R}(\vec{q})$ es un cambio de coordenadas que no depende de $t$, es decir, un difeomorfismo (apartado 6.5), entonces $\dot{\vec{r}} = J_{\vec{R}} \cdot \dot{\vec{q}}$. Con los momentos en cada sistema de coordenadas, $\vec{p}_{\vec{q}} := (\partial_{\dot{q}_1} \bsL, \partial_{\dot{q}_2} \bsL, \partial_{\dot{q}_3} \bsL)$ y $\vec{p}_{\vec{r}} := \vec{p}$, la regla de la cadena da $\vec{p}_{\vec{q}} = J_{\vec{R}}^{\mathsf{T}} \cdot \vec{p}_{\vec{r}}$. (Aquí $\vec{R}$ es el cambio de coordenadas; más abajo, $\vec{R}$ es el centro de masas.) El generador se transforma como una velocidad, $\vec{\xi}_{\vec{r}} = J_{\vec{R}} \cdot \vec{\xi}_{\vec{q}}$, así que
 
   $$
   \begin{aligned}
@@ -1024,7 +1913,7 @@ Sí se generaliza. Es, de hecho, el caso que trata el artículo original de Noet
 
   Del mismo modo, $\bsH$ y $F$ son los mismos en las dos coordenadas. Las coordenadas deciden qué cantidades se ven con facilidad, no cuáles existen.
 
-#### Giros
+### Giros
 
 * **Giro de ángulo $\varepsilon$ alrededor del eje de vector unitario $\vec{n}$:** $\tau = 0$ y $\vec{\xi} = \vec{n} \times \vec{r}$.
 * **Es una simetría con $F = 0$:**
@@ -1066,7 +1955,7 @@ Sí se generaliza. Es, de hecho, el caso que trata el artículo original de Noet
 
   Se conservan aunque ninguna coordenada esférica sea cíclica para ellos; con el eje polar en la dirección $x$, $\ell_x$ sería el momento de un ángulo cíclico. Además, $|\vec{\ell}|^2 = p_\theta^2 + \dfrac{p_\phi^2}{\sin^2\theta}$.
 
-#### Traslación en el tiempo
+### Traslación en el tiempo
 
 * $\tilde{t} = t + \varepsilon$: $\tau = 1$ y $\vec{\xi} = \vec{0}$. El cambio $t \mapsto t - t_0$ de la pregunta es el elemento $\varepsilon = -t_0$ de esta familia.
 * $D = \partial_t \bsL \cdot \tau = 0$, porque $\bsL$ no depende explícitamente de $t$, y $F = 0$.
@@ -1081,7 +1970,7 @@ Sí se generaliza. Es, de hecho, el caso que trata el artículo original de Noet
 
   la energía. En cartesianas sale lo mismo, $\dfrac{1}{2} \cdot m \cdot |\dot{\vec{r}}|^2 + V(r)$.
 
-#### Traslaciones en el espacio
+### Traslaciones en el espacio
 
 * $\tilde{\vec{r}} = \vec{r} + \varepsilon \cdot \vec{e}$, con $\vec{e}$ un vector constante no nulo: $\tau = 0$ y $\vec{\xi} = \vec{e}$. El cambio $\vec{r} \mapsto \vec{r} - \vec{r}_0$ de la pregunta es el elemento con $\varepsilon \cdot \vec{e} = -\vec{r}_0$. Se escriben mejor en cartesianas: en esféricas mezclan $r$, $\theta$ y $\phi$.
 * $D = \nabla_{\vec{r}} \bsL \cdot \vec{e} = -\dfrac{V'(r)}{r} \cdot (\vec{e} \cdot \vec{r})$, porque $\dot{\vec{\xi}} = \vec{0}$.
@@ -1089,7 +1978,7 @@ Sí se generaliza. Es, de hecho, el caso que trata el artículo original de Noet
 * **El motivo:** $V(|\vec{r}|)$ distingue el origen $O$, el centro de fuerzas, y desplazar la trayectoria cambia su distancia a él. La cantidad de movimiento no se conserva: $\dot{\vec{p}} = -\dfrac{V'(r)}{r} \cdot \vec{r}$.
 * **Solo con $V$ constante** (partícula libre) es una simetría, con $F = 0$, y da $Q = \vec{e} \cdot \vec{p}$: se conserva la cantidad de movimiento.
 
-#### Cambio a un observador con velocidad constante
+### Cambio a un observador con velocidad constante
 
 * El nuevo observador se mueve respecto de $O$ con velocidad constante $\vec{v} = \varepsilon \cdot \vec{u}$ y coincide con $O$ en $t = 0$. Mide las posiciones $\tilde{\vec{r}} = \vec{r} - \varepsilon \cdot \vec{u} \cdot t$, y el tiempo no cambia (mecánica de Galileo): $\tau = 0$ y $\vec{\xi} = -\vec{u} \cdot t$. El generador depende de la variable independiente, y la teoría lo admite: $\vec{\xi}$ es una función de $(t, \vec{r})$.
 * $D = \nabla_{\vec{r}} \bsL \cdot \vec{\xi} + \vec{p} \cdot \dot{\vec{\xi}}$, es decir,
@@ -1108,10 +1997,10 @@ Sí se generaliza. Es, de hecho, el caso que trata el artículo original de Noet
   \end{aligned}
   $$
 
-  Las tres direcciones de $\vec{u}$ dan la conservación de $\vec{K}$: $m \cdot \vec{r}(t) - \vec{p} \cdot t = m \cdot \vec{r}(0)$, el movimiento rectilíneo uniforme. Comprobación: $\dot{\vec{K}} = m \cdot \dot{\vec{r}} - \vec{p} - \dot{\vec{p}} \cdot t = -\dot{\vec{p}} \cdot t = \vec{0}$.
+  (Este $\vec{K}$ no es el del apartado 8.5.) Las tres direcciones de $\vec{u}$ dan la conservación de $\vec{K}$: $m \cdot \vec{r}(t) - \vec{p} \cdot t = m \cdot \vec{r}(0)$, el movimiento rectilíneo uniforme. Comprobación: $\dot{\vec{K}} = m \cdot \dot{\vec{r}} - \vec{p} - \dot{\vec{p}} \cdot t = -\dot{\vec{p}} \cdot t = \vec{0}$.
 * **Con $V' \neq 0$ no es una simetría.** $D$ es afín en $\dot{\vec{r}}$, con término independiente $t \cdot \dfrac{V'(r)}{r} \cdot (\vec{u} \cdot \vec{r})$ y coeficientes constantes $-m \cdot u_i$. La condición de integrabilidad del apartado 8.3 (la derivada del término independiente respecto de $y_i$ es igual a la derivada respecto de $t$ del coeficiente, que es $0$) exige que el término independiente no dependa de $\vec{r}$; como en las traslaciones, eso solo ocurre si $V' = 0$. El motivo: el nuevo observador ve moverse el centro de fuerzas, y el potencial $V\big(|\tilde{\vec{r}} + \vec{v} \cdot t|\big)$ depende explícitamente del tiempo.
 
-#### Por qué el campo central pierde las traslaciones y los cambios de velocidad
+### Por qué el campo central pierde las traslaciones y los cambios de velocidad
 
 El campo central es lo que queda del problema de dos cuerpos, con $n = 6$:
 
@@ -1121,11 +2010,11 @@ $$
 \end{aligned}
 $$
 
-* **Ahí sí son simetrías** desplazar las dos partículas a la vez, $\vec{\xi} = (\vec{e}, \vec{e})$, y cambiar de observador, $\vec{\xi} = (-\vec{u} \cdot t, -\vec{u} \cdot t)$, porque $|\vec{r}_1 - \vec{r}_2|$ no cambia. Dan la cantidad de movimiento total, $\vec{P} = \vec{p}_1 + \vec{p}_2$, y $\vec{K} = M \cdot \vec{R} - \vec{P} \cdot t$, con $M = m_1 + m_2$ y $\vec{R}$ el centro de masas, que se mueve con velocidad constante.
-* **Al separar el centro de masas**, el movimiento relativo, $\vec{r} = \vec{r}_1 - \vec{r}_2$, es el problema del campo central, con la masa reducida $\dfrac{m_1 \cdot m_2}{M}$ en el lugar de $m$. De las transformaciones de Galileo solo conserva los giros y la traslación en el tiempo.
-* **Una precisión.** Para potenciales concretos hay más cantidades conservadas: con el de Kepler, $V = -\dfrac{k}{r}$, el vector de Laplace–Runge–Lenz. Su simetría tiene un generador que depende de la velocidad, y queda fuera del marco de este borrador, donde $\tau$ y $\vec{\xi}$ solo dependen de $(t, \vec{r})$.
+* **Ahí sí son simetrías** desplazar las dos partículas a la vez, $\vec{\xi} = (\vec{e}, \vec{e})$, y cambiar de observador, $\vec{\xi} = (-\vec{u} \cdot t, -\vec{u} \cdot t)$, porque $|\vec{r}_1 - \vec{r}_2|$ no cambia. Dan la cantidad de movimiento total, $\vec{P} = \vec{p}_1 + \vec{p}_2$, y $\vec{K} = M \cdot \vec{R} - \vec{P} \cdot t$, con $M = m_1 + m_2$ y $\vec{R} := \dfrac{m_1 \cdot \vec{r}_1 + m_2 \cdot \vec{r}_2}{M}$ el centro de masas, que se mueve con velocidad constante.
+* **Al separar el centro de masas.** Con $\vec{r} = \vec{r}_1 - \vec{r}_2$, el lagrangiano se escribe $\dfrac{1}{2} \cdot M \cdot |\dot{\vec{R}}|^2 + \dfrac{1}{2} \cdot \mu \cdot |\dot{\vec{r}}|^2 - V(|\vec{r}|)$, con la **masa reducida** $\mu := \dfrac{m_1 \cdot m_2}{M}$. El movimiento relativo es el problema del campo central, con $\mu$ en el lugar de $m$. De las **transformaciones de Galileo** (las composiciones de giros, traslaciones en el espacio y en el tiempo y cambios a un observador con velocidad constante) solo conserva los giros y la traslación en el tiempo.
+* **Una precisión.** Para potenciales concretos hay más cantidades conservadas: con el de Kepler, $V = -\dfrac{k}{r}$, el vector de Laplace–Runge–Lenz (apartado 10.6). Su simetría tiene un generador que depende de la velocidad, y no procede de ninguna transformación de los puntos $(t, \vec{r})$.
 
-#### Resumen
+### Resumen
 
 | Transformación | $(\tau, \vec{\xi})$ | Simetría | $F$ | $Q$ |
 | -------------------------- | ---------------------- | ------------------ | ------------------ | ---------------- |
@@ -1136,6 +2025,6 @@ $$
 
 Table: Partícula en un campo central $V(r)$. En las dos últimas filas, $F$ y $Q$ son los de la partícula libre.
 
-Las cuentas de estos comentarios (la identidad para campos, con $D$ calculado desde la definición; la cuerda; los generadores en esféricas y $\ell_x$, $\ell_y$, $\ell_z$; la energía; los valores de $D$ de las traslaciones y de los cambios de velocidad; la partícula libre y los dos cuerpos) están comprobadas en el mismo archivo de SymPy.
+Las cuentas de estos comentarios (los generadores en esféricas y $\ell_x$, $\ell_y$, $\ell_z$; la energía; los valores de $D$ de las traslaciones y de los cambios de velocidad; la partícula libre y los dos cuerpos) están comprobadas en borrador-Noether-v2-comprobaciones.py.
 
 <!-- FIN DE LOS COMENTARIOS -->
