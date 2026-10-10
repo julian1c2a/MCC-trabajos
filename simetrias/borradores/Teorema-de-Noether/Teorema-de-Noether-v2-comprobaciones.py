@@ -1,6 +1,7 @@
 r"""Comprobaciones simbólicas de la serie «El teorema de Noether» (versión 2).
-Parte matemática (apartados 6.7, 7, 8, 9 y 10), ejemplos matemáticos (apartados 2 y 4)
-y comentarios sobre la partícula en un campo central (pendientes de pasar a los ejemplos físicos).
+Parte matemática (apartados 6.7, 7, 8, 9 y 10), ejemplos matemáticos (apartados 2 y 4),
+parte física (apartados 9 y 10), la cuerda con el cambio de velocidad de Lorentz
+y comentarios sobre la partícula en un campo central (los dos últimos, para los ejemplos físicos).
 Se ejecuta desde la raíz del repositorio con .venv\Scripts\python.exe."""
 import sympy as sp
 
@@ -437,6 +438,277 @@ def particula():
     ok(sp.diff(Q2, t).subs(acc2), "dos cuerpos: Q constante sobre las soluciones")
 
 
+# Parte física (versión 2): partícula relativista, cuerda de Lorentz y mecánica cuántica
+def fisica_relativista():
+    t = sp.Symbol("t", real=True)
+    m, c = sp.symbols("m c", positive=True)
+    q = [sp.Function(n)(t) for n in ("q1", "q2", "q3")]
+    v = [w.diff(t) for w in q]
+    v2 = sum(w**2 for w in v)
+    L = -m * c**2 * sp.sqrt(1 - v2 / c**2)
+    p = [sp.diff(L, w) for w in v]
+    H = sp.simplify(sum(a * b for a, b in zip(p, v)) - L)
+    gam = 1 / sp.sqrt(1 - v2 / c**2)
+    ok(H - m * c**2 * gam, "física 9.2: H = gamma m c^2")
+    ok(p[0] - gam * m * v[0], "física 9.2: p = gamma m v")
+    # Cambio de velocidad de Lorentz, activo: tau = u.q / c^2, xi = u t
+    u = sp.symbols("u1:4", real=True)
+    tau = sum(a * b for a, b in zip(u, q)) / c**2
+    xi = [a * t for a in u]
+    # forma de cuatro términos con n funciones: sum dL/dq xi + sum p (xi' - tau' q') + dL/dt tau + L tau'
+    D = sum(p[i] * (sp.diff(xi[i], t) - sp.diff(tau, t) * v[i]) for i in range(3)) + L * sp.diff(tau, t)
+    ok(D, "física 9.3: el cambio de velocidad de Lorentz es una simetría con F = 0")
+    Q = sum(p[i] * xi[i] for i in range(3)) - tau * H
+    K = [H * q[i] / c**2 - p[i] * t for i in range(3)]
+    ok(Q + sum(a * b for a, b in zip(u, K)), "física 9.3: Q = -u . K, K = E q / c^2 - p t")
+    acc = {w.diff(t, 2): 0 for w in q}   # la partícula libre relativista: aceleración nula
+    ok(sp.diff(K[0], t).subs(acc), "física 9.3: K constante sobre las soluciones")
+    # Límite de Galileo: L = -m c^2 + m v^2 / 2 + O(1/c^2), K -> m q - p t, tau H -> m u . q
+    eps = sp.Symbol("eps", positive=True)   # eps = 1 / c^2
+    Le = sp.series(L.subs(c, 1 / sp.sqrt(eps)) * eps, eps, 0, 2).removeO() / eps
+    ok(sp.expand(Le - (-m / eps + m * v2 / 2)), "física 9.4: L = -m c^2 + m v^2 / 2 + O(1/c^2)")
+    tH = sp.series((tau * H).subs(c, 1 / sp.sqrt(eps)), eps, 0, 1).removeO()
+    ok(sp.expand(tH - m * sum(a * b for a, b in zip(u, q))), "física 9.4: tau H -> m u . q")
+
+
+def fisica_cuerda_lorentz():
+    t, x, c = sp.symbols("t x c", real=True)
+    f = sp.Function("f")(t, x)
+    ft, fx = f.diff(t), f.diff(x)
+    L = ft**2 / 2 - c**2 * fx**2 / 2
+    u = [ft, -c**2 * fx]
+    df = [ft, fx]
+    var = (t, x)
+    T = [[u[a] * df[b] - (L if a == b else 0) for b in range(2)] for a in range(2)]
+    tau = [x / c**2, t]                   # cambio de velocidad activo: t -> t + eps x / c^2, x -> x + eps t
+    d = lambda e, k: sp.diff(e, var[k])
+    # forma de cuatro términos con m = 2 variables y una función, xi = 0
+    D = sum(u[l] * (-sum(df[k] * d(tau[k], l) for k in range(2))) for l in range(2)) + L * sum(d(tau[k], k) for k in range(2))
+    ok(D, "física ejemplos 6: la cuerda es invariante bajo el cambio de velocidad de Lorentz")
+    Q = [-sum(T[a][b] * tau[b] for b in range(2)) for a in range(2)]
+    phi = -d(u[0], 0) - d(u[1], 1)
+    xib = -sum(tau[k] * df[k] for k in range(2))
+    ok(d(Q[0], 0) + d(Q[1], 1) + phi * xib, "física ejemplos 6: corriente de Lorentz, div Q = -phi xi barra")
+    E = ft**2 / 2 + c**2 * fx**2 / 2
+    ok(Q[0] + (x * E / c**2 + t * ft * fx), "física ejemplos 6: Q_0 = -(x E / c^2 + t f_t f_x)")
+
+
+def fisica_cuantica():
+    x, y, t = sp.symbols("x y t", real=True)
+    hb, m = sp.symbols("hbar m", positive=True)
+    I = sp.I
+    psi = sp.Function("psi")
+    # Cambio de velocidad de Galileo de la partícula libre en una dimensión
+    u = sp.Symbol("u", real=True)
+    sch = lambda g: I * hb * sp.diff(g, t) + hb**2 / (2 * m) * sp.diff(g, x, 2)   # residuo con V = 0
+    base = psi(x - u * t, t)
+    nueva = sp.exp(I * m * u * x / hb - I * m * u**2 * t / (2 * hb)) * base
+    # Si psi cumple la ecuación, la transformada también: el residuo de la nueva es la fase por el de psi en (x - u t)
+    X = sp.Symbol("X", real=True)
+    res_psi = (I * hb * sp.Derivative(psi(X, t), t) + hb**2 / (2 * m) * sp.Derivative(psi(X, t), X, 2))
+    dif = sp.simplify(sp.expand(sch(nueva) / sp.exp(I * m * u * x / hb - I * m * u**2 * t / (2 * hb))))
+    dif = dif.subs(x, X + u * t).doit()
+    ok(sp.simplify(dif - res_psi.doit()), "física 10.5: el cambio de velocidad con la fase lleva soluciones en soluciones")
+    # Operadores sobre una función de prueba g(x, y)
+    g = sp.Function("g")(x, y)
+    V = sp.Function("V")
+    px = lambda h: -I * hb * sp.diff(h, x)
+    py = lambda h: -I * hb * sp.diff(h, y)
+    Hc = lambda h, W: -hb**2 / (2 * m) * (sp.diff(h, x, 2) + sp.diff(h, y, 2)) + W * h
+    conm = lambda A, B, h: A(B(h)) - B(A(h))
+    # [q, p] = i hbar
+    ok(conm(lambda h: x * h, px, g) - I * hb * g, "física 10.1: [q_x, p_x] = i hbar")
+    # Potencial central en el plano: L_z = x p_y - y p_x conmuta con H
+    r = sp.sqrt(x**2 + y**2)
+    Lz = lambda h: x * py(h) - y * px(h)
+    ok(conm(lambda h: Hc(h, V(r)), Lz, g), "física 10.4: [H, L_z] = 0 con potencial central")
+    # Con un potencial cualquiera, p_x no conmuta con H: [H, p_x] = i hbar dV/dx
+    W = sp.Function("W")(x, y)
+    ok(conm(lambda h: Hc(h, W), px, g) - I * hb * sp.diff(W, x) * g, "física 10.4: [H, p_x] = i hbar dV/dx")
+    # Partícula libre: G = m x - p_x t cumple (i / hbar) [H, G] + dG/dt = 0
+    G = lambda h: m * x * h - t * px(h)
+    dGdt = lambda h: -px(h)
+    ok(I / hb * conm(lambda h: Hc(h, 0), G, g) + dGdt(g), "física 10.5: G = m q - p t se conserva para la partícula libre")
+
+
+def fisica_cuantica_campo():
+    # La ecuación de Schrödinger como teoría de campos (parte matemática, apartado 8): psi = psiR + i psiI
+    t, x1, x2, x3 = var = sp.symbols("t x1 x2 x3", real=True)
+    hb, m = sp.symbols("hbar m", positive=True)
+    V = sp.Function("V")(x1, x2, x3)
+    R = sp.Function("psiR", real=True)(*var)
+    J = sp.Function("psiI", real=True)(*var)
+    f = [R, J]
+    d = lambda e, k: sp.diff(e, var[k])
+    L = hb * (J * d(R, 0) - R * d(J, 0)) - hb**2 / (2 * m) * sum(d(R, k)**2 + d(J, k)**2 for k in (1, 2, 3)) - V * (R**2 + J**2)
+    # momentos u_{ik} y expresiones de Euler–Lagrange
+    Z = [[sp.Symbol(f"Z{i}{k}") for k in range(4)] for i in range(2)]
+    Y = [sp.Symbol("Y0"), sp.Symbol("Y1")]
+    sub = {f[i].diff(var[k]): Z[i][k] for i in range(2) for k in range(4)}
+    Ls = L.subs(sub).subs({R: Y[0], J: Y[1]})
+    back = {Z[i][k]: f[i].diff(var[k]) for i in range(2) for k in range(4)}
+    back.update({Y[0]: R, Y[1]: J})
+    u = [[sp.diff(Ls, Z[i][k]).subs(back) for k in range(4)] for i in range(2)]
+    phi = [sp.diff(Ls, Y[i]).subs(back) - sum(d(u[i][k], k) for k in range(4)) for i in range(2)]
+    psi = R + sp.I * J
+    lap = lambda h: sum(sp.diff(h, w, 2) for w in (x1, x2, x3))
+    res = sp.I * hb * d(psi, 0) - (-hb**2 / (2 * m) * lap(psi) + V * psi)   # residuo de Schrödinger
+    ok(phi[0] - 2 * (-hb * d(J, 0) + hb**2 / (2 * m) * lap(R) - V * R),
+       "física 10.3: la expresión de Euler–Lagrange de psiR es el doble de la parte real del residuo")
+    ok(phi[1] - 2 * (hb * d(R, 0) + hb**2 / (2 * m) * lap(J) - V * J),
+       "física 10.3: la expresión de Euler–Lagrange de psiI es el doble de la parte imaginaria del residuo")
+    # comprobación de que esas son las partes real e imaginaria de i hbar psi_t - H psi
+    ok(sp.expand(res - ((-hb * d(J, 0) + hb**2 / (2 * m) * lap(R) - V * R) + sp.I * (hb * d(R, 0) + hb**2 / (2 * m) * lap(J) - V * J))),
+       "física 10.3: partes real e imaginaria del residuo de Schrödinger")
+    # simetría de fase: xi = (-psiI, psiR), tau = 0; corriente y ecuación de continuidad
+    xi = [-J, R]
+    Q = [sum(u[i][k] * xi[i] for i in range(2)) for k in range(4)]
+    ok(Q[0] + hb * (R**2 + J**2), "física 10.3: fase, Q_0 = -hbar |psi|^2")
+    for k in (1, 2, 3):
+        ok(Q[k] + hb**2 / m * (R * d(J, k) - J * d(R, k)), f"física 10.3: fase, Q_{k} = -hbar j_{k}")
+    ok(sum(d(Q[k], k) for k in range(4)) + sum(phi[i] * xi[i] for i in range(2)), "física 10.3: fase, div Q = -sum phi xi")
+    # tensor de energía-momento: densidad de energía y de cantidad de movimiento
+    df = [[d(f[i], k) for k in range(4)] for i in range(2)]
+    T = lambda a, b: sum(u[i][a] * df[i][b] for i in range(2)) - (L if a == b else 0)
+    ok(T(0, 0) - (hb**2 / (2 * m) * sum(d(R, k)**2 + d(J, k)**2 for k in (1, 2, 3)) + V * (R**2 + J**2)),
+       "física 10.3: T_00 = hbar^2/(2m) |grad psi|^2 + V |psi|^2")
+    ok(-T(0, 1) - hb * (R * d(J, 1) - J * d(R, 1)), "física 10.3: -T_01 = hbar (psiR d1 psiI - psiI d1 psiR)")
+    r0, i0, r1, i1 = sp.symbols("r0 i0 r1 i1", real=True)   # valores y derivadas como símbolos reales
+    expr = sp.re(sp.expand((r0 - sp.I * i0) * (-sp.I * hb * (r1 + sp.I * i1))))
+    ok(sp.expand(expr - hb * (r0 * i1 - i0 * r1)), "física 10.3: -T_01 = Re(conj(psi) p_1 psi)")
+
+
+def fisica_generador_temporal():
+    # D para psi -> exp(-i eps A(t)) psi con L = Re<psi, i hbar psi'> - <psi, H psi>, en C^2.
+    # Valores y derivadas como símbolos reales; la derivada temporal se hace con la regla de la cadena.
+    hb = sp.Symbol("hbar", positive=True)
+    a, b_, c_, w1, w2 = sp.symbols("a b c w1 w2", real=True)
+    Hm = sp.Matrix([[a, w1 + sp.I * w2], [w1 - sp.I * w2, c_]])
+    A = sp.symbols("A1:5", real=True)        # entradas reales de A(t)
+    dA = sp.symbols("dA1:5", real=True)      # sus derivadas
+    Am = sp.Matrix([[A[0], A[2] + sp.I * A[3]], [A[2] - sp.I * A[3], A[1]]])
+    dAm = sp.Matrix([[dA[0], dA[2] + sp.I * dA[3]], [dA[2] - sp.I * dA[3], dA[1]]])
+    y = sp.symbols("y1:5", real=True)        # partes real e imaginaria de psi
+    z = sp.symbols("z1:5", real=True)        # sus derivadas
+    psi = sp.Matrix([y[0] + sp.I * y[1], y[2] + sp.I * y[3]])
+    dpsi = sp.Matrix([z[0] + sp.I * z[1], z[2] + sp.I * z[3]])
+    br = lambda U, W: sp.expand((U.H * W)[0, 0])
+    L = sp.re(br(psi, sp.I * hb * dpsi)) - sp.re(br(psi, Hm * psi))
+    xc = sp.expand(-sp.I * Am * psi)
+    xi = [sp.re(xc[0]), sp.im(xc[0]), sp.re(xc[1]), sp.im(xc[1])]
+    dxi = [sum(sp.diff(e, y[j]) * z[j] for j in range(4)) + sum(sp.diff(e, A[k]) * dA[k] for k in range(4)) for e in xi]
+    D = sum(sp.diff(L, y[i]) * xi[i] + sp.diff(L, z[i]) * dxi[i] for i in range(4))
+    Op = dAm + sp.I / hb * (Hm * Am - Am * Hm)
+    ok(sp.expand(D - sp.re(hb * br(psi, Op * psi))), "física 10.4: D = hbar <psi, (dA/dt + (i/hbar)[H, A]) psi>")
+    ok(sp.expand(sp.im(br(psi, Op * psi))), "física 10.4: <psi, (dA/dt + (i/hbar)[H, A]) psi> es real")
+    pg = sum(sp.diff(L, z[i]) * xi[i] for i in range(4))
+    ok(sp.expand(pg - sp.re(hb * br(psi, Am * psi))), "física 10.4: p(xi) = hbar <psi, A psi>")
+
+
+def fisica_klein_gordon():
+    t, x = sp.symbols("t x", real=True)
+    hb, m, c = sp.symbols("hbar m c", positive=True)
+    psi = sp.Function("psi")(t, x)
+    phi = sp.exp(-sp.I * m * c**2 * t / hb) * psi
+    kg = sp.diff(phi, t, 2) / c**2 - sp.diff(phi, x, 2) + (m * c / hb)**2 * phi
+    resto = sp.expand(sp.simplify(kg / sp.exp(-sp.I * m * c**2 * t / hb)))
+    # resto = psi_tt / c^2 - (2 i m / hbar) psi_t - psi_xx: sin el primer término, es Schrödinger libre por -2m/hbar^2
+    ok(resto - (sp.diff(psi, t, 2) / c**2 - 2 * sp.I * m / hb * sp.diff(psi, t) - sp.diff(psi, x, 2)),
+       "física 10.6: Klein–Gordon con la fase de la energía en reposo")
+    sch = sp.I * hb * sp.diff(psi, t) + hb**2 / (2 * m) * sp.diff(psi, x, 2)
+    ok(resto - sp.diff(psi, t, 2) / c**2 + 2 * m / hb**2 * sch, "física 10.6: sin psi_tt / c^2 queda la ecuación de Schrödinger libre")
+
+
+def fisica_relativista_extra():
+    t = sp.Symbol("t", real=True)
+    m, c = sp.symbols("m c", positive=True)
+    q = [sp.Function(n)(t) for n in ("q1", "q2", "q3")]
+    v = [w.diff(t) for w in q]
+    v2 = sum(w**2 for w in v)
+    L = -m * c**2 * sp.sqrt(1 - v2 / c**2)
+    p = [sp.diff(L, w) for w in v]
+    E = sp.simplify(sum(a * b for a, b in zip(p, v)) - L)
+    ok(sp.simplify(E**2 - (sum(w**2 for w in p) * c**2 + m**2 * c**4)), "física 9.2: E^2 = |p|^2 c^2 + m^2 c^4")
+    # giro alrededor de z: xi = (-q2, q1, 0), D = p . xi' = 0
+    xi = [-q[1], q[0], 0]
+    D = sum(p[i] * sp.diff(xi[i], t) for i in range(3))
+    ok(D, "física 9.3: los giros son simetrías de la partícula relativista")
+    # en el límite: la parte -m c^2 del lagrangiano aporta L tau' = -m u . q' con tau = u . q / c^2
+    u = sp.symbols("u1:4", real=True)
+    tau = sum(a * b for a, b in zip(u, q)) / c**2
+    ok(-m * c**2 * sp.diff(tau, t) + m * sum(a * b for a, b in zip(u, v)), "física 9.4: -m c^2 tau' = -m u . q'")
+
+
+def fisica_cuantica_3d():
+    x1, x2, x3, t = sp.symbols("x1 x2 x3 t", real=True)
+    X = (x1, x2, x3)
+    hb, m = sp.symbols("hbar m", positive=True)
+    I = sp.I
+    g = sp.Function("g")(x1, x2, x3)
+    p = [lambda h, k=k: -I * hb * sp.diff(h, X[k]) for k in range(3)]
+    qo = [lambda h, k=k: X[k] * h for k in range(3)]
+    lap = lambda h: sum(sp.diff(h, w, 2) for w in X)
+    conm = lambda A, B, h: sp.expand(A(B(h)) - B(A(h)))
+    l1 = lambda h: x2 * p[2](h) - x3 * p[1](h)
+    l2 = lambda h: x3 * p[0](h) - x1 * p[2](h)
+    l3 = lambda h: x1 * p[1](h) - x2 * p[0](h)
+    ok(conm(l1, l2, g) - I * hb * l3(g), "física 10.4: [l1, l2] = i hbar l3")
+    r = sp.sqrt(x1**2 + x2**2 + x3**2)
+    U = sp.Function("U")
+    H = lambda h: -hb**2 / (2 * m) * lap(h) + U(r) * h
+    ok(conm(H, l3, g), "física 10.4: [H, l3] = 0 con potencial central en tres dimensiones")
+    ok(conm(lambda h: -hb**2 / (2 * m) * lap(h), l3, g), "física 10.4: [laplaciano, l3] = 0")
+    H0 = lambda h: -hb**2 / (2 * m) * lap(h)
+    ok(conm(H0, qo[0], g) + I * hb / m * p[0](g), "física 10.5: [H0, q1] = -i hbar p1 / m")
+    # campo uniforme: V = -kappa a . q con a = e1; A = p1 - kappa t cumple dA/dt + (i/hbar)[H, A] = 0
+    kap = sp.Symbol("kappa", real=True)
+    gt = sp.Function("g")(x1, x2, x3, t)
+    Hu = lambda h: -hb**2 / (2 * m) * lap(h) - kap * x1 * h
+    A = lambda h: -I * hb * sp.diff(h, x1) - kap * t * h
+    dA = lambda h: -kap * h
+    ok(dA(gt) + I / hb * conm(Hu, A, gt), "física 10.5: campo uniforme, A = a . p - kappa t se conserva")
+    # cambio de velocidad con la fase, en tres dimensiones
+    u = sp.symbols("u1:4", real=True)
+    psi = sp.Function("psi")
+    Y = sp.symbols("Y1:4", real=True)
+    fase = sp.exp(I * m * sum(a * b for a, b in zip(u, X)) / hb - I * m * sum(a**2 for a in u) * t / (2 * hb))
+    nueva = fase * psi(*[X[k] - u[k] * t for k in range(3)], t)
+    sch = lambda h: I * hb * sp.diff(h, t) + hb**2 / (2 * m) * lap(h)
+    dif = sp.expand(sp.simplify(sch(nueva) / fase))
+    dif = dif.subs({X[k]: Y[k] + u[k] * t for k in range(3)}).doit()
+    base = psi(*Y, t)
+    res = I * hb * sp.diff(base, t) + hb**2 / (2 * m) * sum(sp.diff(base, w, 2) for w in Y)
+    ok(sp.simplify(dif - res), "física 10.5: el cambio de velocidad con la fase lleva soluciones en soluciones (tres dimensiones)")
+    # conmutación de cambio de velocidad y traslación: B T = exp(i m u . a / hbar) T B, con t fijo
+    a = sp.symbols("a1:4", real=True)
+    f0 = sp.Function("f0")
+    T = lambda h: h.subs({X[k]: X[k] - a[k] for k in range(3)}, simultaneous=True)
+    B = lambda h: sp.exp(I * m * sum(uu * xx for uu, xx in zip(u, X)) / hb) * h.subs({X[k]: X[k] - u[k] * t for k in range(3)}, simultaneous=True)
+    h0 = f0(x1, x2, x3)
+    ok(sp.simplify(B(T(h0)) - sp.exp(I * m * sum(uu * aa for uu, aa in zip(u, a)) / hb) * T(B(h0))), "física 10.5: B T = exp(i m u . a / hbar) T B")
+
+
+def fisica_relativista_dos():
+    # dos partículas libres relativistas: el cambio de velocidad como simetría generalizada (parte matemática, 9.6)
+    t = sp.Symbol("t", real=True)
+    m1, m2, c = sp.symbols("m1 m2 c", positive=True)
+    u = sp.symbols("u1:4", real=True)
+    qs = [[sp.Function(f"q{j}{k}")(t) for k in range(3)] for j in (1, 2)]
+    ms = [m1, m2]
+    Ls = [-ms[j] * c**2 * sp.sqrt(1 - sum(w.diff(t)**2 for w in qs[j]) / c**2) for j in range(2)]
+    L = Ls[0] + Ls[1]
+    ps = [[sp.diff(L, w.diff(t)) for w in qs[j]] for j in range(2)]
+    taus = [sum(a * w for a, w in zip(u, qs[j])) / c**2 for j in range(2)]
+    xib = [[u[k] * t - taus[j] * qs[j][k].diff(t) for k in range(3)] for j in range(2)]
+    D = sum(sp.diff(L, qs[j][k]) * xib[j][k] + ps[j][k] * sp.diff(xib[j][k], t) for j in range(2) for k in range(3))
+    Fb = -sum(taus[j] * Ls[j] for j in range(2))
+    ok(sp.simplify(D - sp.diff(Fb, t)), "física 9.5: dos partículas, D = dF/dt con F = -sum tau_i L_i")
+    E = [sp.simplify(sum(ps[j][k] * qs[j][k].diff(t) for k in range(3)) - Ls[j]) for j in range(2)]
+    Qb = sum(ps[j][k] * xib[j][k] for j in range(2) for k in range(3)) - Fb
+    G = [sum(E[j] * qs[j][k] for j in range(2)) / c**2 - sum(ps[j][k] for j in range(2)) * t for k in range(3)]
+    ok(sp.simplify(Qb + sum(u[k] * G[k] for k in range(3))), "física 9.5: Q = -u . G_rel, G_rel = sum E_i q_i / c^2 - P t")
+
+
 apartado6_casos()
 apartado8_homogeneo()
 apartado9_n1_m2()
@@ -447,3 +719,12 @@ apartado10_lrl()
 apartado11_schrodinger()
 ejemplos_v2()
 particula()
+fisica_relativista()
+fisica_relativista_extra()
+fisica_relativista_dos()
+fisica_cuantica()
+fisica_cuantica_3d()
+fisica_cuantica_campo()
+fisica_generador_temporal()
+fisica_klein_gordon()
+fisica_cuerda_lorentz()

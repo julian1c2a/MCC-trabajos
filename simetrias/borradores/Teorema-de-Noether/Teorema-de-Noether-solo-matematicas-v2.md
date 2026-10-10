@@ -19,7 +19,7 @@ La versión 2 de la serie consta de cuatro documentos:
 
 * «El teorema de Noether: parte matemática (versión 2)»: la teoría, con una función, varias funciones y varias variables, los flujos, las derivadas de Fréchet y de Lie, y una guía de dimensión infinita.
 * «El teorema de Noether: ejemplos matemáticos (versión 2)»: el camino más corto, como gráfica y en forma paramétrica, las ecuaciones con la estructura de las de Newton y la ecuación de Laplace.
-* «El teorema de Noether: parte física (versión 2)» (en preparación): los sistemas de partículas, el grupo de Galileo, el grupo de Lorentz y la mecánica cuántica no relativista.
+* «El teorema de Noether: parte física (versión 2)»: los sistemas de partículas, el grupo de Galileo, el grupo de Lorentz y el de Poincaré, y la mecánica cuántica no relativista.
 * «El teorema de Noether: ejemplos físicos (versión 2)» (en preparación).
 
 **Diferencias con la versión 1**, cuyos documentos se conservan. La versión 1 escribe la familia de transformaciones $\bsT_\epsilon$, con el parámetro $\epsilon$, y usa generadores que pueden depender de las derivadas. La versión 2 usa $\Phi_\varepsilon$ y $\varepsilon$, como el trabajo «La importancia de las simetrías en física», y transformaciones de los puntos con generador $(\tau, \xi)$; la relación entre las dos formas está en el apartado 9.6 de la parte matemática.
