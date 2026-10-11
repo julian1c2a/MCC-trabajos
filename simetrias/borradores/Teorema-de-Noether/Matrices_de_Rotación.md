@@ -87,6 +87,10 @@ No hace falta ningún argumento infinitesimal: la igualdad es exacta para todo $
 - **Con la exponencial.** $(e^{\theta \cdot \mathcal{G}})^T = e^{\theta \cdot \mathcal{G}^T} = e^{-\theta \cdot \mathcal{G}} = \mathcal{R}_{-\theta}$ (anexos, apartados 2.2 y 2.4).
 - **La relación entre las dos versiones.** $\mathcal{G}_{-\theta} = \mathcal{G}_\theta^T$ es la versión infinitesimal de la anterior: $-\theta \cdot \mathcal{G} = \theta \cdot \mathcal{G}^T$, que es la antisimetría de la respuesta 2.
 
+## Seguimos desarrollando
+
+Supongamos que $n \in \mathbb{N}$ tal que $n \ge 2$. Las rotaciones serán sobre vectores de $\mathbb{R}^n$, pero como hemos advertido antes, las rotaciones de un solo parámetro angular solo tienen sentido en un plano alrededor de un punto. De hecho, tomaremos como punto sobre el que se rota $\vec(0)$, ya que no estamos tomando en consideración el plano afín. Supongamos que $B_C$ es la base canónica de $\mathbb{R}^n$. Llamaremos $\vec{e}_i$ a los vectores de la base $B_C$, con $1 \le i \le n$. $\forall i \, \pi_i(\vec{e}_i)=1$ y $\forall i j\, i \neq j \implies \pi_i(\vec{e}_j)=0$. Dicho más corto $\forall i j \, \pi_i(\vec{e}_j)=\delta_{ij}$
+
 ### Referencia
 
 * Hall, B. C. (2015). *Lie groups, Lie algebras, and representations: An elementary introduction* (2.ª ed.). Springer.
