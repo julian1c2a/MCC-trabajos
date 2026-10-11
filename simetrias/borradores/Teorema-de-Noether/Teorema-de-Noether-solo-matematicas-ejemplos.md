@@ -6,12 +6,14 @@ author: "Julián Calderón Almendros"
 
 * **Asignatura:** Complementos de Mecánica Cuántica (Máster en Computación Cuántica)
 * **Propósito:** apuntes de autoestudio elaborados para preparar la asignatura.
-* **Última edición:** 2026-10-07
+* **Última edición:** 2026-10-11
 * **Autor:** Julián Calderón Almendros
 * **Correo electrónico:** julian.calderon.almendros at gmail.com
 * **GitHub:** [\@julian1c2a](https://github.com/julian1c2a)
 * **Proyecto:** <https://github.com/julian1c2a/MCC>
 * **Licencia:** [Creative Commons Reconocimiento 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.es). Se permite copiar, redistribuir, modificar y reutilizar este material con cualquier finalidad, incluso comercial, siempre que se reconozca la autoría original, se enlace la licencia y se indique si se han hecho cambios.
+
+**Versión 1.** Este documento pertenece a la versión 1 de la serie, que se conserva. La versión 2, en los documentos con sufijo -v2 de este mismo directorio, es la que se mantiene al día: usa la familia $\Phi_\varepsilon$ en lugar de $\bsT_\epsilon$, transformaciones de los puntos con generador $(\tau, \xi)$ y apartados numerados, y añade, entre otras cosas, los grupos de Lorentz y de Poincaré y la mecánica cuántica no relativista. Las líneas «Fuente:» de la versión para el trabajo remiten a la versión 2.
 
 Ejemplos de «El teorema de Noether: parte matemática». Son los mismos funcionales de «El formalismo lagrangiano: ejemplos matemáticos»: allí se resolvían las ecuaciones de Euler–Lagrange; aquí se buscan sus simetrías y se comprueba que las cantidades conservadas dan la misma solución, o parte de ella, sin resolver ecuaciones de segundo orden. En cada ejemplo se siguen los mismos pasos:
 

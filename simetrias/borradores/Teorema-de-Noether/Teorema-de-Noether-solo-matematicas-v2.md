@@ -6,7 +6,7 @@ author: "Julián Calderón Almendros"
 
 * **Asignatura:** Complementos de Mecánica Cuántica (Máster en Computación Cuántica)
 * **Propósito:** apuntes de autoestudio elaborados para preparar la asignatura.
-* **Última edición:** 2026-10-10
+* **Última edición:** 2026-10-11
 * **Autor:** Julián Calderón Almendros
 * **Correo electrónico:** julian.calderon.almendros at gmail.com
 * **GitHub:** [\@julian1c2a](https://github.com/julian1c2a)
@@ -15,12 +15,13 @@ author: "Julián Calderón Almendros"
 
 Esta serie continúa «El formalismo lagrangiano». Allí se buscaban las funciones que hacen estacionario un funcional; aquí se estudian las transformaciones que no cambian el funcional y lo que se deduce de ellas: cantidades que no cambian a lo largo de las soluciones. Como aquella serie, estos documentos son un superconjunto de lo que entra en el trabajo «La importancia de las simetrías en física».
 
-La versión 2 de la serie consta de cuatro documentos:
+La versión 2 de la serie consta de cinco documentos:
 
 * «El teorema de Noether: parte matemática (versión 2)»: la teoría, con una función, varias funciones y varias variables, los flujos, las derivadas de Fréchet y de Lie, y una guía de dimensión infinita.
 * «El teorema de Noether: ejemplos matemáticos (versión 2)»: el camino más corto, como gráfica y en forma paramétrica, las ecuaciones con la estructura de las de Newton y la ecuación de Laplace.
 * «El teorema de Noether: parte física (versión 2)»: los sistemas de partículas, el grupo de Galileo, el grupo de Lorentz y el de Poincaré, y la mecánica cuántica no relativista.
-* «El teorema de Noether: ejemplos físicos (versión 2)» (en preparación).
+* «El teorema de Noether: ejemplos físicos (versión 2)»: los casos de la parte física con la comprobación sobre la solución explícita, la cuerda con el cambio de velocidad de Lorentz, la partícula relativista y la partícula cuántica en un potencial central.
+* «El teorema de Noether: anexos (versión 2)»: las rotaciones, la exponencial de una matriz y los grupos de Galileo, de Lorentz y de Poincaré en forma de matrices, con la contracción de Poincaré a Galileo y la carga central.
 
 **Diferencias con la versión 1**, cuyos documentos se conservan. La versión 1 escribe la familia de transformaciones $\bsT_\epsilon$, con el parámetro $\epsilon$, y usa generadores que pueden depender de las derivadas. La versión 2 usa $\Phi_\varepsilon$ y $\varepsilon$, como el trabajo «La importancia de las simetrías en física», y transformaciones de los puntos con generador $(\tau, \xi)$; la relación entre las dos formas está en el apartado 9.6 de la parte matemática.
 
@@ -1871,7 +1872,7 @@ Este apartado es una guía: recoge resultados establecidos, sin derivaciones, co
    * El **adjunto** $\hat{A}^*$ de un operador con dominio denso está definido en los $v$ para los que existe un $w$ con $\langle v, \hat{A}u \rangle = \langle w, u \rangle$ para todo $u \in D(\hat{A})$, y vale $\hat{A}^* v := w$. $\hat{A}$ es **autoadjunto** si $\hat{A}^* = \hat{A}$, con el mismo dominio. En $\mathbb{C}^N$, el adjunto es la matriz traspuesta conjugada, y autoadjunto quiere decir **hermítico**: igual a su traspuesta conjugada.
    * Un operador $\hat{U}$ definido en todo $\mathcal{H}$ es **unitario** si es biyectivo y conserva el producto escalar: $\langle \hat{U}u, \hat{U}v \rangle = \langle u, v \rangle$.
    * Un **grupo unitario uniparamétrico fuertemente continuo** es una familia de operadores unitarios $\hat{U}(\varepsilon)$ con la ley de grupo, $\hat{U}(\varepsilon + \eta) = \hat{U}(\varepsilon)\hat{U}(\eta)$, con $\hat{U}(0)$ igual a la identidad y con $\varepsilon \mapsto \hat{U}(\varepsilon)\,u$ continua para cada $u$.
-   * **Teorema de Stone.** Esos grupos se corresponden uno a uno con los operadores autoadjuntos. Cada uno es $\hat{U}(\varepsilon) = e^{-i \cdot \varepsilon \cdot \hat{A}}$ para un único $\hat{A}$ autoadjunto, su generador; la exponencial se define con el teorema espectral y, para matrices, es la de «El teorema de Noether: anexos». Además, $\hat{A}u = i \cdot \left.\dfrac{d}{d\varepsilon} \hat{U}(\varepsilon)\,u\right|_{\varepsilon = 0}$ para los $u$ en los que existe esa derivada, que son exactamente los de $D(\hat{A})$ (Reed y Simon, 1980, cap. VIII).
+   * **Teorema de Stone.** Esos grupos se corresponden uno a uno con los operadores autoadjuntos. Cada uno es $\hat{U}(\varepsilon) = e^{-i \cdot \varepsilon \cdot \hat{A}}$ para un único $\hat{A}$ autoadjunto, su generador; la exponencial se define con el teorema espectral y, para matrices, es la de «El teorema de Noether: anexos (versión 2)», apartado 2. Además, $\hat{A}u = i \cdot \left.\dfrac{d}{d\varepsilon} \hat{U}(\varepsilon)\,u\right|_{\varepsilon = 0}$ para los $u$ en los que existe esa derivada, que son exactamente los de $D(\hat{A})$ (Reed y Simon, 1980, cap. VIII).
    * **Consecuencia para el teorema de Noether.** El generador de la transformación, $\xi(\psi) = -i \cdot \hat{A}\psi$, solo está definido en $D(\hat{A})$, y la familia no es de clase $C^2$ en todo $\mathcal{H}$, como pide el apartado 3.1. Los tratamientos rigurosos trabajan en el dominio, con la norma $\lVert u \rVert + \lVert \hat{A}u \rVert$, que lo hace un espacio de Banach cuando $\hat{A}$ es autoadjunto (Chernoff y Marsden, 1974).
 
 ### 10.3. Ejemplo: la ecuación de Schrödinger

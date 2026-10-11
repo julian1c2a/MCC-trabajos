@@ -922,3 +922,35 @@ Aquí $\vec{G} = M \cdot \vec{X}_{\mathrm{cm}} - \vec{P} \cdot t$ es la cantidad
 | $\mathcal{T}$ | $G(I, \vec{0}, \vec{0}, s)$ | $(\vec{0},\ 1)$ | $-H$ (energía) |
 
 Toda transformación de Galileo se obtiene como producto de estas familias (punto 3) o como una sola exponencial $e^{\Lambda}$ (punto 4). Cada generador define un campo vectorial en el espacio-tiempo (punto 5) y, por el teorema de Noether, una cantidad conservada.
+
+
+-----------
+-----------
+-----------
+# Matrices de Rotación
+
+Supongamos que existe un vector unitario $\hat{u}$ cualquiera en $\mathbb{R}^n$, dónde $n\in\mathbb{N}$ y $n \ge 2$. Entonces podemos pensar en una transformación $R(\hat{u},\theta)$ como una rotación de cualquier punto alrededor de la recta definida por $\hat{u}$ (tomándola como base de un subespacio vectorial unidimensional). Llamaremos matriz asociada a la transformación (tomando $B_C$ como la base canónica) $\mathcal{R}_{\theta} := {\mathcal{M}_{B_C}}(R(\hat{u},\theta))$, dónde, a partir de ahora, dejamos fijo el vector $\hat{u}$, de forma que la matriz depende exclusivamente del parámetro real $\theta \in [0, 2\cdot\pi)$.
+
+¿Qué sabemos hasta ahora?
+- $\mathcal{R}_{\theta_1}\cdot\mathcal{R}_{\theta_2} = \mathcal{R}_{\theta_1+\theta_2}$.
+- $\mathcal{R}_{0} = {(\delta_{i,j})}_{i\,j} = \mathbb{Id}$, dónde $\delta_{i,i}=1$ y si $i\neq j$ entonces $\delta_{i,j}=0$, esto es, la delta de Kronecker.
+- Al ser rotaciones, la distancia al centro y al eje de rotación $\hat{u}$ no cambia en el punto transformado. Sea el vector a transformar $\vec{p}$. El vector transformado será $\vec{p}' = \mathcal{R}_{\theta}\vec{p}$. El módulo de $\vec{p}$ será $\vec{p}^T\cdot\vec{p}$, y el de $\vec{p}'$ será ${\vec{p}'}^T \cdot {\vec{p}'}$. Vamos a poner ahora el último módulo en función de $\vec{p}$, ${\vec{p}'}^T \cdot {\vec{p}'} = {(\mathcal{R}_{\theta}\vec{p})}^T \cdot {(\mathcal{R}_{\theta}\vec{p})} = {\vec{p}^T\mathcal{R}_{\theta}^T} \cdot {(\mathcal{R}_{\theta}\vec{p})} = \vec{p}^T{(\mathcal{R}_{\theta}^T \cdot \mathcal{R}_{\theta})}\vec{p}$. Pero por la invariancia de los módulos tendremos: 
+$$
+\begin{aligned}
+\forall \vec{p} \in \mathbb{R}^n \quad &\phantom{\iff} \vec{p}^T \cdot \vec{p}=\vec{p}^T{(\mathcal{R}_{\theta}^T \cdot \mathcal{R}_{\theta})}\vec{p} \\
+&\iff \mathcal{R}_{\theta}^T \cdot \mathcal{R}_{\theta} = \mathbb{Id} \\
+&\iff {{\mathcal{R}}_{\theta}}^{-1} = {{\mathcal{R}}_{\theta}}^T,
+\end{aligned}
+$$ 
+$\qquad$ por lo que sabemos ahora que la condición de no variar el módulo de los vectores es equivalente a $\mathcal{R}_{\theta}^{-1}=\mathcal{R}_{\theta}^T$.
+- Si $\varepsilon \to 0$ podremos aproximar $\mathcal{R}_{\varepsilon \cdot \theta} = \mathcal{I} + \varepsilon \cdot \mathcal{M}_{\theta} + O(\varepsilon^2)$.
+- Con la aproximación anterior, vamos a componer dos rotaciones distintas de ángulos $\alpha$ y $\beta$ pequeñas y aproximarlas a primer orden:
+  $$
+  \begin{aligned}
+  &\mathcal{R}_{\varepsilon \cdot \alpha} \cdot \mathcal{R}_{\varepsilon \cdot \beta} &&= (\mathcal{I} + \mathcal{M}_{\varepsilon \cdot \alpha})\cdot(\mathcal{I} + \mathcal{M}_{\varepsilon \cdot \beta}) + O(\varepsilon^2)\\
+  &{} &&= (\mathcal{I} + \mathcal{M}_{\varepsilon \cdot \beta})+(\mathcal{M}_{\varepsilon \cdot \alpha} + \mathcal{M}_{\varepsilon \cdot \alpha} \cdot \mathcal{M}_{\varepsilon \cdot \beta}) + O(\varepsilon^2) \\
+  &{} &&= (\mathcal{I} + \mathcal{M}_{\varepsilon \cdot \beta})+(\mathcal{M}_{\varepsilon \cdot \alpha} + \mathcal{M}_{\varepsilon \cdot \alpha} \mathcal{M}_{\varepsilon \cdot \beta}) + O(\varepsilon^2) \\
+  &{} &&= \mathcal{I} + (\mathcal{M}_{\varepsilon \cdot \beta}+\mathcal{M}_{\varepsilon \cdot \alpha}) + O(\varepsilon^2) \\
+  &\mathcal{R}_{\varepsilon \cdot \alpha} \cdot \mathcal{R}_{\varepsilon \cdot \beta} &&= \mathcal{M}_{\varepsilon \cdot \beta}+\mathcal{M}_{\varepsilon \cdot \alpha}
+  \end{aligned}
+  $$ 

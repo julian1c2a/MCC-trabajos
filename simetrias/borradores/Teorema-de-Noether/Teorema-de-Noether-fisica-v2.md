@@ -6,7 +6,7 @@ author: "Julián Calderón Almendros"
 
 * **Asignatura:** Complementos de Mecánica Cuántica (Máster en Computación Cuántica)
 * **Propósito:** apuntes de autoestudio elaborados para preparar la asignatura.
-* **Última edición:** 2026-10-10
+* **Última edición:** 2026-10-11
 * **Autor:** Julián Calderón Almendros
 * **Correo electrónico:** julian.calderon.almendros at gmail.com
 * **GitHub:** [\@julian1c2a](https://github.com/julian1c2a)
@@ -22,17 +22,19 @@ Este documento aplica «El teorema de Noether: parte matemática (versión 2)» 
 
 En cada etapa se pregunta qué transformaciones del espacio y del tiempo son simetrías y qué cantidades conservadas dan. Las diez transformaciones de la partícula libre se reúnen después en el grupo de Galileo (apartado 8). Los dos últimos apartados salen de la mecánica de Newton: el grupo de Lorentz y el de Poincaré, con la partícula libre relativista y su límite de Galileo (apartado 9), y la mecánica cuántica no relativista, explicada desde el principio, con la forma que toma el teorema para un hamiltoniano cuántico (apartado 10).
 
-La versión 2 de la serie consta de cuatro documentos:
+La versión 2 de la serie consta de cinco documentos:
 
 * «El teorema de Noether: parte matemática (versión 2)»: la teoría, con una función, varias funciones y varias variables, los flujos, las derivadas de Fréchet y de Lie, y una guía de dimensión infinita.
 * «El teorema de Noether: ejemplos matemáticos (versión 2)»: el camino más corto, como gráfica y en forma paramétrica, las ecuaciones con la estructura de las de Newton y la ecuación de Laplace.
 * «El teorema de Noether: parte física (versión 2)», este documento.
-* «El teorema de Noether: ejemplos físicos (versión 2)» (en preparación): las cuentas completas de cada caso, con la comprobación sobre la solución explícita.
+* «El teorema de Noether: ejemplos físicos (versión 2)»: los casos de la parte física con la comprobación sobre la solución explícita, la cuerda con el cambio de velocidad de Lorentz, la partícula relativista y la partícula cuántica en un potencial central.
+* «El teorema de Noether: anexos (versión 2)»: las rotaciones, la exponencial de una matriz y los grupos de Galileo, de Lorentz y de Poincaré en forma de matrices, con la contracción de Poincaré a Galileo y la carga central.
 
-Las citas «parte matemática, apartado X» se refieren a la versión 2. Las rotaciones y el grupo de Galileo se desarrollan en «El teorema de Noether: anexos» (versión 1).
+Las citas «parte matemática, apartado X» se refieren a la versión 2. Las rotaciones y los grupos de Galileo, de Lorentz y de Poincaré se desarrollan en «El teorema de Noether: anexos (versión 2)», que se cita como «anexos».
 
 **Diferencias con la versión 1**, cuyos documentos se conservan:
 
+* la versión 1 escribe la familia de transformaciones $\bsT_\epsilon$, con el parámetro $\epsilon$; la versión 2 usa $\Phi_\varepsilon$ y $\varepsilon$, como el trabajo «La importancia de las simetrías en física»;
 * las transformaciones actúan sobre los puntos $(t, \vec{q}_1, \dots, \vec{q}_N)$, con un generador $(\tau, \vec{\xi})$, y la condición de simetría se escribe con el término $D$ de la parte matemática;
 * la traslación en el tiempo se describe con $\tau = 1$ y $\vec{\xi} = \vec{0}$, y su cantidad conservada es $-\bsH$;
 * la intensidad del campo uniforme se sigue llamando $\vec{g}$, y la cantidad asociada a los cambios de velocidad de una partícula es $\vec{G}$ (la versión 1 usaba $\vec{g}$ para las dos);
@@ -155,7 +157,7 @@ Para una partícula, las diez transformaciones que usaremos y sus generadores so
 
 Table: Generadores de las transformaciones del espacio y del tiempo.
 
-* $R_{\vec{n}}(\varepsilon)$ es la rotación de ángulo $\varepsilon$ alrededor de $\vec{n}$. A primer orden, $R_{\vec{n}}(\varepsilon) \cdot \vec{q} = \vec{q} + \varepsilon \cdot \vec{n} \times \vec{q} + O(\varepsilon^2)$ (anexos, «Rotaciones infinitesimales»).
+* $R_{\vec{n}}(\varepsilon)$ es la rotación de ángulo $\varepsilon$ alrededor de $\vec{n}$. A primer orden, $R_{\vec{n}}(\varepsilon) \cdot \vec{q} = \vec{q} + \varepsilon \cdot \vec{n} \times \vec{q} + O(\varepsilon^2)$ (anexos, apartado 1.5).
 * Son $3 + 3 + 3 + 1 = 10$ transformaciones independientes: tres direcciones $\vec{a}$, tres ejes $\vec{n}$ y tres velocidades $\vec{u}$ (por ejemplo, las de los ejes coordenados), y la traslación en el tiempo.
 * El cambio de velocidad suma $\varepsilon \cdot \vec{u} \cdot t$ a cada trayectoria. Es la forma activa del paso a otro sistema de referencia inercial, que se mueve con velocidad $-\varepsilon \cdot \vec{u}$ respecto del primero.
 * La traslación en el tiempo lleva el punto $(t, \vec{q})$ a $(t + \varepsilon, \vec{q})$: la trayectoria transformada cumple $\tilde{\vec{q}}(t + \varepsilon) = \vec{q}(t)$, y es el mismo movimiento con un retraso $\varepsilon$. La versión 1 la describía con el generador $\dot{\vec{q}}$, que depende de la velocidad; es la forma del apartado 9.6 de la parte matemática, $\bar{\vec{\xi}} = \vec{\xi} - \tau \cdot \dot{\vec{q}} = -\dot{\vec{q}}$, con el signo de $\varepsilon$ cambiado.
@@ -312,7 +314,7 @@ De las diez transformaciones, el campo magnético uniforme conserva seis: las tr
 
 ## 8. El grupo de Galileo
 
-Las diez transformaciones de la partícula libre se componen entre sí y forman un grupo de diez parámetros, el **grupo de Galileo** (anexos): la composición de dos de ellas es otra del grupo, y cada una tiene inversa. Un generador general combina los diez, con coeficientes constantes $\vec{\omega}$ (giro), $\vec{u}$ (cambio de velocidad), $\vec{a}$ (traslación) y $\tau$ (tiempo):
+Las diez transformaciones de la partícula libre se componen entre sí y forman un grupo de diez parámetros, el **grupo de Galileo** (anexos, apartado 3): la composición de dos de ellas es otra del grupo, y cada una tiene inversa. Un generador general combina los diez, con coeficientes constantes $\vec{\omega}$ (giro), $\vec{u}$ (cambio de velocidad), $\vec{a}$ (traslación) y $\tau$ (tiempo):
 
 $$
 \begin{aligned}
@@ -358,8 +360,8 @@ La mecánica de Newton es una aproximación: vale cuando las velocidades son peq
   \end{aligned}
   $$
   **(1)** Sustituimos $t'$ y $q_1'$ y desarrollamos los cuadrados. **(2)** Se cancelan los términos con $t \cdot q_1$, y agrupamos $c^2 \cdot t^2 - v^2 \cdot t^2 = c^2 \cdot t^2 \cdot \left(1 - \dfrac{v^2}{c^2}\right)$ y $\dfrac{v^2 \cdot q_1^2}{c^2} - q_1^2 = -q_1^2 \cdot \left(1 - \dfrac{v^2}{c^2}\right)$. **(3)** Definición de $\gamma$.
-* **El grupo de Lorentz** es el conjunto de las transformaciones lineales de $(t, \vec{q})$ que conservan el intervalo, no invierten el sentido del tiempo ni la orientación del espacio (no contienen reflexiones). Contiene los giros del espacio (tres parámetros) y los cambios de velocidad en cualquier dirección (tres parámetros); el de una dirección cualquiera se obtiene del anterior girando los ejes. Tiene seis parámetros.
-* **El grupo de Poincaré** añade las traslaciones en el tiempo y en el espacio, que no cambian las diferencias entre sucesos (cuatro parámetros). Tiene diez parámetros, como el de Galileo.
+* **El grupo de Lorentz** es el conjunto de las transformaciones lineales de $(t, \vec{q})$ que conservan el intervalo, no invierten el sentido del tiempo ni la orientación del espacio (no contienen reflexiones). Contiene los giros del espacio (tres parámetros) y los cambios de velocidad en cualquier dirección (tres parámetros); el de una dirección cualquiera se obtiene del anterior girando los ejes. Tiene seis parámetros. Su forma de matrices está en los anexos, apartado 4.
+* **El grupo de Poincaré** añade las traslaciones en el tiempo y en el espacio, que no cambian las diferencias entre sucesos (cuatro parámetros). Tiene diez parámetros, como el de Galileo (anexos, apartado 5).
 * **A primer orden.** Con $v = -\varepsilon \cdot \vec{u}$, la forma activa del cambio de velocidad, como en el apartado 3, $\gamma = 1 + O(\varepsilon^2)$, y la transformación de Lorentz en la dirección de $\vec{u}$ es
   $$
   \begin{aligned}
@@ -448,7 +450,7 @@ Table: Las simetrías de la partícula libre relativista.
 * **El generador.** $\tau = \dfrac{\vec{u} \cdot \vec{q}}{c^2} \to 0$ y $\vec{\xi} = \vec{u} \cdot t$: el cambio de velocidad de Lorentz tiende al de Galileo.
 * **La cantidad conservada.** $\dfrac{E}{c^2} \to m$, así que $-\vec{u} \cdot \vec{G}_{\mathrm{rel}} = \vec{p} \cdot \vec{u} \cdot t - \dfrac{E}{c^2} \cdot \vec{u} \cdot \vec{q}$ tiende a $\vec{p} \cdot \vec{u} \cdot t - m \cdot \vec{u} \cdot \vec{q} = -\vec{u} \cdot \vec{G}$, la del apartado 4.1.
 * **De dónde sale la $F$ de Galileo.** En la $Q$ de Lorentz, el término que se convierte en $-F = -m \cdot \vec{u} \cdot \vec{q}$ es $-\tau \cdot \bsH = -\dfrac{\vec{u} \cdot \vec{q}}{c^2} \cdot E$. El retraso $\tau$ es pequeño, de orden $\dfrac{1}{c^2}$, pero multiplica a la energía en reposo, que es de orden $c^2$, y el producto tiende a $m \cdot \vec{u} \cdot \vec{q}$. En $D$ ocurre lo mismo: la constante $-m \cdot c^2$ de $\bsL$ aporta $\bsL \cdot \dot{\tau} = -m \cdot c^2 \cdot \dfrac{\vec{u} \cdot \dot{\vec{q}}}{c^2} = -m \cdot \vec{u} \cdot \dot{\vec{q}}$, que cancela el término $m \cdot \vec{u} \cdot \dot{\vec{q}}$ de la energía cinética. La mecánica de Newton prescinde de la constante y de $\tau$; el término $m \cdot \vec{u} \cdot \dot{\vec{q}}$ queda sin compensar, y es la derivada de $F = m \cdot \vec{u} \cdot \vec{q}$.
-* **Los grupos.** El grupo de Galileo es el límite del de Poincaré cuando $c \to \infty$, en un sentido que se precisa con la **contracción** de grupos (Inönü y Wigner, 1953).
+* **Los grupos.** El grupo de Galileo es el límite del de Poincaré cuando $c \to \infty$, en un sentido que se precisa con la **contracción** de grupos (Inönü y Wigner, 1953; anexos, apartado 6).
 
 ### 9.5. Varias partículas y campos
 
@@ -674,7 +676,7 @@ $$
   que es nulo para la partícula libre. Se conserva $\langle \hat{\vec{G}} \rangle = m \cdot \langle \hat{\vec{q}} \rangle - \langle \hat{\vec{p}} \rangle \cdot t$: la posición media se mueve con velocidad constante, $\dfrac{\langle \hat{\vec{p}} \rangle}{m}$. En un campo uniforme, $\nabla V$ es constante, y el término $-t \cdot \vec{u} \cdot \nabla V$ que queda en la condición de $\hat{A} = -\vec{u} \cdot \hat{\vec{G}}$ se compensa sumando a $\hat{A}$ el múltiplo de la identidad $\dfrac{t^2}{2} \cdot \vec{u} \cdot \nabla V$: una fase más, que solo depende de $t$.
 * **Otro ejemplo: la traslación en un campo uniforme.** Con $\nabla V \cdot \vec{a} = -\kappa$ constante, como en el apartado 4.2, $\hat{A} = \vec{a} \cdot \hat{\vec{p}} - \kappa \cdot t$ cumple $\partial_t \hat{A} + \dfrac{i}{\hbar} \cdot [\hat{H}, \hat{A}] = -\kappa - \vec{a} \cdot \nabla V = 0$. La familia es la traslación multiplicada por la fase $e^{i \cdot \varepsilon \cdot \kappa \cdot t/\hbar}$, y se conserva $\langle \vec{a} \cdot \hat{\vec{p}} \rangle - \kappa \cdot t$, como en la mecánica clásica.
 * **La fase y $F$.** En los dos ejemplos, la familia lleva, a primer orden, el factor $e^{i \cdot \varepsilon \cdot F/\hbar}$, con la $F$ de la simetría clásica: $F = m \cdot \vec{u} \cdot \vec{q}$ en el cambio de velocidad y $F = \kappa \cdot t$ en la traslación. Es un hecho general en la formulación de Feynman (Feynman y Hibbs, 1965), en la que cada camino contribuye con el factor $e^{i \cdot \bsS/\hbar}$: sumar $\dot{F}$ al lagrangiano cambia $\bsS$ en los valores de $F$ en los extremos, y eso se compensa multiplicando la función de onda por $e^{i \cdot F/\hbar}$. La fase exacta del cambio de velocidad también lo es: escrita en el punto de partida, $\vec{q} - \varepsilon \cdot \vec{u} \cdot t$, su exponente es $\dfrac{1}{\hbar} \cdot \big(\varepsilon \cdot m \cdot \vec{u} \cdot (\vec{q} - \varepsilon \cdot \vec{u} \cdot t) + \varepsilon^2 \cdot m \cdot |\vec{u}|^2 \cdot t/2\big)$, y $\dfrac{1}{2} \cdot m \cdot |\dot{\vec{q}} + \varepsilon \cdot \vec{u}|^2 - \dfrac{1}{2} \cdot m \cdot |\dot{\vec{q}}|^2 = \dfrac{d}{dt}\big(\varepsilon \cdot m \cdot \vec{u} \cdot \vec{q} + \varepsilon^2 \cdot m \cdot |\vec{u}|^2 \cdot t/2\big)$, la fórmula exacta de la parte matemática, apartado 9.5.
-* **Una consecuencia: la masa.** Con $\varepsilon = 1$ y $t$ fijo, sean $\hat{B}$ el cambio de velocidad $\vec{u}$ y $\hat{T}$ la traslación $\vec{a}$, $(\hat{T}\psi)(\vec{q}) = \psi(\vec{q} - \vec{a})$. Entonces $\hat{B}\hat{T} = e^{i \cdot m \cdot \vec{u} \cdot \vec{a}/\hbar} \cdot \hat{T}\hat{B}$ (comprobado con SymPy): las transformaciones de Galileo se componen como en el grupo solo salvo fases, que dependen de la masa. Una fase global no cambia el estado, pero una superposición de estados con masas distintas no se transformaría de forma coherente. Es la **regla de superselección de la masa**: esas superposiciones no se admiten (Bargmann, 1954; Lévy-Leblond, 1963).
+* **Una consecuencia: la masa.** Con $\varepsilon = 1$ y $t$ fijo, sean $\hat{B}$ el cambio de velocidad $\vec{u}$ y $\hat{T}$ la traslación $\vec{a}$, $(\hat{T}\psi)(\vec{q}) = \psi(\vec{q} - \vec{a})$. Entonces $\hat{B}\hat{T} = e^{i \cdot m \cdot \vec{u} \cdot \vec{a}/\hbar} \cdot \hat{T}\hat{B}$ (comprobado con SymPy): las transformaciones de Galileo se componen como en el grupo solo salvo fases, que dependen de la masa. Una fase global no cambia el estado, pero una superposición de estados con masas distintas no se transformaría de forma coherente. Es la **regla de superselección de la masa**: esas superposiciones no se admiten (Bargmann, 1954; Lévy-Leblond, 1963; anexos, apartado 6.3).
 
 ### 10.6. Por qué no se aplica el grupo de Lorentz
 

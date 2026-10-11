@@ -1,4 +1,4 @@
-"""Comprobaciones simbólicas de las cuentas de la serie «El teorema de Noether»: ejemplos
+r"""Comprobaciones simbólicas de las cuentas de la serie «El teorema de Noether»: ejemplos
 matemáticos y físicos y la versión para el trabajo. Se ejecuta desde la raíz del repositorio con
 .venv\Scripts\python.exe; termina con «FALLOS: ninguno» si todo es correcto."""
 import sympy as sp

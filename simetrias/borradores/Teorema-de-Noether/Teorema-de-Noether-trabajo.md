@@ -4,6 +4,9 @@
 Versión del teorema de Noether que entra en el trabajo «La importancia de las simetrías en física»:
 el apartado «Simetrías y teorema de Noether» (4.2) del capítulo de desarrollo, con sus tres ejemplos,
 y el anexo B. La versión completa es la serie «El teorema de Noether», en este mismo directorio.
+Desde el 11-10-2026, las líneas «Fuente:» y la trazabilidad remiten a la versión 2 de la serie
+(documentos con sufijo -v2, con apartados numerados); la versión 1 se conserva. El texto del
+trabajo no cambia: es correcto con las dos versiones.
 Sustituye a borrador-Noether-J-13-trabajo.md (versión J-13, 05-10-2026).
 Cada bloque lleva una línea «Fuente:» con el documento y el apartado de origen, y lo que se ha
 cambiado; esas líneas se borran al pasar el texto a simetrias.md.
@@ -45,25 +48,28 @@ La versión J-13 (`borrador-Noether-J-13-trabajo.md`, integrada en `simetrias.md
 
 1. Lo que piden los guiones de los antiguos 4.2 y 4.3 (`documento_general_trabajo.md`: coordenada cíclica, simetría, teorema con demostración de tres líneas, energía; tiro parabólico y fuerza central), más la partícula libre como primer ejemplo.
 2. Notación del trabajo, no la de la serie: $L$, $S$ y $H$ sin negrita; $q_i$ y $t$ en lugar de $f$ y $x$; $\vec{r}$ para la posición; $\varepsilon$ en lugar de $\epsilon$; $\Phi_\varepsilon$ para la familia de transformaciones; $\vec{L}$ y $L_z$ para el momento angular (la notación de la parte cuántica).
-3. Solo transformaciones que no mueven el tiempo: la traslación en el tiempo se trata con el generador $\xi_i = \dot{q}_i$, que el teorema demostrado cubre. La fórmula con $\tau$ queda en la serie.
+3. Solo transformaciones que no mueven el tiempo: la traslación en el tiempo se trata con el generador $\xi_i = \dot{q}_i$, que el teorema demostrado cubre (parte matemática, apartado 9.6). La fórmula con $\tau$, que la versión 2 de la serie usa en todos los casos, queda en la serie (parte matemática, apartados 6.5 y 7.4; parte física, apartado 2).
 4. En el texto principal, las tres conservaciones (cantidad de movimiento, momento angular y energía), que son la pregunta del trabajo. Los cambios de velocidad, el vector $\vec{G}$, los sistemas de partículas y el grupo de Galileo, en el anexo B.
 
 ## Trazabilidad
 
+Los documentos son los de la versión 2 de la serie.
+
 | Fragmento del trabajo | Documento de origen | Apartado de origen | Cambios |
 | --- | --- | --- | --- |
-| La coordenada cíclica | parte matemática | «Dos casos particulares › Una componente que no aparece en $\bsL$» | Con la partícula libre y el campo uniforme como ejemplos |
-| Transformaciones continuas, generador, definición de simetría | parte matemática | «Transformaciones de las funciones»; «Simetría de un funcional › Definición» y «Lo que significa para el funcional» | Una variable; sin la equivalencia con la forma integral |
-| Simetría y estacionariedad | parte matemática | «Simetría de un funcional › Simetría y estacionariedad» | En dos frases, sin la tabla |
-| Teorema y demostración | parte matemática | «El teorema de Noether» | Sin la identidad de Noether ni las observaciones |
-| Cómo se aplica | parte física | «El teorema en mecánica» (los cuatro pasos) | — |
-| La energía | parte matemática | «Dos casos particulares › Cuando $\bsL$ no depende de la variable» | $x \to t$; $H = T + V$, de la versión anterior del trabajo |
-| Primer ejemplo: la partícula libre | parte física y ejemplos físicos | «Primera etapa › La partícula libre»; «Ejemplo: la partícula libre» | Sin los cambios de velocidad; generador del giro deducido en el texto |
-| Segundo ejemplo: el tiro parabólico | ejemplos físicos | «Ejemplo: una partícula en un campo uniforme» | Sin los cambios de velocidad |
-| Tercer ejemplo: la fuerza central | ejemplos físicos | «Ejemplo: una partícula en un campo central» | Potencial efectivo y Kepler, de la versión anterior del trabajo |
-| Lo que muestran los ejemplos | parte física | «Primera etapa › Una partícula en un campo exterior» (tabla) | Sin los cambios de velocidad |
-| Anexo B: cambio de velocidad y las diez simetrías | parte física y ejemplos físicos | «Primera etapa › La partícula libre»; «Ejemplo: la partícula libre» | La parte de los cambios de velocidad |
-| Anexo B: varias partículas y grupo de Galileo | parte física; anexos | «Tercera etapa»; «El grupo de Galileo»; «El grupo de Galileo» (anexos) | Solo la tabla de condiciones y la conclusión; $\vec{J} \to \vec{L}$ |
+| La coordenada cíclica | parte matemática | 6.7, «La función no aparece en $\bsL$» | Con la partícula libre y el campo uniforme como ejemplos |
+| Transformaciones continuas, generador, definición de simetría | parte matemática | 3.1, 3.2, 4 y 9.6 | Varias coordenadas y una variable, $t$, que no se mueve; generador que puede depender de las velocidades (9.6); sin la equivalencia con la forma integral |
+| Simetría y estacionariedad | parte matemática | 4 (tabla «Estacionariedad y simetría») | En dos frases, sin la tabla |
+| Teorema y demostración | parte matemática | 6.2, 6.3, 7.4 y 9.6 | Sin la identidad de Noether ni las observaciones |
+| Cómo se aplica | parte física | 2 (los cuatro pasos) | Sin $\tau$ |
+| La energía | parte matemática; parte física | 6.7, «Cuando $\bsL$ no depende de la variable», y 9.6; 3 (último punto) | $x \to t$; generador $\dot{q}_i$ en lugar de $\tau = 1$; $H = T + V$, de la versión anterior del trabajo |
+| Primer ejemplo: la partícula libre | parte física y ejemplos físicos | 4.1; 1 | Sin los cambios de velocidad; generador del giro deducido en el texto |
+| Segundo ejemplo: el tiro parabólico | ejemplos físicos | 2 (2.1 a 2.4 y 2.6) | Coordenadas $(x, y, z)$; sin los cambios de velocidad (2.5) |
+| Tercer ejemplo: la fuerza central | ejemplos físicos | 3 (3.2, 3.4 y 3.5) | Potencial efectivo y Kepler, de la versión anterior del trabajo |
+| Lo que muestran los ejemplos | parte física | 4.2 (tabla) | Sin los cambios de velocidad |
+| Lo que hereda la parte cuántica | parte física; ejemplos físicos | 10.2 y 10.4; 8 | Solo la correspondencia, sin desarrollo |
+| Anexo B: cambio de velocidad y las diez simetrías | parte física y ejemplos físicos | 4.1; 1 | La parte de los cambios de velocidad |
+| Anexo B: varias partículas y grupo de Galileo | parte física; anexos | 6 y 8; 3 | Solo la tabla de condiciones y la conclusión; $\vec{J} \to \vec{L}$ |
 
 ## Texto del apartado «Simetrías y teorema de Noether»
 
@@ -71,7 +77,7 @@ La versión J-13 (`borrador-Noether-J-13-trabajo.md`, integrada en `simetrias.md
 
 Este apartado resume @calderon2026noethermat, para la definición de simetría y el teorema, y @calderon2026noetherfis y @calderon2026noetherfisej, para los ejemplos. Con el lenguaje del apartado anterior se puede precisar qué es una simetría y demostrar que cada simetría continua lleva asociada una cantidad conservada. Después, tres ejemplos aplican el teorema paso a paso, de más a menos simétricos: la partícula libre, el tiro parabólico y la fuerza central.
 
-> Fuente: «parte matemática», «Dos casos particulares › Una componente que no aparece en $\bsL$». Modificaciones: $f \to q$, $x \to t$; los dos ejemplos son nuevos en este lugar.
+> Fuente: «parte matemática (versión 2)», apartado 6.7, «La función no aparece en $\bsL$». Modificaciones: $f \to q$, $x \to t$; los dos ejemplos son nuevos en este lugar.
 
 #### La coordenada cíclica
 
@@ -90,7 +96,7 @@ su momento conjugado se conserva. Que $q_k$ no aparezca en $L$ significa que des
 
 Pero que una coordenada sea cíclica depende de las coordenadas elegidas. En la fuerza central, con una energía potencial $V(r)$ que solo depende de la distancia al centro, ninguna coordenada cartesiana es cíclica; en coordenadas polares, el ángulo sí lo es (tercer ejemplo de este apartado). Hace falta una formulación que no dependa de esa elección, y es la que da el teorema de Noether.
 
-> Fuente: «parte matemática», «Transformaciones de las funciones» y «Simetría de un funcional» (definición, significado para el funcional, simetría y estacionariedad). Modificaciones: una variable; la equivalencia con la forma integral, en una frase; la comparación, sin tabla. Ejemplo: «parte física», «Primera etapa › La partícula libre».
+> Fuente: «parte matemática (versión 2)», apartados 3.1 y 3.2 (la familia y el generador), 4 (la condición de simetría, por qué un término de borde no importa, simetría y estacionariedad) y 9.6 (generadores que dependen de las velocidades, con una $F$ que también puede depender de ellas). Modificaciones: $f \to q$, $x \to t$; la variable no se mueve ($\tau = 0$); la equivalencia con la forma integral, en una frase; la comparación, sin tabla. Ejemplo: «parte física (versión 2)», apartado 4.1.
 
 #### Transformaciones continuas y simetrías
 
@@ -125,7 +131,7 @@ para **cualquier** trayectoria $q(t)$, sea o no la real. En la mayoría de los c
 
 **Un ejemplo, en la partícula libre.** Con $L = \dfrac{1}{2} \cdot m \cdot |\dot{\vec{r}}|^2$, $L$ no depende de las coordenadas y $\dfrac{\partial L}{\partial \dot{q}_i} = m \cdot \dot{q}_i$, así que el término de primer orden es $m \cdot \dot{\vec{r}} \cdot \dot{\vec{\xi}}$. Para la traslación en la dirección de un vector fijo $\vec{a}$, $\vec{r} \to \vec{r} + \varepsilon \cdot \vec{a}$, con $\vec{\xi} = \vec{a}$ y $\dot{\vec{\xi}} = \vec{0}$, el término es nulo: es una simetría con $F = 0$. Los casos con $F \neq 0$ aparecen más adelante, en la energía y en el tiro parabólico, y en los cambios de velocidad del anexo B.
 
-> Fuente: «parte matemática», «El teorema de Noether» (enunciado y demostración). Modificaciones: $f \to q$, $x \to t$; la demostración, en la forma corta, sin la identidad de Noether. Los cuatro pasos: «parte física», «El teorema en mecánica».
+> Fuente: «parte matemática (versión 2)», apartados 6.2 y 6.3 (el caso $\tau = 0$: lema, identidad y teorema), 7.4 (varias funciones) y 9.6 (generadores que dependen de las velocidades). Modificaciones: $f \to q$, $x \to t$; la demostración, en la forma corta, sin la identidad de Noether. Los cuatro pasos: «parte física (versión 2)», apartado 2, sin $\tau$.
 
 #### El teorema de Noether
 
@@ -159,7 +165,7 @@ La demostración solo usa que $\xi_i$ es una función derivable del tiempo a lo 
 
 **Cómo se aplica.** En todos los ejemplos se siguen cuatro pasos: obtener el generador $\xi_i$; calcular el término de primer orden de $\delta L$ y ver si es una derivada total $\dfrac{dF}{dt}$; escribir $Q$; y comprobar que $Q$ es constante sobre la solución. La coordenada cíclica es el caso más sencillo: $\xi_k = 1$, las demás $\xi_i$ nulas y $F = 0$ dan $Q = p_k$.
 
-> Fuente: «parte matemática», «Dos casos particulares › Cuando $\bsL$ no depende de la variable: la identidad de Beltrami». Modificaciones: $x \to t$, $\bsH \to H$; $H = T + V$ y $\dfrac{dH}{dt} = -\dfrac{\partial L}{\partial t}$, de la versión anterior del trabajo.
+> Fuente: «parte matemática (versión 2)», apartado 6.7, «Cuando $\bsL$ no depende de la variable: la identidad de Beltrami», y apartado 9.6 (el generador $\dot{q}_i$ con $F = L$ equivale a $\tau = 1$); «parte física (versión 2)», apartado 3, último punto. Modificaciones: $x \to t$, $\bsH \to H$; el generador $\dot{q}_i$ en lugar de $\tau = 1$; $H = T + V$ y $\dfrac{dH}{dt} = -\dfrac{\partial L}{\partial t}$, de la versión anterior del trabajo.
 
 #### La energía y la traslación en el tiempo
 
@@ -195,7 +201,7 @@ H = 2 \cdot T - (T - V) = T + V = E.
 \end{aligned}
 $$
 
-> Fuente: «parte física», «Primera etapa › La partícula libre»; «ejemplos físicos», «Ejemplo: la partícula libre». Modificaciones: $\vec{q} \to \vec{r}$, $\vec{\ell} \to \vec{L}$; sin los cambios de velocidad, que pasan al anexo B; el generador del giro se deduce aquí, en lugar de remitir a los anexos de la serie.
+> Fuente: «parte física (versión 2)», apartado 4.1; «ejemplos físicos (versión 2)», apartado 1. Modificaciones: $\vec{q} \to \vec{r}$, $\vec{\ell} \to \vec{L}$; sin los cambios de velocidad, que pasan al anexo B; la traslación en el tiempo con el generador $\dot{\vec{r}}$ y $F = L$ en lugar de $\tau = 1$; el generador del giro se deduce aquí, en lugar de remitir a «anexos (versión 2)», apartado 1.5.
 
 #### Primer ejemplo: la partícula libre
 
@@ -220,7 +226,7 @@ En la fila de los giros se usa la propiedad cíclica del producto mixto, $\vec{p
 
 Las tres conservaciones aparecen juntas porque el espacio vacío no tiene puntos ni direcciones privilegiados, y el tiempo no tiene instantes privilegiados. La partícula libre tiene además una cuarta familia de simetrías, los cambios de velocidad, que completan las diez simetrías de la mecánica de Newton (anexo B). Con varias partículas que interaccionan con fuerzas que solo dependen de las distancias entre ellas, las mismas transformaciones, aplicadas a todas las partículas a la vez, siguen siendo simetrías, y lo que se conserva son las cantidades **totales**: cada partícula conserva su propia cantidad de movimiento solo si no interacciona con las demás (anexo B).
 
-> Fuente: «ejemplos físicos», «Ejemplo: una partícula en un campo uniforme (el tiro parabólico)», e introducción. Modificaciones: sin los cambios de velocidad; el origen en el tema 1 y la comprobación de la energía, de la versión anterior del trabajo; el argumento de que no hay $F$ para los giros horizontales, en una frase.
+> Fuente: «ejemplos físicos (versión 2)», apartado 2 (2.1 a 2.4 y 2.6), e introducción. Modificaciones: coordenadas $(x, y, z)$ en lugar de $(q_1, q_2, q_3)$; sin los cambios de velocidad (apartado 2.5); el origen en el tema 1, de la versión anterior del trabajo; el argumento de que no hay $F$ para los giros horizontales, en una frase.
 
 #### Segundo ejemplo: el tiro parabólico
 
@@ -263,7 +269,7 @@ Los términos $-m \cdot g \cdot v_z \cdot t$ y $\dfrac{1}{2} \cdot m \cdot g^2 \
 
 **Qué muestra el ejemplo:** la gravedad uniforme no distingue unos puntos de otros, sino una dirección, la vertical. Rompe los giros alrededor de ejes horizontales, y con ellos la conservación de $L_x$ y $L_y$. La expresión «la gravedad rompe la simetría vertical» hay que precisarla: lo que se pierde es la conservación de $p_z$, no la posibilidad de desplazar la trayectoria en vertical.
 
-> Fuente: «ejemplos físicos», «Ejemplo: una partícula en un campo central» (giros, coordenadas polares, traslaciones). La reducción con el potencial efectivo, de la versión anterior del trabajo, que procede de «El formalismo lagrangiano: ejemplos físicos». Modificaciones: $\vec{q} \to \vec{r}$, $\ell \to L_z$, $e \cdot U \to V$.
+> Fuente: «ejemplos físicos (versión 2)», apartado 3 (3.2, giros, en cartesianas y en el plano de la órbita; 3.4, traslaciones; 3.5, la simetría ayuda a resolver). La reducción con el potencial efectivo y la segunda ley de Kepler, de la versión anterior del trabajo, que procede de «El formalismo lagrangiano: ejemplos físicos». Modificaciones: $\vec{q} \to \vec{r}$, $\ell \to L_z$; coordenadas polares en el plano en lugar de esféricas.
 
 #### Tercer ejemplo: la fuerza central
 
@@ -309,7 +315,7 @@ $$
 
 Es el movimiento de una partícula en una sola dimensión, con un potencial efectivo. El segundo término, la barrera centrífuga, impide que la partícula llegue al centro si $L_z \neq 0$. La energía también se conserva, porque $L$ no depende de $t$, y queda $E = \dfrac{1}{2} \cdot m \cdot \dot{r}^2 + V_{\mathrm{ef}}(r)$: un problema de dos coordenadas se ha reducido a uno de una. La distancia $r$ solo puede tomar los valores en los que $V_{\mathrm{ef}}(r) \leq E$.
 
-> Fuente: «parte física», «Primera etapa › Una partícula en un campo exterior» (tabla). Modificaciones: con las cantidades conservadas en lugar del número de simetrías, y sin los cambios de velocidad.
+> Fuente: «parte física (versión 2)», apartado 4.2 (tabla «Simetrías que quedan en cada campo exterior»). Modificaciones: con las cantidades conservadas en lugar del número de simetrías, y sin los cambios de velocidad.
 
 #### Lo que muestran los ejemplos
 
@@ -324,6 +330,8 @@ Cada campo exterior conserva unas simetrías de la partícula libre y rompe otra
 Table: Cantidades conservadas según las simetrías que deja cada campo.
 
 La gravedad uniforme distingue una dirección; la fuerza central, un punto. Y la elección de coordenadas importa: en cartesianas, ninguna coordenada de la fuerza central es cíclica; en polares, la simetría aparece como una coordenada cíclica.
+
+> Fuente: «parte física (versión 2)», apartados 10.2 (el hamiltoniano y la ecuación de Schrödinger) y 10.4 («Si conmuta con $\hat{H}$, se conserva»); «ejemplos físicos (versión 2)», apartado 8 (el potencial central, $\ell$ y $m_\ell$). Modificaciones: $\hat{\vec{\ell}} \to \hat{\vec{L}}$; solo la correspondencia, sin desarrollo, porque la parte cuántica es el apartado 4.3.
 
 #### Lo que hereda la parte cuántica
 
@@ -342,7 +350,7 @@ Table: Correspondencia entre la parte clásica y la parte cuántica.
 
 ### Las simetrías de Galileo
 
-> Fuente: «parte física», «Primera etapa › La partícula libre»; «ejemplos físicos», «Ejemplo: la partícula libre». Modificaciones: $\vec{q} \to \vec{r}$, $\vec{g} \to \vec{G}$; solo los cambios de velocidad y la tabla de las diez simetrías.
+> Fuente: «parte física (versión 2)», apartados 3 (el cambio de velocidad como paso a otro observador inercial) y 4.1; «ejemplos físicos (versión 2)», apartado 1. Modificaciones: $\vec{q} \to \vec{r}$; solo los cambios de velocidad y la tabla de las diez simetrías; la traslación en el tiempo con el generador $\dot{\vec{r}}$ y $F = L$, como en el apartado 4.2.
 
 Este anexo completa el primer ejemplo del apartado 4.2 con la cuarta familia de transformaciones del espacio y del tiempo, los cambios de velocidad, y extiende las simetrías de la partícula libre a un sistema de partículas. Resume @calderon2026noetherfis y @calderon2026noetheranexos.
 
@@ -377,7 +385,7 @@ Table: Las diez simetrías de la partícula libre.
 
 Cada familia expresa una propiedad del espacio y del tiempo vacíos: no hay puntos, direcciones, instantes ni observadores inerciales privilegiados. La última es la relatividad de Galileo. Las diez cantidades no son independientes como datos del movimiento: $\vec{L} = \dfrac{1}{m} \cdot \vec{G} \times \vec{p}$ y $E = \dfrac{|\vec{p}|^2}{2 \cdot m}$ se deducen de $\vec{p}$ y de $\vec{G}$.
 
-> Fuente: «parte física», «Tercera etapa: interacciones que dependen de las distancias» (tabla de condiciones) y «El grupo de Galileo»; «anexos», «El grupo de Galileo». Modificaciones: solo la tabla y la conclusión; $\vec{J} \to \vec{L}$, $\vec{X} \to \vec{R}_{\mathrm{cm}}$; la composición del grupo, en una frase con la cita.
+> Fuente: «parte física (versión 2)», apartados 6 (tabla de condiciones sobre la energía potencial) y 8 (el grupo de Galileo); «anexos (versión 2)», apartado 3. Modificaciones: solo la tabla y la conclusión; $\vec{J} \to \vec{L}$, $\vec{X} \to \vec{R}_{\mathrm{cm}}$; la composición del grupo, en una frase con la cita.
 
 **Varias partículas.** Con $N$ partículas que interaccionan con fuerzas que solo dependen de las distancias entre ellas, y sin campo exterior, las diez transformaciones aplicadas a todas las partículas a la vez siguen siendo simetrías, y se conservan las cantidades **totales**:
 
@@ -394,16 +402,21 @@ Aquí $M$ es la masa total y $\vec{R}_{\mathrm{cm}}$, el centro de masas. Cada p
 
 ## Qué se queda fuera y por qué
 
+Con los apartados de la versión 2 de la serie:
+
 | Documento | Apartado | Motivo |
 | --- | --- | --- |
-| parte matemática | La identidad de Noether, la linealidad y las cantidades triviales | No las necesitan los ejemplos |
-| parte matemática | «Transformaciones que también mueven la variable» (la fórmula con $\tau$) | La energía sale con $\xi_i = \dot{q}_i$; la fórmula general solo hace falta para escribir el grupo de Galileo con una sola cantidad |
-| parte matemática | Varias variables y corrientes conservadas | La propuesta 3 deja los campos fuera |
+| parte matemática | 2 y 5 (la transformación de los puntos y la condición paso a paso), 6.4 a 6.6 (ejemplos, caso general con $\tau$, observaciones) | No las necesitan los ejemplos; la energía sale con $\xi_i = \dot{q}_i$ |
+| parte matemática | 7.3 (condiciones de integrabilidad) y 7.5 (ejemplos con dos funciones) | El trabajo usa el criterio en una frase (giros horizontales del tiro parabólico) |
+| parte matemática | 8 (varias variables y corrientes conservadas) | La propuesta 3 deja los campos fuera |
+| parte matemática | 9 (flujos, derivadas de Fréchet y de Lie) y 10 (dimensión infinita) | Fuera del alcance; del 9.6 solo se usa el enunciado con generadores que dependen de las velocidades |
 | ejemplos matemáticos | Todos (camino más corto, Newton, Laplace) | El trabajo es de física; quedan como respaldo |
-| parte física | Segunda y cuarta etapas ($N$ partículas sin interacción, campo magnético) | Fuera del alcance |
-| parte física | «Lo que el teorema no dice» (simetrías discretas, simetría de la ley y de la solución) | Útil para la defensa oral; puede pasar a las conclusiones |
-| ejemplos físicos | Cambios de velocidad en el campo uniforme; dos partículas; carga en un campo magnético; cuerda vibrante | Fuera del alcance |
-| anexos | Rotaciones, composición del grupo de Galileo, exponencial de una matriz | Se citan en el anexo B |
+| parte física | 5 y 7 (segunda y cuarta etapas: $N$ partículas sin interacción, campo magnético) | Fuera del alcance |
+| parte física | 9 (grupo de Lorentz y de Poincaré) | El trabajo trata la mecánica no relativista |
+| parte física | 10 (mecánica cuántica), salvo la correspondencia de «Lo que hereda la parte cuántica» | Es el apartado 4.3, de la pareja 2 |
+| parte física | 11 («Lo que el teorema no dice»: simetrías discretas, simetría de la ley y de la solución) | Útil para la defensa oral; puede pasar a las conclusiones |
+| ejemplos físicos | 2.5 (cambios de velocidad en el campo uniforme), 3.1 y las esféricas de 3.2, 4 a 8 | Fuera del alcance |
+| anexos | 1 y 2 (rotaciones y exponencial), 4 a 6 (Lorentz, Poincaré, contracción y carga central) | Se cita el grupo de Galileo (apartado 3) en el anexo B |
 
 ## Pendiente
 

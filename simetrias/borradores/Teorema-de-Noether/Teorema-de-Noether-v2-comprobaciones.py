@@ -1,7 +1,6 @@
 r"""Comprobaciones simbólicas de la serie «El teorema de Noether» (versión 2).
 Parte matemática (apartados 6.7, 7, 8, 9 y 10), ejemplos matemáticos (apartados 2 y 4),
-parte física (apartados 9 y 10), la cuerda con el cambio de velocidad de Lorentz
-y comentarios sobre la partícula en un campo central (los dos últimos, para los ejemplos físicos).
+parte física (apartados 9 y 10) y ejemplos físicos (apartados 1 a 8).
 Se ejecuta desde la raíz del repositorio con .venv\Scripts\python.exe."""
 import sympy as sp
 
@@ -367,7 +366,8 @@ def ejemplos_v2():
     ok(Qg[0] - (x2 * T[0][0] - x1 * T[0][1]), "ejemplos 4.3: Q_1 = x2 T_11 - x1 T_12")
 
 
-# Comentarios, pregunta 2: partícula en un campo central
+# Ejemplos físicos (versión 2), apartados 3 y 4: campo central en esféricas y en cartesianas
+# (convenio activo) y dos partículas
 def particula():
     t, m = sp.symbols("t m", positive=True)
     V = sp.Function("V")
@@ -375,7 +375,7 @@ def particula():
     xs, ys, zs = r * sp.sin(th) * sp.cos(ph), r * sp.sin(th) * sp.sin(ph), r * sp.cos(th)
     vel = [sp.diff(c, t) for c in (xs, ys, zs)]
     L = sp.simplify(m * sum(v**2 for v in vel) / 2 - V(r))
-    ok(L - (m * (r.diff(t)**2 + r**2 * th.diff(t)**2 + r**2 * sp.sin(th)**2 * ph.diff(t)**2) / 2 - V(r)), "esféricas: L")
+    ok(L - (m * (r.diff(t)**2 + r**2 * th.diff(t)**2 + r**2 * sp.sin(th)**2 * ph.diff(t)**2) / 2 - V(r)), "ejemplos físicos 3, esféricas: L")
     q = [r, th, ph]
     p = [sp.diff(L, c.diff(t)) for c in q]
     ecs = [sp.diff(L, c) - sp.diff(pi, t) for c, pi in zip(q, p)]
@@ -384,14 +384,14 @@ def particula():
     gens = [(0, -sp.sin(ph), -sp.cot(th) * sp.cos(ph)), (0, sp.cos(ph), -sp.cot(th) * sp.sin(ph)), (0, 0, 1)]
     for eje, gen, lk in zip("xyz", gens, l):
         Q = sum(pi * gi for pi, gi in zip(p, gen))
-        ok(Q - lk, f"esféricas: giro alrededor de {eje}, Q = l_{eje}")
-        ok(sp.diff(Q, t).subs(acc), f"esféricas: l_{eje} constante sobre las soluciones")
-    ok(l[0] + m * r**2 * (sp.sin(ph) * th.diff(t) + sp.sin(th) * sp.cos(th) * sp.cos(ph) * ph.diff(t)), "esféricas: expresión de l_x")
-    ok(l[1] - m * r**2 * (sp.cos(ph) * th.diff(t) - sp.sin(th) * sp.cos(th) * sp.sin(ph) * ph.diff(t)), "esféricas: expresión de l_y")
-    ok(sum(lk**2 for lk in l) - (p[1]**2 + p[2]**2 / sp.sin(th)**2), "esféricas: |l|^2 = p_theta^2 + p_phi^2 / sin^2(theta)")
+        ok(Q - lk, f"ejemplos físicos 3, esféricas: giro alrededor de {eje}, Q = l_{eje}")
+        ok(sp.diff(Q, t).subs(acc), f"ejemplos físicos 3, esféricas: l_{eje} constante sobre las soluciones")
+    ok(l[0] + m * r**2 * (sp.sin(ph) * th.diff(t) + sp.sin(th) * sp.cos(th) * sp.cos(ph) * ph.diff(t)), "ejemplos físicos 3, esféricas: expresión de l_x")
+    ok(l[1] - m * r**2 * (sp.cos(ph) * th.diff(t) - sp.sin(th) * sp.cos(th) * sp.sin(ph) * ph.diff(t)), "ejemplos físicos 3, esféricas: expresión de l_y")
+    ok(sum(lk**2 for lk in l) - (p[1]**2 + p[2]**2 / sp.sin(th)**2), "ejemplos físicos 3, esféricas: |l|^2 = p_theta^2 + p_phi^2 / sin^2(theta)")
     H = sum(pi * c.diff(t) for pi, c in zip(p, q)) - L
-    ok(H - (m * (r.diff(t)**2 + r**2 * th.diff(t)**2 + r**2 * sp.sin(th)**2 * ph.diff(t)**2) / 2 + V(r)), "esféricas: H = energía")
-    ok(sp.diff(H, t).subs(acc), "esféricas: energía constante sobre las soluciones")
+    ok(H - (m * (r.diff(t)**2 + r**2 * th.diff(t)**2 + r**2 * sp.sin(th)**2 * ph.diff(t)**2) / 2 + V(r)), "ejemplos físicos 3, esféricas: H = energía")
+    ok(sp.diff(H, t).subs(acc), "ejemplos físicos 3, esféricas: energía constante sobre las soluciones")
 
     # Cartesianas: traslación y cambio de velocidad
     R = [sp.Function(n)(t) for n in ("X", "Y", "Z")]
@@ -404,19 +404,19 @@ def particula():
     pc = [sp.diff(Lc, c.diff(t)) for c in R]
     dot = lambda a, b: sum(ai * bi for ai, bi in zip(a, b))
     D = dot([sp.diff(Lc, c) for c in R], e)
-    ok(D + Vp * dot(e, R) / rho, "traslación: D = -V'(r) (e . r) / r")
-    xi = [-ui * t for ui in u]
+    ok(D + Vp * dot(e, R) / rho, "ejemplos físicos 3: traslación, D = -V'(r) (e . r) / r")
+    xi = [ui * t for ui in u]
     D = dot([sp.diff(Lc, c) for c in R], xi) + dot(pc, [sp.diff(c, t) for c in xi])
-    ok(D - (t * Vp * dot(u, R) / rho - m * dot(u, [c.diff(t) for c in R])), "cambio de velocidad: D = t V'(r) (u . r) / r - m u . v")
-    # Partícula libre: F = -m u . r y Q = u . (m r - p t)
+    ok(D - (m * dot(u, [c.diff(t) for c in R]) - t * Vp * dot(u, R) / rho), "ejemplos físicos 3: cambio de velocidad, D = m u . v - t V'(r) (u . r) / r")
+    # Partícula libre: F = m u . r y Q = -u . (m r - p t)
     L0 = m * sum(c.diff(t)**2 for c in R) / 2
     p0 = [sp.diff(L0, c.diff(t)) for c in R]
     D0 = dot(p0, [sp.diff(c, t) for c in xi])
-    F0 = -m * dot(u, R)
-    ok(D0 - sp.diff(F0, t), "libre: D = dF/dt con F = -m u . r")
+    F0 = m * dot(u, R)
+    ok(D0 - sp.diff(F0, t), "ejemplos físicos 1: D = dF/dt con F = m u . r")
     Q0 = dot(p0, xi) - F0
-    ok(Q0 - dot(u, [m * c - pi * t for c, pi in zip(R, p0)]), "libre: Q = u . (m r - p t)")
-    ok(sp.diff(Q0, t).subs({c.diff(t, 2): 0 for c in R}), "libre: Q constante sobre las soluciones")
+    ok(Q0 + dot(u, [m * c - pi * t for c, pi in zip(R, p0)]), "ejemplos físicos 1: Q = -u . (m r - p t)")
+    ok(sp.diff(Q0, t).subs({c.diff(t, 2): 0 for c in R}), "ejemplos físicos 1: Q constante sobre las soluciones")
 
     # Dos cuerpos con V(|r1 - r2|): el cambio de velocidad de los dos es una simetría
     m1, m2 = sp.symbols("m1 m2", positive=True)
@@ -428,14 +428,14 @@ def particula():
     p2 = [sp.diff(L2, c.diff(t)) for c in todas]
     xi2 = xi + xi
     D2 = dot([sp.diff(L2, c) for c in todas], xi2) + dot(p2, [sp.diff(c, t) for c in xi2])
-    F2 = -dot(u, [m1 * a + m2 * b for a, b in zip(R1, R2)])
-    ok(D2 - sp.diff(F2, t), "dos cuerpos: D = dF/dt con F = -u . (m1 r1 + m2 r2)")
+    F2 = dot(u, [m1 * a + m2 * b for a, b in zip(R1, R2)])
+    ok(D2 - sp.diff(F2, t), "ejemplos físicos 4: D = dF/dt con F = u . (m1 r1 + m2 r2)")
     Q2 = dot(p2, xi2) - F2
     P = [p2[k] + p2[k + 3] for k in range(3)]
-    ok(Q2 - dot(u, [m1 * a + m2 * b - Pk * t for a, b, Pk in zip(R1, R2, P)]), "dos cuerpos: Q = u . (M R - P t)")
+    ok(Q2 + dot(u, [m1 * a + m2 * b - Pk * t for a, b, Pk in zip(R1, R2, P)]), "ejemplos físicos 4: Q = -u . (M X - P t)")
     ecs2 = [sp.diff(L2, c) - sp.diff(pi, t) for c, pi in zip(todas, p2)]
     acc2 = sp.solve(ecs2, [c.diff(t, 2) for c in todas], dict=True)[0]
-    ok(sp.diff(Q2, t).subs(acc2), "dos cuerpos: Q constante sobre las soluciones")
+    ok(sp.diff(Q2, t).subs(acc2), "ejemplos físicos 4: Q constante sobre las soluciones")
 
 
 # Parte física (versión 2): partícula relativista, cuerda de Lorentz y mecánica cuántica
@@ -709,6 +709,230 @@ def fisica_relativista_dos():
     ok(sp.simplify(Qb + sum(u[k] * G[k] for k in range(3))), "física 9.5: Q = -u . G_rel, G_rel = sum E_i q_i / c^2 - P t")
 
 
+# Ejemplos físicos (versión 2): cuatro pasos y comprobación sobre la solución explícita
+def fisica_ejemplos():
+    t = sp.Symbol("t", real=True)
+    m, g, c, kap, mu, T0, hb = sp.symbols("m g c kappa mu T0 hbar", positive=True)
+    q = sp.Matrix([sp.Function(f"q{i}")(t) for i in (1, 2, 3)])
+    qd = q.diff(t)
+    u = sp.Matrix(sp.symbols("u1:4", real=True))
+    q0 = sp.Matrix(sp.symbols("q01:4", real=True))
+    v0 = sp.Matrix(sp.symbols("v01:4", real=True))
+    e3 = sp.Matrix([0, 0, 1])
+
+    Ys = sp.symbols("Y1:4", real=True)
+    Zs = sp.symbols("Z1:4", real=True)
+
+    def parcial_t(L):
+        """Derivada parcial respecto del argumento t, con posiciones y velocidades fijas."""
+        ida = {qd[i]: Zs[i] for i in range(3)}
+        Ls = L.subs(ida).subs({q[i]: Ys[i] for i in range(3)})
+        vuelta = {Ys[i]: q[i] for i in range(3)}
+        vuelta.update({Zs[i]: qd[i] for i in range(3)})
+        return sp.diff(Ls, t).subs(vuelta)
+
+    def D4(L, tau, xi):
+        """Forma de cuatro términos con n = 3 funciones."""
+        p = [sp.diff(L, w) for w in qd]
+        tdot = sp.diff(tau, t)
+        return (sum(sp.diff(L, q[i]) * xi[i] + p[i] * (sp.diff(xi[i], t) - tdot * qd[i]) for i in range(3))
+                + parcial_t(L) * tau + L * tdot)
+
+    def mom(L):
+        return sp.Matrix([sp.diff(L, w) for w in qd])
+
+    def ham(L):
+        return mom(L).dot(qd) - L
+
+    # 1. Partícula libre
+    L0 = m * qd.dot(qd) / 2
+    p0 = mom(L0)
+    sol0 = {q[i]: q0[i] + v0[i] * t for i in range(3)}
+    G = m * q - p0 * t
+    ok(D4(L0, 0, u * t) - sp.diff(m * u.dot(q), t), "ejemplos físicos 1: cambio de velocidad, F = m u . q")
+    ok(D4(L0, 1, [0, 0, 0]), "ejemplos físicos 1: traslación en el tiempo, D = 0")
+    ok((G.subs(sol0).doit() - m * q0).norm()**2, "ejemplos físicos 1: G = m q0 sobre la solución")
+    ok(sp.diff(ham(L0).subs(sol0).doit(), t), "ejemplos físicos 1: H constante sobre la solución")
+
+    # 2. Tiro parabólico: L = m |q'|^2 / 2 - m g q3
+    L1 = L0 - m * g * q[2]
+    p1 = mom(L1)
+    sol1 = {q[i]: q0[i] + v0[i] * t - (g * t**2 / 2 if i == 2 else 0) for i in range(3)}
+    ok(D4(L1, 0, e3) + m * g, "ejemplos físicos 2: traslación vertical, D = -m g")
+    ok(sp.diff((p1[2] + m * g * t).subs(sol1).doit(), t), "ejemplos físicos 2: p3 + m g t constante")
+    Dg1 = D4(L1, 0, sp.Matrix([1, 0, 0]).cross(q))
+    ok(Dg1 + m * g * q[1], "ejemplos físicos 2: giro alrededor de q1, D = -m g q2")
+    l1 = (q.cross(p1))[0]
+    ok(sp.diff(l1.subs(sol1).doit(), t) + m * g * q[1].subs(sol1), "ejemplos físicos 2: dl1/dt = -m g q2")
+    l3 = (q.cross(p1))[2]
+    ok(sp.diff(l3.subs(sol1).doit(), t), "ejemplos físicos 2: l3 constante")
+    Fb = m * u.dot(q) - m * g * u[2] * t**2 / 2
+    ok(D4(L1, 0, u * t) - sp.diff(Fb, t), "ejemplos físicos 2: cambio de velocidad, F = m u . q - m g u3 t^2 / 2")
+    Qb = (p1.dot(u * t) - Fb).subs(sol1).doit()
+    ok(Qb + m * u.dot(q0), "ejemplos físicos 2: Q = -m u . q0 sobre la solución")
+    ok(sp.diff(ham(L1).subs(sol1).doit(), t), "ejemplos físicos 2: energía constante")
+
+    # 3. Campo central, convenio activo: traslación y cambio de velocidad
+    V = sp.Function("V")
+    r = sp.sqrt(q.dot(q))
+    rr = sp.Symbol("rr", positive=True)
+    Vp = sp.diff(V(rr), rr).subs(rr, r)
+    L2 = L0 - V(r)
+    a = sp.Matrix(sp.symbols("a1:4", real=True))
+    ok(D4(L2, 0, a) + Vp * a.dot(q) / r, "ejemplos físicos 3: traslación, D = -V'(r) (a . q) / r")
+    ok(D4(L2, 0, u * t) - (m * u.dot(qd) - t * Vp * u.dot(q) / r), "ejemplos físicos 3: cambio de velocidad, D = m u . q' - t V'(r) (u . q) / r")
+    # coordenadas polares en el plano q3 = 0
+    rp, th = sp.Function("r")(t), sp.Function("theta")(t)
+    x1, x2 = rp * sp.cos(th), rp * sp.sin(th)
+    ok(sp.simplify(m * (x1 * sp.diff(x2, t) - x2 * sp.diff(x1, t)) - m * rp**2 * sp.diff(th, t)), "ejemplos físicos 3: m (q1 q2' - q2 q1') = m r^2 theta'")
+    ell = sp.Symbol("ell", positive=True)
+    Ep = m * (sp.diff(x1, t)**2 + sp.diff(x2, t)**2) / 2 + V(rp)
+    ok(sp.simplify(Ep.subs(sp.diff(th, t), ell / (m * rp**2)) - (m * sp.diff(rp, t)**2 / 2 + ell**2 / (2 * m * rp**2) + V(rp))),
+       "ejemplos físicos 3: energía con l = m r^2 theta'")
+
+    # 4. Dos partículas: descomposición de J y de E
+    m1, m2 = sp.symbols("m1 m2", positive=True)
+    M = m1 + m2
+    X = sp.Matrix([sp.Function(f"X{i}")(t) for i in (1, 2, 3)])
+    rv = sp.Matrix([sp.Function(f"r{i}")(t) for i in (1, 2, 3)])
+    qa = X + m2 / M * rv
+    qb = X - m1 / M * rv
+    mb = m1 * m2 / M
+    J = m1 * qa.cross(qa.diff(t)) + m2 * qb.cross(qb.diff(t))
+    ok((J - (M * X.cross(X.diff(t)) + mb * rv.cross(rv.diff(t)))).applyfunc(sp.simplify).norm()**2, "ejemplos físicos 4: J = M X x X' + m_red r x r'")
+    T = m1 * qa.diff(t).dot(qa.diff(t)) / 2 + m2 * qb.diff(t).dot(qb.diff(t)) / 2
+    ok(sp.simplify(T - (M * X.diff(t).dot(X.diff(t)) / 2 + mb * rv.diff(t).dot(rv.diff(t)) / 2)), "ejemplos físicos 4: T = M |X'|^2 / 2 + m_red |r'|^2 / 2")
+
+    # 5. Carga en un campo magnético uniforme (fase chi)
+    e, B = sp.symbols("e B", positive=True)
+    Bv = sp.Matrix([0, 0, B])
+    L3 = L0 + e * qd.dot(Bv.cross(q) / 2)
+    pc = mom(L3)
+    c1, c2, c3, vp, vpar, chi = sp.symbols("c1 c2 c3 v_perp v_par chi", real=True)
+    w = e * B / m
+    ph = chi - w * t
+    solh = {q[0]: c1 - vp / w * sp.sin(ph), q[1]: c2 + vp / w * sp.cos(ph), q[2]: c3 + vpar * t}
+    eqs = (m * q.diff(t, 2) - e * qd.cross(Bv)).subs(solh).doit()
+    ok(eqs.norm()**2, "ejemplos físicos 5: la hélice cumple las ecuaciones")
+    K = m * qd - e * q.cross(Bv)
+    ok((K.subs(solh).doit() - sp.Matrix([-e * B * c2, e * B * c1, m * vpar])).norm()**2, "ejemplos físicos 5: K = (-e B c2, e B c1, m v_par)")
+    Qg = pc.dot(e3.cross(q))
+    ok(Qg.subs(solh).doit() - e * B / 2 * (c1**2 + c2**2 - (vp / w)**2), "ejemplos físicos 5: Q_giro = e B (c1^2 + c2^2 - R^2) / 2")
+    ok(D4(L3, 0, e3 * t) - sp.diff(m * q[2], t), "ejemplos físicos 5: cambio de velocidad paralelo a B, F = m q3")
+    ok((pc.dot(e3 * t) - m * q[2]).subs(solh).doit() + m * c3, "ejemplos físicos 5: Q = -m c3 sobre la hélice")
+    ok(sp.diff(ham(L3).subs(solh).doit(), t), "ejemplos físicos 5: H constante sobre la hélice")
+    ok(D4(L3, 1, [0, 0, 0]), "ejemplos físicos 5: traslación en el tiempo, D = 0")
+
+    # 6. Cuerda vibrante con densidad mu y tensión T0, c^2 = T0 / mu
+    x = sp.Symbol("x", real=True)
+    f = sp.Function("f")(t, x)
+    ft, fx = f.diff(t), f.diff(x)
+    Lc = mu * ft**2 / 2 - T0 * fx**2 / 2
+    uu = [mu * ft, -T0 * fx]
+    df = [ft, fx]
+    var = (t, x)
+    dd = lambda h, k: sp.diff(h, var[k])
+    Tt = lambda i, k: uu[i] * df[k] - (Lc if i == k else 0)
+    phi = -dd(uu[0], 0) - dd(uu[1], 1)
+    Ed = mu * ft**2 / 2 + T0 * fx**2 / 2
+    ok(Tt(0, 0) - Ed, "ejemplos físicos 6: T_00 = densidad de energía")
+    ok(-Tt(1, 0) - T0 * fx * ft, "ejemplos físicos 6: Q_1 de la traslación en t = T0 f_x f_t")
+    A, k, n, a1, b1 = sp.symbols("A k n a1 b1", positive=True)
+    om = sp.sqrt(T0 / mu) * k
+    fe = A * sp.sin(k * (x - a1)) * sp.cos(om * t)
+    Ee = (mu * sp.diff(fe, t)**2 / 2 + T0 * sp.diff(fe, x)**2 / 2)
+    Etot = sp.integrate(Ee, (x, a1, a1 + n * sp.pi / k))
+    ok(sp.simplify(Etot.subs(n, 3) - A**2 * (3 * sp.pi / k) * T0 * k**2 / 4), "ejemplos físicos 6: energía de la onda estacionaria (n = 3)")
+    Pt = sp.integrate(mu * sp.diff(fe, t), (x, a1, a1 + 3 * sp.pi / k))
+    ok(sp.simplify(Pt + 2 * mu * A * om / k * sp.sin(om * t)), "ejemplos físicos 6: cantidad de movimiento transversal (n = 3)")
+    cc = sp.sqrt(T0 / mu)
+    tau = [x / cc**2, t]
+    Dl = sum(uu[l] * (-sum(df[kk] * dd(tau[kk], l) for kk in range(2))) for l in range(2)) + Lc * sum(dd(tau[kk], kk) for kk in range(2))
+    ok(Dl, "ejemplos físicos 6: cambio de velocidad de Lorentz, D = 0")
+    Ql = [-sum(Tt(i, kk) * tau[kk] for kk in range(2)) for i in range(2)]
+    xib = -sum(tau[kk] * df[kk] for kk in range(2))
+    ok(dd(Ql[0], 0) + dd(Ql[1], 1) + phi * xib, "ejemplos físicos 6: Lorentz, d_t Q_0 + d_x Q_1 = -phi xi barra")
+    ok(Ql[0] + (x * Ed / cc**2 + t * mu * ft * fx), "ejemplos físicos 6: Q_0 = -(x E / c^2 + t mu f_t f_x)")
+    ok(Ql[1] - (mu * x * fx * ft + t * Ed), "ejemplos físicos 6: Q_1 = mu x f_x f_t + t E")
+    tg = [0, t]
+    Dg = sum(uu[l] * (-sum(df[kk] * dd(tg[kk], l) for kk in range(2))) for l in range(2)) + Lc * sum(dd(tg[kk], kk) for kk in range(2))
+    ok(Dg + mu * ft * fx, "ejemplos físicos 6: cambio de velocidad de Galileo, D = -mu f_t f_x")
+    gg = sp.Function("g")
+    s = sp.Symbol("s", real=True)
+    pulso = gg(x - cc * t)
+    integ = (x * Ed / cc**2 + t * mu * ft * fx).subs(f, pulso).doit()
+    ok(sp.simplify(integ - mu * (x - cc * t) * sp.Subs(sp.Derivative(gg(s), s), s, x - cc * t).doit()**2),
+       "ejemplos físicos 6: pulso, densidad = mu (x - c t) g'(x - c t)^2")
+
+    # 7. Partícula libre relativista y partícula relativista en un campo uniforme
+    gam = 1 / sp.sqrt(1 - qd.dot(qd) / c**2)
+    Lr = -m * c**2 / gam
+    pr = mom(Lr)
+    Er = sp.simplify(ham(Lr))
+    Grel = Er * q / c**2 - pr * t
+    sol7 = {q[i]: q0[i] + v0[i] * t for i in range(3)}
+    ok((Grel.subs(sol7).doit() - (Er * q0 / c**2).subs(sol7).doit()).applyfunc(sp.simplify).norm()**2, "ejemplos físicos 7: G_rel = E q0 / c^2 sobre la solución")
+    Lk = Lr + kap * q[0]
+    pk = mom(Lk)
+    Hk = sp.simplify(ham(Lk))
+    ok(sp.simplify(Hk - (m * c**2 * gam - kap * q[0])), "ejemplos físicos 7: H = gamma m c^2 - kappa q1")
+    ok(D4(Lk, 0, sp.Matrix([1, 0, 0])) - kap, "ejemplos físicos 7: traslación en q1, D = kappa")
+    uu1 = sp.Symbol("u", real=True)
+    taup = uu1 * q[0] / c**2
+    Fk = kap * uu1 * (t**2 / 2 + q[0]**2 / (2 * c**2))
+    Dp = D4(Lk, taup, sp.Matrix([uu1 * t, 0, 0]))
+    ok(sp.simplify(Dp - sp.diff(Fk, t)), "ejemplos físicos 7: cambio de velocidad paralelo, F = kappa u (t^2/2 + q1^2/(2 c^2))")
+    Dperp = sp.simplify(D4(Lk, uu1 * q[1] / c**2, sp.Matrix([0, uu1 * t, 0])))
+    ok(Dperp - kap * uu1 * q[0] * qd[1] / c**2, "ejemplos físicos 7: cambio de velocidad perpendicular, D = kappa u q1 q2' / c^2")
+    Qk = pk[0] * uu1 * t - taup * Hk - Fk
+    ok(sp.simplify(Qk / uu1 - (pk[0] * t - m * gam * q[0] + kap * q[0]**2 / (2 * c**2) - kap * t**2 / 2)), "ejemplos físicos 7: Q / u")
+    ecs = [sp.diff(Lk, q[i]) - sp.diff(pk[i], t) for i in range(3)]
+    acc = sp.solve(ecs, list(q.diff(t, 2)), dict=True)[0]
+    ok(sp.simplify(sp.diff(Qk, t).subs(acc)), "ejemplos físicos 7: Q constante sobre las soluciones")
+    ok(sp.simplify(sp.diff(Hk, t).subs(acc)), "ejemplos físicos 7: H constante sobre las soluciones")
+    hip = m * c**2 / kap * (sp.sqrt(1 + (kap * t / (m * c))**2) - 1)
+    solk = {q[0]: hip, q[1]: 0, q[2]: 0}
+    ok(sp.simplify(ecs[0].subs(solk).doit()), "ejemplos físicos 7: el movimiento hiperbólico cumple la ecuación")
+    ok(sp.simplify(Hk.subs(solk).doit() - m * c**2), "ejemplos físicos 7: H = m c^2 en el movimiento hiperbólico")
+    ok(sp.simplify(Qk.subs(solk).doit()), "ejemplos físicos 7: Q = 0 en el movimiento hiperbólico")
+    ok(sp.simplify(pk[0].subs(solk).doit() - kap * t), "ejemplos físicos 7: p1 = kappa t en el movimiento hiperbólico")
+
+    # 8. Partícula cuántica en un potencial central
+    x1, x2, x3 = Xs = sp.symbols("x1 x2 x3", real=True)
+    I = sp.I
+    hfun = sp.Function("h")(x1, x2, x3)
+    P = [lambda h, kk=kk: -I * hb * sp.diff(h, Xs[kk]) for kk in range(3)]
+    l1o = lambda h: x2 * P[2](h) - x3 * P[1](h)
+    l2o = lambda h: x3 * P[0](h) - x1 * P[2](h)
+    l3o = lambda h: x1 * P[1](h) - x2 * P[0](h)
+    l2tot = lambda h: l1o(l1o(h)) + l2o(l2o(h)) + l3o(l3o(h))
+    lmas = lambda h: l1o(h) + I * l2o(h)
+    lmenos = lambda h: l1o(h) - I * l2o(h)
+    ok(sp.expand(l3o(lmas(hfun)) - lmas(l3o(hfun)) - hb * lmas(hfun)), "ejemplos físicos 8: [l3, l+] = hbar l+")
+    ok(sp.expand(lmenos(lmas(hfun)) - (l2tot(hfun) - l3o(l3o(hfun)) - hb * l3o(hfun))), "ejemplos físicos 8: l- l+ = l^2 - l3^2 - hbar l3")
+    ok(sp.expand(lmas(lmenos(hfun)) - (l2tot(hfun) - l3o(l3o(hfun)) + hb * l3o(hfun))), "ejemplos físicos 8: l+ l- = l^2 - l3^2 + hbar l3")
+    ok(sp.expand(l2tot(l3o(hfun)) - l3o(l2tot(hfun))), "ejemplos físicos 8: [l^2, l3] = 0")
+    rr3 = sp.sqrt(x1**2 + x2**2 + x3**2)
+    Rf = sp.Function("R")
+    casos = [(sp.Integer(1), 0, 0), (x3 / rr3, 1, 0), ((x1 + I * x2) / rr3, 1, 1),
+             ((3 * x3**2 - rr3**2) / rr3**2, 2, 0), ((x1 + I * x2) * x3 / rr3**2, 2, 1), ((x1 + I * x2)**2 / rr3**2, 2, 2)]
+    for Y, l, mm in casos:
+        ok(sp.simplify(l2tot(Y) - hb**2 * l * (l + 1) * Y), f"ejemplos físicos 8: l^2 Y = hbar^2 l (l+1) Y, l = {l}, m = {mm}")
+        ok(sp.simplify(l3o(Y) - hb * mm * Y), f"ejemplos físicos 8: l3 Y = hbar m Y, l = {l}, m = {mm}")
+    # l^2 = -hbar^2 (r^2 lap - Eu^2 - Eu), con Eu = sum q_k d_k (operador de Euler)
+    Eu = lambda h: sum(Xs[kk] * sp.diff(h, Xs[kk]) for kk in range(3))
+    lap = lambda h: sum(sp.diff(h, w, 2) for w in Xs)
+    ok(sp.expand(l2tot(hfun) + hb**2 * (rr3**2 * lap(hfun) - Eu(Eu(hfun)) - Eu(hfun))), "ejemplos físicos 8: l^2 = -hbar^2 (r^2 lap - E^2 - E)")
+    # separación: lap(R(r) Y) = (R'' + 2 R'/r - l (l+1) R / r^2) Y
+    ss = sp.Symbol("ss", positive=True)
+    for Y, l, mm in casos[1:4]:
+        lhs = lap(Rf(rr3) * Y)
+        Rpp = sp.diff(Rf(ss), ss, 2).subs(ss, rr3)
+        Rp = sp.diff(Rf(ss), ss).subs(ss, rr3)
+        rhs = (Rpp + 2 * Rp / rr3 - l * (l + 1) * Rf(rr3) / rr3**2) * Y
+        ok(sp.simplify(lhs - rhs), f"ejemplos físicos 8: laplaciano de R(r) Y con l = {l}")
+
+
 apartado6_casos()
 apartado8_homogeneo()
 apartado9_n1_m2()
@@ -728,3 +952,4 @@ fisica_cuantica_campo()
 fisica_generador_temporal()
 fisica_klein_gordon()
 fisica_cuerda_lorentz()
+fisica_ejemplos()
